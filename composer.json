@@ -1,0 +1,20 @@
+{
+    "name": "vendor/portal",
+    "description": "Portal Lojas - Gripo Meia Sola",
+    "authors": [
+        {
+            "name": "Chirlanio Silva",
+            "email": "fchirlanio@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core",
+            "Sts\\": "app/sts",
+            "App\\": "app"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.2"
+    }
+}
