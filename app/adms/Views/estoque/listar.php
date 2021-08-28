@@ -85,7 +85,7 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">Loja</th>
-                        <th scope="col" class="text-center">Foto</th>
+                        <th scope="col" class="text-center" style="width: 120px !important;">Foto</th>
                         <th scope="col" class="text-center">Referência</th>
                         <th scope="col" class="text-center">Código de Barras</th>
                         <th scope="col" class="text-center">Tam</th>
@@ -94,26 +94,30 @@ if (!defined('URLADM')) {
                 </thead>
                 <tbody>
                     <?php
-                    if (!empty($this->Dados['listEstoque'])) {
-                        foreach ($this->Dados['listEstoque'] as $Est) {
-                            extract($Est);
-                            ?>
-                            <tr>
-                                <th scope="row" class="text-center align-middle"><?php echo $loja; ?></th>
-                                <td><img src="http://www.meiasola.com/powerbi/<?php echo $referencia; ?>.jpg" class="rounded" width="120px" height="120px" alt="<?php echo $referencia; ?>"></td>
-                                <td class="text-center align-middle"><?php echo $referencia; ?></td>
-                                <td class="text-center align-middle"><?php echo $refauxiliar; ?></td>
-                                <td class="text-center align-middle"><?php echo $tam; ?></td>
-                                <td class="text-center align-middle"><?php echo number_format($saldo); ?></td>
-                            </tr>
-                            <?php
+                    if (isset($_SESSION['pesqLoja']) OR isset($_SESSION['referencia']) OR isset($_SESSION['refauxiliar'])) {
+                        if (!empty($this->Dados['listEstoque'])) {
+                            foreach ($this->Dados['listEstoque'] as $Est) {
+                                extract($Est);
+                                ?>
+                                <tr>
+                                    <th scope="row" class="text-center align-middle"><?php echo $loja; ?></th>
+                                    <td><img src="http://www.meiasola.com/powerbi/<?php echo $referencia; ?>.jpg" class="rounded" width="120px" height="120px" alt="<?php echo $referencia; ?>"></td>
+                                    <td class="text-center align-middle"><?php echo $referencia; ?></td>
+                                    <td class="text-center align-middle"><?php echo $refauxiliar; ?></td>
+                                    <td class="text-center align-middle"><?php echo $tam; ?></td>
+                                    <td class="text-center align-middle"><?php echo number_format($saldo); ?></td>
+                                </tr>
+                                <?php
+                            }
                         }
                     }
                     ?>
                 </tbody>
             </table>
             <?php
-            echo $this->Dados['paginacao'];
+            if (isset($_SESSION['pesqLoja']) OR isset($_SESSION['referencia']) OR isset($_SESSION['refauxiliar'])) {
+                echo $this->Dados['paginacao'];
+            }
             ?>
         </div>
     </div>
