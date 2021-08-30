@@ -45,7 +45,7 @@ extract($this->Dados['select']);
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Transferências">transferências</cite> solicitadas.
                                     </figcaption>
-                                    <h2 class="lead display-4 text-right"><?php echo $transf; ?></h2>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;" ><?php echo $transf; ?></h2>
                                     <?php
                                 }
                                 ?>
@@ -70,7 +70,7 @@ extract($this->Dados['select']);
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Ajustes de Estoque">ajustes de estoques</cite> solicitados.
                                     </figcaption>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $ajuste;
                                         } else {
@@ -101,7 +101,7 @@ extract($this->Dados['select']);
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Cadastro - Troca">cadastro de produtos</cite> solicitados.
                                     </figcaption>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $troca;
                                         } else {
@@ -132,7 +132,7 @@ extract($this->Dados['select']);
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Dashboard">dashboards</cite> cadastrados.
                                     </figcaption>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $dash;
                                         } else {
@@ -158,7 +158,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Coleta</h6>
-                                    <h2 class="lead display-4 text-right"><?php echo $agCol; ?></h2>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo $agCol; ?></h2>
                                     <?php
                                 }
                                 ?>
@@ -170,7 +170,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Em Rota</h6>
-                                    <h2 class="lead display-4 text-right"><?php echo $emRota; ?></h2>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo $emRota; ?></h2>
                                     <?php
                                 }
                                 ?>
@@ -188,7 +188,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Ajustado</h6>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $ajustado;
                                         } else {
@@ -206,7 +206,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Sem ajuste</h6>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $semAj;
                                         } else {
@@ -230,7 +230,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Cadastrado</h6>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $cad;
                                         } else {
@@ -248,7 +248,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Já Cadastrado</h6>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $jaCad;
                                         } else {
@@ -272,7 +272,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Ativos</h6>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $dashAt;
                                         } else {
@@ -290,7 +290,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Em Analise</h6>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $dashPen;
                                         } else {
@@ -315,7 +315,7 @@ extract($this->Dados['select']);
                                 extract($aj);
                                 ?>
                                 <h6 class="card-title">Entregue</h6>
-                                <h2 class="lead display-4 text-right"><?php echo $entregue; ?></h2>
+                                <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo $entregue; ?></h2>
                                 <?php
                             }
                             ?>
@@ -331,7 +331,7 @@ extract($this->Dados['select']);
                                 extract($aj);
                                 ?>
                                 <h6 class="card-title">Pendentes</h6>
-                                <h2 class="lead display-4 text-right"><?php
+                                <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                     if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                         echo $pend;
                                     } else {
@@ -353,7 +353,7 @@ extract($this->Dados['select']);
                                 extract($aj);
                                 ?>
                                 <h6 class="card-title">Pendentes</h6>
-                                <h2 class="lead display-4 text-right"><?php
+                                <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                     if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                         echo $cadPend;
                                     } else {
@@ -375,7 +375,7 @@ extract($this->Dados['select']);
                                 extract($aj);
                                 ?>
                                 <h6 class="card-title">Inativo</h6>
-                                <h2 class="lead display-4 text-right"><?php
+                                <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                     if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                         echo $dashIna;
                                     } else {
@@ -417,7 +417,7 @@ extract($this->Dados['select']);
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Transferências">transferências</cite> solicitadas.
                                     </figcaption>
-                                    <h2 class="lead display-4 text-right"><?php echo $transf; ?></h2>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo $transf; ?></h2>
                                     <?php
                                 }
                                 ?>
@@ -442,7 +442,7 @@ extract($this->Dados['select']);
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Ajustes de Estoque">ajustes de estoques</cite> solicitados.
                                     </figcaption>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"<?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $ajuste;
                                         } else {
@@ -473,7 +473,7 @@ extract($this->Dados['select']);
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Cadastro - Troca">cadastro de produtos</cite> solicitados.
                                     </figcaption>
-                                    <h2 class="lead display-4 text-right"><?php
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $troca;
                                         } else {
