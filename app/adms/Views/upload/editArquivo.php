@@ -83,8 +83,8 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <input name="arq_antigo" type="hidden" value="<?php
-                    if (isset($valorForm['arq_antigo'])) {
-                        echo $valorForm['arq_antigo'];
+                    if (isset($valorForm['slug'])) {
+                        echo $valorForm['slug'];
                     } elseif (isset($valorForm['arquivo'])) {
                         echo $valorForm['arquivo'];
                     }

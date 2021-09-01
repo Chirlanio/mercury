@@ -29,7 +29,7 @@ class AdmsEditarArq {
         $this->DadosId = (int) $DadosId;
         
         $verArq = new \App\adms\Models\helper\AdmsRead();
-        $verArq->fullRead("SELECT * FROM adms_up_down
+        $verArq->fullRead("SELECT id, nome, slug, adms_art_id, status_id, created, modified FROM adms_up_down
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verArq->getResultado();
         return $this->Resultado;
@@ -38,7 +38,7 @@ class AdmsEditarArq {
     public function altArq(array $Dados) {
         
         $this->Dados = $Dados;
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
         
         $this->Arquivo = $this->Dados['slug'];
         unset($this->Arquivo['name']);
