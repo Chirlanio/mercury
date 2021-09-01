@@ -3,8 +3,8 @@
 session_start();
 ob_start();
 
-define('URL', 'http://localhost/portal/');
-define('URLADM', 'http://localhost/portal/');
+define('URL', 'http://localhost/mercury/');
+define('URLADM', 'http://localhost/mercury/');
 
 define('CONTROLER', 'Home');
 define('METODO', 'index');

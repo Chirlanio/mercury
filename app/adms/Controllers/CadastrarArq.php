@@ -28,7 +28,7 @@ class CadastrarArq {
 
             //Verifica de tem novo arquivo
             $this->Dados['slug'] = ($_FILES['slug'] ? $_FILES['slug'] : null);
-            var_dump($this->Dados);
+            //var_dump($this->Dados);
 
             //Instancia a classe para cadastrar na base de dados
             $cadArq = new \App\adms\Models\AdmsCadastrarArq();

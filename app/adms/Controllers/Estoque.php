@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of Produtos
+ * Description of Estoque
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
