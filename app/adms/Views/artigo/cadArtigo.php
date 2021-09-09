@@ -183,11 +183,11 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Destaque</label>
                     <select name="destaque" id="lib_pub" class="form-control is-invalid" required>
                         <?php
-                        if ($valorForm['destaque'] == 1) {
+                        if (isset($valorForm['destaque']) == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
                             echo "<option value='2'>Não</option>";
-                        } elseif ($valorForm['destaque'] == 2) {
+                        } elseif (isset($valorForm['destaque']) == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Sim</option>";
                             echo "<option value='2' selected>Não</option>";

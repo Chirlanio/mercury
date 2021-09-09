@@ -8,40 +8,40 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of CadastrarCor
+ * Description of CadastrarCfop
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class CadastrarCor {
+class CadastrarCfop {
 
     private $Dados;
 
-    public function cadCor() {
+    public function cadCfop() {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (!empty($this->Dados['CadCor'])) {
-            unset($this->Dados['CadCor']);
-            $cadCor = new \App\adms\Models\AdmsCadastrarCor();
-            $cadCor->cadCor($this->Dados);
-            if ($cadCor->getResultado()) {
-                $UrlDestino = URLADM . 'cor/listar';
+        if (!empty($this->Dados['CadCfop'])) {
+            unset($this->Dados['CadCfop']);
+            $cadCfop = new \App\adms\Models\AdmsCadastrarCfop();
+            $cadCfop->cadCfop($this->Dados);
+            if ($cadCfop->getResultado()) {
+                $UrlDestino = URLADM . 'cfop/listar';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
-                $this->cadCorViewPriv();
+                $this->cadCfopViewPriv();
             }
         } else {
-            $this->cadCorViewPriv();
+            $this->cadCfopViewPriv();
         }
     }
 
-    private function cadCorViewPriv() {
-        $botao = ['list_cor' => ['menu_controller' => 'cor', 'menu_metodo' => 'listar']];
+    private function cadCfopViewPriv() {
+        $botao = ['list_cfop' => ['menu_controller' => 'cfop', 'menu_metodo' => 'listar']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
-        $carregarView = new \Core\ConfigView("adms/Views/cor/cadCor", $this->Dados);
+        $carregarView = new \Core\ConfigView("adms/Views/faq/cadCfop", $this->Dados);
         $carregarView->renderizar();
     }
 
