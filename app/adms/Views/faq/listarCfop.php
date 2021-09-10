@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">CFOP's</h2>
+                <h2 class="display-4 titulo">Tabela de CFOP's</h2>
             </div>
             <div class="p-2">
                 <?php
@@ -76,10 +76,10 @@ if (!defined('URLADM')) {
                                 echo"<td class='text-center'>";
                                 echo "<span class='d-none d-md-block'>";
                                 if ($this->Dados['botao']['vis_cfop']) {
-                                    echo "<a href='" . URLADM . "ver-cfop/ver-cfop/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                    echo "<a href='" . URLADM . "ver-cfop/ver-cfop/$id' class='btn btn-outline-primary btn-sm mb-1' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                 }
                                 if ($this->Dados['botao']['edit_cfop']) {
-                                    echo "<a href='" . URLADM . "editar-cfop/edit-cfop/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                    echo "<a href='" . URLADM . "editar-cfop/edit-cfop/$id' class='btn btn-outline-warning btn-sm mb-1' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                 }
                                 if ($this->Dados['botao']['del_cfop']) {
                                     echo "<a href='" . URLADM . "apagar-cfop/apagar-cfop/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";

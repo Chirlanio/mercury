@@ -12,11 +12,9 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class SincroPgNivAc
-{
+class SincroPgNivAc {
 
-    public function sincroPgNivAc()
-    {
+    public function sincroPgNivAc() {
         $sincroPgNivAc = new \App\adms\Models\AdmsSincroPgNivAc();
         $sincroPgNivAc->sincroPgNivAc();
         $UrlDestino = URLADM . "nivel-acesso/listar";
