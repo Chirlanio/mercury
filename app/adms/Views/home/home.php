@@ -31,8 +31,8 @@ extract($this->Dados['select']);
 
         <?php if ($_SESSION['adms_niveis_acesso_id'] != 5) { ?>
 
-            <div class="row mb-3"><!-- Inicio Cards -->
-                <div class="col-lg-3 col-sm-6"><!-- Inicio Cards Transferência-->
+            <div class="row"><!-- Inicio Cards -->
+                <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Transferência-->
                     <div class="card bg-success text-white anima-left-delay">
                         <a href="<?php echo URLADM . 'transferencia/listar-transf/'; ?>" class="text-white text-decoration-none">
                             <div class="card-body">
@@ -53,7 +53,7 @@ extract($this->Dados['select']);
                         </a>
                     </div>
                 </div><!-- Final Cards Transferência-->
-                <div class="col-lg-3 col-sm-6"><!-- Inicio Cards Ajuste de Estoque-->
+                <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Ajuste de Estoque-->
                     <div class="card bg-danger text-white anima-left">
                         <a href="<?php
                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
@@ -84,7 +84,7 @@ extract($this->Dados['select']);
                         </a>
                     </div>
                 </div><!-- Final Cards Ajuste de Estoque-->
-                <div class="col-lg-3 col-sm-6"><!-- Inicio Cards Cadastro - Troca-->
+                <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Cadastro - Troca-->
                     <div class="card bg-warning text-white anima-right">
                         <a href="<?php
                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
@@ -115,7 +115,7 @@ extract($this->Dados['select']);
                         </a>
                     </div>
                 </div><!-- Final Cards Cadastro - Troca-->
-                <div class="col-lg-3 col-sm-6"><!-- Inicio Cards Dashboards-->
+                <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Dashboards-->
                     <div class="card bg-primary text-white anima-right-delay">
                         <a href="<?php
                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
@@ -147,10 +147,10 @@ extract($this->Dados['select']);
                     </div>
                 </div><!-- Final Cards Dashboards-->
             </div>
-            <div class="row mb-3">
-                <div class="col-lg-3 col-sm-6">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-success text-white anima-left-delay">
-                        <div class="row mb-3">
+                        <div class="row">
                             <div class="card-body">
                                 <i class="fas fa-dolly fa-3x"></i>
                                 <?php
@@ -178,9 +178,9 @@ extract($this->Dados['select']);
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-danger text-white anima-left">
-                        <div class="row mb-3">
+                        <div class="row">
                             <div class="card-body">
                                 <i class="fas fa-random fa-3x"></i>
                                 <?php
@@ -220,9 +220,9 @@ extract($this->Dados['select']);
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-warning text-white anima-right">
-                        <div class="row mb-3">
+                        <div class="row">
                             <div class="card-body">
                                 <i class="fas fa-box-open fa-3x"></i>
                                 <?php
@@ -262,9 +262,9 @@ extract($this->Dados['select']);
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-primary text-white anima-right-delay">
-                        <div class="row mb-3">
+                        <div class="row">
                             <div class="card-body">
                                 <i class="fas fa-chart-pie fa-3x"></i>
                                 <?php
@@ -305,8 +305,8 @@ extract($this->Dados['select']);
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col-lg-3 col-sm-6">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-success text-white anima-left-delay">
                         <div class="card-body">
                             <i class="fas fa-people-carry fa-3x"></i>
@@ -322,7 +322,7 @@ extract($this->Dados['select']);
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-danger text-white anima-left">
                         <div class="card-body">
                             <i class="fas fa-pause fa-3x"></i>
@@ -344,7 +344,7 @@ extract($this->Dados['select']);
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-warning text-white anima-right">
                         <div class="card-body">
                             <i class="fas fa-box fa-3x"></i>
@@ -366,7 +366,7 @@ extract($this->Dados['select']);
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-primary text-white anima-right-delay">
                         <div class="card-body">
                             <i class="fas fa-chart-bar fa-3x"></i>
@@ -441,8 +441,8 @@ extract($this->Dados['select']);
                                     <h6 class="card-title">Ajustes de Estoque</h6>
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Ajustes de Estoque">ajustes de estoques</cite> solicitados.
-                                    </figcaption>
-                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"<?php
+                                    </figcaption> 
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
                                             echo $ajuste;
                                         } else {
