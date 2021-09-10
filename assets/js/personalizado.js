@@ -34,8 +34,6 @@ sr.reveal('.anima-top', {
     distance: '40px'
 });
 
-ScrollReveal().reveal('.tile', { interval: 100, reset: true });
-
 ClassicEditor.create(document.querySelector('#editor'), {
 
     toolbar: {
@@ -67,7 +65,7 @@ ClassicEditor.create(document.querySelector('#editor'), {
         ]
     },
     language: 'pt-br',
-    licenseKey: '',
+    licenseKey: ''
 
 }).then(editor => {
     window.editor = editor;
@@ -117,7 +115,7 @@ ClassicEditor.create(document.querySelector('#editor-um'), {
         ]
     },
     language: 'pt-br',
-    licenseKey: '',
+    licenseKey: ''
 
 }).then(editor => {
     window.editor = editor;
@@ -167,7 +165,7 @@ ClassicEditor.create(document.querySelector('#editor-dois'), {
         ]
     },
     language: 'pt-br',
-    licenseKey: '',
+    licenseKey: ''
 
 }).then(editor => {
     window.editor = editor;
@@ -217,7 +215,7 @@ ClassicEditor.create(document.querySelector('#editor-tres'), {
         ]
     },
     language: 'pt-br',
-    licenseKey: '',
+    licenseKey: ''
 
 }).then(editor => {
     window.editor = editor;
