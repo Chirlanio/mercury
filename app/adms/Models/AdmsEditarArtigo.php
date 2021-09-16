@@ -35,12 +35,11 @@ class AdmsEditarArtigo {
 
     public function altArtigo(array $Dados) {
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
         $this->Foto = $this->Dados['imagem_nova'];
         $this->ImgAntiga = $this->Dados['imagem_antiga'];
         unset($this->Dados['imagem_nova'], $this->Dados['imagem_antiga']);
 
-        $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
+        $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
