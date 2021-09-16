@@ -14,7 +14,7 @@ define('USER', 'root');
 define('PASS', '');
 define('DBNAME', 'meiaso26_bd_meiasola');
 
-define('HOSTCIGAM', 'meiasola.cigamgestor.com.br');
+define('HOSTCIGAM', 'meiasolab.cigamgestor.com.br');
 define('USERCIGAM', 'bi_msl');
 define('PASSCIGAM', 'bi_msl102030');
-define('DBNAMECIGAM', 'gestor');
+define('DBNAMECIGAM', 'RZMS');

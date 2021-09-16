@@ -5,7 +5,6 @@ if (!defined('URL')) {
 }
 if (!empty($this->Dados['dados_produto'][0])) {
     extract($this->Dados['dados_produto'][0]);
-    //var_dump($this->Dados['dados_produto']);
     ?>
     <div class="content p-1">
         <div class="list-group-item">
@@ -42,7 +41,7 @@ if (!empty($this->Dados['dados_produto'][0])) {
             }
             ?>
 
-            <div style="width: 250px; height: 250px;"><?php echo "<img class='img-thumbnail' src='http://www.meiasola.com/powerbi/" . $referencia . ".jpg' width='250' height='250' alt='" . $referencia . "'>"; ?></div><br>
+            <div style="width: 250px; height: 250px;"><?php echo "<img class='img-thumbnail' src='http://www.meiasola.com/powerbi/image/" . $referencia . ".jpg' width='250' height='250' alt='" . $referencia . "'>"; ?></div><br>
 
             <form class="row g-3">
                 <div class="col-md-3">
