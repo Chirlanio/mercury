@@ -33,10 +33,10 @@ if (!defined('URL')) {
                 </tr>
                 <tr>
                     <th scope="row" class="text-center border">Currículos</th>
-                    <td colspan="10" class="text-center border">Enviar e-mail para recrutamento@meiasola.com.br
+                    <td colspan="10" class="text-center border">Enviar e-mail para recrutamento@meiasola.com.br</td>
                 <tr>
                     <th scope="row" class="text-center border">Fardamentos e Seleção</th>
-                    <td colspan="10" class="text-center border">Enviar e-mail para bp@meiasola.com.br</td>
+                    <td colspan="10" class="text-center border">Enviar e-mail para recrutamento@meiasola.com.br</td>
                 </tr>
                 <tr>
                     <td colspan="12" scope="row" class="text-center bg-warning border"><span style="font-weight: bold; color: red;">ATENÇÃO:</span> NÃO ENVIAR E-MAIL PARA <span style="font-weight: bold;">RH@MEIASOLA.COM.BR</span> ESSE EMAIL FOI DESATIVADO</td>
@@ -50,7 +50,7 @@ if (!defined('URL')) {
                 <tr>
                     <th colspan="3" class="text-center border align-middle">Recrutamento e Seleção</th>
                     <td colspan="3" class="text-center border align-middle">Abrir vaga no site Fortes RH.</td>
-                    <td colspan="3" class="text-center border align-middle">A vaga só será trabalhada a partir do dia em que for aberta no Fortes RH.</td>
+                    <td colspan="3" class="text-center border align-middle">A vaga só será trabalhada a partir do dia em que for aberta no Fortes RH. Em caso de dúvidas falar diretamente com Rafaella (Analista de G&G)</td>
                     <td colspan="3" class="text-center border align-middle"><a href="http://192.168.0.251:58080/fortesrh/login.action" class="btn btn-outline-danger" target="_blank">Fortes RH</a></td>
                 </tr>
                 <tr>
@@ -78,7 +78,7 @@ if (!defined('URL')) {
                 <tr>
                     <th colspan="3" class="text-center border align-middle">Desligamentos</th>
                     <td colspan="3" class="text-center border align-middle">Enviar formulário de MP de desligamento constando motivo e saldo de horas por E-mail.</td>
-                    <td colspan="3" class="text-center border align-middle">E-mails a serem copiados: dp@meiasola.com.br; estagiodp@meiasola.com.br; izabel.aragao@meiasola.com.br; bp@meiasola.com.br; danielle.ribeiro@meiasola.com.br</td>
+                    <td colspan="3" class="text-center border align-middle">E-mails a serem copiados: dp@meiasola.com.br; estagiodp@meiasola.com.br; izabel.aragao@meiasola.com.br; danielle.ribeiro@meiasola.com.br; recrutamento@meiasola.com.br</td>
                     <td colspan="3" class="text-center border align-middle"><a href="<?php echo URLADM . 'assets/download/MP_Desligamento_Grupo Meia Sola v.Final.xlsx'; ?>" class="btn btn-outline-info" download>Planilha</a></td>
                 </tr>
                 <tr>

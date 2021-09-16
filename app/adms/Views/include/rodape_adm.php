@@ -17,5 +17,4 @@ if (!defined('URL')) {
     <script src="<?php echo URLADM . 'assets/js/ionicons.js'; ?>"></script>
     <script src="<?php echo URLADM . 'assets/js/scrollreveal.min.js'; ?>"></script>
     <script src="<?php echo URLADM . 'assets/js/personalizado.js'; ?>"></script>
-    <script src="<?php echo URLADM . 'assets/ckeditor/build/ckeditor.js'; ?>"></script>
 </body>

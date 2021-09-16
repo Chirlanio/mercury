@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -39,10 +39,10 @@ class AdmsCadastrarCat {
 
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
-        $cadBairro = new \App\adms\Models\helper\AdmsCreate;
-        $cadBairro->exeCreate("adms_cats_artigos", $this->Dados);
+        $cadCat = new \App\adms\Models\helper\AdmsCreate;
+        $cadCat->exeCreate("adms_cats_artigos", $this->Dados);
 
-        if ($cadBairro->getResultado()) {
+        if ($cadCat->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Categoria cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {

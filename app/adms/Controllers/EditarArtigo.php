@@ -51,6 +51,7 @@ class EditarArtigo {
 
     private function editArtigoViewPriv() {
         if ($this->Dados['form']) {
+            
             $listarSelect = new \App\adms\Models\AdmsEditarArtigo();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 

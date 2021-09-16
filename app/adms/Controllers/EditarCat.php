@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of EditarTipo
+ * Description of EditarCat
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
@@ -24,7 +24,7 @@ class EditarCat {
         $this->DadosId = (int) $DadosId;
 
         if (!empty($this->DadosId)) {
-            $this->editCaPriv();
+            $this->editCatPriv();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Categoria de artigo não encontrado!</div>";
             $UrlDestino = URLADM . 'categoria-artigo/listar';
@@ -32,14 +32,14 @@ class EditarCat {
         }
     }
 
-    private function editCaPriv() {
+    private function editCatPriv() {
         
         if (!empty($this->Dados['EditCat'])) {
             unset($this->Dados['EditCat']);
             $editarCat = new \App\adms\Models\AdmsEditarCat();
             $editarCat->altCat($this->Dados);
             if ($editarCat->getResultado()) {
-                $_SESSION['msg'] = "<div class='alert alert-success'>Categoria de artigo editado com sucesso!</div>";
+                $_SESSION['msg'] = "<div class='alert alert-success'>Categoria de artigo editada com sucesso!</div>";
                 $UrlDestino = URLADM . 'categoria-artigo/listar';
                 header("Location: $UrlDestino");
             } else {
@@ -55,6 +55,9 @@ class EditarCat {
 
     private function editCatViewPriv() {
         if ($this->Dados['form']) {
+            
+            $listarSelect = new \App\adms\Models\AdmsEditarArtigo();
+            $this->Dados['select'] = $listarSelect->listarCadastrar();
 
             $botao = ['list_cat' => ['menu_controller' => 'categoria-artigo', 'menu_metodo' => 'listar']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
@@ -66,7 +69,7 @@ class EditarCat {
             $carregarView = new \Core\ConfigView("adms/Views/catArt/editarCat", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Categoria de artigo não encontrado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Categoria de artigo não encontrada!</div>";
             $UrlDestino = URLADM . 'categoria-artigo/listar';
             header("Location: $UrlDestino");
         }

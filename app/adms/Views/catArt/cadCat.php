@@ -31,13 +31,33 @@ if (isset($this->Dados['form'][0])) {
         ?>
         <form method="POST" action="" class="was-validated" enctype="multipart/form-data"> 
             <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Nome da Categoria</label>
                     <input name="nome" type="text" class="form-control is-invalid" placeholder="Nome da categoria do artigo" value="<?php
                     if (isset($valorForm['nome'])) {
                         echo $valorForm['nome'];
                     }
                     ?>" autofocus required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label><span class="text-danger">*</span> Status</label>
+                    <select name="adms_sit_id" id="adms_sit_id" class="form-control is-invalid" required>
+                        <?php
+                        if (isset($valorForm['adms_sit_id']) == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Ativo</option>";
+                            echo "<option value='2'>Inativo</option>";
+                        } elseif (isset($valorForm['troca']) == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Ativo</option>";
+                            echo "<option value='2' selected>Inativo</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Ativo</option>";
+                            echo "<option value='2'>Inativo</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
             <p>

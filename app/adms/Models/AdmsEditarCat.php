@@ -53,12 +53,23 @@ class AdmsEditarCat {
         $upAltCat = new \App\adms\Models\helper\AdmsUpdate();
         $upAltCat->exeUpdate("adms_cats_artigos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltCat->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de artigo atualizado com sucesso!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-success'>Categoria atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O tipo de artigo não foi atualizado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A categoria não foi atualizada!</div>";
             $this->Resultado = false;
         }
+    }
+
+    public function listarCadastrar() {
+        $listar = new \App\adms\Models\helper\AdmsRead();
+
+        $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
+        $registro['sit'] = $listar->getResultado();
+
+        $this->Resultado = ['sit' => $registro['sit']];
+
+        return $this->Resultado;
     }
 
 }
