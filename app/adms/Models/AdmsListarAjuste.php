@@ -38,22 +38,9 @@ class AdmsListarAjuste {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= 5) {
-            $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr
-                    FROM tb_ajuste aj
-                    INNER JOIN tb_lojas lj ON lj.id=aj.loja_id
-                    INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id
-                    INNER JOIN tb_tam tam ON tam.id=aj.tam_id
-                    INNER JOIN adms_cors c on c.id=st.adms_cor_id
-                    ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr
-                    FROM tb_ajuste aj
-                    INNER JOIN tb_lojas lj ON lj.id=aj.loja_id
-                    INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id
-                    INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id
-                    INNER JOIN tb_tam tam ON tam.id=aj.tam_id
-                    INNER JOIN adms_cors c on c.id=st.adms_cor_id
-                    WHERE aj.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listarAjuste->getResultado();
         return $this->Resultado;

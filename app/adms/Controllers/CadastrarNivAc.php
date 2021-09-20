@@ -22,7 +22,6 @@ class CadastrarNivAc {
             unset($this->Dados['CadNivAc']);
             $cadNivAc = new \App\adms\Models\AdmsCadastrarNivAc();
             $cadNivAc->cadNivAc($this->Dados);
-            var_dump($this->Dados);
             if ($cadNivAc->getResultado()) {
                 $UrlDestino = URLADM . 'nivel-acesso/listar';
                 header("Location: $UrlDestino");

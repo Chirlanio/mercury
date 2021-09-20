@@ -32,10 +32,10 @@ class Faq {
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
         $listarFac = new \App\adms\Models\AdmsListarFaq();
-        $this->Dados['listFac'] = $listarFac->listar($this->PageId);
+        $this->Dados['listFaq'] = $listarFac->listar($this->PageId);
         $this->Dados['paginacao'] = $listarFac->getResultadoPg();
 
-        $carregarView = new \Core\ConfigView("adms/Views/fac/fac", $this->Dados);
+        $carregarView = new \Core\ConfigView("adms/Views/faq/listarFaq", $this->Dados);
         $carregarView->renderizar();
     }
 

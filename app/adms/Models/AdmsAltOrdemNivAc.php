@@ -2,13 +2,13 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
 
 /**
- * Description of AdmsApagarNivAc
+ * Description of AdmsAltOrdemNivAc
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */

@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['select']);
+//var_dump($this->Dados['form'][0]);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -32,7 +32,7 @@ if (isset($this->Dados['form'][0])) {
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
                         <?php
                         if ($this->Dados['botao']['list_art']) {
-                            echo "<a class='dropdown-item' href='" . URLADM . "artigo/listar'>Gerar Excel</a>";
+                            echo "<a class='dropdown-item' href='" . URLADM . "artigo/listar'>Listar</a>";
                         }
                         if ($this->Dados['botao']['vis_art']) {
                             echo "<a class='dropdown-item' href='" . URLADM . "ver-artigo/ver-artigo/" . $valorForm['id'] . "'>Cadastrar</a>";
@@ -171,7 +171,7 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                     if (isset($valorForm['imagem']) AND!empty($valorForm['imagem'])) {
                         $imagem_antiga = URLADM . 'assets/imagens/artigos/' . $valorForm['id'] . '/' . $valorForm['imagem'];
-                    } elseif (isset($valorForm['imagem_antiga']) AND!empty($valorForm['imagem_antiga'])) {
+                    } elseif (isset($valorForm['imagem_antiga']) AND (!empty($valorForm['imagem_antiga']))) {
                         $imagem_antiga = URLADM . 'assets/imagens/artigos/' . $valorForm['id'] . '/' . $valorForm['imagem_antiga'];
                     } else {
                         $imagem_antiga = URLADM . 'assets/imagens/artigos/preview_img.jpg';

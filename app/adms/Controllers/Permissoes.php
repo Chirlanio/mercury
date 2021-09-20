@@ -12,19 +12,17 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class Permissoes
-{
+class Permissoes {
 
     private $Dados;
     private $PageId;
     private $NivId;
 
-    public function listar($PageId = null)
-    {
+    public function listar($PageId = null) {
         $this->PageId = (int) $PageId ? $PageId : 1;
         $this->Dados['pg'] = $this->PageId;
         $this->NivId = filter_input(INPUT_GET, "niv", FILTER_SANITIZE_NUMBER_INT);
-        
+
         $botao = ['list_nivac' => ['menu_controller' => 'nivel-acesso', 'menu_metodo' => 'listar'],
             'lib_permi' => ['menu_controller' => 'lib_permi', 'menu_metodo' => 'lib_permi'],
             'edit_permi' => ['menu_controller' => 'editar-permi', 'menu_metodo' => 'edit-permi'],
@@ -36,14 +34,14 @@ class Permissoes
             'edit_niv_ac_pg_menu' => ['menu_controller' => 'editar-niv-ac-pg-menu', 'menu_metodo' => 'edit-niv-ac-pg-menu']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
-        
+
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
         $listarPermi = new \App\adms\Models\AdmsListarPermi();
         $this->Dados['listPermi'] = $listarPermi->listarPermi($this->PageId, $this->NivId);
         $this->Dados['paginacao'] = $listarPermi->getResultadoPg();
-                    
+
         $this->Dados['dados_nivac'] = $listarPermi->verNivAc($this->NivId);
 
         $carregarView = new \Core\ConfigView("adms/Views/permi/listarPermi", $this->Dados);

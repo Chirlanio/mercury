@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -10,45 +10,40 @@ if (!defined('URL')) {
 /**
  * Description of AdmsLibMenu
  *
- * @copyright (c) year, Cesar Szpak - Celke
+ * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsLibMenu
-{
+class AdmsLibMenu {
 
     private $DadosId;
     private $Resultado;
     private $Dados;
     private $DadosNivAcPg;
 
-    function getResultado()
-    {
+    function getResultado() {
         return $this->Resultado;
     }
 
-    public function libMenu($DadosId = null)
-    {
+    public function libMenu($DadosId = null) {
         $this->DadosId = (int) $DadosId;
         $this->verNivAcPg();
         if ($this->DadosNivAcPg) {
             $this->altPermi();
-        }else{
+        } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Não foi alterado a situação do menu!</div>";
             $this->Resultado = false;
         }
     }
 
-    private function verNivAcPg()
-    {
+    private function verNivAcPg() {
         $verNivAcPg = new \App\adms\Models\helper\AdmsRead();
         $verNivAcPg->fullRead("SELECT nivpg.id, nivpg.lib_menu 
                 FROM adms_nivacs_pgs nivpg
                 INNER JOIN adms_niveis_acessos nivac ON nivac.id=nivpg.adms_niveis_acesso_id
-                WHERE nivpg.id =:id AND nivac.ordem >=:ordem", "id={$this->DadosId}&ordem=".$_SESSION['ordem_nivac']);        
+                WHERE nivpg.id =:id AND nivac.ordem >=:ordem", "id={$this->DadosId}&ordem=" . $_SESSION['ordem_nivac']);
         $this->DadosNivAcPg = $verNivAcPg->getResultado();
     }
 
-    private function altPermi()
-    {
+    private function altPermi() {
         if ($this->DadosNivAcPg[0]['lib_menu'] == 1) {
             $this->Dados['lib_menu'] = 2;
         } else {

@@ -2,13 +2,13 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
 
 /**
- * Description of AdmsCadastrarNivAc
+ * Description of AdmsCadastrarPagina
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
@@ -126,12 +126,13 @@ class AdmsCadastrarPagina {
     }
 
     /**
-     * <b>Pesquisar última ordem:</b> PPesquisar o maior número da ordem na tabela "adms_nivacs_pgs" para o nível de acesso em execução
+     * <b>Pesquisar última ordem:</b> Pesquisar o maior número da ordem na tabela "adms_nivacs_pgs" para o nível de acesso em execução
      */
-    private function pesqUltimaOrdem() {
+    private function pesqUltimaOrdem()
+    {
         $listarNivAcPg = new \App\adms\Models\helper\AdmsRead();
         $listarNivAcPg->fullRead("SELECT ordem, adms_niveis_acesso_id
-                FROM adms_nivacs_pgs 
+                FROM adms_nivacs_pgs
                 WHERE adms_niveis_acesso_id =:adms_niveis_acesso_id ORDER BY ordem DESC LIMIT :limit", "adms_niveis_acesso_id={$this->NivAcId}&limit=1");
         $this->ListaNivAcPg = $listarNivAcPg->getResultado();
         if (!$this->ListaNivAcPg) {

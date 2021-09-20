@@ -35,6 +35,7 @@ class EditarArtigo {
             $this->Dados['imagem_nova'] = ($_FILES['imagem_nova'] ? $_FILES['imagem_nova'] : null);
             $editarArtigo = new \App\adms\Models\AdmsEditarArtigo();
             $editarArtigo->altArtigo($this->Dados);
+            
             if ($editarArtigo->getResultado()) {
                 $UrlDestino = URLADM . 'ver-artigo/ver-artigo/' . $this->Dados['id'];
                 header("Location: $UrlDestino");

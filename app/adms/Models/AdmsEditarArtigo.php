@@ -69,6 +69,7 @@ class AdmsEditarArtigo {
     }
 
     private function updateEditArtigo() {
+        
         $slugPg = new \App\adms\Models\helper\AdmsSlug();
         $this->Dados['slug'] = $slugPg->nomeSlug($this->Dados['slug']);
 
