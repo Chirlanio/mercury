@@ -66,7 +66,7 @@ extract($this->Dados['select']);
                                 foreach ($this->Dados['select']['ajuste'] as $aj) {
                                     extract($aj);
                                     ?>
-                                    <h6 class="card-title">Ajustes de Estoque</h6>
+                                    <h6 class="card-title blockquote">Ajustes de Estoque</h6>
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Ajustes de Estoque">ajustes de estoques</cite> solicitados.
                                     </figcaption>
@@ -97,7 +97,7 @@ extract($this->Dados['select']);
                                 foreach ($this->Dados['select']['troca'] as $aj) {
                                     extract($aj);
                                     ?>
-                                    <h6 class="card-title">Cadastro - Troca</h6>
+                                    <h6 class="card-title blockquote">Cadastro - Troca</h6>
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Cadastro - Troca">cadastro de produtos</cite> solicitados.
                                     </figcaption>
@@ -128,7 +128,7 @@ extract($this->Dados['select']);
                                 foreach ($this->Dados['select']['dash'] as $aj) {
                                     extract($aj);
                                     ?>
-                                    <h6 class="card-title">Dashboard</h6>
+                                    <h6 class="card-title blockquote">Dashboard</h6>
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Dashboard">dashboards</cite> cadastrados.
                                     </figcaption>
@@ -438,7 +438,7 @@ extract($this->Dados['select']);
                                 foreach ($this->Dados['select']['ajuste'] as $aj) {
                                     extract($aj);
                                     ?>
-                                    <h6 class="card-title">Ajustes de Estoque</h6>
+                                    <h6 class="card-title blockquote">Ajustes de Estoque</h6>
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Ajustes de Estoque">ajustes de estoques</cite> solicitados.
                                     </figcaption> 
@@ -469,7 +469,7 @@ extract($this->Dados['select']);
                                 foreach ($this->Dados['select']['troca'] as $aj) {
                                     extract($aj);
                                     ?>
-                                    <h6 class="card-title">Cadastro - Troca</h6>
+                                    <h6 class="card-title blockquote">Cadastro - Troca</h6>
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Cadastro - Troca">cadastro de produtos</cite> solicitados.
                                     </figcaption>

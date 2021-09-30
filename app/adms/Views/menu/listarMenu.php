@@ -46,7 +46,7 @@ if (!defined('URLADM')) {
                     <tr>
                         <th class="text-center">ID</th>
                         <th>Nome</th>
-                        <th class="d-none d-sm-table-cell">ordem</th>
+                        <th class="d-none d-sm-table-cell text-center">Ordem</th>
                         <th class="d-none d-lg-table-cell text-center">Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
@@ -61,7 +61,7 @@ if (!defined('URLADM')) {
                             <td class="align-middle">
                                 <?php echo "<i class='" . $icone . "'></i> - " . $nome; ?>
                             </td>
-                            <td class="d-none d-sm-table-cell align-middle"><?php echo $ordem; ?></td>
+                            <td class="d-none d-sm-table-cell text-center align-middle"><?php echo $ordem; ?></td>
                             <td class="d-none d-lg-table-cell text-center align-middle">
                                 <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $nome_sit; ?></span>
                             </td>

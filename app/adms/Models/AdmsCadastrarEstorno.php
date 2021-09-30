@@ -1,0 +1,107 @@
+<?php
+
+namespace App\adms\Models;
+
+if (!defined('URLADM')) {
+    header("Location: /");
+    exit();
+}
+
+/**
+ * Description of AdmsCadastrarEstorno
+ *
+ * @copyright (c) year, Francisco Chirlanio - Grupo Meioa Sola
+ */
+class AdmsCadastrarEstorno {
+
+    private $Resultado;
+    private $Dados;
+    private $File;
+    private $ValorLancado;
+    private $ValorCorreto;
+
+    function getResultado() {
+        return $this->Resultado;
+    }
+
+    public function cadEstorno(array $Dados) {
+
+        $this->Dados = $Dados;
+
+        $this->File = $this->Dados['arquivo'];
+        unset($this->Dados['arquivo']);
+
+        $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
+        $valCampoVazio->validarDados($this->Dados);
+
+        if ($valCampoVazio->getResultado()) {
+            $this->inserirEstorno();
+        } else {
+            $this->Resultado = false;
+        }
+    }
+
+    private function inserirEstorno() {
+
+        $this->Dados['created'] = date("Y-m-d H:i:s");
+
+        $slugEst = new \App\adms\Models\helper\AdmsSlug();
+        $this->Dados['arquivo'] = $slugEst->nomeSlug($this->File['name']);
+
+        $cadEstorno = new \App\adms\Models\helper\AdmsCreate;
+        $cadEstorno->exeCreate("adms_estornos", $this->Dados);
+        if ($cadEstorno->getResultado()) {
+            if (empty($this->File['name'])) {
+                $_SESSION['msg'] = "<div class='alert alert-success'>Estorno cadastrado com sucesso!</div>";
+                $this->Resultado = true;
+            } else {
+                $this->Dados['id'] = $cadEstorno->getResultado();
+                $this->valArquivo();
+            }
+        } else {
+            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A solicitação não foi cadastrada!</div>";
+            $this->Resultado = false;
+        }
+    }
+
+    private function valArquivo() {
+        $uploadFile = new \App\adms\Models\helper\AdmsUpload();
+        $uploadFile->upload($this->File, 'assets/files/estorno/' . $this->Dados['id'] . '/', $this->Dados['arquivo']);
+        if ($uploadFile->getResultado()) {
+            $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação cadastrada com sucesso. Upload do arquivo realizado com sucesso!</div>";
+            $this->Resultado = true;
+        } else {
+            $_SESSION['msg'] = "<div class='alert alert-info'>Erro: Solicitação cadastrada. Erro ao realizar o upload do arquivo!</div>";
+            $this->Resultado = false;
+        }
+    }
+
+    public function listarCadastrar() {
+        $listar = new \App\adms\Models\helper\AdmsRead();
+
+        $listar->fullRead("SELECT id id_band, nome bandeira FROM adms_bandeiras ORDER BY nome ASC");
+        $registro['id_band'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id id_form, nome forma_pag FROM tb_forma_pag ORDER BY nome ASC");
+        $registro['id_form'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id id_resp, nome resp_aut FROM adms_resp_autorizacao ORDER BY nome ASC");
+        $registro['id_resp'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id id_sit, nome sit_est FROM adms_sits_estornos WHERE id <>:id ORDER BY id ASC", "id=3");
+        $registro['id_sit'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
+        $registro['loja_id'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id id_func, nome func FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
+        $registro['id_func'] = $listar->getResultado();
+
+        $this->Resultado = ['id_band' => $registro['id_band'], 'id_form' => $registro['id_form'],
+            'id_resp' => $registro['id_resp'], 'id_sit' => $registro['id_sit'],
+            'loja_id' => $registro['loja_id'], 'id_func' => $registro['id_func']];
+
+        return $this->Resultado;
+    }
+
+}

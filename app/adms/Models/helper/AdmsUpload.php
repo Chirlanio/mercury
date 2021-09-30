@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsUploadImg
+ * Description of AdmsUpload
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
@@ -38,11 +38,14 @@ class AdmsUpload {
             case 'application/msword';
             case 'application/vnd.ms-excel';
             case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
             case 'application/vnd.ms-powerpoint';
             case 'text/csv';
             case 'application/pdf';
             case 'application/x-rar-compressed';
             case 'application/zip';
+            case 'image/jpeg';
+            case 'image/png';
                 $this->Arquivo = true;
                 break;
         endswitch;

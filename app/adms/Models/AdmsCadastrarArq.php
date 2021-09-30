@@ -18,6 +18,7 @@ class AdmsCadastrarArq {
     private $Dados;
     private $DadosId;
     private $Arquivo;
+    private $Artigo;
 
     function getResultado() {
         return $this->Resultado;
@@ -34,7 +35,7 @@ class AdmsCadastrarArq {
     public function cadArq(array $Dados) {
 
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
+        var_dump($this->Dados);
         $this->Arquivo = $this->Dados['slug'];
         unset($this->Dados['slug']);
 

@@ -25,9 +25,9 @@ class Permissoes {
 
         $botao = ['list_nivac' => ['menu_controller' => 'nivel-acesso', 'menu_metodo' => 'listar'],
             'lib_permi' => ['menu_controller' => 'lib_permi', 'menu_metodo' => 'lib_permi'],
+            'lib_permi' => ['menu_controller' => 'lib-permi', 'menu_metodo' => 'lib-permi'],
             'edit_permi' => ['menu_controller' => 'editar-permi', 'menu_metodo' => 'edit-permi'],
             'ordem_permi' => ['menu_controller' => 'alt-ordem-permi', 'menu_metodo' => 'alt-ordem-permi'],
-            'lib_permi' => ['menu_controller' => 'lib-permi', 'menu_metodo' => 'lib-permi'],
             'lib_menu' => ['menu_controller' => 'lib-menu', 'menu_metodo' => 'lib-menu'],
             'lib_dropdown' => ['menu_controller' => 'lib-dropdown', 'menu_metodo' => 'lib-dropdown'],
             'ordem_menu' => ['menu_controller' => 'alt-ordem-menu', 'menu_metodo' => 'alt-ordem-menu'],
