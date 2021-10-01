@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/wamp64/www/mercury/app/adms/Controllers/VerEstorno.php</file>
             <file>file:/C:/wamp64/www/mercury/app/adms/Views/estorno/verEstorno.php</file>
+            <file>file:/C:/wamp64/www/mercury/app/adms/Views/gestao/genteGestao.php</file>
             <file>file:/C:/wamp64/www/mercury/app/adms/Models/AdmsVerEstorno.php</file>
         </group>
     </open-files>
