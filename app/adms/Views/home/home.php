@@ -391,11 +391,11 @@ extract($this->Dados['select']);
             </div>
             <div class="content mt-5 anima-bottom">
                 <div class="container-fluid">
-                    <h2 class="display-4 text-center" style="margin-bottom: 40px;">Trinca do Sucesso</h2>
+                    <h2 class="display-4 text-center" style="margin-bottom: 40px;">Triunfo Final</h2>
                     <div class="row justify-content-md-center">
                         <div class="col-12 col-md-12">
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe width="1140" height="541.25" src="https://app.powerbi.com/view?r=eyJrIjoiMWNiMWI3N2ItYWM5Ni00OTZiLWIzNGQtZjI2NDBmZTY5ZDZjIiwidCI6ImFlNDcyYTY0LTQyYjMtNGUyZC04ZmQzLWM2OTU3NjE4YjA5ZiJ9" frameborder="0" allowFullScreen="true"></iframe>
+                                <iframe width="1024" height="804" src="https://app.powerbi.com/view?r=eyJrIjoiMjRiN2RkY2EtODRkYi00YzZkLWE3NmItYmI2Y2FkZWUyYmMzIiwidCI6ImFlNDcyYTY0LTQyYjMtNGUyZC04ZmQzLWM2OTU3NjE4YjA5ZiJ9" frameborder="0" allowFullScreen="true"></iframe>
                             </div>
                         </div>
                     </div>
@@ -490,11 +490,11 @@ extract($this->Dados['select']);
             </div><hr>
             <div class="content mt-5 anima-bottom">
                 <div class="container-fluid">
-                    <h2 class="display-4 text-center" style="margin-bottom: 40px;">Trinca do Sucesso</h2>
+                    <h2 class="display-4 text-center" style="margin-bottom: 40px;">Triunfo Final</h2>
                     <div class="row justify-content-md-center">
                         <div class="col-12 col-md-12">
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe width="1140" height="541.25" src="https://app.powerbi.com/view?r=eyJrIjoiMWNiMWI3N2ItYWM5Ni00OTZiLWIzNGQtZjI2NDBmZTY5ZDZjIiwidCI6ImFlNDcyYTY0LTQyYjMtNGUyZC04ZmQzLWM2OTU3NjE4YjA5ZiJ9" frameborder="0" allowFullScreen="true"></iframe>
+                                <iframe width="1024" height="804" src="https://app.powerbi.com/view?r=eyJrIjoiMjRiN2RkY2EtODRkYi00YzZkLWE3NmItYmI2Y2FkZWUyYmMzIiwidCI6ImFlNDcyYTY0LTQyYjMtNGUyZC04ZmQzLWM2OTU3NjE4YjA5ZiJ9" frameborder="0" allowFullScreen="true"></iframe>
                             </div>
                         </div>
                     </div>

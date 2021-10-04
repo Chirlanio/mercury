@@ -12,17 +12,15 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarUsuario
-{
+class ApagarUsuario {
 
     private $DadosId;
 
-    public function apagarUsuario($DadosId = null)
-    {
+    public function apagarUsuario($DadosId = null) {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
-           $apagarUsuario = new \App\adms\Models\AdmsApagarUsuario();
-           $apagarUsuario->apagarUsuario($this->DadosId);
+            $apagarUsuario = new \App\adms\Models\AdmsApagarUsuario();
+            $apagarUsuario->apagarUsuario($this->DadosId);
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Necessário selecionar um usuário!</div>";
         }

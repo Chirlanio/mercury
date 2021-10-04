@@ -188,4 +188,3 @@ if (!empty($this->Dados['dados_estorno'][0])) {
     $UrlDestino = URLADM . 'estorno/listar';
     header("Location: $UrlDestino");
 }
-        
