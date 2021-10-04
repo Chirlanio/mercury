@@ -9,7 +9,7 @@ if (!defined('URL')) {
 
 /**
  * Description of AdmsEditarLoja: 
- * Classe para editar as informações da página no banco de dados
+ * Classe para editar as informações do cadastro das lojas no banco de dados
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
 class AdmsEditarLoja {
@@ -93,7 +93,10 @@ class AdmsEditarLoja {
         $listar->fullRead("SELECT id func_id, nome func FROM tb_funcionarios WHERE cargo_id =:cargo_id AND status_id =:status_id ORDER BY nome ASC", "cargo_id=2&status_id=1");
         $registro['func_id'] = $listar->getResultado();
 
-        $this->Resultado = ['sit' => $registro['sit'], 'rede' => $registro['rede'], 'func_id' => $registro['func_id']];
+        $listar->fullRead("SELECT id super_id, nome super FROM adms_usuarios WHERE adms_niveis_acesso_id IN (1, 2, 8, 9) ORDER BY nome ASC");
+        $registro['super_id'] = $listar->getResultado();
+
+        $this->Resultado = ['sit' => $registro['sit'], 'rede' => $registro['rede'], 'func_id' => $registro['func_id'], 'super_id' => $registro['super_id']];
 
         return $this->Resultado;
     }

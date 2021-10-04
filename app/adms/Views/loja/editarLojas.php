@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['select']);
+//var_dump($this->Dados);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -18,7 +18,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['vis_loja']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-loja/ver-loja/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
+                    <a href="<?php echo URLADM . 'ver-loja/ver-loja/' . $valorForm['id_loja']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
                 </div>
                 <?php
             }
@@ -64,13 +64,29 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-9">
+                <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Razão Social</label>
                     <input name="razao_social" type="text" class="form-control" placeholder="Ex: MEIA SOLA ACESSORIOS DE MODA" value="<?php
                     if (isset($valorForm['razao_social'])) {
                         echo $valorForm['razao_social'];
                     }
                     ?>">
+                </div>
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Supervisão</label>
+                    <select name="super_id" id="super_id" class="form-control">
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['super_id'] as $re) {
+                            extract($re);
+                            if ($valorForm['super_id'] == $super_id) {
+                                echo "<option value='$super_id' selected>$super</option>";
+                            } else {
+                                echo "<option value='$super_id'>$super</option>";
+                            }
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
 

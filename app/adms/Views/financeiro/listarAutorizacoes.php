@@ -79,7 +79,7 @@ if (!defined('URLADM')) {
                                     } elseif ($adms_sits_est_id == 3) {
                                         echo "<a href='" . URLADM . "lib-resp/lib-resp/$id?resp={$this->Dados['dados_auto'][0]['id']}&pg={$this->Dados['pg']}'><span class='badge badge-pill badge-primary'>Autorizado</span></a>";
                                     } elseif ($adms_sits_est_id == 4) {
-                                        echo "<a href='" . URLADM . "lib-resp/lib-resp/$id?resp={$this->Dados['dados_auto'][0]['id']}&pg={$this->Dados['pg']}'><span class='badge badge-pill badge-dark'>Aguardando Financeira</span></a>";
+                                        echo "<span class='badge badge-pill badge-dark'>Aguardando Financeira</span>";
                                     } else {
                                         echo "<span class='badge badge-pill badge-success'>Estornado</span>";
                                     }

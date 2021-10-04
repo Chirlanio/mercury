@@ -33,11 +33,21 @@ class AdmsListarEstorno {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarArtigo = new \App\adms\Models\helper\AdmsRead();
-        $listarArtigo->fullRead("SELECT a.*, lj.nome loja, est.nome tipo
+        if($_SESSION['adms_niveis_acesso_id'] == 5){
+            $listarArtigo->fullRead("SELECT a.*, lj.nome loja, est.nome tipo
+                FROM adms_estornos a
+                INNER JOIN tb_lojas lj ON lj.id=a.loja_id
+                INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id
+                WHERE a.loja_id =:loja_id
+                ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$_SESSION['usuario_loja']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        } else {
+            $listarArtigo->fullRead("SELECT a.*, lj.nome loja, est.nome tipo
                 FROM adms_estornos a
                 INNER JOIN tb_lojas lj ON lj.id=a.loja_id
                 INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id
                 ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        }
+        
         $this->Resultado = $listarArtigo->getResultado();
         return $this->Resultado;
     }
