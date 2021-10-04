@@ -22,6 +22,7 @@ class VerEstorno {
         $this->DadosId = (int) $DadosId;
         
         if (!empty($this->DadosId)) {
+            
             $verEstorno = new \App\adms\Models\AdmsVerEstorno();
             $this->Dados['dados_estorno'] = $verEstorno->verEstorno($this->DadosId);
 

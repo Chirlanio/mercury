@@ -100,11 +100,11 @@ if (isset($this->Dados['form'][0])) {
                 <input name="rota_id" type="hidden" value="5">
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Contato</label>
-                    <input name="contato" type="text" class="form-control is-invalid" placeholder="85 99999-8888" value="<?php
+                    <input name="contato" id="contato" type="tel" class="form-control is-invalid" placeholder="85 99999-8888" value="<?php
                     if (isset($valorForm['contato'])) {
                         echo $valorForm['contato'];
                     }
-                    ?>" required>
+                    ?>" autocomplete="off" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Valor da Venda</label>
@@ -136,7 +136,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Forma de Pagamento</label>
                     <select name="forma_pag_id" id="forma_pag_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
@@ -219,7 +219,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['ped'] as $pag) {
                             extract($pag);
-                            if ($valorForm['ped_id'] == $ped_id) {
+                            if (isset($valorForm['ped_id']) == $ped_id) {
                                 echo "<option value='$ped_id' selected>" . $ped_id . " - " . $loja_id . "</option>";
                             } else {
                                 echo "<option value='$ped_id'>" . $ped_id . " - " . $loja_id . "</option>";

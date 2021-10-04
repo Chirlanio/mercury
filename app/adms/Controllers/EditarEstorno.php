@@ -21,53 +21,53 @@ class EditarEstorno {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
-            $this->editArtigoPriv();
+            $this->editEstornoPriv();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Artigo não encontrado!</div>";
-            $UrlDestino = URLADM . 'artigo/listar';
+            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação de estorno não encontrada!</div>";
+            $UrlDestino = URLADM . 'estorno/listarEstorno';
             header("Location: $UrlDestino");
         }
     }
 
-    private function editArtigoPriv() {
-        if (!empty($this->Dados['EditArtigo'])) {
-            unset($this->Dados['EditArtigo']);
-            $this->Dados['imagem_nova'] = ($_FILES['imagem_nova'] ? $_FILES['imagem_nova'] : null);
-            $editarArtigo = new \App\adms\Models\AdmsEditarArtigo();
-            $editarArtigo->altArtigo($this->Dados);
+    private function editEstornoPriv() {
+        if (!empty($this->Dados['EditEstorno'])) {
+            unset($this->Dados['EditEstorno']);
+            $this->Dados['file_novo'] = ($_FILES['file_novo'] ? $_FILES['file_novo'] : null);
+            $editarEstorno = new \App\adms\Models\AdmsEditarEstorno();
+            $editarEstorno->altEstorno($this->Dados);
             
-            if ($editarArtigo->getResultado()) {
-                $UrlDestino = URLADM . 'ver-artigo/ver-artigo/' . $this->Dados['id'];
+            if ($editarEstorno->getResultado()) {
+                $UrlDestino = URLADM . 'ver-estorno/ver-estorno/' . $this->Dados['id'];
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
-                $this->editArtigoViewPriv();
+                $this->editEstornoViewPriv();
             }
         } else {
-            $verArtigo = new \App\adms\Models\AdmsEditarArtigo();
-            $this->Dados['form'] = $verArtigo->verArtigo($this->DadosId);
-            $this->editArtigoViewPriv();
+            $verEstorno = new \App\adms\Models\AdmsEditarEstorno();
+            $this->Dados['form'] = $verEstorno->verEstorno($this->DadosId);
+            $this->editEstornoViewPriv();
         }
     }
 
-    private function editArtigoViewPriv() {
+    private function editEstornoViewPriv() {
         if ($this->Dados['form']) {
             
-            $listarSelect = new \App\adms\Models\AdmsEditarArtigo();
+            $listarSelect = new \App\adms\Models\AdmsEditarEstorno();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_art' => ['menu_controller' => 'ver-artigo', 'menu_metodo' => 'ver-artigo'],
-                'list_art' => ['menu_controller' => 'artigo', 'menu_metodo' => 'listar']];
+            $botao = ['vis_estorno' => ['menu_controller' => 'ver-estorno', 'menu_metodo' => 'ver-estorno'],
+                'list_estorno' => ['menu_controller' => 'estorno', 'menu_metodo' => 'listar']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
             $listarMenu = new \App\adms\Models\AdmsMenu();
             $this->Dados['menu'] = $listarMenu->itemMenu();
-            $carregarView = new \Core\ConfigView("adms/Views/artigo/editarArtigo", $this->Dados);
+            $carregarView = new \Core\ConfigView("adms/Views/estorno/editarEstorno", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Artigo não encontrado!</div>";
-            $UrlDestino = URLADM . 'artigo/listar';
+            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
+            $UrlDestino = URLADM . 'estorno/listar';
             header("Location: $UrlDestino");
         }
     }

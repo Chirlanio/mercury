@@ -53,7 +53,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label>CPF</label>
-                    <input name="cpf" type="text" class="form-control is-invalid" placeholder="Digite o CPF, somente números" value="<?php
+                    <input name="cpf" type="text" id="cpf" class="form-control is-invalid" placeholder="Digite o CPF, somente números" value="<?php
                     if (isset($valorForm['cpf'])) {
                         echo $valorForm['cpf'];
                     }

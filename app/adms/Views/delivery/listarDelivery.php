@@ -214,10 +214,10 @@ if (!defined('URLADM')) {
                                 <span class="d-none d-md-block">
                                     <?php
                                     if ($this->Dados['botao']['vis_delivery']) {
-                                        echo "<a href='" . URLADM . "ver-delivery/ver-delivery/$id_loja' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                        echo "<a href='" . URLADM . "ver-delivery/ver-delivery/$id_loja' class='btn btn-outline-primary btn-sm mb-1' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['edit_delivery']) {
-                                        echo "<a href='" . URLADM . "editar-delivery/edit-delivery/$id_loja' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                        echo "<a href='" . URLADM . "editar-delivery/edit-delivery/$id_loja' class='btn btn-outline-warning btn-sm mb-1' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['del_delivery']) {
                                         echo "<a href='" . URLADM . "apagar-delivery/apagar-delivery/$id_loja' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";

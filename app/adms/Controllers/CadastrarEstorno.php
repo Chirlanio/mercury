@@ -25,7 +25,7 @@ class CadastrarEstorno {
             $this->Dados['arquivo'] = ($_FILES['arquivo'] ? $_FILES['arquivo'] : null);
             $cadEstorno = new \App\adms\Models\AdmsCadastrarEstorno();
             $cadEstorno->cadEstorno($this->Dados);
-            var_dump($this->Dados);
+            //var_dump($this->Dados);
             if ($cadEstorno->getResultado()) {
                 $UrlDestino = URLADM . 'estorno/listar';
                 header("Location: $UrlDestino");

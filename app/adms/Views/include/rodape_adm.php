@@ -1,5 +1,5 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -17,4 +17,8 @@ if (!defined('URL')) {
     <script src="<?php echo URLADM . 'assets/js/ionicons.js'; ?>"></script>
     <script src="<?php echo URLADM . 'assets/js/scrollreveal.min.js'; ?>"></script>
     <script src="<?php echo URLADM . 'assets/js/personalizado.js'; ?>"></script>
+    <script>
+        new FormMask(document.querySelector("#cpf"), "___.___.___-__", "_", [".", "-"]);
+        new FormMask(document.querySelector("#contato"), "(__)_____-____", "_", ["(", ")", "-"]);
+    </script>
 </body>

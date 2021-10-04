@@ -74,11 +74,11 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> CPF</label>
-                    <input name="cpf_cliente" type="text" class="form-control is-invalid" placeholder="CPF do Cliente" value="<?php
+                    <input name="cpf_cliente" type="text" id="cpf" class="form-control is-invalid" placeholder="CPF do Cliente" value="<?php
                     if (isset($valorForm['cpf_cliente'])) {
                         echo $valorForm['cpf_cliente'];
                     }
-                    ?>" required>
+                    ?>" autocomplete="off" required>
                 </div>
             </div>
             <div class="form-row">
@@ -108,7 +108,6 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Forma de Pagamento</label>
                     <select name="tb_forma_pag_id" id="tb_forma_pag_id" class="form-control is-invalid" required>
@@ -189,43 +188,15 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Responsável</label>
-                    <select name="adms_resp_aut_id" id="adms_resp_aut_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['id_resp'] as $res) {
-                            extract($res);
-                            if (isset($valorForm['id_resp']) == $id_resp) {
-                                echo "<option value='$id_resp' selected>$resp_aut</option>";
-                            } else {
-                                echo "<option value='$id_resp'>$resp_aut</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Situação</label>
-                    <select name="adms_sits_est_id" id="adms_sits_est_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['id_sit'] as $sit) {
-                            extract($sit);
-                            if (isset($valorForm['id_sit']) == $id_sit) {
-                                echo "<option value='$id_sit' selected>$sit_est</option>";
-                            } else {
-                                echo "<option value='$id_sit'>$sit_est</option>";
-                            }
-                        }
-                        ?>
-                    </select>
+                <div class="form-group col-md-12">
+                    <label><span class="text-danger">*</span> Arquivo</label>
+                    <input class="form-control-file is-invalid" name="arquivo" type="file" required />
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label><span class="text-danger">*</span> Arquivo</label>
-                    <input class="form-control-file is-invalid" name="arquivo" type="file" required>
+                <div class="form-group col-md-12">
+                    <label><span class="text-danger">*</span> Observações</label>
+                    <textarea name="obs" id="editor" class="form-control" rows="3"></textarea>
                 </div>
             </div>
             <p>
@@ -235,3 +206,4 @@ if (isset($this->Dados['form'][0])) {
         </form>
     </div>
 </div>
+

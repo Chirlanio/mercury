@@ -69,13 +69,13 @@ if (!defined('URLADM')) {
                         <span class="d-none d-md-block">
                             <?php
                             if ($this->Dados['botao']['vis_estorno']) {
-                                echo "<a href='" . URLADM . "ver-estorno/ver-estorno/$id' class='btn btn-outline-primary btn-sm'>Visualizar</a> ";
+                                echo "<a href='" . URLADM . "ver-estorno/ver-estorno/$id' class='btn btn-outline-primary btn-sm'><i class='fas fa-eye'></i></a> ";
                             }
                             if ($this->Dados['botao']['edit_estorno']) {
-                                echo "<a href='" . URLADM . "editar-estorno/edit-estorno/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                                echo "<a href='" . URLADM . "editar-estorno/edit-estorno/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                             }
                             if ($this->Dados['botao']['del_estorno']) {
-                                echo "<a href='" . URLADM . "apagar-estorno/apagar-estorno/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                                echo "<a href='" . URLADM . "apagar-estorno/apagar-estorno/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                             }
                             ?>
                         </span>

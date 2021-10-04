@@ -119,7 +119,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Contato</label>
-                    <input name="contato" type="text" class="form-control" placeholder="85 99999-8888" value="<?php
+                    <input name="contato" id="contato" type="text" class="form-control" placeholder="85 99999-8888" value="<?php
                     if (isset($valorForm['contato'])) {
                         echo $valorForm['contato'];
                     }

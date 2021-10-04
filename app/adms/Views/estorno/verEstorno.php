@@ -16,13 +16,13 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_estorno']) {
-                            echo "<a href='" . URLADM . "estorno/listar' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                            echo "<a href='" . URLADM . "estorno/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
                         }
                         if ($this->Dados['botao']['edit_estorno']) {
-                            echo "<a href='" . URLADM . "editar-estorno/edit-estorno/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                            echo "<a href='" . URLADM . "editar-estorno/edit-estorno/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i> Editar</a> ";
                         }
                         if ($this->Dados['botao']['del_estorno']) {
-                            echo "<a href='" . URLADM . "apagar-estorno/apagar-estorno/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-estorno/apagar-estorno/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i> Apagar</a> ";
                         }
                         ?>
                     </span>
@@ -52,42 +52,41 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                 unset($_SESSION['msg']);
             }
             ?>
-            <div class="container">
+            <div class="content p1">
                 <div class="row">
                     <div class="col-md-4 order-md-2 mb-4">
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Dados do Cliente</span>
-                            <span class="badge badge-secondary badge-pill"><?php echo "ID - " . $id; ?></span>
                         </h4>
                         <ul class="list-group mb-3">
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
-                                    <h6 class="my-0">Nome</h6>
-                                    <small class="text-muted"><?php echo $nome_cliente; ?></small>
+                                    <h6 class="my-2">Nome:</h6>
+                                    <small class="text-muted lead"><?php echo $nome_cliente; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
-                                    <h6 class="my-0">CPF</h6>
+                                    <h6 class="my-2">CPF:</h6>
                                     <small class="text-muted"><?php echo $cpf_cliente; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
-                                    <h6 class="my-0">Valor Registrado</h6>
-                                    <small class="text-muted"><?php echo "R$ " . $valor_lancado; ?></small>
+                                    <h6 class="my-2">Valor Registrado:</h6>
+                                    <small class="text-muted lead"><?php echo "R$ " . $valor_lancado; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <div class="text-success">
-                                    <h6 class="my-0">Valor Correto</h6>
-                                    <small><?php echo "R$ " . $valor_correto; ?></small>
+                                    <h6 class="my-2">Valor Correto:</h6>
+                                    <small class="lead"><?php echo "R$ " . $valor_correto; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
-                                    <h6 class="my-0">Situação</h6>
-                                    <small><?php echo $adms_sits_est_id; ?></small>
+                                    <h6 class="my-2">Situação:</h6>
+                                    <small class="badge badge-info badge-pill lead"><?php echo $sit; ?></small>
                                 </div>
                             </li>
                         </ul>
@@ -98,93 +97,84 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="loja_id">Loja</label>
-                                    <input type="text" class="form-control" id="loja_id" readonly value="<?php echo $loja_id; ?>">
+                                    <input type="text" class="form-control bg-white" id="loja_id" readonly value="<?php echo $loja; ?>">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="adms_func_id">Consultora</label>
-                                    <input type="text" class="form-control" id="adms_func_id" value="<?php echo $adms_func_id; ?>" readonly>
+                                    <input type="text" class="form-control bg-white" id="adms_func_id" value="<?php echo $func; ?>" readonly>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label for="doc_nf">Cupom - Nota Fiscal</label>
-                                    <input type="text" class="form-control" id="doc_nf" value="<?php echo $doc_nf; ?>" readonly>
+                                    <input type="text" class="form-control bg-white" id="doc_nf" value="<?php echo $doc_nf; ?>" readonly>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="tb_forma_pag_id">Forma de Pagamento</label>
-                                    <input type="text" class="form-control" id="tb_forma_pag_id" value="<?php echo $tb_forma_pag_id; ?>" readonly>
+                                    <input type="text" class="form-control bg-white" id="tb_forma_pag_id" value="<?php echo $pag; ?>" readonly>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="adms_bandeira_id">Bandeira</label>
-                                    <input type="text" class="form-control" id="adms_bandeira_id" value="<?php echo $adms_bandeira_id; ?>" readonly>
+                                    <input type="text" class="form-control bg-white" id="adms_bandeira_id" value="<?php echo $bandeira; ?>" readonly>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label for="nsu">NSU</label>
-                                    <input type="text" class="form-control" id="nsu" value="<?php echo $nsu; ?>" readonly>
+                                    <input type="text" class="form-control bg-white" id="nsu" value="<?php echo $nsu; ?>" readonly>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="auto_cartao">Autorização - Cartão</label>
-                                    <input type="text" class="form-control" id="auto_cartao" value="<?php echo $auto_cartao; ?>" readonly>
+                                    <input type="text" class="form-control bg-white" id="auto_cartao" value="<?php echo $auto_cartao; ?>" readonly>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="adms_tps_est_id">Tipo de Estorno</label>
-                                    <input type="text" class="form-control" id="adms_tps_est_id" value="<?php echo ($adms_tps_est_id = 1) ? "Total" : "Parcial"; ?>" readonly>
+                                    <input type="text" class="form-control bg-white" id="adms_tps_est_id" value="<?php echo ($adms_tps_est_id = 1) ? "Total" : "Parcial"; ?>" readonly>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="adms_resp_aut_id">Responsável</label>
-                                <input type="text" class="form-control" id="adms_resp_aut_id" value="<?php echo $adms_resp_aut_id; ?>" readonly>
+                                <input type="text" class="form-control bg-white" id="adms_resp_aut_id" value="<?php echo $resp; ?>" readonly>
                             </div>
 
                             <div class="mb-3">
                                 <ul class="list-group mb-3">
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                                         <div>
-                                            <h6 class="my-0">Documentos</h6>
-                                            <small class="text-muted"><a href="<?php echo URLADM . 'assets/files/estorno/' . $id . '/' . $arquivo; ?>" class="lead" download><?php echo $arquivo; ?></a></small>
+                                            <h6 class="my-0"><p>Documentos:</p></h6>
+                                            <small class="text-muted">
+                                                <?php
+                                                $types = array('png', 'jpg', 'jpeg', 'gif', 'xls', 'txt', 'doc', 'csv', 'pdf', 'docx', 'xlsx');
+                                                $path = 'assets/files/estorno/' . $id . '/';
+                                                $dir = new DirectoryIterator($path);
+                                                foreach ($dir as $fileInfo) {
+                                                    $ext = strtolower($fileInfo->getExtension());
+                                                    if (in_array($ext, $types)) {
+                                                        $arquivo = $fileInfo->getFilename();
+                                                        echo "<span class='m-auto lead'>";
+                                                        echo $arquivo . " - <a href='" . URLADM . "assets/files/estorno/$id/$arquivo' class='btn btn-outline-primary btn-sm' download><i class='fas fa-download'></i> Baixar</a><br>";
+                                                        echo "</span>";
+                                                    }
+                                                }
+                                                ?>
+                                            </small>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
 
                             <div class="mb-3">
-                                <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                                <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5 mb-3">
-                                    <label for="country">Country</label>
-                                    <select class="custom-select d-block w-100" id="country" required>
-                                        <option value="">Choose...</option>
-                                        <option>United States</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please select a valid country.
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="state">State</label>
-                                    <select class="custom-select d-block w-100" id="state" required>
-                                        <option value="">Choose...</option>
-                                        <option>California</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid state.
-                                    </div>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="zip">Zip</label>
-                                    <input type="text" class="form-control" id="zip" placeholder="" required>
-                                    <div class="invalid-feedback">
-                                        Zip code required.
-                                    </div>
-                                </div>
+                                <ul class="list-group mb-3">
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h6 class="my-0"><p>Observações:</p></h6>
+                                            <small class="text-muted lead"><?php echo $obs; ?></small>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </form>
                     </div>
@@ -194,7 +184,8 @@ if (!empty($this->Dados['dados_estorno'][0])) {
     </div>
     <?php
 } else {
-    $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Página não encontrada!</div>";
-    $UrlDestino = URLADM . 'pagina/listar';
+    $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
+    $UrlDestino = URLADM . 'estorno/listar';
     header("Location: $UrlDestino");
 }
+        

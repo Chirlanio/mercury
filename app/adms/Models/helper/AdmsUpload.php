@@ -39,6 +39,7 @@ class AdmsUpload {
             case 'application/vnd.ms-excel';
             case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
             case 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
             case 'application/vnd.ms-powerpoint';
             case 'text/csv';
             case 'application/pdf';

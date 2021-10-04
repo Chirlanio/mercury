@@ -17,8 +17,6 @@ class AdmsCadastrarEstorno {
     private $Resultado;
     private $Dados;
     private $File;
-    private $ValorLancado;
-    private $ValorCorreto;
 
     function getResultado() {
         return $this->Resultado;
@@ -35,10 +33,46 @@ class AdmsCadastrarEstorno {
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
+            $this->verResponsavel();
             $this->inserirEstorno();
         } else {
             $this->Resultado = false;
         }
+    }
+
+    private function verResponsavel() {
+        switch ($this->Dados['loja_id']):
+            case 'Z421';
+            case 'Z422';
+            case 'Z423';
+            case 'Z424';
+            case 'Z425';
+            case 'Z426';
+            case 'Z427';
+            case 'Z428';
+            case 'Z434';
+            case 'Z435';
+            case 'Z436';
+            case 'Z437';
+                $this->Dados['adms_resp_aut_id'] = 2;
+                break;
+            case 'Z429';
+            case 'Z430';
+            case 'Z431';
+            case 'Z432';
+            case 'Z433';
+            case 'Z438';
+            case 'Z439';
+            case 'Z440';
+                $this->Dados['adms_resp_aut_id'] = 1;
+                break;
+            case 'Z441';
+                $this->Dados['adms_resp_aut_id'] = 3;
+                break;
+            default :
+                $this->Dados['adms_resp_aut_id'] = 4;
+                break;
+        endswitch;
     }
 
     private function inserirEstorno() {
