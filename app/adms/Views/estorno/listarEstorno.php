@@ -27,6 +27,67 @@ if (!defined('URLADM')) {
             }
             ?>
         </div>
+        <form class="form" method="POST" action="<?php echo URLADM . 'pesq-estorno/listar'; ?>" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-sm-12 col-lg-4 mb-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="font-weight: bold" for="loja_id">Loja</label>
+                        </div>
+                        <?php
+                        echo "<select name='loja_id' id='loja_id' class='custom-select'>";
+                        echo "<option value = ''>Selecione</option>";
+                        foreach ($this->Dados['select']['loja_id'] as $lo) {
+                            extract($lo);
+                            if ($_SESSION['pesqLoja'] == $loja_id) {
+                                echo "<option value='$loja_id' selected>$loja</option>";
+                            } else {
+                                echo "<option value='$loja_id'>$loja</option>";
+                            }
+                        }
+                        echo "</select>";
+                        ?>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4 mb-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="font-weight: bold" for="nome_cliente">Cliente</label>
+                        </div>
+                        <input name="nome_cliente" type="text" id="nome_cliente" class="form-control" aria-describedby="nome_cliente" placeholder="Digite o nome do cleinte" value="<?php
+                        if (isset($_SESSION['nome_cliente'])) {
+                            echo $_SESSION['nome_cliente'];
+                        }
+                        ?>">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4 mb-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="font-weight: bold" for="adms_sits_est_id">Situação</label>
+                        </div>
+                        <?php
+                        echo "<select name='adms_sits_est_id' id='adms_sits_est_id' class='custom-select'>";
+                        echo "<option value = ''>Selecione</option>";
+                        foreach ($this->Dados['select']['sit'] as $ld) {
+                            extract($ld);
+                            if ($_SESSION['sit'] == $sit_id) {
+                                echo "<option value='$sit_id' selected>$sit</option>";
+                            } else {
+                                echo "<option value='$sit_id'>$sit</option>";
+                            }
+                        }
+                        echo "</select>";
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group ml-sm-2 ml-md-2 ml-lg-2 ml-3">
+                    <input name="PesqEstorno" type="submit" class="btn btn-outline-primary mx-sm-2" value="Pesquisar">
+                </div>
+            </div>
+        </form>
         <?php
         if (empty($this->Dados['list_estorno'])) {
             ?>

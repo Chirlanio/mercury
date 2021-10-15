@@ -77,6 +77,10 @@ class AdmsCadastrarEstorno {
 
     private function inserirEstorno() {
 
+        $this->Dados['valor_lancado'] = str_replace(',', '.', $this->Dados['valor_lancado']);
+        $this->Dados['valor_correto'] = str_replace(',', '.', $this->Dados['valor_correto']);
+        $this->Dados['valor_estorno'] = str_replace(',', '.', $this->Dados['valor_estorno']);
+        $this->Dados['cpf_cliente'] = str_replace(['.','-'], '', $this->Dados['cpf_cliente']);
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
         $slugEst = new \App\adms\Models\helper\AdmsSlug();

@@ -30,6 +30,9 @@ class Estorno {
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
+        
+        $listarSelect = new \App\adms\Models\AdmsListarEstorno();
+        $this->Dados['select'] = $listarSelect->listarCadastrar();
 
         $listarEstorno = new \App\adms\Models\AdmsListarEstorno();
         $this->Dados['list_estorno'] = $listarEstorno->listar($this->PageId);

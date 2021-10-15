@@ -74,13 +74,19 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Valor Registrado:</h6>
-                                    <small class="text-muted lead"><?php echo "R$ " . $valor_lancado; ?></small>
+                                    <small class="text-muted lead"><?php echo "R$ " . str_replace('.', ',', $valor_lancado); ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <div class="text-success">
                                     <h6 class="my-2">Valor Correto:</h6>
-                                    <small class="lead"><?php echo "R$ " . $valor_correto; ?></small>
+                                    <small class="lead"><?php echo "R$ " . str_replace('.', ',', $valor_correto); ?></small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div class="text-danger">
+                                    <h6 class="my-2">Valor Estorno:</h6>
+                                    <small class="lead"><?php echo "R$ " . str_replace('.', ',', $valor_estorno); ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">

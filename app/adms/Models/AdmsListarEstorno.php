@@ -33,22 +33,32 @@ class AdmsListarEstorno {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarArtigo = new \App\adms\Models\helper\AdmsRead();
-        if($_SESSION['adms_niveis_acesso_id'] == 5){
-            $listarArtigo->fullRead("SELECT a.*, lj.nome loja, est.nome tipo
-                FROM adms_estornos a
-                INNER JOIN tb_lojas lj ON lj.id=a.loja_id
-                INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id
-                WHERE a.loja_id =:loja_id
-                ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$_SESSION['usuario_loja']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        if ($_SESSION['adms_niveis_acesso_id'] == 5) {
+            $listarArtigo->fullRead("SELECT a.*, lj.nome loja, est.nome tipo FROM adms_estornos a INNER JOIN tb_lojas lj ON lj.id=a.loja_id INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id WHERE a.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$_SESSION['usuario_loja']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarArtigo->fullRead("SELECT a.*, lj.nome loja, est.nome tipo
-                FROM adms_estornos a
-                INNER JOIN tb_lojas lj ON lj.id=a.loja_id
-                INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id
-                ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarArtigo->fullRead("SELECT a.*, lj.nome loja, est.nome tipo FROM adms_estornos a INNER JOIN tb_lojas lj ON lj.id=a.loja_id INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        
+
         $this->Resultado = $listarArtigo->getResultado();
+        return $this->Resultado;
+    }
+
+    public function listarCadastrar() {
+
+        $listar = new \App\adms\Models\helper\AdmsRead();
+
+        if ($_SESSION['ordem_nivac'] <= 5) {
+            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE rede_id <=:rede_id AND status_id =:status_id ORDER BY id ASC", "rede_id=6&status_id=1");
+        } else {
+            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
+        }
+        $registro['loja_id'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id sit_id, nome sit FROM adms_sits_estornos ORDER BY id ASC");
+        $registro['sit'] = $listar->getResultado();
+
+        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit']];
+
         return $this->Resultado;
     }
 

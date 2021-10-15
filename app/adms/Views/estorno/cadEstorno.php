@@ -82,23 +82,32 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Valor Registrado</label>
-                    <input name="valor_lancado" type="text" class="form-control is-invalid" required value="<?php
+                    <input name="valor_lancado" type="text" id="valor_lancado" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['valor_lancado'])) {
                         echo $valorForm['valor_lancado'];
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Valor Correto</label>
-                    <input name="valor_correto" type="text" class="form-control is-invalid" required value="<?php
+                    <input name="valor_correto" type="text" id="valor_correto" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['valor_correto'])) {
                         echo $valorForm['valor_correto'];
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-4">
+                
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Valor Estorno</label>
+                    <input name="valor_estorno" type="text" id="valor_estorno" class="form-control is-invalid" required value="<?php
+                    if (isset($valorForm['valor_estorno'])) {
+                        echo $valorForm['valor_estorno'];
+                    }
+                    ?>">
+                </div>
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Cupom - Nota Fiscal</label>
                     <input name="doc_nf" type="number" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['doc_nf'])) {
@@ -170,11 +179,11 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Tipo de Estorno</label>
                     <select name="adms_tps_est_id" id="adms_tps_est_id" class="form-control is-invalid" required>
                         <?php
-                        if ($valorForm['adms_tps_est_id'] == 1) {
+                        if (isset($valorForm['adms_tps_est_id']) == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Total</option>";
                             echo "<option value='2'>Parcial</option>";
-                        } elseif ($valorForm['adms_tps_est_id'] == 2) {
+                        } elseif (isset($valorForm['adms_tps_est_id']) == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Total</option>";
                             echo "<option value='2' selected>Parcial</option>";
