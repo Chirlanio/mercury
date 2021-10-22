@@ -193,6 +193,7 @@ if (!defined('URL')) {
                         <th class="d-none d-sm-table-cell">Rota</th>
                         <th class="d-none d-sm-table-cell">Saída</th>
                         <th class="d-none d-sm-table-cell d-print-none">Cadastro</th>
+                        <th class="d-none d-sm-table-cell d-print-none">Atualizado</th>
                         <th class="d-none d-sm-table-cell">Situação</th>
                         <th class="text-center d-print-none">Ações</th>
                     </tr>
@@ -213,6 +214,7 @@ if (!defined('URL')) {
                                 </td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $saida; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle d-print-none"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></td>
+                                <td class="d-none d-sm-table-cell align-middle d-print-none"><?php echo date('d/m/Y H:i:s', strtotime($modified)); ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $sit; ?></td>
                                 <td class="text-center">
                                     <span class="d-none d-md-block">

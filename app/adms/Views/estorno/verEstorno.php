@@ -68,7 +68,7 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">CPF:</h6>
-                                    <small class="text-muted"><?php echo $cpf_cliente; ?></small>
+                                    <small class="text-muted" id="cpf"><?php echo $cpf_cliente; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">

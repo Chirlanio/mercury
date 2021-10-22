@@ -17,6 +17,8 @@ class AdmsCadastrarEstorno {
     private $Resultado;
     private $Dados;
     private $File;
+    private $NsuVazio;
+    private $AuthVazio;
 
     function getResultado() {
         return $this->Resultado;
@@ -26,8 +28,10 @@ class AdmsCadastrarEstorno {
 
         $this->Dados = $Dados;
 
+        $this->NsuVazio = $this->Dados['nsu'];
+        $this->AuthVazio = $this->Dados['auto_cartao'];
         $this->File = $this->Dados['arquivo'];
-        unset($this->Dados['arquivo']);
+        unset($this->Dados['arquivo'], $this->Dados['auto_cartao'], $this->Dados['nsu']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
@@ -77,6 +81,8 @@ class AdmsCadastrarEstorno {
 
     private function inserirEstorno() {
 
+        $this->Dados['nsu'] = $this->NsuVazio;
+        $this->Dados['auto_cartao'] = $this->AuthVazio;
         $this->Dados['valor_lancado'] = str_replace(',', '.', $this->Dados['valor_lancado']);
         $this->Dados['valor_correto'] = str_replace(',', '.', $this->Dados['valor_correto']);
         $this->Dados['valor_estorno'] = str_replace(',', '.', $this->Dados['valor_estorno']);

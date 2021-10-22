@@ -34,7 +34,7 @@ class AdmsListarDelivery {
 
         $listarPagina = new \App\adms\Models\helper\AdmsRead();
         $listarPagina->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id,
-                d.parcelas, d.maq, d.troca, d.ponto_saida, d.status_id, d.created,
+                d.parcelas, d.maq, d.troca, d.ponto_saida, d.status_id, d.created, d.modified,
                 l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas l ON l.id=d.loja_id

@@ -45,6 +45,10 @@ class AdmsEditarEstorno {
         $this->Dados = $Dados;
         $this->File = $this->Dados['file_novo'];
         $this->FileAntigo = $this->Dados['file_antigo'];
+        $this->Dados['valor_lancado'] = str_replace(',', '.', $this->Dados['valor_lancado']);
+        $this->Dados['valor_correto'] = str_replace(',', '.', $this->Dados['valor_correto']);
+        $this->Dados['valor_estorno'] = str_replace(',', '.', $this->Dados['valor_estorno']);
+        $this->Dados['cpf_cliente'] = str_replace(['.','-'], '', $this->Dados['cpf_cliente']);
         unset($this->Dados['file_novo'], $this->Dados['file_antigo']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();

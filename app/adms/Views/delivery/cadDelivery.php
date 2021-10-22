@@ -108,7 +108,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Valor da Venda</label>
-                    <input name="valor_venda" type="text" class="form-control is-invalid" placeholder="99,90" value="<?php
+                    <input name="valor_venda" type="text" id="valor_lancado" class="form-control is-invalid" placeholder="99,90" value="<?php
                     if (isset($valorForm['valor_venda'])) {
                         echo $valorForm['valor_venda'];
                     }

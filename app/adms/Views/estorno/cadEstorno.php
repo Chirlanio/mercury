@@ -92,7 +92,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Valor Correto</label>
-                    <input name="valor_correto" type="text" id="valor_correto" class="form-control is-invalid" required value="<?php
+                    <input name="valor_correto" type="text" id="valor_correto" onkeyup="valorEstorno()" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['valor_correto'])) {
                         echo $valorForm['valor_correto'];
                     }

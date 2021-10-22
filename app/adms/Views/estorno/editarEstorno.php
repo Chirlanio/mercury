@@ -101,7 +101,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> CPF</label>
-                    <input name="cpf_cliente" type="text" <?php echo (!isset($valorForm['cpf_cliente']) ? 'id="cpf"' : 'id="cpf_cliente"' ); ?> class="form-control is-invalid" placeholder="CPF do Cliente" value="<?php
+                    <input name="cpf_cliente" id="cpf" type="text" <?php echo (!isset($valorForm['cpf_cliente']) ? 'id="cpf"' : 'id="cpf_cliente"' ); ?> class="form-control is-invalid" placeholder="CPF do Cliente" value="<?php
                     if ($valorForm['cpf_cliente']) {
                         echo $valorForm['cpf_cliente'];
                     }
@@ -110,23 +110,31 @@ if (isset($this->Dados['form'][0])) {
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Valor Registrado</label>
-                    <input name="valor_lancado" type="text" class="form-control is-invalid" required value="<?php
+                    <input name="valor_lancado" id="valor_lancado" type="text" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['valor_lancado'])) {
                         echo $valorForm['valor_lancado'];
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Valor Correto</label>
-                    <input name="valor_correto" type="text" class="form-control is-invalid" required value="<?php
+                    <input name="valor_correto" id="valor_correto" type="text" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['valor_correto'])) {
                         echo $valorForm['valor_correto'];
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Valor Estorno</label>
+                    <input name="valor_estorno" id="valor_estorno" type="text" class="form-control is-invalid" required value="<?php
+                    if (isset($valorForm['valor_estorno'])) {
+                        echo $valorForm['valor_estorno'];
+                    }
+                    ?>">
+                </div>
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Cupom - Nota Fiscal</label>
                     <input name="doc_nf" type="number" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['doc_nf'])) {

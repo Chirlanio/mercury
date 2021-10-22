@@ -37,6 +37,7 @@ if (!defined('URL')) {
         $html .= "<th class='d-none d-sm-table-cell'>Troca</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Saída</th>";
         $html .= "<th class='d-none d-sm-table-cell d-print-none'>Cadastro</th>";
+        $html .= "<th class='d-none d-sm-table-cell d-print-none'>Atualizado</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Situação</th>";
         $html .= "</tr>";
         $html .= "</thead>";
@@ -61,6 +62,7 @@ if (!defined('URL')) {
             $html .= "<td class='d-none d-sm-table-cell'>" . ($troca == 1 ? "Sim" : "Não") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $saida . "</td>";
             $html .= "<td class='d-none d-sm-table-cell d-print-none'>" . date('d/m/Y H:i:s', strtotime($created)) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell d-print-none'>" . date('d/m/Y H:i:s', strtotime($modified)) . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $sit . "</td>";
             $html .= "</tr>";
         }
