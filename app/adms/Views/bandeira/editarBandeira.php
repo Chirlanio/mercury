@@ -11,17 +11,19 @@ if (isset($this->Dados['form'][0])) {
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Cadastrar Bandeira</h2>
+                <h2 class="display-4 titulo">Editar Bandeira = <?php echo $valorForm['bandeira']; ?></h2>
             </div>
+
             <?php
-            if ($this->Dados['botao']['list_bandeira']) {
+            if ($this->Dados['botao']['vis_bandeira']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'bandeira/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'ver-bandeira/ver-bandeira/' . $valorForm['id_ban']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
                 </div>
                 <?php
             }
             ?>
+
         </div><hr>
         <?php
         if (isset($_SESSION['msg'])) {
@@ -29,15 +31,20 @@ if (isset($this->Dados['form'][0])) {
             unset($_SESSION['msg']);
         }
         ?>
-        <form method="POST" action="" class="was-validated" enctype="multipart/form-data"> 
+        <form method="POST" action="" enctype="multipart/form-data"> 
+            <input name="id" type="hidden" value="<?php
+            if (isset($valorForm['id_ban'])) {
+                echo $valorForm['id_ban'];
+            }
+            ?>">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label><span class="text-danger">*</span> Bandeira</label>
-                    <input name="nome" type="text" class="form-control is-invalid" placeholder="Nome da bandeira" value="<?php
-                    if (isset($valorForm['nome'])) {
-                        echo $valorForm['nome'];
+                    <label><span class="text-danger">*</span> Nome</label>
+                    <input name="nome" type="text" class="form-control" placeholder="Nome do bairro" value="<?php
+                    if (isset($valorForm['bandeira'])) {
+                        echo $valorForm['bandeira'];
                     }
-                    ?>" required>
+                    ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label>
@@ -51,10 +58,11 @@ if (isset($this->Dados['form'][0])) {
                     ?>" required>
                 </div>
             </div>
+
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>
-            <input name="CadBandeira" type="submit" class="btn btn-warning" value="Salvar">
+            <input name="EditBandeira" type="submit" class="btn btn-warning" value="Salvar">
         </form>
     </div>
 </div>

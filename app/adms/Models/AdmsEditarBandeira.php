@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -27,7 +27,7 @@ class AdmsEditarBandeira {
         $this->DadosId = (int) $DadosId;
 
         $verBandeira = new \App\adms\Models\helper\AdmsRead();
-        $verBandeira->fullRead("SELECT b.id id_bai, b.nome bandeira
+        $verBandeira->fullRead("SELECT b.id id_ban, b.nome bandeira, b.icone
                 FROM adms_bandeiras b
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verBandeira->getResultado();
