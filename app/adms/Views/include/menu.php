@@ -1,8 +1,8 @@
-<header>
+<header class="d-print-none">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="<?php echo URL; ?>">
+            <a class="navbar-brand" href="<?php echo URLADM; ?>">
                 <img src="<?php echo URL; ?>assets/imagens/logo/logo_transp.png" width="110" height="45" class="d-inline-block align-top" alt="" loading="lazy">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

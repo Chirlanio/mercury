@@ -1,11 +1,11 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
 ?>
 <div class="d-flex">
-    <nav class="sidebar">
+    <nav class="sidebar d-print-none">
         <ul class="list-unstyled">
             <?php
             $cont_drop = 0;

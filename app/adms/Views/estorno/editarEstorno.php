@@ -60,9 +60,10 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Loja</label>
-                    <select name="loja_id" id="loja_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<select name="loja_id" id="loja_id" class="form-control is-invalid">';
+                        echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['loja_id'] as $lj) {
                             extract($lj);
                             if ($valorForm['loja_id'] == $loja_id) {
@@ -71,14 +72,29 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$loja_id'>$loja</option>";
                             }
                         }
-                        ?>
-                    </select>
+                    } else {
+                        echo '<select name="loja_id" id="loja_id" class="form-control is-valid" aria-label="Disabled input" required disabled>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['loja_id'] as $lj) {
+                            extract($lj);
+                            if ($valorForm['loja_id'] == $loja_id) {
+                                echo "<option value='$loja_id' selected>$loja</option>";
+                            } else {
+                                echo "<option value='$loja_id'>$loja</option>";
+                            }
+                        }
+                    }
+                    echo "</select>";
+                    ?>
+
+
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Consultora</label>
-                    <select name="adms_func_id" id="adms_func_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<select name="adms_func_id" id="adms_func_id" class="form-control is-invalid">';
+                        echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['adms_func_id'] as $fc) {
                             extract($fc);
                             if ($valorForm['adms_func_id'] == $adms_func_id) {
@@ -87,68 +103,125 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$adms_func_id'>$func</option>";
                             }
                         }
-                        ?>
-                    </select>
+                        echo '</select>';
+                    } else {
+                        echo '<select name="adms_func_id" id="adms_func_id" class="form-control is-valid" aria-label="Disabled input" required disabled>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['adms_func_id'] as $fc) {
+                            extract($fc);
+                            if ($valorForm['adms_func_id'] == $adms_func_id) {
+                                echo "<option value='$adms_func_id' selected>$func</option>";
+                            } else {
+                                echo "<option value='$adms_func_id'>$func</option>";
+                            }
+                        }
+                        echo '</select>';
+                    }
+                    ?>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Cliente</label>
-                    <input name="nome_cliente" type="text" class="form-control is-invalid" placeholder="Nome completo do Cliente" value="<?php
-                    if (isset($valorForm['nome_cliente'])) {
-                        echo $valorForm['nome_cliente'];
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<input name="nome_cliente" type="text" class="form-control is-invalid" placeholder="Nome completo do Cliente" value="';
+                        if (isset($valorForm['nome_cliente'])) {
+                            echo $valorForm['nome_cliente'];
+                        }
+                    } else {
+                        echo '<input name="nome_cliente" type="text" class="form-control is-valid" aria-label="Disabled input" disabled placeholder="Nome completo do Cliente" value ="';
+                        if (isset($valorForm['nome_cliente'])) {
+                            echo $valorForm['nome_cliente'];
+                        }
                     }
                     ?>" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> CPF</label>
-                    <input name="cpf_cliente" id="cpf" type="text" <?php echo (!isset($valorForm['cpf_cliente']) ? 'id="cpf"' : 'id="cpf_cliente"' ); ?> class="form-control is-invalid" placeholder="CPF do Cliente" value="<?php
-                    if ($valorForm['cpf_cliente']) {
-                        echo $valorForm['cpf_cliente'];
-                    }
-                    ?>" autocomplete="off" required>
+                    <input name="cpf_cliente" type="text" <?php
+                    echo (!isset($valorForm['cpf_cliente']) ? 'id="cpf_cliente"' : 'id="cpf"' );
+                    echo ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) ? '' : ' disabled';
+                    ?> class="form-control<?php echo ($_SESSION['adms_niveis_acesso_id'] != 5 || $_SESSION['adms_niveis_acesso_id'] != 1) ? ' is-valid' : ' is-invalid'; ?>" placeholder="CPF do Cliente" value="<?php
+                           if ($valorForm['cpf_cliente']) {
+                               echo $valorForm['cpf_cliente'];
+                           }
+                           ?>" autocomplete="off" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Valor Registrado</label>
-                    <input name="valor_lancado" id="valor_lancado" type="text" class="form-control is-invalid" required value="<?php
-                    if (isset($valorForm['valor_lancado'])) {
-                        echo $valorForm['valor_lancado'];
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<input name="valor_lancado" id="valor_lancado" type="text" class="form-control is-invalid" value="';
+                        if (isset($valorForm['valor_lancado'])) {
+                            echo $valorForm['valor_lancado'];
+                        }
+                    } else {
+                        echo '<input name="valor_lancado" id="valor_lancado" type="text" class="form-control is-valid" aria-label="Disabled input" disabled value ="';
+                        if (isset($valorForm['valor_lancado'])) {
+                            echo $valorForm['valor_lancado'];
+                        }
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Valor Correto</label>
-                    <input name="valor_correto" id="valor_correto" type="text" class="form-control is-invalid" required value="<?php
-                    if (isset($valorForm['valor_correto'])) {
-                        echo $valorForm['valor_correto'];
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<input name="valor_correto" id="valor_correto" type="text" class="form-control is-invalid" value="';
+                        if (isset($valorForm['valor_correto'])) {
+                            echo $valorForm['valor_correto'];
+                        }
+                    } else {
+                        echo '<input name="valor_correto" id="valor_correto" type="text" class="form-control is-valid" aria-label="Disabled input" disabled value ="';
+                        if (isset($valorForm['valor_correto'])) {
+                            echo $valorForm['valor_correto'];
+                        }
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Valor Estorno</label>
-                    <input name="valor_estorno" id="valor_estorno" type="text" class="form-control is-invalid" required value="<?php
-                    if (isset($valorForm['valor_estorno'])) {
-                        echo $valorForm['valor_estorno'];
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<input name="valor_estorno" id="valor_estorno" type="text" class="form-control is-invalid" value="';
+                        if (isset($valorForm['valor_estorno'])) {
+                            echo $valorForm['valor_estorno'];
+                        }
+                    } else {
+                        echo '<input name="valor_estorno" id="valor_estorno" type="text" class="form-control is-valid" aria-label="Disabled input" disabled value ="';
+                        if (isset($valorForm['valor_estorno'])) {
+                            echo $valorForm['valor_estorno'];
+                        }
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Cupom - Nota Fiscal</label>
-                    <input name="doc_nf" type="number" class="form-control is-invalid" required value="<?php
-                    if (isset($valorForm['doc_nf'])) {
-                        echo $valorForm['doc_nf'];
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<input name="doc_nf" id="doc_nf" type="number" class="form-control is-invalid" value="';
+                        if (isset($valorForm['doc_nf'])) {
+                            echo $valorForm['doc_nf'];
+                        }
+                    } else {
+                        echo '<input name="doc_nf" id="doc_nf" type="number" class="form-control is-valid" aria-label="Disabled input" disabled value ="';
+                        if (isset($valorForm['doc_nf'])) {
+                            echo $valorForm['doc_nf'];
+                        }
                     }
-                    ?>">
+                    ?>" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Forma de Pagamento</label>
-                    <select name="tb_forma_pag_id" id="tb_forma_pag_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<select name="tb_forma_pag_id" id="tb_forma_pag_id" class="form-control is-valid" required>';
+                        echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['tb_forma_pag_id'] as $sit) {
                             extract($sit);
                             if ($valorForm['tb_forma_pag_id'] == $tb_forma_pag_id) {
@@ -157,14 +230,28 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$tb_forma_pag_id'>$forma_pag</option>";
                             }
                         }
-                        ?>
-                    </select>
+                        echo '</select>';
+                    } else {
+                        echo '<select name="tb_forma_pag_id" id="tb_forma_pag_id" class="form-control is-valid" aria-label="Disabled input" required disabled>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['tb_forma_pag_id'] as $sit) {
+                            extract($sit);
+                            if ($valorForm['tb_forma_pag_id'] == $tb_forma_pag_id) {
+                                echo "<option value='$tb_forma_pag_id' selected>$forma_pag</option>";
+                            } else {
+                                echo "<option value='$tb_forma_pag_id'>$forma_pag</option>";
+                            }
+                        }
+                        echo '</select>';
+                    }
+                    ?>
                 </div>
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Bandeira</label>
-                    <select name="adms_bandeira_id" id="adms_bandeira_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<select name="adms_bandeira_id" id="adms_bandeira_id" class="form-control is-valid" required>';
+                        echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['adms_bandeira_id'] as $tpart) {
                             extract($tpart);
                             if (isset($valorForm['adms_bandeira_id']) == $adms_bandeira_id) {
@@ -173,40 +260,78 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$adms_bandeira_id'>$bandeira</option>";
                             }
                         }
-                        ?>
-                    </select>
+                        echo '</select>';
+                    } else {
+                        echo '<select name="adms_bandeira_id" id="adms_bandeira_id" class="form-control is-valid" aria-label="Disabled input" required disabled>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['adms_bandeira_id'] as $tpart) {
+                            extract($tpart);
+                            if (isset($valorForm['adms_bandeira_id']) == $adms_bandeira_id) {
+                                echo "<option value='$adms_bandeira_id' selected>$bandeira</option>";
+                            } else {
+                                echo "<option value='$adms_bandeira_id'>$bandeira</option>";
+                            }
+                        }
+                        echo '</select>';
+                    }
+                    ?>
                 </div>
                 <div class="form-group col-md-4">
                     <label> Parcelas</label>
-                    <input name="qtd_parcelas" type="number" class="form-control" value="<?php
-                    if (isset($valorForm['qtd_parcelas'])) {
-                        echo $valorForm['qtd_parcelas'];
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<input name="qtd_parcelas" id="qtd_parcelas" type="number" class="form-control is-invalid" value="';
+                        if (isset($valorForm['qtd_parcelas'])) {
+                            echo $valorForm['qtd_parcelas'];
+                        }
+                    } else {
+                        echo '<input name="qtd_parcelas" id="qtd_parcelas" type="number" class="form-control is-valid" aria-label="Disabled input" disabled value ="';
+                        if (isset($valorForm['qtd_parcelas'])) {
+                            echo $valorForm['qtd_parcelas'];
+                        }
                     }
-                    ?>">
+                    ?>" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label>NSU</label>
-                    <input name="nsu" type="number" class="form-control" value="<?php
-                    if (isset($valorForm['nsu'])) {
-                        echo $valorForm['nsu'];
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<input name="nsu" id="nsu" type="number" class="form-control" value="';
+                        if (isset($valorForm['nsu'])) {
+                            echo $valorForm['nsu'];
+                        }
+                    } else {
+                        echo '<input name="nsu" id="nsu" type="number" class="form-control" aria-label="Disabled input" disabled value ="';
+                        if (isset($valorForm['nsu'])) {
+                            echo $valorForm['nsu'];
+                        }
                     }
                     ?>">
                 </div>
                 <div class="form-group col-md-4">
                     <label>Autorização Cartão</label>
-                    <input name="auto_cartao" type="number" class="form-control" value="<?php
-                    if (isset($valorForm['auto_cartao'])) {
-                        echo $valorForm['auto_cartao'];
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<input name="auto_cartao" id="auto_cartao" type="number" class="form-control" value="';
+                        if (isset($valorForm['auto_cartao'])) {
+                            echo $valorForm['auto_cartao'];
+                        }
+                    } else {
+                        echo '<input name="auto_cartao" id="auto_cartao" type="number" class="form-control" aria-label="Disabled input" disabled value ="';
+                        if (isset($valorForm['auto_cartao'])) {
+                            echo $valorForm['auto_cartao'];
+                        }
                     }
                     ?>">
                 </div>
                 <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Tipo de Estorno</label>
-                    <select name="adms_tps_est_id" id="adms_tps_est_id" class="form-control is-invalid" required>
-                        <?php
+                    <label><span class="text-danger">*</span> Tipo de Estorno</label>                    
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<select name="adms_tps_est_id" id="adms_tps_est_id" class="form-control is-valid" required>';
                         if ($valorForm['adms_tps_est_id'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Total</option>";
@@ -220,7 +345,23 @@ if (isset($this->Dados['form'][0])) {
                             echo "<option value='1'>Total</option>";
                             echo "<option value='2'>Parcial</option>";
                         }
-                        ?>
+                    } else {
+                        echo '<select name="adms_tps_est_id" id="adms_tps_est_id" class="form-control is-valid" aria-label="Disabled input" required disabled>';
+                        if ($valorForm['adms_tps_est_id'] == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Total</option>";
+                            echo "<option value='2'>Parcial</option>";
+                        } elseif ($valorForm['adms_tps_est_id'] == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Total</option>";
+                            echo "<option value='2' selected>Parcial</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Total</option>";
+                            echo "<option value='2'>Parcial</option>";
+                        }
+                    }
+                    ?>
                     </select>
                 </div>
             </div>
@@ -262,9 +403,10 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Responsável</label>
-                    <select name="adms_resp_aut_id" id="adms_resp_aut_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<select name="adms_resp_aut_id" id="adms_resp_aut_id" class="form-control is-valid" required>';
+                        echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['adms_resp_aut_id'] as $resp) {
                             extract($resp);
                             if ($valorForm['adms_resp_aut_id'] == $adms_resp_aut_id) {
@@ -273,8 +415,21 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$adms_resp_aut_id'>$resp_aut</option>";
                             }
                         }
-                        ?>
-                    </select>
+                        echo '</select>';
+                    } else {
+                        echo '<select name="adms_resp_aut_id" id="adms_resp_aut_id" class="form-control is-valid" aria-label="Disabled input" required disabled>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['adms_resp_aut_id'] as $resp) {
+                            extract($resp);
+                            if ($valorForm['adms_resp_aut_id'] == $adms_resp_aut_id) {
+                                echo "<option value='$adms_resp_aut_id' selected>$resp_aut</option>";
+                            } else {
+                                echo "<option value='$adms_resp_aut_id'>$resp_aut</option>";
+                            }
+                        }
+                        echo '</select>';
+                    }
+                    ?>
                 </div>
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Situação</label>

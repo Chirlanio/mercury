@@ -27,7 +27,7 @@ if (!empty($this->Dados['dados_ped'][0])) {
                         ?>
                     </span>
                     <div class="dropdown d-block d-md-none">
-                        <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle btn-sm d-print-none" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Ações
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
@@ -55,8 +55,14 @@ if (!empty($this->Dados['dados_ped'][0])) {
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th colspan="4"><img src="<?php echo URLADM . 'assets/imagens/logo/logo_preta.png'; ?>" alt="Grupo Meia Sola" width="200" height="90"></th>
-                        <th colspan="8" class="table-active text-center display-4">Formulário de Entrega</th>
+                        <th colspan="4">
+                            <img src="<?php echo URLADM . 'assets/imagens/logo/logo_preta.png'; ?>" alt="Grupo Meia Sola" width="200" height="90">
+
+                            <span class="d-none d-print-block float-right"><?php echo"ID: " . $id; ?></span>
+                        </th>
+                        <th colspan="8" class="table-active text-center display-4">
+                            <span>Formulário de Entrega</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
