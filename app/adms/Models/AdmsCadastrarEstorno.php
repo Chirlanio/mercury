@@ -17,6 +17,8 @@ class AdmsCadastrarEstorno {
     private $Resultado;
     private $Dados;
     private $File;
+    private $Bandeira;
+    private $Parcelas;
     private $NsuVazio;
     private $AuthVazio;
 
@@ -28,10 +30,12 @@ class AdmsCadastrarEstorno {
 
         $this->Dados = $Dados;
 
+        $this->Bandeira = $this->Dados['adms_bandeira_id'];
+        $this->Parcelas = $this->Dados['qtd_parcelas'];
         $this->NsuVazio = $this->Dados['nsu'];
         $this->AuthVazio = $this->Dados['auto_cartao'];
         $this->File = $this->Dados['arquivo'];
-        unset($this->Dados['arquivo'], $this->Dados['auto_cartao'], $this->Dados['nsu']);
+        unset($this->Dados['arquivo'], $this->Dados['auto_cartao'], $this->Dados['nsu'], $this->Dados['adms_bandeira_id'], $this->Dados['qtd_parcelas']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
@@ -86,7 +90,9 @@ class AdmsCadastrarEstorno {
         $this->Dados['valor_lancado'] = str_replace(',', '.', $this->Dados['valor_lancado']);
         $this->Dados['valor_correto'] = str_replace(',', '.', $this->Dados['valor_correto']);
         $this->Dados['valor_estorno'] = str_replace(',', '.', $this->Dados['valor_estorno']);
-        $this->Dados['cpf_cliente'] = str_replace(['.','-'], '', $this->Dados['cpf_cliente']);
+        $this->Dados['cpf_cliente'] = str_replace(['.', '-'], '', $this->Dados['cpf_cliente']);
+        $this->Dados['adms_bandeira_id'] = $this->Bandeira;
+        $this->Dados['qtd_parcelas'] = $this->Parcelas;
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
         $slugEst = new \App\adms\Models\helper\AdmsSlug();
@@ -94,6 +100,7 @@ class AdmsCadastrarEstorno {
 
         $cadEstorno = new \App\adms\Models\helper\AdmsCreate;
         $cadEstorno->exeCreate("adms_estornos", $this->Dados);
+        //var_dump($this->Dados);
         if ($cadEstorno->getResultado()) {
             if (empty($this->File['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Estorno cadastrado com sucesso!</div>";
@@ -135,10 +142,18 @@ class AdmsCadastrarEstorno {
         $listar->fullRead("SELECT id id_sit, nome sit_est FROM adms_sits_estornos WHERE id <>:id ORDER BY id ASC", "id=3");
         $registro['id_sit'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
+        if ($_SESSION['adms_niveis_acesso_id'] <= 3 || $_SESSION['adms_niveis_acesso_id'] == 9) {
+            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
+        } else {
+            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id_loja ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
+        }
         $registro['loja_id'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id id_func, nome func FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
+        if ($_SESSION['adms_niveis_acesso_id'] <= 3) {
+            $listar->fullRead("SELECT id id_func, nome func FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
+        } else {
+            $listar->fullRead("SELECT id id_func, nome func FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
+        }
         $registro['id_func'] = $listar->getResultado();
 
         $this->Resultado = ['id_band' => $registro['id_band'], 'id_form' => $registro['id_form'],

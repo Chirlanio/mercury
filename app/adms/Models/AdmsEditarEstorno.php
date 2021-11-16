@@ -18,7 +18,12 @@ class AdmsEditarEstorno {
     private $Dados;
     private $DadosId;
     private $File;
+    private $Bandeira;
+    private $Parcelas;
+    private $Nsu;
+    private $Autorizacao;
     private $FileAntigo;
+    private $Obs;
 
     function getResultado() {
         return $this->Resultado;
@@ -43,13 +48,22 @@ class AdmsEditarEstorno {
 
     public function altEstorno(array $Dados) {
         $this->Dados = $Dados;
+
         $this->File = $this->Dados['file_novo'];
         $this->FileAntigo = $this->Dados['file_antigo'];
-        $this->Dados['valor_lancado'] = str_replace(',', '.', $this->Dados['valor_lancado']);
-        $this->Dados['valor_correto'] = str_replace(',', '.', $this->Dados['valor_correto']);
-        $this->Dados['valor_estorno'] = str_replace(',', '.', $this->Dados['valor_estorno']);
-        $this->Dados['cpf_cliente'] = str_replace(['.','-'], '', $this->Dados['cpf_cliente']);
-        unset($this->Dados['file_novo'], $this->Dados['file_antigo']);
+        $this->Bandeira = $this->Dados['adms_bandeira_id'];
+        $this->Parcelas = $this->Dados['qtd_parcelas'];
+        $this->Nsu = $this->Dados['nsu'];
+        $this->Autorizacao = $this->Dados['auto_cartao'];
+        $this->Obs = $this->Dados['obs'];
+
+        if ((!empty($this->Dados['valor_lancado'])) and (!empty($this->Dados['valor_correto'])) and (!empty($this->Dados['valor_estorno']))) {
+            $this->Dados['valor_lancado'] = str_replace(',', '.', $this->Dados['valor_lancado']);
+            $this->Dados['valor_correto'] = str_replace(',', '.', $this->Dados['valor_correto']);
+            $this->Dados['valor_estorno'] = str_replace(',', '.', $this->Dados['valor_estorno']);
+            $this->Dados['cpf_cliente'] = str_replace(['.', '-'], '', $this->Dados['cpf_cliente']);
+        }
+        unset($this->Dados['file_novo'], $this->Dados['file_antigo'], $this->Dados['adms_bandeira_id'], $this->Dados['qtd_parcelas'], $this->Dados['nsu'], $this->Dados['auto_cartao'], $this->Dados['obs']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -79,9 +93,14 @@ class AdmsEditarEstorno {
     }
 
     private function updateEditEstorno() {
-        
+
+        $this->Dados['adms_bandeira_id'] = $this->Bandeira;
+        $this->Dados['qtd_parcelas'] = $this->Parcelas;
+        $this->Dados['nsu'] = $this->Nsu;
+        $this->Dados['auto_cartao'] = $this->Autorizacao;
         $slugPg = new \App\adms\Models\helper\AdmsSlug();
         $this->Dados['arquivo'] = $slugPg->nomeSlug($this->Dados['arquivo']);
+        $this->Dados['obs'] = $this->Obs;
 
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltEstorno = new \App\adms\Models\helper\AdmsUpdate();
@@ -104,16 +123,24 @@ class AdmsEditarEstorno {
         $listar->fullRead("SELECT id tb_forma_pag_id, nome forma_pag FROM tb_forma_pag ORDER BY nome ASC");
         $registro['tb_forma_pag_id'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id adms_resp_aut_id, nome resp_aut FROM adms_resp_autorizacao ORDER BY nome ASC");
+        $listar->fullRead("SELECT r.id adms_resp_aut_id, r.nome, f.nome resp_aut FROM adms_resp_autorizacao r INNER JOIN adms_usuarios f ON f.id=r.adms_func_id ORDER BY nome ASC");
         $registro['adms_resp_aut_id'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id adms_sits_est_id, nome sit_est FROM adms_sits_estornos WHERE id <>:id ORDER BY id ASC", "id=3");
         $registro['adms_sits_est_id'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
+        if ($_SESSION['adms_niveis_acesso_id'] <= 3 || $_SESSION['adms_niveis_acesso_id'] == 9) {
+            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
+        } else {
+            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id_loja ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
+        }
         $registro['loja_id'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id adms_func_id, nome func FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
+        if ($_SESSION['adms_niveis_acesso_id'] <= 3) {
+            $listar->fullRead("SELECT id adms_func_id, nome func FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
+        } else {
+            $listar->fullRead("SELECT id adms_func_id, nome func FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
+        }
         $registro['adms_func_id'] = $listar->getResultado();
 
         $this->Resultado = ['adms_bandeira_id' => $registro['adms_bandeira_id'], 'tb_forma_pag_id' => $registro['tb_forma_pag_id'],

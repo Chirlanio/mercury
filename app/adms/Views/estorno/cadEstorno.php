@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($valorForm);
+var_dump($valorForm);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -135,7 +135,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Bandeira</label>
-                    <select name="adms_bandeira_id" id="adms_bandeira_id" class="form-control is-invalid" required>
+                    <select name="adms_bandeira_id" id="adms_bandeira_id" class="form-control is-valid">
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['id_band'] as $tpart) {
