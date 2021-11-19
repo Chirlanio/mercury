@@ -5,7 +5,8 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-var_dump($valorForm);
+//var_dump($valorForm);
+//var_dump($this->Dados['select']['id_mot']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -367,6 +368,39 @@ var_dump($valorForm);
                     }
                     ?>
                     </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label><span class="text-danger">*</span> Motivo do Estorno</label>
+                     <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] == 5 || $_SESSION['adms_niveis_acesso_id'] == 1) {
+                        echo '<select name="adms_mot_est_id" id="adms_mot_est_id" class="form-control is-invalid" required>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['id_mot'] as $mot) {
+                            extract($mot);
+                            if ($valorForm['adms_mot_est_id'] == $adms_mot_est_id) {
+                                echo "<option value='$adms_mot_est_id' selected>$motivo</option>";
+                            } else {
+                                echo "<option value='$adms_mot_est_id'>$motivo</option>";
+                            }
+                        }
+                        echo '</select>';
+                    } else {
+                        echo '<select name="adms_mot_est_id" id="adms_mot_est_id" class="form-control is-invalid" aria-label="Disabled input" disabled>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['adms_mot_est_id'] as $mot) {
+                            extract($mot);
+                            if ($valorForm['adms_mot_est_id'] == $adms_mot_est_id) {
+                                echo "<option value='$adms_mot_est_id' selected>$motivo</option>";
+                            } else {
+                                echo "<option value='$adms_mot_est_id'>$motivo</option>";
+                            }
+                        }
+                        echo '</select>';
+                    }
+                    ?>
                 </div>
             </div>
 

@@ -32,7 +32,10 @@ class AdmsEditarEstorno {
     public function verEstorno($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verEstorno = new \App\adms\Models\helper\AdmsRead();
-        $verEstorno->fullRead("SELECT es.*, lj.nome loja, f.nome func, fp.nome pag, b.nome bandeira, rp.nome resp,
+        $verEstorno->fullRead("SELECT es.id, es.loja_id, es.adms_func_id, es.nome_cliente, es.cpf_cliente, es.valor_lancado, es.valor_correto,
+                es.valor_estorno, es.doc_nf, es.tb_forma_pag_id, es.adms_bandeira_id, es.qtd_parcelas, es.nsu, es.auto_cartao, es.adms_tps_est_id,
+                es.adms_resp_aut_id, es.adms_mot_est_id, es.arquivo, es.obs, es.adms_sits_est_id, es.created,
+                lj.nome loja, f.nome func, fp.nome pag, b.nome bandeira, rp.nome resp,
                 se.nome sit
                 FROM adms_estornos es
                 INNER JOIN tb_lojas lj ON lj.id=es.loja_id
@@ -128,6 +131,9 @@ class AdmsEditarEstorno {
 
         $listar->fullRead("SELECT id adms_sits_est_id, nome sit_est FROM adms_sits_estornos WHERE id <>:id ORDER BY id ASC", "id=3");
         $registro['adms_sits_est_id'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id adms_mot_est_id, nome motivo FROM adms_motivo_estorno ORDER BY nome ASC");
+        $registro['id_mot'] = $listar->getResultado();
 
         if ($_SESSION['adms_niveis_acesso_id'] <= 3 || $_SESSION['adms_niveis_acesso_id'] == 9) {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
@@ -144,7 +150,7 @@ class AdmsEditarEstorno {
         $registro['adms_func_id'] = $listar->getResultado();
 
         $this->Resultado = ['adms_bandeira_id' => $registro['adms_bandeira_id'], 'tb_forma_pag_id' => $registro['tb_forma_pag_id'],
-            'adms_resp_aut_id' => $registro['adms_resp_aut_id'], 'adms_sits_est_id' => $registro['adms_sits_est_id'],
+            'adms_resp_aut_id' => $registro['adms_resp_aut_id'], 'adms_sits_est_id' => $registro['adms_sits_est_id'], 'id_mot' => $registro['id_mot'],
             'loja_id' => $registro['loja_id'], 'adms_func_id' => $registro['adms_func_id']];
 
         return $this->Resultado;

@@ -37,13 +37,17 @@ class AdmsEditarAjuste {
     public function altAjuste(array $Dados) {
 
         $this->Dados = $Dados;
+        
+        $this->Dados['referencia'] = strtoupper($this->Dados['referencia']);
+        $this->Dados['referencia_2'] = strtoupper($this->Dados['referencia_2']);
+        $this->Dados['referencia_3'] = strtoupper($this->Dados['referencia_3']);
+        $this->Dados['referencia_4'] = strtoupper($this->Dados['referencia_4']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
             $this->updateEditAjuste();
-            //var_dump($this->Dados);
         } else {
             $this->Resultado = false;
         }

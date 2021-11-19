@@ -39,7 +39,7 @@ class VerEstorno {
             $carregarView->renderizar();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
-            $UrlDestino = URLADM . 'estorno/listarEstorno';
+            $UrlDestino = URLADM . 'estorno/listar';
             header("Location: $UrlDestino");
         }
     }

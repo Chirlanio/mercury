@@ -95,6 +95,19 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                                     <small class="badge badge-info badge-pill lead"><?php echo $sit; ?></small>
                                 </div>
                             </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-2">Cadastrado</h6>
+                                    <small class="lead"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></small>
+                                    <small class="lead"><?php
+                                        if (!empty($modified)) {
+                                            echo '<h6 class="my-2">Atualizado</h6>';
+                                            echo date('d/m/Y H:i:s', strtotime($modified));
+                                        }
+                                        ?>
+                                    </small>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-8 order-md-1">
@@ -139,6 +152,11 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                                     <label for="adms_tps_est_id">Tipo de Estorno</label>
                                     <input type="text" class="form-control bg-white" id="adms_tps_est_id" value="<?php echo ($adms_tps_est_id = 1) ? "Total" : "Parcial"; ?>" readonly>
                                 </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="adms_resp_aut_id">Motivo do Estorno</label>
+                                <input type="text" class="form-control bg-white" id="adms_resp_aut_id" value="<?php echo $motivo; ?>" readonly>
                             </div>
 
                             <div class="mb-3">

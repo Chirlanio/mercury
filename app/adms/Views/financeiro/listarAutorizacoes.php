@@ -66,8 +66,8 @@ if (!defined('URLADM')) {
                             <th class="text-center align-middle"><?php echo $id; ?></th>
                             <td class="align-middle"><?php echo $loja; ?></td>
                             <td class="align-middle"><?php echo $nome_cliente; ?></td>
-                            <td class="d-none d-sm-table-cell align-middle"><?php echo "R$ " . $valor_lancado; ?></td>
-                            <td class="d-none d-sm-table-cell align-middle"><?php echo "R$ " . $valor_correto; ?></td>
+                            <td class="d-none d-sm-table-cell align-middle"><?php echo "R$ " . str_replace('.', ',', $valor_lancado); ?></td>
+                            <td class="d-none d-sm-table-cell align-middle"><?php echo "R$ " . str_replace('.', ',', $valor_correto); ?></td>
                             <td class="align-middle"><?php echo ($adms_tps_est_id == 1) ? "Total" : "Parcial"; ?></td>
                             <td class="align-middle">
                                 <?php

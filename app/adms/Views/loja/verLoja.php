@@ -64,13 +64,13 @@ if (!empty($this->Dados['dados_loja'][0])) {
                 <dd class="col-sm-9"><?php echo $endereco; ?></dd>
 
                 <dt class="col-sm-3">CNPJ</dt>
-                <dd class="col-sm-9"><?php echo $cnpj; ?></dd>
+                <dd class="col-sm-9" id="cnpj"><?php echo $cnpj; ?></dd>
 
                 <dt class="col-sm-3">Razão Social</dt>
                 <dd class="col-sm-9"><?php echo $razao_social; ?></dd>
 
                 <dt class="col-sm-3">Inscrição Estadual</dt>
-                <dd class="col-sm-9"><?php echo $ins_estadual; ?></dd>
+                <dd class="col-sm-9" id="inscricao_estadual"><?php echo $ins_estadual; ?></dd>
 
                 <dt class="col-sm-3">Rede</dt>
                 <dd class="col-sm-9"><?php echo $rede; ?></dd>

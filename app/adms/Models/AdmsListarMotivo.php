@@ -8,11 +8,11 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsListarBandeira
+ * Description of AdmsListarMotivo
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsListarBandeira {
+class AdmsListarMotivo {
 
     private $Resultado;
     private $PageId;
@@ -23,20 +23,20 @@ class AdmsListarBandeira {
         return $this->ResultadoPg;
     }
 
-    public function listarBandeira($PageId = null) {
+    public function listarMotivo($PageId = null) {
         
         $this->PageId = (int) $PageId;
         
-        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'bandeira/listar-bandeira');
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'motivo-estorno/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_bandeiras");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_motivo_estorno");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarBandeira = new \App\adms\Models\helper\AdmsRead();
-        $listarBandeira->fullRead("SELECT b.id id_bai, b.nome bairro, icone
-                FROM adms_bandeiras b
+        $listarCargo = new \App\adms\Models\helper\AdmsRead();
+        $listarCargo->fullRead("SELECT b.id, b.nome motivo
+                FROM adms_motivo_estorno b
                 ORDER BY b.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarBandeira->getResultado();
+        $this->Resultado = $listarCargo->getResultado();
         return $this->Resultado;
     }
 

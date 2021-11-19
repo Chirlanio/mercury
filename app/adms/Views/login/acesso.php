@@ -1,8 +1,8 @@
 ﻿
 <body class="text-center">
     <form class="form-signin" method="POST" action="">
-        <img class="mb-4" src="<?php echo URLADM . 'assets/imagens/logo/sandalia_asa_preta.png'; ?>" alt="Mercury" width="110" height="110">
-        <img class="mb-4" src="<?php echo URLADM . 'assets/imagens/logo/logo_preta.png'; ?>" alt="Portal Lojas" width="309" height="108">
+        <img class="mb-4" src="<?php echo URLADM . 'assets/imagens/logo/sandalia_asa_preta.png'; ?>" alt="Portal Mercury" width="110" height="110">
+        <img class="mb-4" src="<?php echo URLADM . 'assets/imagens/logo/logo_preta.png'; ?>" alt="Portal Mercury" width="309" height="108">
         <h1 class="h3 mb-3 font-weight-normal">Portal Mercury</h1>
         <?php
         if (isset($_SESSION['msg'])) {

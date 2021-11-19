@@ -46,6 +46,7 @@ class AdmsEditarTroca {
 
     public function altTroca(array $Dados) {
         $this->Dados = $Dados;
+        $this->Dados['referencia'] = strtoupper($this->Dados['referencia']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);

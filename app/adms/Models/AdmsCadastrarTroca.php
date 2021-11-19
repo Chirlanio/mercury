@@ -24,6 +24,7 @@ class AdmsCadastrarTroca {
     public function cadTroca(array $Dados) {
 
         $this->Dados = $Dados;
+        $this->Dados['referencia'] = strtoupper($this->Dados['referencia']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
@@ -39,7 +40,6 @@ class AdmsCadastrarTroca {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadTroca = new \App\adms\Models\helper\AdmsCreate;
         $cadTroca->exeCreate("tb_cad_produtos", $this->Dados);
-        var_dump($cadTroca);
         if ($cadTroca->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação cadastrada com sucesso!</div>";
             $this->Resultado = true;
@@ -53,10 +53,7 @@ class AdmsCadastrarTroca {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         if ($_SESSION['adms_niveis_acesso_id'] > 2) {
-            $listar->fullRead("SELECT id id_loja, nome loja
-                    FROM tb_lojas
-                    WHERE id =:id
-                    ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+            $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
         }

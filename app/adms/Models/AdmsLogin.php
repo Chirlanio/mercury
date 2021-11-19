@@ -39,10 +39,13 @@ class AdmsLogin {
             if (!empty($this->Resultado)) {
                 $this->validarSenha();
             } else {
-                $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Usuário não encontrado!</div>";
+                $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Senha Inválida!</div>";
                 $this->Resultado = false;
             }
-        }
+        }else {
+			$_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Usuário não encontrado!</div>";
+			$this->Resultado = false;
+		}
     }
 
     private function validarDados() {

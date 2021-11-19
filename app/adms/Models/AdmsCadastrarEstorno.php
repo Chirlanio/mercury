@@ -130,7 +130,7 @@ class AdmsCadastrarEstorno {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        $listar->fullRead("SELECT id id_band, nome bandeira FROM adms_bandeiras ORDER BY nome ASC");
+        $listar->fullRead("SELECT id id_band, nome bandeira, icone FROM adms_bandeiras ORDER BY nome ASC");
         $registro['id_band'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id id_form, nome forma_pag FROM tb_forma_pag ORDER BY nome ASC");
@@ -141,6 +141,9 @@ class AdmsCadastrarEstorno {
 
         $listar->fullRead("SELECT id id_sit, nome sit_est FROM adms_sits_estornos WHERE id <>:id ORDER BY id ASC", "id=3");
         $registro['id_sit'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id id_mot, nome motivo FROM adms_motivo_estorno ORDER BY nome ASC");
+        $registro['id_mot'] = $listar->getResultado();
 
         if ($_SESSION['adms_niveis_acesso_id'] <= 3 || $_SESSION['adms_niveis_acesso_id'] == 9) {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
@@ -158,7 +161,7 @@ class AdmsCadastrarEstorno {
 
         $this->Resultado = ['id_band' => $registro['id_band'], 'id_form' => $registro['id_form'],
             'id_resp' => $registro['id_resp'], 'id_sit' => $registro['id_sit'],
-            'loja_id' => $registro['loja_id'], 'id_func' => $registro['id_func']];
+            'id_mot' => $registro['id_mot'], 'loja_id' => $registro['loja_id'], 'id_func' => $registro['id_func']];
 
         return $this->Resultado;
     }

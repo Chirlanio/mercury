@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-var_dump($valorForm);
+//var_dump($valorForm);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -191,6 +191,24 @@ var_dump($valorForm);
                             echo "<option value='' selected>Selecione</option>";
                             echo "<option value='1'>Total</option>";
                             echo "<option value='2'>Parcial</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label><span class="text-danger">*</span> Motivo do Estorno</label>
+                    <select name="adms_mot_est_id" id="adms_mot_est_id" class="form-control is-invalid" required>
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['id_mot'] as $mot) {
+                            extract($mot);
+                            if (isset($valorForm['id_mot']) == $id_mot) {
+                                echo "<option value='$id_mot' selected>$motivo</option>";
+                            } else {
+                                echo "<option value='$id_mot'>$motivo</option>";
+                            }
                         }
                         ?>
                     </select>
