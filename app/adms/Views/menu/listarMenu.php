@@ -39,7 +39,7 @@ if (!defined('URLADM')) {
             echo $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
-        ?>
+        ?><hr>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>

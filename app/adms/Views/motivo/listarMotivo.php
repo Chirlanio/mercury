@@ -17,7 +17,6 @@ if (!defined('URLADM')) {
                 }
                 ?>                
             </div>
-
         </div>
         <?php
         if (empty($this->Dados['listMotivo'])) {

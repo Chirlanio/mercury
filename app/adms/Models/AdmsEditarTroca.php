@@ -26,19 +26,9 @@ class AdmsEditarTroca {
         $this->DadosId = (int) $DadosId;
         $verTroca = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] > 2) {
-            $verTroca->fullRead("SELECT c.*, l.id loja_id, f.nome func, s.id sit_id
-                FROM tb_cad_produtos c
-                INNER JOIN tb_funcionarios f ON f.id=c.func_id
-                INNER JOIN tb_lojas l ON l.id=c.loja_id
-                INNER JOIN tb_status_troca s ON s.id=c.status_id
-                WHERE c.id =:id AND c.status_id !=:status_id LIMIT :limit", "id=" . $this->DadosId . "&status_id=1&limit=1");
+            $verTroca->fullRead("SELECT c.*, l.id loja_id, f.nome func, s.id sit_id FROM tb_cad_produtos c INNER JOIN tb_funcionarios f ON f.id=c.func_id INNER JOIN tb_lojas l ON l.id=c.loja_id INNER JOIN tb_status_troca s ON s.id=c.status_id WHERE c.id =:id AND c.status_id !=:status_id LIMIT :limit", "id=" . $this->DadosId . "&status_id=1&limit=1");
         } else {
-            $verTroca->fullRead("SELECT c.*, l.id loja_id, f.nome func, s.id sit_id
-                FROM tb_cad_produtos c
-                INNER JOIN tb_funcionarios f ON f.id=c.func_id
-                INNER JOIN tb_lojas l ON l.id=c.loja_id
-                INNER JOIN tb_status_troca s ON s.id=c.status_id
-                WHERE c.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+            $verTroca->fullRead("SELECT c.*, l.id loja_id, f.nome func, s.id sit_id FROM tb_cad_produtos c INNER JOIN tb_funcionarios f ON f.id=c.func_id INNER JOIN tb_lojas l ON l.id=c.loja_id INNER JOIN tb_status_troca s ON s.id=c.status_id WHERE c.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         }
         $this->Resultado = $verTroca->getResultado();
         return $this->Resultado;
@@ -78,10 +68,7 @@ class AdmsEditarTroca {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         if ($_SESSION['adms_niveis_acesso_id'] > 2) {
-            $listar->fullRead("SELECT id id_loja, nome loja
-                    FROM tb_lojas
-                    WHERE id =:id
-                    ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+            $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
         }

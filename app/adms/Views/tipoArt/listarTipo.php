@@ -34,6 +34,7 @@ if (!defined('URL')) {
             unset($_SESSION['msg']);
         }
         ?>
+        <hr>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>

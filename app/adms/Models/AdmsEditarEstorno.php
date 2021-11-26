@@ -54,8 +54,10 @@ class AdmsEditarEstorno {
 
         $this->File = $this->Dados['file_novo'];
         $this->FileAntigo = $this->Dados['file_antigo'];
-        $this->Bandeira = $this->Dados['adms_bandeira_id'];
-        $this->Parcelas = $this->Dados['qtd_parcelas'];
+        if ((!empty($this->Dados['adms_bandeira_id'])) and (!empty($this->Dados['qtd_parcelas']))) {
+            $this->Bandeira = $this->Dados['adms_bandeira_id'];
+            $this->Parcelas = $this->Dados['qtd_parcelas'];
+        }
         $this->Nsu = $this->Dados['nsu'];
         $this->Autorizacao = $this->Dados['auto_cartao'];
         $this->Obs = $this->Dados['obs'];
@@ -131,7 +133,7 @@ class AdmsEditarEstorno {
 
         $listar->fullRead("SELECT id adms_sits_est_id, nome sit_est FROM adms_sits_estornos WHERE id <>:id ORDER BY id ASC", "id=3");
         $registro['adms_sits_est_id'] = $listar->getResultado();
-        
+
         $listar->fullRead("SELECT id adms_mot_est_id, nome motivo FROM adms_motivo_estorno ORDER BY nome ASC");
         $registro['id_mot'] = $listar->getResultado();
 

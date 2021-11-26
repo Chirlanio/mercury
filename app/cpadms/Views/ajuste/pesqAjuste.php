@@ -98,7 +98,7 @@ if (!defined('URL')) {
                     <input name="PesqAjuste" type="submit" class="btn btn-outline-primary mx-sm-2" value="Pesquisar">
                 </div>
             </div>
-        </form><hr>
+        </form>
         <?php
         if (empty($this->Dados['listAjuste'])) {
             ?>
@@ -114,7 +114,7 @@ if (!defined('URL')) {
             echo $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
-        ?>
+        ?><hr>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
