@@ -91,6 +91,13 @@ class AdmsHome {
         $registro['semAj'] = $listar->getResultado();
 
         if (($_SESSION['adms_niveis_acesso_id'] == 5) OR ($_SESSION['adms_niveis_acesso_id'] == 6)) {
+            $listar->fullRead("SELECT COUNT(id) AS emAna FROM tb_ajuste WHERE status_aj_id =:status_aj_id AND loja_id =:loja_id", "status_aj_id=5&loja_id=" . $_SESSION['usuario_loja']);
+        } else {
+            $listar->fullRead("SELECT COUNT(id) AS emAna FROM tb_ajuste WHERE status_aj_id =:status_aj_id", "status_aj_id=5");
+        }
+        $registro['emAna'] = $listar->getResultado();
+
+        if (($_SESSION['adms_niveis_acesso_id'] == 5) OR ($_SESSION['adms_niveis_acesso_id'] == 6)) {
             $listar->fullRead("SELECT COUNT(id) AS troca FROM tb_cad_produtos WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS troca FROM tb_cad_produtos");
@@ -147,7 +154,7 @@ class AdmsHome {
         $registro['dashPen'] = $listar->getResultado();
 
         $this->Resultado = ['transf' => $registro['transf'], 'agCol' => $registro['agCol'], 'emRota' => $registro['emRota'], 'entregue' => $registro['entregue'],
-            'ajuste' => $registro['ajuste'], 'ajustado' => $registro['ajustado'], 'pend' => $registro['pend'], 'semAj' => $registro['semAj'],
+            'ajuste' => $registro['ajuste'], 'ajustado' => $registro['ajustado'], 'pend' => $registro['pend'], 'semAj' => $registro['semAj'], 'emAna' => $registro['emAna'],
             'troca' => $registro['troca'], 'cad' => $registro['cad'], 'cadPend' => $registro['cadPend'], 'jaCad' => $registro['jaCad'],
             'dash' => $registro['dash'], 'dashAt' => $registro['dashAt'], 'dashIna' => $registro['dashIna'], 'dashPen' => $registro['dashPen']
         ];

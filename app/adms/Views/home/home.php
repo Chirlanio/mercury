@@ -26,7 +26,7 @@ extract($this->Dados['select']);
                 </h2>
             </div>
         </div><!-- Final NavBar -->
-        
+
         <hr>
 
         <?php if ($_SESSION['adms_niveis_acesso_id'] != 5) { ?>
@@ -324,23 +324,43 @@ extract($this->Dados['select']);
                 </div>
                 <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-danger text-white anima-left">
-                        <div class="card-body">
-                            <i class="fas fa-pause fa-3x"></i>
-                            <?php
-                            foreach ($this->Dados['select']['pend'] as $aj) {
-                                extract($aj);
-                                ?>
-                                <h6 class="card-title">Pendentes</h6>
-                                <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
-                                    if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                        echo $pend;
-                                    } else {
-                                        echo "0";
-                                    }
-                                    ?></h2>
+                        <div class="row">
+                            <div class="card-body">
+                                <i class="fas fa-pause fa-3x"></i>
                                 <?php
-                            }
-                            ?>
+                                foreach ($this->Dados['select']['pend'] as $aj) {
+                                    extract($aj);
+                                    ?>
+                                    <h6 class="card-title">Pendentes</h6>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
+                                        if ($_SESSION['adms_niveis_acesso_id'] != 6) {
+                                            echo $pend;
+                                        } else {
+                                            echo "0";
+                                        }
+                                        ?></h2>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="card-body">
+                                <i class="fas fa-star-of-life fa-3x"></i>
+                                <?php
+                                foreach ($this->Dados['select']['emAna'] as $aj) {
+                                    extract($aj);
+                                    ?>
+                                    <h6 class="card-title">Em Analise</h6>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
+                                        if ($_SESSION['adms_niveis_acesso_id'] != 6) {
+                                            echo $emAna;
+                                        } else {
+                                            echo "0";
+                                        }
+                                        ?></h2>
+                                    <?php
+                                }
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
