@@ -248,6 +248,7 @@ $(document).ready(function(){
   $('#inscricao_estadual').mask('00.000000-0', {reverse: true});
   $('#money').mask('000.000.000.000.000,00', {reverse: true});
   $('#valor_lancado').mask("#.##0,00", {reverse: true});
+  $('#valor_venda').mask("#.##0,00", {reverse: true});
   $('#valor_correto').mask("#.##0,00", {reverse: true});
   $('#valor_estorno').mask("#.##0,00", {reverse: true});
   $('#ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {

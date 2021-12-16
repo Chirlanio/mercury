@@ -5,6 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
+//var_dump($this->Dados['form'][0]);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -127,7 +128,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Valor da Venda</label>
-                    <input name="valor_venda" type="text" class="form-control" placeholder="99,90" value="<?php
+                    <input name="valor_venda" id="valor_venda" type="text" class="form-control" placeholder="99,90" value="<?php
                     if (isset($valorForm['valor_venda'])) {
                         echo $valorForm['valor_venda'];
                     }
@@ -162,10 +163,10 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['pag'] as $pag) {
                             extract($pag);
-                            if ($valorForm['f_id'] == $forma_pag_id) {
-                                echo "<option value='$f_id' selected>$forma</option>";
+                            if ($valorForm['forma_pag_id'] == $forma_pag_id) {
+                                echo "<option value='$forma_pag_id' selected>$forma</option>";
                             } else {
-                                echo "<option value='$f_id'>$forma</option>";
+                                echo "<option value='$forma_pag_id'>$forma</option>";
                             }
                         }
                         ?>
@@ -313,17 +314,16 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['sit'] as $pag) {
                             extract($pag);
-                            if ($valorForm['s_id'] == $s_id) {
-                                echo "<option value='$s_id' selected>$sit</option>";
+                            if ($valorForm['status_id'] == $status_id) {
+                                echo "<option value='$status_id' selected>$sit</option>";
                             } else {
-                                echo "<option value='$s_id'>$sit</option>";
+                                echo "<option value='$status_id'>$sit</option>";
                             }
                         }
                         ?>
                     </select>
                 </div>
             </div>
-            <input name="modified" type="hidden" value="<?php echo date('Y-m-d H:i:s'); ?>">
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>

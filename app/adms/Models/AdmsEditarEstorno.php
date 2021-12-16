@@ -40,8 +40,8 @@ class AdmsEditarEstorno {
                 FROM adms_estornos es
                 INNER JOIN tb_lojas lj ON lj.id=es.loja_id
                 INNER JOIN tb_funcionarios f ON f.id=es.adms_func_id
-                INNER JOIN tb_forma_pag fp ON fp.id=es.tb_forma_pag_id
-                INNER JOIN adms_bandeiras b ON b.id=es.adms_bandeira_id
+                LEFT JOIN tb_forma_pag fp ON fp.id=es.tb_forma_pag_id
+                LEFT JOIN adms_bandeiras b ON b.id=es.adms_bandeira_id
                 INNER JOIN adms_resp_autorizacao rp ON rp.id=es.adms_resp_aut_id
                 INNER JOIN adms_sits_estornos se ON se.id=es.adms_sits_est_id
                 WHERE es.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
@@ -52,14 +52,14 @@ class AdmsEditarEstorno {
     public function altEstorno(array $Dados) {
         $this->Dados = $Dados;
 
-        $this->File = $this->Dados['file_novo'];
-        $this->FileAntigo = $this->Dados['file_antigo'];
-        if ((!empty($this->Dados['adms_bandeira_id'])) and (!empty($this->Dados['qtd_parcelas']))) {
+        if ($_SESSION['adms_niveis_acesso_id'] == 1 || $_SESSION['adms_niveis_acesso_id'] == 5) {
+            $this->File = $this->Dados['file_novo'];
+            $this->FileAntigo = $this->Dados['file_antigo'];
+            $this->Nsu = $this->Dados['nsu'];
+            $this->Autorizacao = $this->Dados['auto_cartao'];
             $this->Bandeira = $this->Dados['adms_bandeira_id'];
             $this->Parcelas = $this->Dados['qtd_parcelas'];
         }
-        $this->Nsu = $this->Dados['nsu'];
-        $this->Autorizacao = $this->Dados['auto_cartao'];
         $this->Obs = $this->Dados['obs'];
 
         if ((!empty($this->Dados['valor_lancado'])) and (!empty($this->Dados['valor_correto'])) and (!empty($this->Dados['valor_estorno']))) {
@@ -99,10 +99,12 @@ class AdmsEditarEstorno {
 
     private function updateEditEstorno() {
 
-        $this->Dados['adms_bandeira_id'] = $this->Bandeira;
-        $this->Dados['qtd_parcelas'] = $this->Parcelas;
-        $this->Dados['nsu'] = $this->Nsu;
-        $this->Dados['auto_cartao'] = $this->Autorizacao;
+        if ($_SESSION['adms_niveis_acesso_id'] == 1 || $_SESSION['adms_niveis_acesso_id'] == 5) {
+            $this->Dados['adms_bandeira_id'] = $this->Bandeira;
+            $this->Dados['qtd_parcelas'] = $this->Parcelas;
+            $this->Dados['nsu'] = $this->Nsu;
+            $this->Dados['auto_cartao'] = $this->Autorizacao;
+        }
         $slugPg = new \App\adms\Models\helper\AdmsSlug();
         $this->Dados['arquivo'] = $slugPg->nomeSlug($this->Dados['arquivo']);
         $this->Dados['obs'] = $this->Obs;
@@ -137,14 +139,14 @@ class AdmsEditarEstorno {
         $listar->fullRead("SELECT id adms_mot_est_id, nome motivo FROM adms_motivo_estorno ORDER BY nome ASC");
         $registro['id_mot'] = $listar->getResultado();
 
-        if ($_SESSION['adms_niveis_acesso_id'] <= 3 || $_SESSION['adms_niveis_acesso_id'] == 9) {
+        if ($_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 9) {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id_loja ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
         $registro['loja_id'] = $listar->getResultado();
 
-        if ($_SESSION['adms_niveis_acesso_id'] <= 3) {
+        if ($_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 9) {
             $listar->fullRead("SELECT id adms_func_id, nome func FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
         } else {
             $listar->fullRead("SELECT id adms_func_id, nome func FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");

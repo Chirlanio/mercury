@@ -19,6 +19,7 @@ class EditarEstorno {
 
     public function editEstorno($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        var_dump($this->Dados);
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $this->editEstornoPriv();
@@ -33,6 +34,7 @@ class EditarEstorno {
         if (!empty($this->Dados['EditEstorno'])) {
             unset($this->Dados['EditEstorno']);
             $this->Dados['file_novo'] = ($_FILES['file_novo'] ? $_FILES['file_novo'] : null);
+            var_dump($this->Dados);
             $editarEstorno = new \App\adms\Models\AdmsEditarEstorno();
             $editarEstorno->altEstorno($this->Dados);
             

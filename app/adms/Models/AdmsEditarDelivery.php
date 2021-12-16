@@ -30,8 +30,7 @@ class AdmsEditarDelivery {
         $this->DadosId = (int) $DadosId;
 
         $verDelivery = new \App\adms\Models\helper\AdmsRead();
-        $verDelivery->fullRead("SELECT aj.id, aj.loja_id, aj.func_id, aj.cliente, aj.endereco, aj.bairro_id, aj.rota_id, aj.contato, aj.valor_venda, aj.troca,
-                aj.forma_pag_id, aj.parcelas, aj.nf, aj.maq, aj.obs, aj.recebido, aj.ped_id, aj.ponto_saida, aj.presente, aj.status_id s_id, aj.created, aj.modified
+        $verDelivery->fullRead("SELECT aj.*
                 FROM tb_delivery aj
                 WHERE aj.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verDelivery->getResultado();
@@ -63,10 +62,10 @@ class AdmsEditarDelivery {
         $this->Dados['ped_id'] = $this->VazioPed;
         $this->Dados['modified'] = date("Y-m-d H:i:s");
 
-        $upAltAjuste = new \App\adms\Models\helper\AdmsUpdate();
-        $upAltAjuste->exeUpdate("tb_delivery", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
+        $upAltDelivery = new \App\adms\Models\helper\AdmsUpdate();
+        $upAltDelivery->exeUpdate("tb_delivery", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
 
-        if ($upAltAjuste->getResultado()) {
+        if ($upAltDelivery->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -88,10 +87,10 @@ class AdmsEditarDelivery {
         $listar->fullRead("SELECT id bairro_id, nome bairro, rota_id FROM tb_bairros ORDER BY nome ASC");
         $registro['bairro'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id f_id, nome forma FROM tb_forma_pag ORDER BY nome ASC");
+        $listar->fullRead("SELECT id forma_pag_id, nome forma FROM tb_forma_pag ORDER BY nome ASC");
         $registro['pag'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id s_id, nome sit FROM tb_status_delivery ORDER BY id ASC");
+        $listar->fullRead("SELECT id status_id, nome sit FROM tb_status_delivery ORDER BY id ASC");
         $registro['sit'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id rota_id, nome rota FROM tb_rotas ORDER BY id ASC");
