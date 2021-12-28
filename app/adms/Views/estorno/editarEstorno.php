@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($valorForm);
+//var_dump($_FILES());
 //var_dump($this->Dados['select']['adms_bandeira_id']);
 ?>
 <div class="content p-1">
@@ -432,13 +432,13 @@ if (isset($this->Dados['form'][0])) {
                     <input name="file_antigo" type="hidden" value="<?php
                     if (isset($valorForm['file_antigo'])) {
                         echo $valorForm['file_antigo'];
-                    } elseif (isset($valorForm['file'])) {
-                        echo $valorForm['file'];
+                    } elseif (isset($valorForm['file_novo'])) {
+                        echo $valorForm['file_novo'];
                     }
                     ?>">
 
                     <label><span class="text-danger">*</span> Novo Documento</label>
-                    <input name="file_novo" type="file">
+                    <input name="file_novo" type="file" class="custom-file">
                 </div>
             </div>
 

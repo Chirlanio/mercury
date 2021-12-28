@@ -59,6 +59,9 @@ class AdmsEditarEstorno {
             $this->Autorizacao = $this->Dados['auto_cartao'];
             $this->Bandeira = $this->Dados['adms_bandeira_id'];
             $this->Parcelas = $this->Dados['qtd_parcelas'];
+        } else {
+            $this->File = $this->Dados['file_novo'];
+            $this->FileAntigo = $this->Dados['file_antigo'];
         }
         $this->Obs = $this->Dados['obs'];
 
@@ -139,14 +142,14 @@ class AdmsEditarEstorno {
         $listar->fullRead("SELECT id adms_mot_est_id, nome motivo FROM adms_motivo_estorno ORDER BY nome ASC");
         $registro['id_mot'] = $listar->getResultado();
 
-        if ($_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 9) {
+        if ($_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 10) {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id_loja ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
         $registro['loja_id'] = $listar->getResultado();
 
-        if ($_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 9) {
+        if ($_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 10) {
             $listar->fullRead("SELECT id adms_func_id, nome func FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
         } else {
             $listar->fullRead("SELECT id adms_func_id, nome func FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
