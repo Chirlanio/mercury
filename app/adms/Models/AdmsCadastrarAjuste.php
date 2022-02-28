@@ -44,10 +44,10 @@ class AdmsCadastrarAjuste {
         $cadAjuste = new \App\adms\Models\helper\AdmsCreate;
         $cadAjuste->exeCreate("tb_ajuste", $this->Dados);
         if ($cadAjuste->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação cadastrada com sucesso!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Solicitação enviada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A solicitação não foi cadastrada!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro: </strong>Solicitação não cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }

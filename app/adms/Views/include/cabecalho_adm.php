@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="900">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Mercury - Grupo Meia Sola</title>
+    <title>Portal Mercury - Grupo Meia Sola</title>
     <link rel="icon" href="<?php echo URLADM . 'assets/imagens/icone/favicon.ico'; ?>">
     <link rel="stylesheet" href="<?php echo URLADM . 'assets/css/bootstrap.min.css'; ?>">
     <script defer src="<?php echo URLADM . 'assets/js/all.min.js'; ?>"></script>

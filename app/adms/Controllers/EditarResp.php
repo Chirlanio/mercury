@@ -51,6 +51,9 @@ class EditarResp {
 
     private function editRespViewPriv() {
         if ($this->Dados['form']) {
+            $listarSelect = new \App\adms\Models\AdmsEditarResp();
+            $this->Dados['select'] = $listarSelect->listarCadastrar();
+            
             $botao = ['list_resp' => ['menu_controller' => 'autorizacao-resp', 'menu_metodo' => 'listar']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);

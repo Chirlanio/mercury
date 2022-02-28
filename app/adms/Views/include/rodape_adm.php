@@ -7,7 +7,7 @@ if (!defined('URLADM')) {
     </div>
     <footer class="footer mt-auto py-3 bg-dark d-print-none">
         <div class="container text-center navbar-fixed-bottom">
-            <span class="text-muted">&copy; Grupo Meia Sola 2020-2021</span>
+            <span class="text-muted">&copy; Grupo Meia Sola 2020-2022</span>
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@ if (!defined('URLADM')) {
     <script src="<?php echo URLADM . 'assets/js/popper.min.js'; ?>"></script>
     <script src="<?php echo URLADM . 'assets/js/bootstrap.min.js'; ?>"></script>
     <script src="<?php echo URLADM . 'assets/js/dashboard.js'; ?>"></script>
-    <script src="<?php echo URLADM . 'assets/js/ionicons.js'; ?>"></script>
+    <script type="module" src="<?php echo URLADM . 'assets/js/ionicons.js' ?>"></script>
     <script src="<?php echo URLADM . 'assets/js/scrollreveal.min.js'; ?>"></script>
-    <script src="<?php echo URLADM . 'assets/js/personalizado.js'; ?>"></script>
+    <script type="text/javascript" src="<?php echo URLADM . 'assets/js/personalizado.js'; ?>"></script>
 </body>

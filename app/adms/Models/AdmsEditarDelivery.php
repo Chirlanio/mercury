@@ -66,10 +66,10 @@ class AdmsEditarDelivery {
         $upAltDelivery->exeUpdate("tb_delivery", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
 
         if ($upAltDelivery->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-success d-print-none'>Solicitação atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A solicitação não foi atualizada!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger d-print-none'>Erro: A solicitação não foi atualizada!</div>";
             $this->Resultado = false;
         }
     }

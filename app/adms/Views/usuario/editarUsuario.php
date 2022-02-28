@@ -71,7 +71,8 @@ if (isset($this->Dados['form'][0])) {
                         echo $valorForm['usuario'];
                     }
                     ?>">
-                </div><div class="form-group col-md-4">
+                </div>
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Loja</label>
                     <select name="loja_id" id="loja_id" class="form-control">
                         <option value="">Selecione</option>

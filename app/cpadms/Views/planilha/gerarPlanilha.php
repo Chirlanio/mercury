@@ -1,5 +1,5 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -30,6 +30,7 @@ if (!defined('URL')) {
         $html .= "<th class='d-none d-sm-table-cell'>Bairro</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Rota</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Valor</th>";
+        $html .= "<th class='d-none d-sm-table-cell'>Total de Produtos</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Pagamento</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Parcelas</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Maquineta</th>";
@@ -55,6 +56,7 @@ if (!defined('URL')) {
             $html .= "<span>" . $rota . "</span>";
             $html .= "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>R$ " . $valor_venda . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . $qtde_produto . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $forma . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $parcelas . "X</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . ($maq == 1 ? "Sim" : "Não") . "</td>";

@@ -42,7 +42,7 @@ class PesqRemanejo {
             $this->PageId = (int) $PageId ? $PageId : 1;
             $this->DadosForm['loja_origem_id'] = filter_input(INPUT_GET, 'origem', FILTER_DEFAULT);
             $this->DadosForm['loja_destino_id'] = filter_input(INPUT_GET, 'destino', FILTER_DEFAULT);
-            $this->DadosForm['status_id'] = filter_input(INPUT_GET, 'situacao', FILTER_DEFAULT);
+            $this->DadosForm['adms_sit_rem_id'] = filter_input(INPUT_GET, 'situacao', FILTER_DEFAULT);
         }
 
         $listarRemanejo = new \App\cpadms\Models\CpAdmsPesqRemanejo();

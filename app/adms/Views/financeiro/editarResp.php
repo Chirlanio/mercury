@@ -37,13 +37,28 @@ if (isset($this->Dados['form'][0])) {
             }
             ?>">
             <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Nome</label>
-                    <input name="nome" type="text" class="form-control" placeholder="Nome do Responsável" value="<?php
+                <div class="form-group col-md-6">
+                    <label><span class="text-danger">*</span> Rede</label>
+                    <input name="nome" type="text" class="form-control" placeholder="Nome da Rede" value="<?php
                     if (isset($valorForm['nome'])) {
                         echo $valorForm['nome'];
                     }
                     ?>">
+                </div>
+                <div class="form-group col-md-6">
+                    <label><span class="text-danger">*</span> Responsável</label>
+                    <select name="adms_func_id" id="adms_func_id" class="form-control">
+                        <?php
+                        foreach ($this->Dados['select']['resp'] as $r) {
+                            extract($r);
+                            if ($valorForm['adms_func_id'] == $id_resp) {
+                                echo "<option value='$id_resp' selected>$resp</option>";
+                            } else {
+                                echo "<option value='$id_resp'>$resp</option>";
+                            }
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
             <p>

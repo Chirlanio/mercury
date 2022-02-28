@@ -230,7 +230,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label>Observação</label>
                     <input name="obs" class="form-control" value="<?php
                     if (isset($valorForm['obs'])) {
@@ -238,13 +238,21 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label>Recebido Por</label>
                     <input name="recebido" class="form-control" value="<?php
                     if (isset($valorForm['recebido'])) {
                         echo $valorForm['recebido'];
                     }
                     ?>">
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Total de Produtos</label>
+                    <input name="qtde_produto" class="form-control" value="<?php
+                    if (isset($valorForm['qtde_produto'])) {
+                        echo $valorForm['qtde_produto'];
+                    }
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Ponto de Saída</label>

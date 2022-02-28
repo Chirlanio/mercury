@@ -31,10 +31,10 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-4 mb-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="loja_ori">Loja - Origem</label>
+                            <label class="input-group-text font-weight-bold" for="loja_ori">Loja - Origem</label>
                         </div>
                         <?php
-                        echo "<select name='loja_ori' id='loja_ori' class='custom-select'>";
+                        echo "<select name='loja_origem_id' id='loja_origem_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['loja_ori'] as $lo) {
                             extract($lo);
@@ -51,10 +51,10 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-4 mb-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="loja_des">Loja - Destino</label>
+                            <label class="input-group-text font-weight-bold" for="loja_des">Loja - Destino</label>
                         </div>
                         <?php
-                        echo "<select name='loja_des' id='loja_des' class='custom-select'>";
+                        echo "<select name='loja_destino_id' id='loja_destino_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['loja_des'] as $ld) {
                             extract($ld);
@@ -71,10 +71,10 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-4 mb-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="status_aj_id">Situação</label>
+                            <label class="input-group-text font-weight-bold" for="status_aj_id">Situação</label>
                         </div>
                         <?php
-                        echo "<select name='status_aj_id' id='status_aj_id' class='custom-select'>";
+                        echo "<select name='adms_sit_rem_id' id='adms_sit_rem_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['sit'] as $ld) {
                             extract($ld);

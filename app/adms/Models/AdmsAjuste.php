@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -24,7 +24,6 @@ class AdmsAjuste {
     public function cadAjuste(array $Dados) {
 
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio();
         $valCampoVazio->validarDados($this->Dados);
 

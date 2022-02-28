@@ -153,10 +153,7 @@ class AdmsHome {
         }
         $registro['dashPen'] = $listar->getResultado();
 
-        $this->Resultado = ['transf' => $registro['transf'], 'agCol' => $registro['agCol'], 'emRota' => $registro['emRota'], 'entregue' => $registro['entregue'],
-            'ajuste' => $registro['ajuste'], 'ajustado' => $registro['ajustado'], 'pend' => $registro['pend'], 'semAj' => $registro['semAj'], 'emAna' => $registro['emAna'],
-            'troca' => $registro['troca'], 'cad' => $registro['cad'], 'cadPend' => $registro['cadPend'], 'jaCad' => $registro['jaCad'],
-            'dash' => $registro['dash'], 'dashAt' => $registro['dashAt'], 'dashIna' => $registro['dashIna'], 'dashPen' => $registro['dashPen']
+        $this->Resultado = ['transf' => $registro['transf'], 'agCol' => $registro['agCol'], 'emRota' => $registro['emRota'], 'entregue' => $registro['entregue'], 'ajuste' => $registro['ajuste'], 'ajustado' => $registro['ajustado'], 'pend' => $registro['pend'], 'semAj' => $registro['semAj'], 'emAna' => $registro['emAna'], 'troca' => $registro['troca'], 'cad' => $registro['cad'], 'cadPend' => $registro['cadPend'], 'jaCad' => $registro['jaCad'], 'dash' => $registro['dash'], 'dashAt' => $registro['dashAt'], 'dashIna' => $registro['dashIna'], 'dashPen' => $registro['dashPen']
         ];
 
         return $this->Resultado;

@@ -2,7 +2,7 @@
     var scriptElm = doc.scripts[doc.scripts.length - 1];
     var warn = ['[ionicons] Deprecated script, please remove: ' + scriptElm.outerHTML];
 
-    warn.push('To improve performance it is recommended to set the differential scripts in the head as follows:')
+    warn.push('To improve performance it is recommended to set the differential scripts in the head as follows:');
 
     var parts = scriptElm.src.split('/');
     parts.pop();
@@ -22,7 +22,7 @@
     scriptElm.src = url + '/ionicons.js';
     warn.push(scriptElm.outerHTML);
     scriptElm.setAttribute('data-stencil-namespace', 'ionicons');
-    doc.head.appendChild(scriptElm)
+    doc.head.appendChild(scriptElm);
 
     console.warn(warn.join('\n'));
 

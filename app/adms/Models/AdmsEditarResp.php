@@ -56,5 +56,18 @@ class AdmsEditarResp {
             $this->Resultado = false;
         }
     }
+    
+    public function listarCadastrar() {
+        $listar = new \App\adms\Models\helper\AdmsRead();
+        
+        $listar->fullRead("SELECT id id_resp, nome resp
+                from adms_usuarios
+                WHERE adms_sits_usuario_id =:adms_sits_usuario_id ORDER BY nome ASC", "adms_sits_usuario_id=1");
+        $registro['resp'] = $listar->getResultado();
+        
+        $this->Resultado = ['resp' => $registro['resp']];
+        
+        return $this->Resultado;
+    }
 
 }

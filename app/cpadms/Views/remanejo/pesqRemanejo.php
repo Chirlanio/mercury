@@ -43,17 +43,17 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-4 mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="loja_origem_id">Origem</label>
+                            <label class="input-group-text font-weight-bold" for="loja_origem_id">Loja - Origem</label>
                         </div>
                         <?php
                         echo "<select name='loja_origem_id' id='loja_origem_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['loja_origem_id'] as $lo) {
+                        foreach ($this->Dados['select']['origem'] as $lo) {
                             extract($lo);
-                            if (isset($valorForm['loja_origem_id']) == $loja_id) {
-                                echo "<option value='$loja_id' selected>$loja_orig</option>";
+                            if (isset($valorForm['loja_origem_id']) == $id_ori) {
+                                echo "<option value='$id_ori' selected>$loja_orig</option>";
                             } else {
-                                echo "<option value='$loja_id'>$loja_orig</option>";
+                                echo "<option value='$id_ori'>$loja_orig</option>";
                             }
                         }
                         echo "</select>";
@@ -63,7 +63,7 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-4 mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="loja_destino_id">Destino</label>
+                            <label class="input-group-text font-weight-bold" for="loja_destino_id">Loja - Destino</label>
                         </div>
                         <?php
                         echo "<select name='loja_destino_id' id='loja_destino_id' class='custom-select'>";
@@ -83,7 +83,7 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-4 mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="status_id">Situação</label>
+                            <label class="input-group-text font-weight-bold" for="status_id">Situação</label>
                         </div>
                         <?php
                         echo "<select name='adms_sit_rem_id' id='adms_sit_rem_id' class='custom-select'>";
@@ -130,8 +130,6 @@ if (!defined('URLADM')) {
                         <th class="text-center">ID</th>
                         <th>Loja de Origem</th>
                         <th class="d-none d-sm-table-cell">Loja de Destino</th>
-                        <th class="d-none d-sm-table-cell">NF</th>
-                        <th class="d-none d-sm-table-cell">Volumes</th>
                         <th class="d-none d-sm-table-cell">Tipo</th>
                         <th class="d-none d-sm-table-cell">Cadastrado</th>
                         <th class="d-none d-sm-table-cell">Situação</th>
@@ -140,30 +138,33 @@ if (!defined('URLADM')) {
                 </thead>
                 <tbody>
                     <?php
-                    if (!empty($this->Dados['listTransf'])) {
-                        foreach ($this->Dados['listTransf'] as $transf) {
-                            extract($transf);
+                    if (!empty($this->Dados['listRemanejo'])) {
+                        foreach ($this->Dados['listRemanejo'] as $remanejo) {
+                            extract($remanejo);
                             ?>
                             <tr>
                                 <th class="text-center align-middle"><?php echo $id; ?></th>
                                 <td class="align-middle"><?php echo $loja_ori; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $nome_des; ?></td>
-                                <td class="d-none d-sm-table-cell align-middle text-center"><?php echo $nf; ?></td>
-                                <td class="d-none d-sm-table-cell align-middle text-center"><?php echo $qtd_vol; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $tipo; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo date('d/m/Y', strtotime($created)); ?></td>
-                                <td class="d-none d-sm-table-cell align-middle text-center"><span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $sit; ?></span></td>
+                                <td class="d-none d-sm-table-cell align-middle text-center"><span class="badge badge-<?php echo $cor; ?>"><?php echo $sit; ?></span></td>
                                 <td class="text-center">
                                     <span class="d-none d-md-block">
                                         <?php
-                                        if ($this->Dados['botao']['vis_transf']) {
-                                            echo "<a href='" . URLADM . "ver-transf/ver-transf/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                        if (!empty($arquivo)) {
+                                            echo "<a href='" . URLADM . "assets/files/remanejo/$id/$arquivo' class='btn btn-outline-success btn-sm' download title='Baixar lista'><i class='fas fa-download'></i></a> ";
+                                        } else {
+                                            echo "<button class='btn btn-outline-secondary btn-sm' title='Sem lista'><i class='fas fa-download'></i></button> ";
                                         }
-                                        if ($this->Dados['botao']['edit_transf']) {
-                                            echo "<a href='" . URLADM . "editar-transf/edit-transf/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                        if ($this->Dados['botao']['vis_remanejo']) {
+                                            echo "<a href='" . URLADM . "ver-remanejo/ver-remanejo/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                         }
-                                        if ($this->Dados['botao']['del_transf']) {
-                                            echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
+                                        if ($this->Dados['botao']['edit_remanejo']) {
+                                            echo "<a href='" . URLADM . "editar-remanejo/edit-remanejo/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                        }
+                                        if ($this->Dados['botao']['del_remanejo']) {
+                                            echo "<a href='" . URLADM . "apagar-remanejo/apagar-remanejo/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
                                         }
                                         ?>
                                     </span>
@@ -173,14 +174,17 @@ if (!defined('URLADM')) {
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                             <?php
-                                            if ($this->Dados['botao']['vis_transf']) {
-                                                echo "<a class='dropdown-item' href='" . URLADM . "ver-transf/ver-transf/$id'>Visualizar</a>";
+                                            if (!empty($arquivo)) {
+                                                echo "<a class='dropdown-item' href='" . URLADM . "assets/files/remanejo/$id/$arquivo' download>Baixar</a>";
                                             }
-                                            if ($this->Dados['botao']['edit_transf']) {
-                                                echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id'>Editar</a>";
+                                            if ($this->Dados['botao']['vis_remanejo']) {
+                                                echo "<a class='dropdown-item' href='" . URLADM . "ver-remanejo/ver-remanejo/$id'>Visualizar</a>";
                                             }
-                                            if ($this->Dados['botao']['del_transf']) {
-                                                echo "<a class='dropdown-item' href='" . URLADM . "apagar-transf/apagar-transf/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                            if ($this->Dados['botao']['edit_remanejo']) {
+                                                echo "<a class='dropdown-item' href='" . URLADM . "editar-remanejo/edit-remanejo/$id'>Editar</a>";
+                                            }
+                                            if ($this->Dados['botao']['del_remanejo']) {
+                                                echo "<a class='dropdown-item' href='" . URLADM . "apagar-remanejo/apagar-remanejo/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                             }
                                             ?>
                                         </div>

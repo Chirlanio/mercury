@@ -93,13 +93,16 @@ if (!empty($this->Dados['dados_ped'][0])) {
                         <th scope="row">Valor da Venda:</th>
                         <td colspan="2" class="text-center<?php echo ($presente == 1 ? ' d-print-none' : ''); ?>"><?php echo 'R$ ' . $valor_venda; ?></td>
                         <th colspan="1" scope="row">Troca: </th>
-                        <td colspan="9"><?php
+                        <td colspan="4"><?php
                             if ($troca == 1) {
                                 echo "Sim";
                             } else {
                                 echo "Não";
                             }
-                            ?></td>
+                            ?>
+                        </td>
+                        <th scope="row">Total de Produtos:</th>
+                        <td colspan="1"><?php echo $qtde_produto; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Tipo de Pagamento:</th>

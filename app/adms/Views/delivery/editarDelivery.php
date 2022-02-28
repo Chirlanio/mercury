@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['form'][0]);
+var_dump($this->Dados['form'][0]);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -251,7 +251,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
             <!-- Aqui começa a grade da referência com saldo insuficiente-->
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
                     <label>Observação</label>
                     <input name="obs" class="form-control" value="<?php
                     if (isset($valorForm['obs'])) {
@@ -264,6 +264,14 @@ if (isset($this->Dados['form'][0])) {
                     <input name="recebido" class="form-control" value="<?php
                     if (isset($valorForm['recebido'])) {
                         echo $valorForm['recebido'];
+                    }
+                    ?>">
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Total de Produtos</label>
+                    <input name="qtde_produto" class="form-control" value="<?php
+                    if (isset($valorForm['qtde_produto'])) {
+                        echo $valorForm['qtde_produto'];
                     }
                     ?>">
                 </div>
@@ -312,8 +320,8 @@ if (isset($this->Dados['form'][0])) {
                     <select name="status_id" id="statud_id" class="form-control" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['sit'] as $pag) {
-                            extract($pag);
+                        foreach ($this->Dados['select']['sit'] as $sit) {
+                            extract($sit);
                             if ($valorForm['status_id'] == $status_id) {
                                 echo "<option value='$status_id' selected>$sit</option>";
                             } else {

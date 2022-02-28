@@ -25,7 +25,7 @@ function previewImagem() {
     }
 }
 
-//Carregar modal define para apagar
+//Carregar modal define para Editar
 $(document).ready(function () {
     $('a[data-confirm]').click(function (ev) {
         var href = $(this).attr('href');
@@ -37,6 +37,7 @@ $(document).ready(function () {
         return false;
     });
 });
+
 //Apresentar tooltip
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
