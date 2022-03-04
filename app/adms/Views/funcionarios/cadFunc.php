@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['form']);
+var_dump($this->Dados['form']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -41,7 +41,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Usuário</label>
                     <input name="usuario" type="text" class="form-control is-invalid" placeholder="Digite o usuário" value="<?php
                     if (isset($valorForm['usuario'])) {
@@ -49,17 +49,25 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>" required>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label>CPF</label>
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">*</span> CPF</label>
                     <input name="cpf" type="text" id="cpf" class="form-control is-invalid" placeholder="Digite o CPF, somente números" value="<?php
                     if (isset($valorForm['cpf'])) {
                         echo $valorForm['cpf'];
                     }
                     ?>" required>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
+                    <label>Cupom Site</label>
+                    <input name="cupom_site" type="text" id="cupom_site" class="form-control is-invalid" placeholder="Digite o cupom" value="<?php
+                    if (isset($valorForm['cupom_site'])) {
+                        echo $valorForm['cupom_site'];
+                    }
+                    ?>">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
                     <label><span class = "text-danger">*</span>Loja</label>
                     <select name="loja_id" id="loja_id" class="form-control is-invalid" required>
                         <option value = "">Selecione</option>
@@ -75,7 +83,7 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Função</label>
                     <select name="cargo_id" id="area_id" class="form-control is-invalid" required="">
                         <option value = "">Selecione</option>
@@ -91,14 +99,14 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Status</label>
                     <select name="status_id" id="loja_id" class="form-control is-invalid" required="">
                         <option value = "">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['sit_id'] as $sit) {
                             extract($sit);
-                            if ($valorForm['sit_id'] == $sit_id) {
+                            if ($valorForm['status_id'] == $sit_id) {
                                 echo "<option value='$sit_id' selected>$sit</option>";
                             } else {
                                 echo "<option value='$sit_id'>$sit</option>";

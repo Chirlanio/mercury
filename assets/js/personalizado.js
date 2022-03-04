@@ -200,10 +200,10 @@ function somaTotalRefAjusteThird() {
     element.innerHTML = '<input name="total_3" class="form-control text-center" id="total3" value=' + total + ' readonly tabindex="9997">';
 }
 
-function somaTotalRefAjusteFourth (){
-    
+function somaTotalRefAjusteFourth() {
+
     var total = 0;
-    
+
     var t01 = Number(document.getElementById('t01_4').value);
     var t33 = Number(document.getElementById('t33_4').value);
     var t34 = Number(document.getElementById('t34_4').value);
@@ -213,25 +213,25 @@ function somaTotalRefAjusteFourth (){
     var t38 = Number(document.getElementById('t38_4').value);
     var t39 = Number(document.getElementById('t39_4').value);
     var t40 = Number(document.getElementById('t40_4').value);
-    
+
     total = t01 + t33 + t34 + t35 + t36 + t37 + t38 + t39 + t40;
-    
+
     var element = document.querySelector('span[name="total4"]');
-    if(element.textContent === undefined){
+    if (element.textContent === undefined) {
         element.value = 0;
-    }else{
+    } else {
         element.value = total;
     }
-    element.innerHTML = '<input name="total_4" class="form-control text-center" id="total4" value='+total+' readonly tabindex="9996">';
+    element.innerHTML = '<input name="total_4" class="form-control text-center" id="total4" value=' + total + ' readonly tabindex="9996">';
 }
 
-$(document).ready(function (){
-   $('a[data-confirm]').click(function (ev){
-      var href = $(this).attr('href');
-      if(!$('#confirm-edit').length){
-          $('body').append('<div class="modal fade" id="confirm-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelEdit" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header bg-danger text-white">Editar Solicitação<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Colocar formulário aqui...</div><div class="modal-footer"><button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button><a class="btn btn-danger text-white" id="dataEditOk">Salvar</a></div></div></div></div>');
-      }
-      $('#dataEditOk').attr('href', href);
-      $('#confirm-edit').modal({show: true});
-   });
+$(document).ready(function () {
+    $('a[data-toggle]').click(function (ev) {
+        var href = $(this).attr('href');
+        if (!$('#exampleModal').length) {
+            $('body').append('<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Modal title</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">...</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div></div></div>');
+        }
+        $('#dataEditOk').attr('href', href);
+        $('#confirm-edit').modal({show: true});
+    });
 });

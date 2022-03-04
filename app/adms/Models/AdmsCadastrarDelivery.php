@@ -26,7 +26,7 @@ class AdmsCadastrarDelivery {
     }
 
     /**
-     * <b>Cadastrar Página:</b> Receber array de Dados com as informações da página
+     * <b>Cadastrar Pedido de Entrega:</b> Receber array de Dados com as informações da página
      * @param ARRAY $Dados
      */
     public function cadDelivery(array $Dados) {
@@ -40,7 +40,7 @@ class AdmsCadastrarDelivery {
     }
 
     /**
-     * <b>Cadastrar Página no banco de dados:</b> Inserir no banco de dados as informações página
+     * <b>Cadastrar pedido no banco de dados:</b> Inserir no banco de dados as informações do pedido
      */
     private function inserirDelivery() {
         $this->Dados['created'] = date("Y-m-d H:i:s");

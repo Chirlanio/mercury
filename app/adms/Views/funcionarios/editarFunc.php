@@ -58,7 +58,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Usuário</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
@@ -76,19 +76,27 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span><span tabindex="0" data-toggle="tooltip" data-placement="top" data-html="true" title="CPF: Digite somente números, Ex: 12345678912">
                             <i class="fas fa-question-circle"></i>
                         </span> CPF</label>
-                    <input name="cpf" class="form-control" value="<?php
+                    <input name="cpf" id="cpf" class="form-control" value="<?php
                     if (isset($valorForm['cpf'])) {
                         echo $valorForm['cpf'];
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
+                    <label>Cupom Site</label>
+                    <input name="cupom_site" type="text" id="cupom_site" class="form-control" placeholder="Digite o cupom" value="<?php
+                    if (isset($valorForm['cupom_site'])) {
+                        echo $valorForm['cupom_site'];
+                    }
+                    ?>">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Loja</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
@@ -117,7 +125,7 @@ if (isset($this->Dados['form'][0])) {
                     ?>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Função</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
@@ -146,10 +154,7 @@ if (isset($this->Dados['form'][0])) {
                     ?>
                     </select>
                 </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span>Situação</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
@@ -179,7 +184,6 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
             </div>
-            <input name="modified" type="hidden" value="<?php echo date('Y-m-d H:i:s'); ?>">
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>

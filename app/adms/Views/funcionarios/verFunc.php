@@ -64,7 +64,10 @@ if (!empty($this->Dados['dados_func'][0])) {
                 <dd class="col-sm-10"><?php echo $usuario; ?></dd>
 
                 <dt class="col-sm-2">CPF</dt>
-                <dd class="col-sm-10"><?php echo $cpf; ?></dd>
+                <dd class="col-sm-10" id="cpf"><?php echo $cpf; ?></dd>
+
+                <dt class="col-sm-2">Cupom Site</dt>
+                <dd class="col-sm-10" id="cpf"><?php echo $cupom_site; ?></dd>
 
                 <dt class="col-sm-2">Função</dt>
                 <dd class="col-sm-10"><?php echo $cargo; ?></dd>

@@ -100,7 +100,7 @@ class AdmsCadastrarEstorno {
 
         $cadEstorno = new \App\adms\Models\helper\AdmsCreate;
         $cadEstorno->exeCreate("adms_estornos", $this->Dados);
-        //var_dump($this->Dados);
+        
         if ($cadEstorno->getResultado()) {
             if (empty($this->File['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Estorno cadastrado com sucesso!</div>";

@@ -105,6 +105,7 @@ if (!defined('URL')) {
                     <tr>
                         <th class="text-center">ID</th>
                         <th>Nome</th>
+                        <th>Cupom Site</th>
                         <th class="d-none d-sm-table-cell">Função</th>
                         <th class="d-none d-sm-table-cell">Loja</th>
                         <th class="d-none d-sm-table-cell">Situação</th>
@@ -120,6 +121,7 @@ if (!defined('URL')) {
                             <tr>
                                 <th class="text-center align-middle"><?php echo $id; ?></th>
                                 <td class="align-middle"><?php echo $nome; ?></td>
+                                <td class="align-middle"><span class="badge badge-warning"><?php echo $cupom_site; ?></span></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $cargo; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $loja; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $sit; ?></td>

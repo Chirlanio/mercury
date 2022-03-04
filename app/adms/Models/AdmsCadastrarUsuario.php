@@ -33,7 +33,6 @@ class AdmsCadastrarUsuario {
 
     public function cadUsuario(array $Dados) {
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
         $this->Foto = $this->Dados['imagem_nova'];
         unset($this->Dados['imagem_nova']);
 

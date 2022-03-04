@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -17,6 +17,7 @@ class AdmsEditarFunc {
     private $Resultado;
     private $Dados;
     private $DadosId;
+    private $Cupom;
 
     function getResultado() {
         return $this->Resultado;
@@ -25,7 +26,7 @@ class AdmsEditarFunc {
     public function verFunc($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verFunc = new \App\adms\Models\helper\AdmsRead();
-        $verFunc->fullRead("SELECT f.id, f.nome, f.usuario, f.cpf, f.loja_id, f.cargo_id, f.status_id, s.id sit_id, s.nome sit, c.nome loja
+        $verFunc->fullRead("SELECT f.id, f.nome, f.usuario, f.cpf, f.cupom_site, f.loja_id, f.cargo_id, f.status_id, s.id sit_id, s.nome sit, c.nome loja
                 FROM tb_funcionarios f
                 INNER JOIN tb_lojas lj ON lj.id=f.loja_id
                 INNER JOIN tb_status s ON s.id=f.status_id
@@ -38,19 +39,22 @@ class AdmsEditarFunc {
     public function altFunc(array $Dados) {
 
         $this->Dados = $Dados;
+        
+        $this->Cupom = $this->Dados['cupom_site'];
+        unset($this->Dados['cupom_site']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
             $this->updateEditFunc();
-            //var_dump($this->Dados);
         } else {
             $this->Resultado = false;
         }
     }
 
     private function updateEditFunc() {
+        $this->Dados['cupom_site'] = strtoupper($this->Cupom);
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltFunc = new \App\adms\Models\helper\AdmsUpdate();
         $upAltFunc->exeUpdate("tb_funcionarios", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);

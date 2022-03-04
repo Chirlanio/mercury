@@ -69,7 +69,7 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-4 mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="status_id">Situação</label>
+                            <label class="input-group-text" style="font-weight: bold;" for="status_id">Situação</label>
                         </div>
                         <?php
                         echo "<select name='status_id' id='status_id' class='custom-select'>";
@@ -163,7 +163,7 @@ if (!defined('URLADM')) {
                                             echo "<a class='dropdown-item' href='" . URLADM . "ver-transf/ver-transf/$id'>Visualizar</a>";
                                         }
                                         if ($this->Dados['botao']['edit_transf']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id'>Editar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id' data-toggle='modal' data-target='#editModal'>Editar</a>";
                                         }
                                         if ($this->Dados['botao']['del_transf']) {
                                             echo "<a class='dropdown-item' href='" . URLADM . "apagar-transf/apagar-transf/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
@@ -178,6 +178,30 @@ if (!defined('URLADM')) {
                     ?>
                 </tbody>
             </table>
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Editar Transferência - ID: <?php echo $id; ?></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-group">
+                                <?php var_dump($this->Dados['list_transf']); ?>
+                                <label>Recebido por:</label>
+                                <input type="text" name="recebido" class="form-group">
+                                
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-warning">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <?php
             echo $this->Dados['paginacao'];
             ?>

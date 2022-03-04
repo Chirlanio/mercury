@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -15,6 +15,7 @@ if (!defined('URL')) {
 class AdmsCadastrarFunc {
 
     private $Resultado;
+    private $Cupom;
     private $Dados;
 
     function getResultado() {
@@ -22,9 +23,13 @@ class AdmsCadastrarFunc {
     }
 
     public function cadFunc(array $Dados) {
+        
         $this->Dados = $Dados;
+        
+        $this->Cupom = $this->Dados['cupom_site'];
+        unset($this->Dados['cupom_site']);
 
-        $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
+        $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio();
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
@@ -35,10 +40,11 @@ class AdmsCadastrarFunc {
     }
 
     private function inserirFunc() {
+        $this->Dados['cupom_site'] = strtoupper($this->Cupom);
         $this->Dados['created'] = date("Y-m-d H:i:s");
-        $cadDash = new \App\adms\Models\helper\AdmsCreate;
-        $cadDash->exeCreate("tb_funcionarios", $this->Dados);
-        if ($cadDash->getResultado()) {
+        $cadFunc = new \App\adms\Models\helper\AdmsCreate;
+        $cadFunc->exeCreate("tb_funcionarios", $this->Dados);
+        if ($cadFunc->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Funcionario cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {
