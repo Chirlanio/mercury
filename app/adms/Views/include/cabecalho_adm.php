@@ -14,6 +14,7 @@ if (!defined('URLADM')) {
     <script defer src="<?php echo URLADM . 'assets/js/all.min.js'; ?>"></script>
     <link rel="stylesheet" href="<?php echo URLADM . 'assets/css/all.min.css'; ?>">
     <link rel="stylesheet" href="<?php echo URLADM . 'assets/css/dashboard.css'; ?>">
+    <script src="https://kit.fontawesome.com/86d7a76c5a.js" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
 </head>
 <body>

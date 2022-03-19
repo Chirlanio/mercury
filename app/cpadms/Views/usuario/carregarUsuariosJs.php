@@ -1,5 +1,5 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -24,16 +24,17 @@ if (!defined('URL')) {
             }
             ?>
         </div>
-        <form class="form-inline" method="POST" action="<?php echo URLADM . 'pesq-usuarios/listar'; ?>">
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input name="nome" type="text" id="nome" class="form-control mx-sm-3" placeholder="Digite o nome do usuário" autofocus>
+        <form class="form-inline" method="POST" action="">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="pesqUser"><i class="fa-solid fa-magnifying-glass"></i></label>
+                        </div>
+                        <input name="pesqUser" type="text" id="pesqUser" class="form-control" aria-describedby="pesqUser" placeholder="Nome ou e-mail do usuário" />
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input name="email" type="email" id="email" class="form-control mx-sm-3" placeholder="Digite o e-mail do usuário">
-            </div>
-            <input name="PesqUsuario" type="submit" class="btn btn-outline-primary" my-2 value="Pesquisar">
         </form><hr>
         <?php
         if (isset($_SESSION['msg'])) {

@@ -17,6 +17,7 @@ class CarregarUsuariosJs {
     private $Dados;
     private $PageId;
     private $TipoResultado;
+    private $PesqUsuario;
 
     public function listar($PageId = null) {
         $this->TipoResultado = filter_input(INPUT_GET, 'tiporesult');
@@ -31,6 +32,9 @@ class CarregarUsuariosJs {
 
         if (!empty($this->TipoResultado) AND ( $this->TipoResultado == 1)) {
             $this->listarUsuariosPriv();
+        } elseif (!empty($this->TipoResultado) AND ( $this->TipoResultado == 2)) {
+            $this->PesqUsuario = filter_input(INPUT_POST, 'palavraPesq');
+            $this->pesqUsuariosPriv();
         } else {
             $listarMenu = new \App\adms\Models\AdmsMenu();
             $this->Dados['menu'] = $listarMenu->itemMenu();
@@ -41,9 +45,20 @@ class CarregarUsuariosJs {
     }
 
     private function listarUsuariosPriv() {
-        $listarUsario = new \App\cpadms\Models\CpAdmsListarUsuario();
-        $this->Dados['listUser'] = $listarUsario->listarUsuario($this->PageId);
-        $this->Dados['paginacao'] = $listarUsario->getResultadoPg();
+
+        $listarUsuario = new \App\cpadms\Models\CpAdmsListarUsuario();
+        $this->Dados['listUser'] = $listarUsuario->listarUsuario($this->PageId);
+        $this->Dados['paginacao'] = $listarUsuario->getResultadoPg();
+
+        $carregarView = new \App\cpadms\core\ConfigView("cpadms/Views/usuario/listarUsuarioJs", $this->Dados);
+        $carregarView->renderizarListar();
+    }
+
+    private function pesqUsuariosPriv() {
+
+        $listarUsuario = new \App\cpadms\Models\CpAdmsPesqUsuario();
+        $this->Dados['listUser'] = $listarUsuario->pesqUsuario($this->PesqUsuario);
+        $this->Dados['paginacao'] = $listarUsuario->getResultadoPg();
 
         $carregarView = new \App\cpadms\core\ConfigView("cpadms/Views/usuario/listarUsuarioJs", $this->Dados);
         $carregarView->renderizarListar();

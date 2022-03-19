@@ -2,7 +2,7 @@
 
 namespace App\cpadms\Models\helper;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -48,7 +48,7 @@ class CpAdmsPaginacao {
     public function paginacao($Query, $ParseString = null) {
         $this->Query = (string) $Query;
         $this->ParseString = (string) $ParseString;
-        $contar = new \App\adms\Models\helper\AdmsReadCigam();
+        $contar = new \App\adms\Models\helper\AdmsRead();
         $contar->fullRead($this->Query, $this->ParseString);
         $this->ResultBd = $contar->getResultado();
         if ($this->ResultBd[0]['num_result'] > $this->LimiteResultado) {
@@ -71,11 +71,11 @@ class CpAdmsPaginacao {
         $this->Resultado = "<nav aria-label='paginacao'>";
         $this->Resultado .= "<ul class='pagination pagination-sm justify-content-center'>";
         $this->Resultado .= "<li class='page-item'>";
-        $this->Resultado .= '<a class="page-link" href="#" tabindex="-1" onclick="listar_usuario(1)">Primeira</a>';
+        $this->Resultado .= '<a class="page-link" href="#" tabindex="-1" onclick="listar_usuario(1, ' . $this->Var . ')">Primeira</a>';
         $this->Resultado .= "</li>";
         for ($iPag = $this->Pagina - $this->MaxLinks; $iPag <= $this->Pagina - 1; $iPag++) {
             if ($iPag >= 1) {
-                $this->Resultado .= '<li class="page-item"><a class="page-link" href="#" onclick="listar_usuario(' . $iPag . ')">' . $iPag . '</a></li>';
+                $this->Resultado .= '<li class="page-item"><a class="page-link" href="#" onclick="listar_usuario(' . $iPag . ', ' . $this->Var . ')">' . $iPag . '</a></li>';
             }
         }
 
@@ -84,11 +84,11 @@ class CpAdmsPaginacao {
         $this->Resultado .= "</li>";
         for ($dPag = $this->Pagina + 1; $dPag <= $this->Pagina + $this->MaxLinks; $dPag++) {
             if ($dPag <= $this->TotalPaginas) {
-                $this->Resultado .= '<li class="page-item"><a class="page-link" href="#" onclick="listar_usuario(' . $dPag . ')">' . $dPag . '</a></li>';
+                $this->Resultado .= '<li class="page-item"><a class="page-link" href="#" onclick="listar_usuario(' . $dPag . ', ' . $this->Var . ')">' . $dPag . '</a></li>';
             }
         }
         $this->Resultado .= "<li class='page-item'>";
-        $this->Resultado .= '<a class="page-link" href="#" onclick="listar_usuario(' . $this->TotalPaginas . ')">Última</a>';
+        $this->Resultado .= '<a class="page-link" href="#" onclick="listar_usuario(' . $this->TotalPaginas . ', ' . $this->Var . ')">Última</a>';
         $this->Resultado .= "</li>";
         $this->Resultado .= "</ul>";
         $this->Resultado .= "</nav>";
