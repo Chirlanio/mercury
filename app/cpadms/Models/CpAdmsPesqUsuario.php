@@ -14,9 +14,7 @@ if (!defined('URLADM')) {
  */
 class CpAdmsPesqUsuario {
 
-    private $Dados;
     private $Resultado;
-    private $PageId;
     private $LimiteResultado = 20;
     private $ResultadoPg;
     private $PesqUsuario;

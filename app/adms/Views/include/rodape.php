@@ -10,3 +10,5 @@
 <script src="<?php echo URL; ?>assets/js/ionicons.js"></script>
 <script src="<?php echo URL; ?>assets/js/scrollreveal.min.js"></script>
 <script src="<?php echo URL; ?>assets/js/personalizado.js"></script>
+    </body>
+</html>

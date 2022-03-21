@@ -18,7 +18,7 @@ class ConfigView {
     }
 
     public function renderizar() {
-        include 'app/adms/Views/include/cabecalho_adm.php';
+        include 'app/cpadms/Views/include/cabecalho_cpadm.php';
         include 'app/adms/Views/include/header.php';
         include 'app/adms/Views/include/sidebar.php';
         if (file_exists('app/' . $this->Nome . '.php')) {

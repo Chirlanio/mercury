@@ -92,7 +92,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
             <div class="form-group">
                 <label><span class="text-danger">*</span> Observação</label>
-                <textarea name="obs" class="form-control" id="editor" rows="3"><?php
+                <textarea name="obs" class="form-control editorCK" id="editor" rows="3"><?php
                     if (isset($valorForm['obs'])) {
                         echo $valorForm['obs'];
                     }
