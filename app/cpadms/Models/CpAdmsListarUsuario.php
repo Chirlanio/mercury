@@ -2,7 +2,7 @@
 
 namespace App\cpadms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class CpAdmsListarUsuario {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 1;
+    private $LimiteResultado = 5;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -25,7 +25,7 @@ class CpAdmsListarUsuario {
 
     public function listarUsuario($PageId = null) {
         $this->PageId = (int) $PageId;
-        $paginacao = new \App\cpadms\Models\helper\CpAdmsPaginacao(URLADM . 'carregar-usuarios-js/listar');
+        $paginacao = new \App\cpadms\Models\helper\CpAdmsPaginacao(URLADM . 'carregar-usuarios-js/listar/');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(user.id) AS num_result 
                 FROM adms_usuarios user
@@ -44,7 +44,6 @@ class CpAdmsListarUsuario {
                 WHERE nivac.ordem >=:ordem
                 ORDER BY id DESC LIMIT :limit OFFSET :offset", "ordem=" . $_SESSION['ordem_nivac'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarUsuario->getResultado();
-        var_dump($this->Resultado);
         return $this->Resultado;
     }
 

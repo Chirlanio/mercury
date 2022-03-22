@@ -13,6 +13,7 @@ define('HOST', 'localhost');
 define('USER', 'root');
 define('PASS', '');
 define('DBNAME', 'meiaso26_bd_meiasola');
+define('PORT', 3306);
 
 define('HOSTCIGAM', 'meiasolab.cigamgestor.com.br');
 define('USERCIGAM', 'bi_msl');
