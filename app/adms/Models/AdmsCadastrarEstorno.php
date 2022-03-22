@@ -87,8 +87,11 @@ class AdmsCadastrarEstorno {
 
         $this->Dados['nsu'] = $this->NsuVazio;
         $this->Dados['auto_cartao'] = $this->AuthVazio;
+        $this->Dados['valor_lancado'] = str_replace('.', '', $this->Dados['valor_lancado']);
         $this->Dados['valor_lancado'] = str_replace(',', '.', $this->Dados['valor_lancado']);
+        $this->Dados['valor_correto'] = str_replace('.', '', $this->Dados['valor_correto']);
         $this->Dados['valor_correto'] = str_replace(',', '.', $this->Dados['valor_correto']);
+        $this->Dados['valor_estorno'] = str_replace('.', '', $this->Dados['valor_estorno']);
         $this->Dados['valor_estorno'] = str_replace(',', '.', $this->Dados['valor_estorno']);
         $this->Dados['cpf_cliente'] = str_replace(['.', '-'], '', $this->Dados['cpf_cliente']);
         $this->Dados['adms_bandeira_id'] = $this->Bandeira;

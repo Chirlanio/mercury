@@ -29,7 +29,11 @@ class AdmsListarEstorno {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'estorno/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_estornos");
+        if ($_SESSION['ordem_nivac'] <= 5) {
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_estornos");
+        } else {
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_estornos WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
+        }
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarArtigo = new \App\adms\Models\helper\AdmsRead();

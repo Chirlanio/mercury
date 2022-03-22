@@ -63,21 +63,13 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-3 mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold;" for="rota_id">Rota</label>
+                            <label class="input-group-text" style="font-weight: bold;" for="id">ID</label>
                         </div>
-                        <?php
-                        echo "<select name='rota_id' id='rota_id' class='custom-select'>";
-                        echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['rota_id'] as $lo) {
-                            extract($lo);
-                            if ($_SESSION['pesqRota'] == $rota_id) {
-                                echo "<option value='$rota_id' selected>$rota</option>";
-                            } else {
-                                echo "<option value='$rota_id'>$rota</option>";
-                            }
+                        <input name="id" type="text" id="id" class="form-control" placeholder="Digite o ID" value="<?php
+                        if (isset($_SESSION['id'])) {
+                            echo $_SESSION['id'];
                         }
-                        echo "</select>";
-                        ?>
+                        ?>">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-3 mb-3">

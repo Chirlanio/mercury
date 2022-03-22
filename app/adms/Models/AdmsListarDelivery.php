@@ -29,11 +29,16 @@ class AdmsListarDelivery {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'delivery/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery");
+        if ($_SESSION['ordem_nivac'] <= 5) {
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery");
+        } else {
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
+        }
         $this->ResultadoPg = $paginacao->getResultado();
-
         $listarPagina = new \App\adms\Models\helper\AdmsRead();
-        $listarPagina->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id,
+
+        if ($_SESSION['ordem_nivac'] <= 5) {
+            $listarPagina->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id,
                 d.parcelas, d.maq, d.troca, d.ponto_saida, d.status_id, d.created, d.modified,
                 l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma
                 FROM tb_delivery d
@@ -46,6 +51,22 @@ class AdmsListarDelivery {
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
                 ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        } else {
+            $listarPagina->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id,
+                d.parcelas, d.maq, d.troca, d.ponto_saida, d.status_id, d.created, d.modified,
+                l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma
+                FROM tb_delivery d
+                INNER JOIN tb_lojas l ON l.id=d.loja_id
+                INNER JOIN tb_funcionarios f ON f.id=d.func_id
+                INNER JOIN tb_status_delivery t ON t.id=d.status_id
+                INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida
+                INNER JOIN tb_bairros b ON b.id=d.bairro_id
+                INNER JOIN tb_rotas r ON r.id=d.rota_id
+                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
+                WHERE d.loja_id =:loja_id
+                ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        }
         $this->Resultado = $listarPagina->getResultado();
         return $this->Resultado;
     }
@@ -53,7 +74,11 @@ class AdmsListarDelivery {
     public function listarCadastrar() {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
-        $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
+        if (($_SESSION['adms_niveis_acesso_id'] == 5)) {
+            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+        } else {
+            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
+        }
         $registro['loja_id'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id rota_id, nome rota FROM tb_rotas ORDER BY id ASC");

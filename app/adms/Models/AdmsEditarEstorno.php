@@ -66,8 +66,11 @@ class AdmsEditarEstorno {
         $this->Obs = $this->Dados['obs'];
 
         if ((!empty($this->Dados['valor_lancado'])) and (!empty($this->Dados['valor_correto'])) and (!empty($this->Dados['valor_estorno']))) {
+            $this->Dados['valor_lancado'] = str_replace('.', '', $this->Dados['valor_lancado']);
             $this->Dados['valor_lancado'] = str_replace(',', '.', $this->Dados['valor_lancado']);
+            $this->Dados['valor_correto'] = str_replace('.', '', $this->Dados['valor_correto']);
             $this->Dados['valor_correto'] = str_replace(',', '.', $this->Dados['valor_correto']);
+            $this->Dados['valor_estorno'] = str_replace('.', '', $this->Dados['valor_estorno']);
             $this->Dados['valor_estorno'] = str_replace(',', '.', $this->Dados['valor_estorno']);
             $this->Dados['cpf_cliente'] = str_replace(['.', '-'], '', $this->Dados['cpf_cliente']);
         }

@@ -54,7 +54,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['id_func'] as $fc) {
                             extract($fc);
-                            if (isset($valorForm['id_func']) == $id_func) {
+                            if (isset($valorForm['adms_func_id']) == $id_func) {
                                 echo "<option value='$id_func' selected>$func</option>";
                             } else {
                                 echo "<option value='$id_func'>$func</option>";
@@ -124,7 +124,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['id_form'] as $sit) {
                             extract($sit);
-                            if (isset($valorForm['id_form']) == $id_form) {
+                            if (isset($valorForm['tb_forma_pag_id']) == $id_form) {
                                 echo "<option value='$id_form' selected>$forma_pag</option>";
                             } else {
                                 echo "<option value='$id_form'>$forma_pag</option>";
@@ -140,7 +140,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['id_band'] as $tpart) {
                             extract($tpart);
-                            if (isset($valorForm['id_band']) == $id_band) {
+                            if (isset($valorForm['adms_bandeira_id']) == $id_band) {
                                 echo "<option value='$id_band' selected>$bandeira</option>";
                             } else {
                                 echo "<option value='$id_band'>$bandeira</option>";
@@ -204,7 +204,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['id_mot'] as $mot) {
                             extract($mot);
-                            if (isset($valorForm['id_mot']) == $id_mot) {
+                            if (isset($valorForm['adms_mot_est_id']) == $id_mot) {
                                 echo "<option value='$id_mot' selected>$motivo</option>";
                             } else {
                                 echo "<option value='$id_mot'>$motivo</option>";
@@ -223,7 +223,13 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Observações</label>
-                    <textarea name="obs" id="editor" class="form-control" rows="3"></textarea>
+                    <textarea name="obs" id="editor" class="form-control editorCK" rows="3">
+                        <?php
+                        if(isset($valorForm['obs'])){
+                            echo $valorForm['obs'];
+                        }
+                        ?>
+                    </textarea>
                 </div>
             </div>
             <p>
