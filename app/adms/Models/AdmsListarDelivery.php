@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }

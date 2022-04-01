@@ -189,7 +189,7 @@ if (!defined('URLADM')) {
                         </div>
                         <div class="modal-body">
                             <form class="form-group">
-                                <?php var_dump($this->Dados['list_transf']); ?>
+                                <?php var_dump($this->Dados['list_transf']['0']); ?>
                                 <label>Recebido por:</label>
                                 <input type="text" name="recebido" class="form-group">
                                 

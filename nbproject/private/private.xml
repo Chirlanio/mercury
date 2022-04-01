@@ -3,11 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/Models/CpAdmsPesqDelivery.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/adms/Models/AdmsListarDelivery.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/Models/CpAdmsGerarPlanilha.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/adms/Views/delivery/listarDelivery.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/Views/delivery/pesqDelivery.php</file>
+            <file>file:/C:/wamp64/www/mercury/app/adms/Views/produtos/verProduto.php</file>
         </group>
     </open-files>
 </project-private>

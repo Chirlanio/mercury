@@ -33,48 +33,11 @@ sr.reveal('.anima-top', {
     origin: 'top',
     distance: '40px'
 });
-
-ClassicEditor.create(document.querySelector('.editorCK'), {
-
-    toolbar: {
-        items: [
-            'heading',
-            '|',
-            'undo',
-            'redo',
-            '|',
-            'fontSize',
-            'fontColor',
-            'fontFamily',
-            'fontBackgroundColor',
-            '|',
-            'bold',
-            'italic',
-            'underline',
-            'highlight',
-            '|',
-            'link',
-            'bulletedList',
-            'numberedList',
-            '|',
-            'alignment',
-            'outdent',
-            'indent',
-            '|',
-            'blockQuote'
-        ]
-    },
-    language: 'pt-br',
-    licenseKey: ''
-
-}).then(editor => {
-    window.editor = editor;
-}).catch(error => {
-    console.error('Oops, something went wrong!');
-    console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
-    console.warn('Build id: ft5srbo8lapj-rvz0q0dptoyp');
-    console.error(error);
-});
+ClassicEditor
+    .create(document.querySelector('.editorCK'))
+    .catch(error => {
+        console.error(error);
+    });
 
 $(document).ready(function () {
     $('#date').mask('00/00/0000');
@@ -85,14 +48,14 @@ $(document).ready(function () {
     $('#phone_with_ddd').mask('(00) 00000-0000');
     $('#phone_us').mask('(000) 000-0000');
     $('#mixed').mask('AAA 000-S0S');
-    $('#cpf').mask('000.000.000-00', {reverse: true});
-    $('#cnpj').mask('00.000.000/0000-00', {reverse: true});
-    $('#inscricao_estadual').mask('00.000000-0', {reverse: true});
-    $('#money').mask('000.000.000.000.000,00', {reverse: true});
-    $('#valor_lancado').mask("#.##0,00", {reverse: true});
-    $('#valor_venda').mask("#.##0,00", {reverse: true});
-    $('#valor_correto').mask("#.##0,00", {reverse: true});
-    $('#valor_estorno').mask("#.##0,00", {reverse: true});
+    $('#cpf').mask('000.000.000-00', { reverse: true });
+    $('#cnpj').mask('00.000.000/0000-00', { reverse: true });
+    $('#inscricao_estadual').mask('00.000000-0', { reverse: true });
+    $('#money').mask('000.000.000.000.000,00', { reverse: true });
+    $('#valor_lancado').mask("#.##0,00", { reverse: true });
+    $('#valor_venda').mask("#.##0,00", { reverse: true });
+    $('#valor_correto').mask("#.##0,00", { reverse: true });
+    $('#valor_estorno').mask("#.##0,00", { reverse: true });
     $('#ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
         translation: {
             'Z': {
@@ -101,9 +64,9 @@ $(document).ready(function () {
         }
     });
     $('#ip_address').mask('099.099.099.099');
-    $('#percent').mask('##0,00%', {reverse: true});
-    $('#clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
-    $('#placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+    $('#percent').mask('##0,00%', { reverse: true });
+    $('#clear-if-not-match').mask("00/00/0000", { clearIfNotMatch: true });
+    $('#placeholder').mask("00/00/0000", { placeholder: "__/__/____" });
     $('#fallback').mask("00r00r0000", {
         translation: {
             'r': {
@@ -113,7 +76,7 @@ $(document).ready(function () {
             placeholder: "__/__/____"
         }
     });
-    $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+    $('.selectonfocus').mask("00/00/0000", { selectOnFocus: true });
 });
 
 function valorEstorno() {
@@ -232,6 +195,6 @@ $(document).ready(function () {
             $('body').append('<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Modal title</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">...</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div></div></div>');
         }
         $('#dataEditOk').attr('href', href);
-        $('#confirm-edit').modal({show: true});
+        $('#confirm-edit').modal({ show: true });
     });
 });

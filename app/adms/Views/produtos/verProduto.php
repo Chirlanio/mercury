@@ -70,7 +70,7 @@ if (!empty($this->Dados['dados_produto'][0])) {
                 </div>
                 <div class="col-md-6">
                     <table class="table table-hover table-bordered table-sm border-top-0" style="margin-top: 30px;">
-                        <thead class="table-dark">
+                        <thead>
                             <tr>
                                 <th scope="col" class="text-center">Código de Barras</th>
                                 <th scope="col" class="text-center">Ref Auxiliar</th>

@@ -67,7 +67,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Senha</label>
-                    <input name="senha" type="password" class="form-control is-invalid" id="nome" placeholder="Senha com mínimo 6 caracteres" value="<?php
+                    <input name="senha" type="password" class="form-control is-invalid" id="senha" autocomplete="off" placeholder="Senha com mínimo 6 caracteres" value="<?php
                     if (isset($valorForm['senha'])) {
                         echo $valorForm['senha'];
                     }
