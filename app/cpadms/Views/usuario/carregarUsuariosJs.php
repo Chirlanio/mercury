@@ -39,14 +39,12 @@ if (!defined('URLADM')) {
             ?>
         </div>
         <form class="form-inline" method="POST" action="">
-            <div class="row">
-                <div class="col-12">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="pesqUser"><i class="fa-solid fa-magnifying-glass"></i></label>
-                        </div>
-                        <input name="pesqUser" type="text" id="pesqUser" class="form-control" aria-describedby="pesqUser" placeholder="Nome ou e-mail do usuário" />
+            <div class="col-12 p-0">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="pesqUser"><i class="fa-solid fa-magnifying-glass"></i></label>
                     </div>
+                    <input name="pesqUser" type="text" id="pesqUser" class="form-control" aria-describedby="pesqUser" placeholder="Nome ou e-mail do usuário" />
                 </div>
             </div>
         </form><hr>
