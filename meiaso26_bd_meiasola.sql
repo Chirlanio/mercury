@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 01-Abr-2022 às 08:53
+-- Tempo de geração: 08-Abr-2022 às 13:54
 -- Versão do servidor: 5.7.31
 -- versão do PHP: 7.4.9
 
@@ -593,20 +593,23 @@ DROP TABLE IF EXISTS `adms_marcas`;
 CREATE TABLE IF NOT EXISTS `adms_marcas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status_id` int(1) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `adms_marcas`
 --
 
-INSERT INTO `adms_marcas` (`id`, `nome`, `created`, `modified`) VALUES
-(1, 'Anacapri', '2021-12-16 09:19:07', NULL),
-(2, 'Arezzo', '2021-12-16 09:19:07', NULL),
-(3, 'Multimarcas', '2021-12-16 09:19:07', NULL),
-(4, 'Schutz', '2021-12-16 09:19:07', NULL);
+INSERT INTO `adms_marcas` (`id`, `nome`, `status_id`, `created`, `modified`) VALUES
+(1, 'Anacapri', 1, '2021-12-16 09:19:07', NULL),
+(2, 'Arezzo', 1, '2021-12-16 09:19:07', NULL),
+(3, 'Alexandre Birman', 1, '2021-12-16 09:19:07', NULL),
+(4, 'Schutz', 1, '2021-12-16 09:19:07', NULL),
+(5, 'Vicenza', 1, '2022-04-06 08:44:39', NULL),
+(6, 'Luiza Barcelos', 1, '2022-04-06 08:45:30', '2022-04-06 10:01:51');
 
 -- --------------------------------------------------------
 
@@ -624,7 +627,7 @@ CREATE TABLE IF NOT EXISTS `adms_menus` (
   `created` datetime NOT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `adms_menus`
@@ -635,13 +638,14 @@ INSERT INTO `adms_menus` (`id`, `nome`, `icone`, `ordem`, `adms_sit_id`, `create
 (2, 'UsuÃ¡rio', 'fas fa-user', 2, 1, '2020-05-23 00:00:00', '2021-02-01 12:59:42'),
 (3, 'Produto', 'fas fa-shopping-cart', 3, 1, '2020-12-28 22:28:35', '2021-01-03 16:03:25'),
 (4, 'Dashboard\'s', 'fas fa-chart-pie', 6, 1, '2021-01-03 16:04:59', '2021-10-05 11:51:30'),
-(5, 'ConfiguraÃ§Ãµes', 'fas fa-cogs', 9, 1, '2020-12-20 21:55:33', '2021-10-05 11:51:20'),
-(6, 'Sair', 'fas fa-sign-out-alt', 11, 1, '2020-12-20 21:34:00', '2021-10-05 11:51:15'),
-(8, 'Movidesk', 'fas fa-headset', 8, 1, '2021-02-15 18:54:54', '2021-10-05 11:51:24'),
+(5, 'ConfiguraÃ§Ãµes', 'fas fa-cogs', 10, 1, '2020-12-20 21:55:33', '2022-04-01 09:20:38'),
+(6, 'Sair', 'fas fa-sign-out-alt', 12, 1, '2020-12-20 21:34:00', '2022-04-01 09:20:29'),
+(8, 'Movidesk', 'fas fa-headset', 9, 1, '2021-02-15 18:54:54', '2022-04-01 09:20:44'),
 (9, 'Delivery', 'fas fa-shipping-fast', 5, 1, '2021-03-05 07:56:03', '2021-10-05 11:51:32'),
-(10, 'Gente & GestÃ£o', 'fas fa-users', 7, 1, '2021-03-30 15:33:44', '2021-10-05 11:51:26'),
-(11, 'FAQ\'s', 'fas fa-question-circle', 10, 1, '2021-09-09 17:20:04', '2021-10-05 11:51:18'),
-(12, 'Financeiro', 'fas fa-credit-card', 4, 1, '2021-10-05 11:51:12', '2021-10-05 11:51:32');
+(10, 'Gente & GestÃ£o', 'fas fa-users', 8, 1, '2021-03-30 15:33:44', '2022-04-01 09:22:52'),
+(11, 'FAQ\'s', 'fas fa-question-circle', 11, 1, '2021-09-09 17:20:04', '2022-04-01 09:20:35'),
+(12, 'Financeiro', 'fas fa-credit-card', 4, 1, '2021-10-05 11:51:12', '2021-10-05 11:51:32'),
+(13, 'Qualidade', 'fa-solid fa-industry', 7, 1, '2022-04-01 09:20:09', '2022-04-01 09:22:52');
 
 -- --------------------------------------------------------
 
@@ -714,7 +718,7 @@ CREATE TABLE IF NOT EXISTS `adms_nivacs_pgs` (
   `created` datetime NOT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1976 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=2066 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Extraindo dados da tabela `adms_nivacs_pgs`
@@ -2662,7 +2666,97 @@ INSERT INTO `adms_nivacs_pgs` (`id`, `permissao`, `ordem`, `dropdown`, `lib_menu
 (1972, 2, 198, 2, 2, 4, 7, 198, '2022-03-23 10:26:34', NULL),
 (1973, 2, 194, 2, 2, 4, 8, 198, '2022-03-23 10:26:34', NULL),
 (1974, 2, 194, 2, 2, 4, 9, 198, '2022-03-23 10:26:34', NULL),
-(1975, 2, 194, 2, 2, 4, 10, 198, '2022-03-23 10:26:34', NULL);
+(1975, 2, 194, 2, 2, 4, 10, 198, '2022-03-23 10:26:34', NULL),
+(1976, 1, 199, 1, 1, 13, 1, 199, '2022-04-04 16:56:32', '2022-04-04 16:57:01'),
+(1977, 2, 199, 2, 2, 4, 2, 199, '2022-04-04 16:56:32', NULL),
+(1978, 2, 199, 2, 2, 4, 3, 199, '2022-04-04 16:56:32', NULL),
+(1979, 2, 199, 2, 2, 4, 4, 199, '2022-04-04 16:56:32', NULL),
+(1980, 2, 199, 2, 2, 4, 5, 199, '2022-04-04 16:56:32', NULL),
+(1981, 2, 199, 2, 2, 4, 6, 199, '2022-04-04 16:56:32', NULL),
+(1982, 2, 199, 2, 2, 4, 7, 199, '2022-04-04 16:56:32', NULL),
+(1983, 2, 195, 2, 2, 4, 8, 199, '2022-04-04 16:56:32', NULL),
+(1984, 2, 195, 2, 2, 4, 9, 199, '2022-04-04 16:56:32', NULL),
+(1985, 2, 195, 2, 2, 4, 10, 199, '2022-04-04 16:56:32', NULL),
+(1986, 1, 200, 2, 2, 4, 1, 200, '2022-04-06 08:30:43', NULL),
+(1987, 2, 200, 2, 2, 4, 2, 200, '2022-04-06 08:30:43', NULL),
+(1988, 2, 200, 2, 2, 4, 3, 200, '2022-04-06 08:30:43', NULL),
+(1989, 2, 200, 2, 2, 4, 4, 200, '2022-04-06 08:30:43', NULL),
+(1990, 2, 200, 2, 2, 4, 5, 200, '2022-04-06 08:30:43', NULL),
+(1991, 2, 200, 2, 2, 4, 6, 200, '2022-04-06 08:30:43', NULL),
+(1992, 2, 200, 2, 2, 4, 7, 200, '2022-04-06 08:30:43', NULL),
+(1993, 2, 196, 2, 2, 4, 8, 200, '2022-04-06 08:30:43', NULL),
+(1994, 2, 196, 2, 2, 4, 9, 200, '2022-04-06 08:30:43', NULL),
+(1995, 2, 196, 2, 2, 4, 10, 200, '2022-04-06 08:30:43', NULL),
+(1996, 1, 201, 2, 2, 4, 1, 201, '2022-04-06 08:58:03', NULL),
+(1997, 2, 201, 2, 2, 4, 2, 201, '2022-04-06 08:58:03', NULL),
+(1998, 2, 201, 2, 2, 4, 3, 201, '2022-04-06 08:58:03', NULL),
+(1999, 2, 201, 2, 2, 4, 4, 201, '2022-04-06 08:58:03', NULL),
+(2000, 2, 201, 2, 2, 4, 5, 201, '2022-04-06 08:58:03', NULL),
+(2001, 2, 201, 2, 2, 4, 6, 201, '2022-04-06 08:58:03', NULL),
+(2002, 2, 201, 2, 2, 4, 7, 201, '2022-04-06 08:58:03', NULL),
+(2003, 2, 197, 2, 2, 4, 8, 201, '2022-04-06 08:58:03', NULL),
+(2004, 2, 197, 2, 2, 4, 9, 201, '2022-04-06 08:58:03', NULL),
+(2005, 2, 197, 2, 2, 4, 10, 201, '2022-04-06 08:58:03', NULL),
+(2006, 1, 202, 2, 2, 4, 1, 202, '2022-04-06 09:30:19', NULL),
+(2007, 2, 202, 2, 2, 4, 2, 202, '2022-04-06 09:30:19', NULL),
+(2008, 2, 202, 2, 2, 4, 3, 202, '2022-04-06 09:30:19', NULL),
+(2009, 2, 202, 2, 2, 4, 4, 202, '2022-04-06 09:30:19', NULL),
+(2010, 2, 202, 2, 2, 4, 5, 202, '2022-04-06 09:30:19', NULL),
+(2011, 2, 202, 2, 2, 4, 6, 202, '2022-04-06 09:30:19', NULL),
+(2012, 2, 202, 2, 2, 4, 7, 202, '2022-04-06 09:30:19', NULL),
+(2013, 2, 198, 2, 2, 4, 8, 202, '2022-04-06 09:30:19', NULL),
+(2014, 2, 198, 2, 2, 4, 9, 202, '2022-04-06 09:30:19', NULL),
+(2015, 2, 198, 2, 2, 4, 10, 202, '2022-04-06 09:30:19', NULL),
+(2016, 1, 203, 2, 2, 4, 1, 203, '2022-04-06 10:09:04', NULL),
+(2017, 2, 203, 2, 2, 4, 2, 203, '2022-04-06 10:09:04', NULL),
+(2018, 2, 203, 2, 2, 4, 3, 203, '2022-04-06 10:09:04', NULL),
+(2019, 2, 203, 2, 2, 4, 4, 203, '2022-04-06 10:09:04', NULL),
+(2020, 2, 203, 2, 2, 4, 5, 203, '2022-04-06 10:09:04', NULL),
+(2021, 2, 203, 2, 2, 4, 6, 203, '2022-04-06 10:09:04', NULL),
+(2022, 2, 203, 2, 2, 4, 7, 203, '2022-04-06 10:09:04', NULL),
+(2023, 2, 199, 2, 2, 4, 8, 203, '2022-04-06 10:09:04', NULL),
+(2024, 2, 199, 2, 2, 4, 9, 203, '2022-04-06 10:09:04', NULL),
+(2025, 2, 199, 2, 2, 4, 10, 203, '2022-04-06 10:09:04', NULL),
+(2026, 1, 204, 1, 1, 13, 1, 204, '2022-04-06 10:19:47', '2022-04-06 10:20:17'),
+(2027, 2, 204, 2, 2, 4, 2, 204, '2022-04-06 10:19:47', NULL),
+(2028, 2, 204, 2, 2, 4, 3, 204, '2022-04-06 10:19:47', NULL),
+(2029, 2, 204, 2, 2, 4, 4, 204, '2022-04-06 10:19:47', NULL),
+(2030, 2, 204, 2, 2, 4, 5, 204, '2022-04-06 10:19:47', NULL),
+(2031, 2, 204, 2, 2, 4, 6, 204, '2022-04-06 10:19:47', NULL),
+(2032, 2, 204, 2, 2, 4, 7, 204, '2022-04-06 10:19:47', NULL),
+(2033, 2, 200, 2, 2, 4, 8, 204, '2022-04-06 10:19:47', NULL),
+(2034, 2, 200, 2, 2, 4, 9, 204, '2022-04-06 10:19:47', NULL),
+(2035, 2, 200, 2, 2, 4, 10, 204, '2022-04-06 10:19:47', NULL),
+(2036, 1, 205, 2, 2, 4, 1, 205, '2022-04-06 15:50:30', NULL),
+(2037, 2, 205, 2, 2, 4, 2, 205, '2022-04-06 15:50:30', NULL),
+(2038, 2, 205, 2, 2, 4, 3, 205, '2022-04-06 15:50:30', NULL),
+(2039, 2, 205, 2, 2, 4, 4, 205, '2022-04-06 15:50:30', NULL),
+(2040, 2, 205, 2, 2, 4, 5, 205, '2022-04-06 15:50:30', NULL),
+(2041, 2, 205, 2, 2, 4, 6, 205, '2022-04-06 15:50:30', NULL),
+(2042, 2, 205, 2, 2, 4, 7, 205, '2022-04-06 15:50:30', NULL),
+(2043, 2, 201, 2, 2, 4, 8, 205, '2022-04-06 15:50:30', NULL),
+(2044, 2, 201, 2, 2, 4, 9, 205, '2022-04-06 15:50:30', NULL),
+(2045, 2, 201, 2, 2, 4, 10, 205, '2022-04-06 15:50:30', NULL),
+(2046, 1, 206, 2, 2, 4, 1, 206, '2022-04-07 09:38:52', NULL),
+(2047, 2, 206, 2, 2, 4, 2, 206, '2022-04-07 09:38:52', NULL),
+(2048, 2, 206, 2, 2, 4, 3, 206, '2022-04-07 09:38:52', NULL),
+(2049, 2, 206, 2, 2, 4, 4, 206, '2022-04-07 09:38:52', NULL),
+(2050, 2, 206, 2, 2, 4, 5, 206, '2022-04-07 09:38:52', NULL),
+(2051, 2, 206, 2, 2, 4, 6, 206, '2022-04-07 09:38:52', NULL),
+(2052, 2, 206, 2, 2, 4, 7, 206, '2022-04-07 09:38:52', NULL),
+(2053, 2, 202, 2, 2, 4, 8, 206, '2022-04-07 09:38:52', NULL),
+(2054, 2, 202, 2, 2, 4, 9, 206, '2022-04-07 09:38:52', NULL),
+(2055, 2, 202, 2, 2, 4, 10, 206, '2022-04-07 09:38:52', NULL),
+(2056, 1, 207, 2, 2, 4, 1, 207, '2022-04-07 16:19:54', NULL),
+(2057, 2, 207, 2, 2, 4, 2, 207, '2022-04-07 16:19:54', NULL),
+(2058, 2, 207, 2, 2, 4, 3, 207, '2022-04-07 16:19:54', NULL),
+(2059, 2, 207, 2, 2, 4, 4, 207, '2022-04-07 16:19:54', NULL),
+(2060, 2, 207, 2, 2, 4, 5, 207, '2022-04-07 16:19:54', NULL),
+(2061, 2, 207, 2, 2, 4, 6, 207, '2022-04-07 16:19:54', NULL),
+(2062, 2, 207, 2, 2, 4, 7, 207, '2022-04-07 16:19:54', NULL),
+(2063, 2, 203, 2, 2, 4, 8, 207, '2022-04-07 16:19:54', NULL),
+(2064, 2, 203, 2, 2, 4, 9, 207, '2022-04-07 16:19:54', NULL),
+(2065, 2, 203, 2, 2, 4, 10, 207, '2022-04-07 16:19:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -2720,7 +2814,7 @@ CREATE TABLE IF NOT EXISTS `adms_paginas` (
   `created` datetime NOT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=199 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=208 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `adms_paginas`
@@ -2920,7 +3014,16 @@ INSERT INTO `adms_paginas` (`id`, `controller`, `metodo`, `menu_controller`, `me
 (195, 'CadastrarTipoRemanejo', 'cadTipoRemanejo', 'cadastrar-tipo-remanejo', 'cad-tipo-remanejo', 'Cadastrar Tipo Remanejo', '<p>PÃ¡gina para cadastrar os tipos de remanejos.</p>', 2, '', 2, 1, 1, '2021-12-31 13:46:40', NULL),
 (196, 'EditarTipoRemanejo', 'editTipoRemanejo', 'editar-tipo-remanejo', 'edit-tipo-remanejo', 'Editar Tipo Remanejo', '<p>PÃ¡gina para editar os tipos de remanejos cadastrados no sistema.</p>', 2, '', 3, 1, 1, '2021-12-31 14:01:41', NULL),
 (197, 'CarregarUsuariosJs', 'listar', 'carregar-usuarios-js', 'listar', 'UsuÃ¡rios JS', '<p>Listar sem recarregar a pÃ¡gina</p>', 2, 'fas fa-users', 1, 2, 1, '2022-03-22 17:34:30', NULL),
-(198, 'VerUsuarioModal', 'verUsuario', 'ver-usuario-modal', 'ver-usuario', 'Ver UsuÃ¡rio Modal', '<p>PÃ¡gina para visualizar os dados do usuÃ¡rio em janela modal.</p>', 2, '', 5, 2, 1, '2022-03-23 10:26:34', NULL);
+(198, 'VerUsuarioModal', 'verUsuario', 'ver-usuario-modal', 'ver-usuario', 'Ver UsuÃ¡rio Modal', '<p>PÃ¡gina para visualizar os dados do usuÃ¡rio em janela modal.</p>', 2, '', 5, 2, 1, '2022-03-23 10:26:34', NULL),
+(199, 'Marcas', 'listar', 'marcas', 'listar', 'Marcas', '<p>PÃ¡gina para listar as marcar cadastradas na base de dados.</p>', 2, 'fa-solid fa-square-up-right', 1, 1, 1, '2022-04-04 16:56:32', '2022-04-06 08:19:00'),
+(200, 'CadastrarMarca', 'cadMarca', 'cadastrar-marca', 'cad-marca', 'Cadastrar Marcas', '<p>PÃ¡gina para cadastras as marcas dos produtos na base de dados.</p>', 2, '', 2, 1, 1, '2022-04-06 08:30:43', NULL),
+(201, 'VerMarca', 'verMarca', 'ver-marca', 'ver-marca', 'Ver Marca', '<p>PÃ¡gina para visualizar o cadastro das marcas cadastradas na base de dados.</p>', 2, '', 5, 1, 1, '2022-04-06 08:58:03', NULL),
+(202, 'EditarMarca', 'editMarca', 'editar-marca', 'edit-marca', 'Editar Marca', '<p>PÃ¡gina para editar as marcas cadastradas na base de dados.</p>', 2, '', 3, 1, 1, '2022-04-06 09:30:19', NULL),
+(203, 'ApagarMarca', 'apagarMarca', 'apagar-marca', 'apagar-marca', 'Apagar Marca', '<p>PÃ¡gina para apagar o cadastro das marcas na base de dados.</p>', 2, '', 4, 1, 1, '2022-04-06 10:09:04', NULL),
+(204, 'OrdemServico', 'listar', 'ordem-servico', 'listar', 'Ordem ServiÃ§o', '<p>PÃ¡gina para listar as ordens de serviÃ§os abertas no sistema.</p>', 2, 'fa-solid fa-folder-tree', 1, 1, 1, '2022-04-06 10:19:47', '2022-04-06 15:36:45'),
+(205, 'CadastrarOrdemServico', 'cadOrdemServico', 'cadastrar-ordem-servico', 'cad-ordem-servico', 'Cadastrar Ordem ServiÃ§o', '<p>PÃ¡gina para cadastrar as solicitaÃ§Ãµes de ordens de serviÃ§os.</p>', 2, '', 2, 1, 1, '2022-04-06 15:50:30', NULL),
+(206, 'VerOrdemServico', 'verOrdemServico', 'ver-ordem-servico', 'ver-ordem-servico', 'Ver Ordem ServiÃ§o', '<p>PÃ¡gina para visualizar as informaÃ§Ãµes das ordens de serviÃ§os cadastradas.</p>', 2, '', 5, 1, 1, '2022-04-07 09:38:52', NULL),
+(207, 'EditarOrdemServico', 'editOrdemServico', 'editar-ordem-servico', 'edit-ordem-servico', 'Editar Ordem ServiÃ§o', '<p>PÃ¡gina para editar o cadastro das ordens de serviÃ§os registradas na base de dados</p>', 2, '', 3, 1, 1, '2022-04-07 16:19:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -2945,6 +3048,61 @@ INSERT INTO `adms_prioridades` (`id`, `nome`, `created`, `modified`) VALUES
 (1, 'Baixa', '2021-12-16 11:48:53', NULL),
 (2, 'Moderada', '2021-12-16 11:48:53', NULL),
 (3, 'Alta', '2021-12-16 11:49:18', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `adms_qualidade_ordem_servico`
+--
+
+DROP TABLE IF EXISTS `adms_qualidade_ordem_servico`;
+CREATE TABLE IF NOT EXISTS `adms_qualidade_ordem_servico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loja_id` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ordem_servico` int(11) DEFAULT NULL,
+  `num_prenota` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tipo_ordem_id` int(1) NOT NULL,
+  `num_nota_transf` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data_emissao_nota_transf` datetime NOT NULL,
+  `data_confir_nota_transf` datetime DEFAULT NULL,
+  `data_dif_emissao_confir` int(11) DEFAULT NULL,
+  `referencia` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reftam` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cod_barras` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tam_id` int(2) NOT NULL,
+  `marca_id` int(4) NOT NULL,
+  `qtde` int(4) NOT NULL,
+  `loja_id_conserto` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nf_conserto_devolucao` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `data_emissao_conserto` datetime DEFAULT NULL,
+  `nf_retorno_conserto` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `data_confir_retorno_conserto` datetime DEFAULT NULL,
+  `obs` text COLLATE utf8mb4_unicode_ci,
+  `status_id` int(2) NOT NULL DEFAULT '1',
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `adms_qualidade_ordem_servico`
+--
+
+INSERT INTO `adms_qualidade_ordem_servico` (`id`, `loja_id`, `ordem_servico`, `num_prenota`, `tipo_ordem_id`, `num_nota_transf`, `data_emissao_nota_transf`, `data_confir_nota_transf`, `data_dif_emissao_confir`, `referencia`, `reftam`, `cod_barras`, `tam_id`, `marca_id`, `qtde`, `loja_id_conserto`, `nf_conserto_devolucao`, `data_emissao_conserto`, `nf_retorno_conserto`, `data_confir_retorno_conserto`, `obs`, `status_id`, `created`, `modified`) VALUES
+(1, 'Z421', 151, NULL, 1, '123', '2022-04-06 10:34:00', NULL, NULL, 'A0376267230080', NULL, '7909002339999', 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2022-04-06 10:34:00', NULL),
+(2, 'Z422', 152, '152', 1, '152', '2022-04-07 09:04:00', '2022-04-07 09:04:00', NULL, 'A1025300010243', 'AA102530001024339', 'A102530001024339', 12, 2, 1, 'Z423', '152', '2022-04-07 09:05:00', '153', '2022-04-07 09:05:00', '<p>Teste</p>', 1, '2022-04-07 09:05:38', NULL),
+(3, 'Z428', 153, '153', 1, '754', '2022-04-07 03:25:00', '2022-04-07 03:16:00', NULL, '3132135', '1323', '54632132654', 11, 6, 5, 'Z423', '615', '2022-04-07 09:17:00', '55654', '2022-04-07 09:18:00', '<p>teste2</p>', 1, '2022-04-07 09:25:31', NULL),
+(4, 'Z424', 154, '154', 1, '154', '2022-04-07 09:27:00', '2022-04-07 09:27:00', NULL, 'A1025300010243', 'A102530001024334', 'A102530001024334', 4, 2, 2, 'Z421', '154', '2022-04-07 09:28:00', '154', '2022-04-07 09:28:00', '<p>teste3</p>', 1, '2022-04-07 09:28:38', NULL),
+(5, 'Z421', 155, '155', 1, '55', '2022-04-06 10:46:00', '2022-04-08 10:46:00', NULL, 'A1025300010243', 'AA102530001024339', 'A102530001024339', 3, 1, 5, 'Z436', '55', '2022-04-07 10:46:00', '3', '2022-04-13 10:46:00', '<p>teste</p>', 1, '2022-04-07 11:17:13', NULL),
+(6, 'Z999', 152, '152', 2, '55', '2022-04-06 00:00:00', '2022-04-07 00:00:00', NULL, '51', 'AA102530001024339', '54632132654', 16, 6, 5, 'Z422', '55', '2022-04-07 00:00:00', '5', '2022-04-08 00:00:00', '<p>teste</p>', 1, '2022-04-07 11:29:15', NULL),
+(7, 'Z423', 156, '156', 2, '455', '2022-04-06 00:00:00', '2022-04-07 00:00:00', NULL, 'C3022800010008', 'AA102530001024339', 'A102530001024339', 16, 1, 1, 'Z434', '1562', '2022-04-07 00:00:00', '1562', '2022-04-08 00:00:00', '<p>mais um teste</p>', 1, '2022-04-07 11:54:08', NULL),
+(8, 'Z429', 157, '157', 2, '1', '2022-04-06 00:00:00', '2022-04-07 00:00:00', NULL, 'A1020700010101', 'A102530001024334', 'A102530001024339', 10, 3, 1, 'Z430', '1', '2022-04-07 00:00:00', '1', '2022-04-07 00:00:00', '<p>mais outro test</p>', 1, '2022-04-07 11:57:35', NULL),
+(9, 'Z426', 158, '158', 1, '1654', '2022-04-05 00:00:00', '2022-04-07 00:00:00', NULL, 'A5001804590001', 'AA102530001024339', 'A102530001024339', 8, 5, 1, 'Z424', '6161', '2022-03-31 00:00:00', '1616', '2022-04-07 00:00:00', '<p>outro teste</p>', 1, '2022-04-07 11:59:42', NULL),
+(10, 'Z432', 158, '158', 1, '154', '2022-04-05 00:00:00', '2022-04-07 00:00:00', NULL, 'C3022800010008', 'AA102530001024339', '54632132654', 8, 5, 1, 'Z436', '54', '2022-04-07 00:00:00', '151', '2022-04-07 00:00:00', '<p>novo teste</p>', 1, '2022-04-07 12:02:45', NULL),
+(11, 'Z427', 159, '159', 2, '159', '2022-04-05 00:00:00', '2022-04-05 00:00:00', 0, 'A1020700010101', 'A102530001024334', 'A102530001024334', 13, 3, 1, 'Z435', '159', '2022-04-07 00:00:00', '159', '2022-04-07 00:00:00', '<p>teste</p>', 1, '2022-04-07 12:09:07', NULL),
+(12, 'Z424', 200, '200', 1, '200', '2022-04-05 00:00:00', '2022-04-05 00:00:00', NULL, 'A5001804590001', '32156321', '54632132654', 9, 5, 1, 'Z432', '15', '2022-04-07 00:00:00', '5', '2022-04-07 00:00:00', '<p>teste</p>', 1, '2022-04-07 12:11:03', NULL),
+(13, 'Z425', 201, '201', 1, '201', '2022-04-05 00:00:00', '2022-04-07 00:00:00', 2, 'C3022800010008', 'AA102530001024339', 'A102530001024339', 11, 2, 1, 'Z428', '201', '2022-04-07 00:00:00', '201', '2022-04-07 00:00:00', '<p>teste</p>', 1, '2022-04-07 12:14:59', NULL),
+(14, 'Z431', 202, '2020', 2, '202', '2022-04-01 00:00:00', '2022-04-07 00:00:00', 6, 'A5001804590001', '32156321', '54632132654', 15, 2, 1, 'Z434', '202', '2022-04-07 00:00:00', '202', '2022-04-07 00:00:00', '<p>teste</p>', 1, '2022-04-07 12:21:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -3184,6 +3342,29 @@ INSERT INTO `adms_sits_usuarios` (`id`, `nome`, `adms_cor_id`, `created`, `modif
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `adms_stis_ordem_servico`
+--
+
+DROP TABLE IF EXISTS `adms_stis_ordem_servico`;
+CREATE TABLE IF NOT EXISTS `adms_stis_ordem_servico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cor_id` int(2) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `adms_stis_ordem_servico`
+--
+
+INSERT INTO `adms_stis_ordem_servico` (`id`, `nome`, `cor_id`, `created`, `modified`) VALUES
+(1, 'Pendente', 1, '2022-04-06 10:42:01', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `adms_tipo_divergencia`
 --
 
@@ -3196,6 +3377,29 @@ CREATE TABLE IF NOT EXISTS `adms_tipo_divergencia` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `adms_tips_ordem_servico`
+--
+
+DROP TABLE IF EXISTS `adms_tips_ordem_servico`;
+CREATE TABLE IF NOT EXISTS `adms_tips_ordem_servico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `adms_tips_ordem_servico`
+--
+
+INSERT INTO `adms_tips_ordem_servico` (`id`, `nome`, `created`, `modified`) VALUES
+(1, 'Cliente', '2022-04-06 17:40:32', NULL),
+(2, 'Loja', '2022-04-06 17:40:32', NULL);
 
 -- --------------------------------------------------------
 
