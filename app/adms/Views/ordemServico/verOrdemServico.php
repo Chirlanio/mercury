@@ -169,6 +169,10 @@ if (!empty($this->Dados['dados_ordem_servico'][0])) {
                                     <label for="loja_id_conserto">Situação</label>
                                     <input type="text" class="form-control bg-white" id="loja_id_conserto" value="<?php echo $sit; ?>" readonly>
                                 </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="ordem_servico">Ordem de Serviço</label>
+                                    <input type="text" class="form-control bg-white" id="ordem_servico" value="<?php echo $ordem_servico; ?>" readonly>
+                                </div>
                             </div>
 
                             <div class="mb-3">
