@@ -16,11 +16,14 @@ class VerTransf {
 
     private $Dados;
     private $DadosId;
+    private $PageId;
 
-    public function verTransf($DadosId = null) {
+    public function verTransf($DadosId = null, $PageId = null) {
+        $this->PageId = (int) $PageId ? $PageId : filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
+        $this->Dados['pg'] = $this->PageId;
 
         $this->DadosId = (int) $DadosId;
-        if (!empty($this->DadosId)) {
+        if ((!empty($this->DadosId)) AND (!empty($this->PageId))) {
             $verTransf = new \App\adms\Models\AdmsVerTransf();
             $this->Dados['dados_transf'] = $verTransf->verTransf($this->DadosId);
 

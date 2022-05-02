@@ -143,10 +143,10 @@ if (!defined('URLADM')) {
                                 <span class="d-none d-md-block">
                                     <?php
                                     if ($this->Dados['botao']['vis_transf']) {
-                                        echo "<a href='" . URLADM . "ver-transf/ver-transf/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                        echo "<a href='" . URLADM . "ver-transf/ver-transf/$id?pg={$this->Dados['pg']}' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['edit_transf']) {
-                                        echo "<a href='" . URLADM . "editar-transf/edit-transf/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                        echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['del_transf']) {
                                         echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
@@ -160,10 +160,10 @@ if (!defined('URLADM')) {
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                         <?php
                                         if ($this->Dados['botao']['vis_transf']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-transf/ver-transf/$id'>Visualizar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-transf/ver-transf/$id?pg={$this->Dados['pg']}'>Visualizar</a>";
                                         }
                                         if ($this->Dados['botao']['edit_transf']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id' data-toggle='modal' data-target='#editModal'>Editar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id?pg={$this->Dados['pg']}'>Editar</a>";
                                         }
                                         if ($this->Dados['botao']['del_transf']) {
                                             echo "<a class='dropdown-item' href='" . URLADM . "apagar-transf/apagar-transf/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";

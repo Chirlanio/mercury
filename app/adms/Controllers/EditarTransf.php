@@ -16,11 +16,14 @@ class EditarTransf {
 
     private $Dados;
     private $DadosId;
+    private $PageId;
 
     public function editTransf($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        $this->PageId = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
+        $this->Dados['pg'] = $this->PageId;
         $this->DadosId = (int) $DadosId;
-        if (!empty($this->DadosId)) {
+        if ((!empty($this->DadosId)) AND (!empty($this->PageId))) {
             $this->editTransfPriv();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
@@ -36,7 +39,7 @@ class EditarTransf {
             $editarTransf->altTransf($this->Dados);
             if ($editarTransf->getResultado()) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
-                $UrlDestino = URLADM . 'transferência/listar-transf/';
+                $UrlDestino = URLADM . "transferência/listar-transf/{$this->PageId}";
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
@@ -54,7 +57,7 @@ class EditarTransf {
             $listarSelect = new \App\adms\Models\AdmsEditarTransf();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_transf' => ['menu_controller' => 'ver-transf', 'menu_metodo' => 'ver-transf'],'list_transf' => ['menu_controller' => 'transferencia', 'menu_metodo' => 'listar-transf']];
+            $botao = ['vis_transf' => ['menu_controller' => 'ver-transf', 'menu_metodo' => 'ver-transf'], 'list_transf' => ['menu_controller' => 'transferencia', 'menu_metodo' => 'listar-transf']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

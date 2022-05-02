@@ -275,11 +275,24 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label>Observações</label>
-                    <textarea name="obs" id="editor" class="form-control editorCK is-invalid" rows="4" required>
+                    <label>Observações - Loja</label>
+                    <textarea name="obs_loja" id="obs_loja" class="form-control editorCK is-invalid" rows="4" required>
                         <?php
-                        if (isset($valorForm['obs'])) {
-                            echo $valorForm['obs'];
+                        if (isset($valorForm['obs_loja'])) {
+                            echo $valorForm['obs_loja'];
+                        }
+                        ?>
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Observações - Qualidade</label>
+                    <textarea name="obs_qualidade" id="obs_qualidade" class="form-control editorCK is-invalid" rows="4" required>
+                        <?php
+                        if (isset($valorForm['obs_qualidade'])) {
+                            echo $valorForm['obs_qualidade'];
                         }
                         ?>
                     </textarea>

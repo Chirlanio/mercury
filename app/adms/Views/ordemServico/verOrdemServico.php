@@ -179,8 +179,19 @@ if (!empty($this->Dados['dados_ordem_servico'][0])) {
                                 <ul class="list-group mb-3">
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                                         <div>
-                                            <h6 class="my-0"><p>Observações:</p></h6>
-                                            <small class="text-muted lead"><?php echo $obs; ?></small>
+                                            <h6 class="my-0"><p>Observações - Loja:</p></h6>
+                                            <small class="text-muted lead"><?php echo $obs_loja; ?></small>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-3">
+                                <ul class="list-group mb-3">
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h6 class="my-0"><p>Observações - Qualidade:</p></h6>
+                                            <small class="text-muted lead"><?php echo $obs_qualidade; ?></small>
                                         </div>
                                     </li>
                                 </ul>

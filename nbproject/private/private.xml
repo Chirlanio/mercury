@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/Controllers/CarregarUsuariosJs.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/assets/js/dashboard_cpadms.js</file>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/Views/usuario/listarUsuarioJs.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/adms/Views/usuario/listarUsuario.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/Views/delivery/carregarDelivery.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/Controllers/CarregarDelivery.php</file>
-            <file>file:/C:/wamp64/www/mercury/app/cpadms/Views/usuario/carregarUsuariosJs.php</file>
+            <file>file:/C:/wamp64/www/mercury/app/adms/Views/ordemServico/editarOrdemServico.php</file>
+            <file>file:/C:/wamp64/www/mercury/app/adms/Views/ordemServico/verOrdemServico.php</file>
         </group>
     </open-files>
 </project-private>

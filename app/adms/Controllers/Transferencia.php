@@ -19,6 +19,7 @@ class Transferencia {
 
     public function listarTransf($PageId = null) {
         $this->PageId = (int) $PageId ? $PageId : 1;
+        $this->Dados['pg'] = $this->PageId;
 
         $botao = ['list_transf' => ['menu_controller' => 'cadastrar-transf', 'menu_metodo' => 'cad-transf'],
             'vis_transf' => ['menu_controller' => 'ver-transf', 'menu_metodo' => 'ver-transf'],
