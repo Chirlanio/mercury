@@ -16,10 +16,13 @@ class Transferencia {
 
     private $Dados;
     private $PageId;
+    private $Origem;
 
-    public function listarTransf($PageId = null) {
+    public function listarTransf($PageId = null, $Origem = null) {
         $this->PageId = (int) $PageId ? $PageId : 1;
         $this->Dados['pg'] = $this->PageId;
+        $this->Origem = (string) $Origem ? $Origem : "";
+        $this->Dados['origem'] = $this->Origem;
 
         $botao = ['list_transf' => ['menu_controller' => 'cadastrar-transf', 'menu_metodo' => 'cad-transf'],
             'vis_transf' => ['menu_controller' => 'ver-transf', 'menu_metodo' => 'ver-transf'],

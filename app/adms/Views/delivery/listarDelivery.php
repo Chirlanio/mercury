@@ -203,7 +203,7 @@ if (!defined('URLADM')) {
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $saida; ?></td>
                             <td class="d-none d-sm-table-cell d-print-none align-middle"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></td>
                             <td class="d-none d-sm-table-cell d-print-none align-middle"><?php echo ($modified != null) ? date('d/m/Y H:i:s', strtotime($modified)) : ""; ?></td>
-                            <td class="d-none d-sm-table-cell align-middle"><?php echo $sit; ?></td>
+                            <td class="d-none d-sm-table-cell align-middle"><span class="badge badge-<?php echo $cr_cor; ?>"><?php echo $sit; ?></span></td>
                             <td class="text-center d-print-none align-middle">
                                 <span class="d-none d-md-block">
                                     <?php

@@ -115,13 +115,13 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="text-center">ID</th>
-                        <th>Loja de Origem</th>
+                        <th>Loja - Origem</th>
                         <th class="d-none d-sm-table-cell">Loja de Destino</th>
                         <th class="d-none d-sm-table-cell">NF</th>
                         <th class="d-none d-sm-table-cell">Volumes</th>
                         <th class="d-none d-sm-table-cell">Tipo</th>
                         <th class="d-none d-sm-table-cell">Cadastrado</th>
-                        <th class="d-none d-sm-table-cell">Situação</th>
+                        <th>Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -138,7 +138,7 @@ if (!defined('URLADM')) {
                             <td class="d-none d-sm-table-cell align-middle text-center"><?php echo $qtd_vol; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $tipo; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo date('d/m/Y', strtotime($created)); ?></td>
-                            <td class="d-none d-sm-table-cell align-middle text-center"><span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $sit; ?></span></td>
+                            <td class="align-middle text-center"><span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $sit; ?></span></td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php

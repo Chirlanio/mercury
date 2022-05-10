@@ -1,5 +1,5 @@
 ﻿<?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -19,7 +19,7 @@ if (!empty($this->Dados['dados_transf'][0])) {
                             echo "<a href='" . URLADM . "transferencia/listar-transf/' class='btn btn-outline-info btn-sm' title='Listar'><i class='fas fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_transf']) {
-                            echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                            echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_transf']) {
                             echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id' class='btn btn-outline-danger btn-sm' title='Apagar' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
@@ -36,7 +36,7 @@ if (!empty($this->Dados['dados_transf'][0])) {
                                 echo "<a class='dropdown-item' href='" . URLADM . "transferencia/listar'>Listar</a>";
                             }
                             if ($this->Dados['botao']['edit_transf']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id?pg={$this->Dados['pg']}'>Editar</a>";
+                                echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}'>Editar</a>";
                             }
                             if ($this->Dados['botao']['del_transf']) {
                                 echo "<a class='dropdown-item' href='" . URLADM . "apagar-transf/apagar-transf/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";

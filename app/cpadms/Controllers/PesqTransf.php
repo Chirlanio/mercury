@@ -17,8 +17,15 @@ class PesqTransf {
     private $Dados;
     private $DadosForm;
     private $PageId;
+    private $Origem;
 
-    public function listar($PageId = null) {
+    public function listar($PageId = null, $Origem = null) {
+
+        $this->Origem = (string) $Origem ? $Origem : filter_input(INPUT_GET, 'origem', FILTER_SANITIZE_STRING);
+        $this->Dados['origem'] = $this->Origem;
+        
+        $this->PageId = (int) $PageId ? $PageId : 1;
+        $this->Dados['pg'] = $this->PageId;
 
         $botao = ['list_transf' => ['menu_controller' => 'transferencia', 'menu_metodo' => 'listar-transf'],
             'cad_transf' => ['menu_controller' => 'cadastrar-transf', 'menu_metodo' => 'cad-transf'],

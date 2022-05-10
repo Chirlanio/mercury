@@ -2,7 +2,7 @@
 
 namespace App\cpadms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -28,7 +28,6 @@ class CpAdmsPesqTransf {
 
         $this->PageId = (int) $PageId;
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
 
         $_SESSION['pesqOrigem'] = $this->Dados['loja_origem_id'];
         $_SESSION['pesqDestino'] = $this->Dados['loja_destino_id'];
@@ -196,7 +195,7 @@ class CpAdmsPesqTransf {
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= 5) {
-            $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
+            $listarTransf->fullRead("SELECT t.id, t.loja_origem_id, t.loja_destino_id, t.nf, t.qtd_vol, t.qtd_prod, t.tipo_transf_id, t.status_id, t.recebido, t.created, t.modified, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
                     FROM tb_transferencias t
                     INNER JOIN tb_lojas l ON l.id=t.loja_origem_id 
                     INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id 
@@ -290,13 +289,13 @@ class CpAdmsPesqTransf {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         if ($_SESSION['ordem_nivac'] >= 4) {
-            $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+            $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
-            $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");
+            $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_origem_id'] = $listar->getResultado();
+        $registro['loja_origem'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas ORDER BY id ASC");
+        $listar->fullRead("SELECT id ld_id, nome loja_dest FROM tb_lojas ORDER BY id ASC");
         $registro['loja_destino_id'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id id_tipo, nome tipo FROM tb_tipo_transf ORDER BY id ASC");
@@ -305,7 +304,7 @@ class CpAdmsPesqTransf {
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_transf ORDER BY id ASC");
         $registro['status_id'] = $listar->getResultado();
 
-        $this->Resultado = ['loja_origem_id' => $registro['loja_origem_id'], 'loja_destino_id' => $registro['loja_destino_id'], 'status_id' => $registro['status_id']];
+        $this->Resultado = ['loja_origem' => $registro['loja_origem'], 'loja_destino_id' => $registro['loja_destino_id'], 'status_id' => $registro['status_id']];
 
         return $this->Resultado;
     }

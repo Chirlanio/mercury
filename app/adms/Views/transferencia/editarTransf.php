@@ -18,7 +18,7 @@ if (isset($this->Dados['form'][0])) {
                 ?>
                 <div class="p-2">
                     <a href="<?php echo URLADM . 'transferencia/listar-transf/'; ?>" class="btn btn-outline-info btn-sm" title="Listar"><i class='fas fa-list'></i></a>
-                    <a href="<?php echo URLADM . "ver-transf/ver-transf/" . $valorForm['id'] . "?pg={$this->Dados['pg']}"; ?>" class="btn btn-outline-primary btn-sm" title="Visualizar"><i class='fas fa-eye'></i></a>
+                    <a href="<?php echo URLADM . "ver-transf/ver-transf/" . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm" title="Visualizar"><i class='fas fa-eye'></i></a>
                 </div>
                 <?php
             }

@@ -1,8 +1,9 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
+//var_dump($this->Dados['select']['loja_origem']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -45,19 +46,19 @@ if (!defined('URL')) {
                         <div class="input-group-prepend">
                             <label class="input-group-text" style="font-weight: bold" for="loja_origem_id">Origem</label>
                         </div>
-                        <?php
-                        echo "<select name='loja_origem_id' id='loja_origem_id' class='custom-select'>";
-                        echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['loja_origem_id'] as $lo) {
-                            extract($lo);
-                            if (isset($valorForm['loja_origem_id']) == $loja_id) {
-                                echo "<option value='$loja_id' selected>$loja_orig</option>";
-                            } else {
-                                echo "<option value='$loja_id'>$loja_orig</option>";
+                        <select name='loja_origem_id' id='loja_origem_id' class='custom-select'>
+                            <?php
+                            echo "<option value = ''>Selecione</option>";
+                            foreach ($this->Dados['select']['loja_origem'] as $lo) {
+                                extract($lo);
+                                if (isset($valorForm['loja_origem_id']) == $lo_id) {
+                                    echo "<option value='$lo_id' selected>$loja_orig</option>";
+                                } else {
+                                    echo "<option value='$lo_id'>$loja_orig</option>";
+                                }
                             }
-                        }
-                        echo "</select>";
-                        ?>
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4 mb-3">
@@ -65,19 +66,19 @@ if (!defined('URL')) {
                         <div class="input-group-prepend">
                             <label class="input-group-text" style="font-weight: bold" for="loja_destino_id">Destino</label>
                         </div>
-                        <?php
-                        echo "<select name='loja_destino_id' id='loja_destino_id' class='custom-select'>";
-                        echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['loja_destino_id'] as $ld) {
-                            extract($ld);
-                            if (isset($valorForm['loja_destino_id']) == $loja_id) {
-                                echo "<option value='$loja_id' selected>$loja_dest</option>";
-                            } else {
-                                echo "<option value='$loja_id'>$loja_dest</option>";
+                        <select name='loja_destino_id' id='loja_destino_id' class='custom-select'>
+                            <?php
+                            echo "<option value = ''>Selecione</option>";
+                            foreach ($this->Dados['select']['loja_destino_id'] as $ld) {
+                                extract($ld);
+                                if ($valorForm['loja_destino_id'] == $ld_id) {
+                                    echo "<option value='$ld_id' selected>$loja_dest</option>";
+                                } else {
+                                    echo "<option value='$ld_id'>$loja_dest</option>";
+                                }
                             }
-                        }
-                        echo "</select>";
-                        ?>
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4 mb-3">
@@ -152,18 +153,18 @@ if (!defined('URL')) {
                                 <td class="d-none d-sm-table-cell align-middle text-center"><?php echo $qtd_vol; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $tipo; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo date('d/m/Y', strtotime($created)); ?></td>
-                                <td class="d-none d-sm-table-cell align-middle text-center"><span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $sit; ?></span></td>
+                                <td class="align-middle text-center"><span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $sit; ?></span></td>
                                 <td class="text-center">
                                     <span class="d-none d-md-block">
                                         <?php
                                         if ($this->Dados['botao']['vis_transf']) {
-                                            echo "<a href='" . URLADM . "ver-transf/ver-transf/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                            echo "<a href='" . URLADM . "ver-transf/ver-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                         }
                                         if ($this->Dados['botao']['edit_transf']) {
-                                            echo "<a href='" . URLADM . "editar-transf/edit-transf/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                            echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                         }
                                         if ($this->Dados['botao']['del_transf']) {
-                                            echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
+                                            echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id?pg={$this->Dados['pg']}' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
                                         }
                                         ?>
                                     </span>
@@ -174,13 +175,13 @@ if (!defined('URL')) {
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                             <?php
                                             if ($this->Dados['botao']['vis_transf']) {
-                                                echo "<a class='dropdown-item' href='" . URLADM . "ver-transf/ver-transf/$id'>Visualizar</a>";
+                                                echo "<a class='dropdown-item' href='" . URLADM . "ver-transf/ver-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}'>Visualizar</a>";
                                             }
                                             if ($this->Dados['botao']['edit_transf']) {
-                                                echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id'>Editar</a>";
+                                                echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}'>Editar</a>";
                                             }
                                             if ($this->Dados['botao']['del_transf']) {
-                                                echo "<a class='dropdown-item' href='" . URLADM . "apagar-transf/apagar-transf/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                                echo "<a class='dropdown-item' href='" . URLADM . "apagar-transf/apagar-transf/$id?pg={$this->Dados['pg']}' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                             }
                                             ?>
                                         </div>

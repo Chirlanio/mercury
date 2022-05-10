@@ -261,7 +261,7 @@ var_dump($this->Dados['form'][0]);
                 </div>
                 <div class="form-group col-md-2">
                     <label>Recebido Por</label>
-                    <input name="recebido" class="form-control" value="<?php
+                    <input name="recebido" type="text" class="form-control" value="<?php
                     if (isset($valorForm['recebido'])) {
                         echo $valorForm['recebido'];
                     }
@@ -269,7 +269,7 @@ var_dump($this->Dados['form'][0]);
                 </div>
                 <div class="form-group col-md-2">
                     <label>Total de Produtos</label>
-                    <input name="qtde_produto" class="form-control" value="<?php
+                    <input name="qtde_produto" type="number" class="form-control" value="<?php
                     if (isset($valorForm['qtde_produto'])) {
                         echo $valorForm['qtde_produto'];
                     }
@@ -322,10 +322,10 @@ var_dump($this->Dados['form'][0]);
                         <?php
                         foreach ($this->Dados['select']['sit'] as $sit) {
                             extract($sit);
-                            if ($valorForm['status_id'] == $status_id) {
-                                echo "<option value='$status_id' selected>$sit</option>";
+                            if ($valorForm['status_id'] == $s_id) {
+                                echo "<option value='$s_id' selected>$sit</option>";
                             } else {
-                                echo "<option value='$status_id'>$sit</option>";
+                                echo "<option value='$s_id'>$sit</option>";
                             }
                         }
                         ?>

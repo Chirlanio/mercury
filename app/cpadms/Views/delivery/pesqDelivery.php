@@ -207,7 +207,9 @@ if (!defined('URL')) {
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $saida; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle d-print-none"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></td>
                                 <td class="d-none d-sm-table-cell align-middle d-print-none"><?php echo date('d/m/Y H:i:s', strtotime($modified)); ?></td>
-                                <td class="d-none d-sm-table-cell align-middle"><?php echo $sit; ?></td>
+                                <td class="d-none d-sm-table-cell align-middle">
+                                    <span class="badge badge-<?php echo $cr_cor; ?>"><?php echo $sit; ?></span>
+                                </td>
                                 <td class="text-center">
                                     <span class="d-none d-md-block">
                                         <?php

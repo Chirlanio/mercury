@@ -74,7 +74,7 @@ class EditarDelivery {
             $carregarView->renderizar();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitações não encontrada!</div>";
-            $UrlDestino = URLADM . 'delivery/listarDelivery';
+            $UrlDestino = URLADM . 'delivery/listar';
             header("Location: $UrlDestino");
         }
     }

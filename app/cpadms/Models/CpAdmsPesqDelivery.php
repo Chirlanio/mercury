@@ -89,24 +89,26 @@ class CpAdmsPesqDelivery {
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == 5) {
             $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
                 WHERE d.loja_id =:loja_id AND d.id =:id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -132,12 +134,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -157,12 +160,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -182,12 +186,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -207,12 +212,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -232,12 +238,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -257,12 +264,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -282,12 +290,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -307,12 +316,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -332,12 +342,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -356,12 +367,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -381,12 +393,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -405,12 +418,13 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
                 INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
@@ -432,26 +446,28 @@ class CpAdmsPesqDelivery {
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= 5) {
             $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
+                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
+                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
                 WHERE d.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
+                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
+                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
                 WHERE d.loja_id =:loja_id AND d.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id" . $_SESSION['usuario_loja'] . "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
@@ -469,14 +485,15 @@ class CpAdmsPesqDelivery {
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
         $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, ps.nome saida, s.nome sit, fp.nome forma
+                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
                 FROM tb_delivery d
                 INNER JOIN tb_lojas lj ON lj.id=d.loja_id
                 INNER JOIN tb_bairros b ON b.id=d.bairro_id
                 INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_status_delivery s ON s.id=d.status_id
+                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
+                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
+                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
                 WHERE d.cliente LIKE '%' :cliente '%' ORDER BY id ASC LIMIT :limit OFFSET :offset", "cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarAjuste->getResultado();
