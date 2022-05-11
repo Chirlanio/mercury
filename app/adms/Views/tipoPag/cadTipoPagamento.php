@@ -37,7 +37,7 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['nome'])) {
                         echo $valorForm['nome'];
                     }
-                    ?>" required>
+                    ?>" required autofocus>
                 </div>
             </div>
             <p>

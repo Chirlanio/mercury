@@ -72,7 +72,7 @@ if (!defined('URL')) {
                         if (isset($_SESSION['id'])) {
                             echo $_SESSION['id'];
                         }
-                        ?>">
+                        ?>" autofocus>
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-3 mb-3">

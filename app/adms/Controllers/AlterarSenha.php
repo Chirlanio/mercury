@@ -26,7 +26,7 @@ class AlterarSenha
             $altSenhaBd->altSenha($this->Dados);
             if ($altSenhaBd->getResultado()) {
                 $UrlDestino = URLADM . 'ver-perfil/perfil';
-                header("Location: $UrlDestino");                
+                header("Location: $UrlDestino");
             } else {
                 $listarMenu = new \App\adms\Models\AdmsMenu();
                 $this->Dados['menu'] = $listarMenu->itemMenu();
@@ -40,5 +40,4 @@ class AlterarSenha
             $carregarView->renderizar();
         }
     }
-
 }

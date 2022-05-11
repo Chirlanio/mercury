@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarSitAj {
+class ApagarSitAj
+{
 
     private $DadosId;
 
-    public function apagarSit($DadosId = null) {
+    public function apagarSit($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarSit = new \App\adms\Models\AdmsApagarSitAj();
@@ -27,5 +29,4 @@ class ApagarSitAj {
         $UrlDestino = URLADM . 'situacao-ajuste/listar';
         header("Location: $UrlDestino");
     }
-
 }

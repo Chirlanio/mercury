@@ -89,7 +89,7 @@ if (!defined('URLADM')) {
                         if (isset($_SESSION['referencia'])) {
                             echo $_SESSION['referencia'];
                         }
-                        ?>">
+                        ?>" autofocus>
                     </div>
                 </div>
             </div>

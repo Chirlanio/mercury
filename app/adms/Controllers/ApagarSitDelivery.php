@@ -12,7 +12,8 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarSitDelivery {
+class ApagarSitDelivery
+{
 
     private $DadosId;
 
@@ -20,13 +21,12 @@ class ApagarSitDelivery {
     {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
-           $apagarSit = new \App\adms\Models\AdmsApagarSitDelivery();
-           $apagarSit->apagarSit($this->DadosId);
+            $apagarSit = new \App\adms\Models\AdmsApagarSitDelivery();
+            $apagarSit->apagarSit($this->DadosId);
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Necessário selecionar uma situação!</div>";
         }
         $UrlDestino = URLADM . 'situacao-delivery/listar';
         header("Location: $UrlDestino");
     }
-
 }

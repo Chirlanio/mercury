@@ -49,7 +49,7 @@ if (!defined('URL')) {
                         if (isset($_SESSION['nome'])) {
                             echo $_SESSION['nome'];
                         }
-                        ?>">
+                        ?>" autofocus>
                     </div>
                 </div>
                 <?php

@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarDelivery {
+class ApagarDelivery
+{
 
     private $DadosId;
 
-    public function apagarDelivery($DadosId = null) {
+    public function apagarDelivery($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarDelivery = new \App\adms\Models\AdmsApagarDelivery();
@@ -27,5 +29,4 @@ class ApagarDelivery {
         $UrlDestino = URLADM . 'delivery/listar';
         header("Location: $UrlDestino");
     }
-
 }

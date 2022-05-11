@@ -8,11 +8,11 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of Bandeira
+ * Description of Detalhes
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class Bandeira {
+class Detalhes {
 
     private $Dados;
     private $PageId;
@@ -21,21 +21,21 @@ class Bandeira {
         
         $this->PageId = (int) $PageId ? $PageId : 1;
 
-        $botao = ['cad_bandeira' => ['menu_controller' => 'cadastrar-bandeira', 'menu_metodo' => 'cad-bandeira'],
-            'vis_bandeira' => ['menu_controller' => 'ver-bandeira', 'menu_metodo' => 'ver-bandeira'],
-            'edit_bandeira' => ['menu_controller' => 'editar-bandeira', 'menu_metodo' => 'edit-bandeira'],
-            'del_bandeira' => ['menu_controller' => 'apagar-bandeira', 'menu_metodo' => 'apagar-bandeira']];
+        $botao = ['cad_detalhes' => ['menu_controller' => 'cadastrar-detalhes', 'menu_metodo' => 'cad-detalhes'],
+            'vis_detalhes' => ['menu_controller' => 'ver-detalhes', 'menu_metodo' => 'ver-detalhes'],
+            'edit_detalhes' => ['menu_controller' => 'editar-detalhes', 'menu_metodo' => 'edit-detalhes'],
+            'del_detalhes' => ['menu_controller' => 'apagar-detalhes', 'menu_metodo' => 'apagar-detalhes']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
-        $listarBandeira = new \App\adms\Models\AdmsListarBandeira();
-        $this->Dados['listBandeira'] = $listarBandeira->listarBandeira($this->PageId);
-        $this->Dados['paginacao'] = $listarBandeira->getResultadoPg();
+        $listarDetalhes = new \App\adms\Models\AdmsListarDetalhes();
+        $this->Dados['listDetalhes'] = $listarDetalhes->listarDetalhes($this->PageId);
+        $this->Dados['paginacao'] = $listarDetalhes->getResultadoPg();
 
-        $carregarView = new \Core\ConfigView("adms/Views/bandeira/listarBandeira", $this->Dados);
+        $carregarView = new \Core\ConfigView("adms/Views/detalhes/listarDetalhes", $this->Dados);
         $carregarView->renderizar();
     }
 

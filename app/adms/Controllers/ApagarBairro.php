@@ -12,14 +12,16 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarBairro {
+class ApagarBairro
+{
 
     private $DadosId;
 
-    public function apagarBairro($DadosId = null) {
-        
+    public function apagarBairro($DadosId = null)
+    {
+
         $this->DadosId = (int) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
             $apagarBairro = new \App\adms\Models\AdmsApagarBairro();
             $apagarBairro->apagarBairro($this->DadosId);
@@ -29,5 +31,4 @@ class ApagarBairro {
         $UrlDestino = URLADM . 'bairro/listar';
         header("Location: $UrlDestino");
     }
-
 }

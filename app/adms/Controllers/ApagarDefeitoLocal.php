@@ -8,24 +8,25 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of ApagarDelivery
+ * Description of ApagarDefeitoLocal
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarDelivery {
+class ApagarDefeitoLocal
+{
 
     private $DadosId;
 
-    public function apagarDelivery($DadosId = null) {
+    public function apagarDefeitoLocal($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
-            $apagarDelivery = new \App\adms\Models\AdmsApagarDelivery();
-            $apagarDelivery->apagarDelivery($this->DadosId);
+            $apagarDefeitos = new \App\adms\Models\AdmsApagarDefeitoLocal();
+            $apagarDefeitos->apagarDefeitoLocal($this->DadosId);
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Necessário selecionar um Pedido de Entrega!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Necessário selecionar um cadastro!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
         }
-        $UrlDestino = URLADM . 'delivery/listar';
+        $UrlDestino = URLADM . 'defeito-local/listar';
         header("Location: $UrlDestino");
     }
-
 }

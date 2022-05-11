@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarCfop {
+class ApagarCfop
+{
 
     private $DadosId;
 
-    public function apagarCfop($DadosId = null) {
+    public function apagarCfop($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarCfop = new \App\adms\Models\AdmsApagarCfop();
@@ -27,5 +29,4 @@ class ApagarCfop {
         $UrlDestino = URLADM . 'cfop/listar';
         header("Location: $UrlDestino");
     }
-
 }

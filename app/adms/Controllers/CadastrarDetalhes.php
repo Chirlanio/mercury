@@ -8,37 +8,37 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of CadastrarBandeira
+ * Description of CadastrarDetalhes
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class CadastrarBandeira {
+class CadastrarDetalhes {
 
     private $Dados;
 
-    public function cadBandeira() {
+    public function cadDetalhes() {
         
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         
-        if (!empty($this->Dados['CadBandeira'])) {
-            unset($this->Dados['CadBandeira']);
-            $cadBandeira = new \App\adms\Models\AdmsCadastrarBandeira();
-            $cadBandeira->cadBandeira($this->Dados);
-            if ($cadBandeira->getResultado()) {
-                $UrlDestino = URLADM . 'bandeira/listar';
+        if (!empty($this->Dados['CadDetalhes'])) {
+            unset($this->Dados['CadDetalhes']);
+            $cadDetalhes = new \App\adms\Models\AdmsCadastrarDetalhes();
+            $cadDetalhes->cadDetalhes($this->Dados);
+            if ($cadDetalhes->getResultado()) {
+                $UrlDestino = URLADM . 'detalhes/listar';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
-                $this->cadBandeiraViewPriv();
+                $this->cadDetalhesViewPriv();
             }
         } else {
-            $this->cadBandeiraViewPriv();
+            $this->cadDetalhesViewPriv();
         }
     }
 
-    private function cadBandeiraViewPriv() {
+    private function cadDetalhesViewPriv() {
         
-        $botao = ['list_bandeira' => ['menu_controller' => 'bandeira', 'menu_metodo' => 'listar']];
+        $botao = ['list_detalhes' => ['menu_controller' => 'detalhes', 'menu_metodo' => 'listar']];
         
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
@@ -46,7 +46,10 @@ class CadastrarBandeira {
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
         
-        $carregarView = new \Core\ConfigView("adms/Views/bandeira/cadBandeira", $this->Dados);
+        $listarSit = new \App\adms\Models\AdmsCadastrarDetalhes();
+        $this->Dados['select'] = $listarSit->listarCadastrar();
+        
+        $carregarView = new \Core\ConfigView("adms/Views/detalhes/cadDetalhes", $this->Dados);
         $carregarView->renderizar();
     }
 

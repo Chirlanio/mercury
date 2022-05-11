@@ -8,37 +8,37 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of CadastrarBandeira
+ * Description of CadastrarDefeitoLocal
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class CadastrarBandeira {
+class CadastrarDefeitoLocal {
 
     private $Dados;
 
-    public function cadBandeira() {
+    public function cadDefeitoLocal() {
         
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         
-        if (!empty($this->Dados['CadBandeira'])) {
-            unset($this->Dados['CadBandeira']);
-            $cadBandeira = new \App\adms\Models\AdmsCadastrarBandeira();
-            $cadBandeira->cadBandeira($this->Dados);
-            if ($cadBandeira->getResultado()) {
-                $UrlDestino = URLADM . 'bandeira/listar';
+        if (!empty($this->Dados['CadDefLocal'])) {
+            unset($this->Dados['CadDefLocal']);
+            $cadDefLocal = new \App\adms\Models\AdmsCadastrarDefeitoLocal();
+            $cadDefLocal->cadDefeitoLocal($this->Dados);
+            if ($cadDefLocal->getResultado()) {
+                $UrlDestino = URLADM . 'defeito-local/listar';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
-                $this->cadBandeiraViewPriv();
+                $this->cadDefeitoLocalViewPriv();
             }
         } else {
-            $this->cadBandeiraViewPriv();
+            $this->cadDefeitoLocalViewPriv();
         }
     }
 
-    private function cadBandeiraViewPriv() {
+    private function cadDefeitoLocalViewPriv() {
         
-        $botao = ['list_bandeira' => ['menu_controller' => 'bandeira', 'menu_metodo' => 'listar']];
+        $botao = ['list_def_local' => ['menu_controller' => 'defeito-local', 'menu_metodo' => 'listar']];
         
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
@@ -46,7 +46,10 @@ class CadastrarBandeira {
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
         
-        $carregarView = new \Core\ConfigView("adms/Views/bandeira/cadBandeira", $this->Dados);
+        $listarSit = new \App\adms\Models\AdmsCadastrarDefeitoLocal();
+        $this->Dados['select'] = $listarSit->listarCadastrar();
+        
+        $carregarView = new \Core\ConfigView("adms/Views/defeitoLocal/cadDefLocal", $this->Dados);
         $carregarView->renderizar();
     }
 

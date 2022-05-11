@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarFunc {
+class ApagarFunc
+{
 
     private $DadosId;
 
-    public function apagarFunc($DadosId = null) {
+    public function apagarFunc($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarFunc = new \App\adms\Models\AdmsApagarFunc();
@@ -27,5 +29,4 @@ class ApagarFunc {
         $UrlDestino = URLADM . 'funcionarios/listar-func';
         header("Location: $UrlDestino");
     }
-
 }

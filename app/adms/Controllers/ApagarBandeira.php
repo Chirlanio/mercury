@@ -12,14 +12,16 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarBandeira {
+class ApagarBandeira
+{
 
     private $DadosId;
 
-    public function apagarBandeira($DadosId = null) {
-        
+    public function apagarBandeira($DadosId = null)
+    {
+
         $this->DadosId = (int) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
             $apagarBandeira = new \App\adms\Models\AdmsApagarBandeira();
             $apagarBandeira->apagarBandeira($this->DadosId);
@@ -29,5 +31,4 @@ class ApagarBandeira {
         $UrlDestino = URLADM . 'bandeira/listar';
         header("Location: $UrlDestino");
     }
-
 }

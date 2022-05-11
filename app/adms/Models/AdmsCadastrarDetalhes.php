@@ -8,11 +8,11 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsCadastrarBandeira
+ * Description of AdmsCadastrarDetalhes
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsCadastrarBandeira {
+class AdmsCadastrarDetalhes {
 
     private $Resultado;
     private $Dados;
@@ -21,7 +21,7 @@ class AdmsCadastrarBandeira {
         return $this->Resultado;
     }
 
-    public function cadBandeira(array $Dados) {
+    public function cadDetalhes(array $Dados) {
 
         $this->Dados = $Dados;
 
@@ -29,26 +29,37 @@ class AdmsCadastrarBandeira {
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->inserirBandeira();
+            $this->inserirDetalhes();
         } else {
             $this->Resultado = false;
         }
     }
 
-    private function inserirBandeira() {
+    private function inserirDetalhes() {
 
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
-        $cadBandeira = new \App\adms\Models\helper\AdmsCreate;
-        $cadBandeira->exeCreate("adms_bandeiras", $this->Dados);
+        $cadDetalhes = new \App\adms\Models\helper\AdmsCreate;
+        $cadDetalhes->exeCreate("adms_detalhes_ordem_servico", $this->Dados);
 
-        if ($cadBandeira->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Bandeira cadastrada com sucesso!</div>";
+        if ($cadDetalhes->getResultado()) {
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Detalhe</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A bandeira não foi cadastrada!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> O Detalhe não foi cadastrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
+    }
+
+    public function listarCadastrar() {
+        $listar = new \App\adms\Models\helper\AdmsRead();
+
+        $listar->fullRead("select id s_id, nome sit from adms_sits");
+        $registro['sit'] = $listar->getResultado();
+
+        $this->Resultado = ['sit' => $registro['sit']];
+
+        return $this->Resultado;
     }
 
 }

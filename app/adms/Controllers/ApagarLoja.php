@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarLoja {
+class ApagarLoja
+{
 
     private $DadosId;
 
-    public function apagarLoja($DadosId = null) {
+    public function apagarLoja($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarLoja = new \App\adms\Models\AdmsApagarLoja();
@@ -27,5 +29,4 @@ class ApagarLoja {
         $UrlDestino = URLADM . 'lojas/listarLojas';
         header("Location: $UrlDestino");
     }
-
 }

@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarCargo {
+class ApagarCargo
+{
 
     private $DadosId;
 
-    public function apagarCargo($DadosId = null) {
+    public function apagarCargo($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarCargo = new \App\adms\Models\AdmsApagarCargo();
@@ -27,5 +29,4 @@ class ApagarCargo {
         $UrlDestino = URLADM . 'cargo/listarCargo';
         header("Location: $UrlDestino");
     }
-
 }

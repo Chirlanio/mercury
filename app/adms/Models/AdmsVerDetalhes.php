@@ -8,22 +8,23 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsVerBandeira
+ * Description of AdmsVerDetalhes
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsVerBandeira {
+class AdmsVerDetalhes {
 
     private $Resultado;
     private $DadosId;
 
-    public function verBandeira($DadosId) {
+    public function verDetalhes($DadosId) {
         $this->DadosId = (int) $DadosId;
-        $verBandeira = new \App\adms\Models\helper\AdmsRead();
-        $verBandeira->fullRead("SELECT b.id id_ban, b.nome bandeira, b.icone, b.created, b.modified
-                FROM adms_bandeiras b
-                WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBandeira->getResultado();
+        $verDetalhes = new \App\adms\Models\helper\AdmsRead();
+        $verDetalhes->fullRead("SELECT d.id , d.descricao, d.status_id, d.created, d.modified, s.nome sit
+                FROM adms_detalhes_ordem_servico d
+                INNER JOIN adms_sits s ON s.id=d.status_id
+                WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $this->Resultado = $verDetalhes->getResultado();
         return $this->Resultado;
     }
 

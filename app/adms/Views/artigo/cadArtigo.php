@@ -40,7 +40,7 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['titulo'])) {
                         echo $valorForm['titulo'];
                     }
-                    ?>" required>
+                    ?>" required autofocus>
                 </div>
             </div>
             <div class="form-row">

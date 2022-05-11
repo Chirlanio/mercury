@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarMarca {
+class ApagarMarca
+{
 
     private $DadosId;
 
-    public function apagarMarca($DadosId = null) {
+    public function apagarMarca($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarMarca = new \App\adms\Models\AdmsApagarMarca();
@@ -27,5 +29,4 @@ class ApagarMarca {
         $UrlDestino = URLADM . 'marcas/listar';
         header("Location: $UrlDestino");
     }
-
 }

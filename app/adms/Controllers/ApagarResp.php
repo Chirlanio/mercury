@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarResp {
+class ApagarResp
+{
 
     private $DadosId;
 
-    public function apagarResp($DadosId = null) {
+    public function apagarResp($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarResp = new \App\adms\Models\AdmsApagarResp();
@@ -27,5 +29,4 @@ class ApagarResp {
         $UrlDestino = URLADM . 'autorizacao-resp/listar';
         header("Location: $UrlDestino");
     }
-
 }

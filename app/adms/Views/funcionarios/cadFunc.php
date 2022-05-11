@@ -37,7 +37,7 @@ var_dump($this->Dados['form']);
                     if (isset($valorForm['nome'])) {
                         echo $valorForm['nome'];
                     }
-                    ?>" required>
+                    ?>" required autofocus>
                 </div>
             </div>
             <div class="form-row">

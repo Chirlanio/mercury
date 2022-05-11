@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarRemanejo {
+class ApagarRemanejo
+{
 
     private $DadosId;
 
-    public function apagarRemanejo($DadosId = null) {
+    public function apagarRemanejo($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarRemanejo = new \App\adms\Models\AdmsApagarRemanejo();
@@ -27,5 +29,4 @@ class ApagarRemanejo {
         $UrlDestino = URLADM . 'remanejo/listar';
         header("Location: $UrlDestino");
     }
-
 }

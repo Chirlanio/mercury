@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarOrdemServico {
+class ApagarOrdemServico
+{
 
     private $DadosId;
 
-    public function apagarOrdemServico($DadosId = null) {
+    public function apagarOrdemServico($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarOrdemServico = new \App\adms\Models\AdmsApagarOrdemServico();
@@ -27,5 +29,4 @@ class ApagarOrdemServico {
         $UrlDestino = URLADM . 'ordem-servico/listar';
         header("Location: $UrlDestino");
     }
-
 }

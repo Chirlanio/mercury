@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silvas - Grupo Meia Sola
  */
-class ApagarArtigo {
+class ApagarArtigo
+{
 
     private $DadosId;
 
-    public function apagarArtigo($DadosId = null) {
+    public function apagarArtigo($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarArtigo = new \App\adms\Models\AdmsApagarArtigo();
@@ -27,5 +29,4 @@ class ApagarArtigo {
         $UrlDestino = URLADM . 'artigo/listar';
         header("Location: $UrlDestino");
     }
-
 }

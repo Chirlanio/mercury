@@ -73,8 +73,18 @@ class AdmsCadastrarOrdemServico {
 
         $listar->fullRead("SELECT id m_id, nome marca FROM adms_marcas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['marc'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id d_id, descricao defeito, status_id FROM adms_defeitos_ordem_servico WHERE status_id =:status_id ORDER BY descricao ASC", "status_id=1");
+        $registro['def'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id dt_id, descricao detalhe, status_id FROM adms_detalhes_ordem_servico WHERE status_id =:status_id ORDER BY descricao ASC", "status_id=1");
+        $registro['det'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id l_id, descricao local, status_id FROM adms_def_local_ordem_servico WHERE status_id =:status_id", "status_id=1");
+        $registro['loc'] = $listar->getResultado();
 
-        $this->Resultado = ['loja' => $registro['loja'], 'tips' => $registro['tips'], 'tam' => $registro['tam'], 'marc' => $registro['marc']];
+        $this->Resultado = ['loja' => $registro['loja'], 'tips' => $registro['tips'], 'tam' => $registro['tam'], 'marc' => $registro['marc'], 'def' => $registro['def'],
+                            'det' => $registro['det'], 'loc' => $registro['loc']];
 
         return $this->Resultado;
     }

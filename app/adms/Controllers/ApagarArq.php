@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarArq {
+class ApagarArq
+{
 
     private $DadosId;
 
-    public function apagarArq($DadosId = null) {
+    public function apagarArq($DadosId = null)
+    {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarArq = new \App\adms\Models\AdmsApagarArq();
@@ -27,5 +29,4 @@ class ApagarArq {
         $UrlDestino = URLADM . 'listar-arquivo/listar';
         header("Location: $UrlDestino");
     }
-
 }

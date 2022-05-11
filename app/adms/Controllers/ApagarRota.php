@@ -12,14 +12,16 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarRota {
+class ApagarRota
+{
 
     private $DadosId;
 
-    public function apagarRota($DadosId = null) {
-        
+    public function apagarRota($DadosId = null)
+    {
+
         $this->DadosId = (int) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
             $apagarRota = new \App\adms\Models\AdmsApagarRota();
             $apagarRota->apagarRota($this->DadosId);
@@ -29,5 +31,4 @@ class ApagarRota {
         $UrlDestino = URLADM . 'rota/listar';
         header("Location: $UrlDestino");
     }
-
 }

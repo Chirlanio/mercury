@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($valorForm);
+//var_dump($this->Dados['form']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -33,7 +33,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Loja</label>
-                    <select name="loja_id" id="loja_id" class="custom-select is-invalid" required>
+                    <select name="loja_id" id="loja_id" class="custom-select is-invalid" required autofocus>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['loja'] as $lj) {
@@ -192,6 +192,56 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">* </span>Defeito</label>
+                    <select name="def_id" id="def_id" class="custom-select is-invalid" required>
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['def'] as $d) {
+                            extract($d);
+                            if ($valorForm['def_id'] == $d_id) {
+                                echo "<option value='$d_id' selected>$defeito</option>";
+                            } else {
+                                echo "<option value='$d_id'>$defeito</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">* </span>Detalhes</label>
+                    <select name="det_id" id="det_id" class="custom-select is-invalid" required>
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['det'] as $dt) {
+                            extract($dt);
+                            if ($valorForm['det_id'] == $dt_id) {
+                                echo "<option value='$dt_id' selected>$detalhe</option>";
+                            } else {
+                                echo "<option value='$dt_id'>$detalhe</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">* </span>Posição</label>
+                    <select name="loc_id" id="loc_id" class="custom-select is-invalid" required>
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['loc'] as $lc) {
+                            extract($lc);
+                            if ($valorForm['loc_id'] == $l_id) {
+                                echo "<option value='$l_id' selected>$local</option>";
+                            } else {
+                                echo "<option value='$l_id'>$local</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Nota - Devolução</label>
                     <input name="nf_conserto_devolucao" type="number" class="form-control is-invalid" value="<?php
@@ -228,10 +278,22 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Observações</label>
-                    <textarea name="obs" id="editor" class="form-control editorCK is-invalid" rows="4" required>
+                    <textarea name="obs_loja" id="obs_loja" class="form-control editorCK is-invalid" rows="4" required>
                         <?php
-                        if(isset($valorForm['obs'])){
-                            echo $valorForm['obs'];
+                        if(isset($valorForm['obs_loja'])){
+                            echo $valorForm['obs_loja'];
+                        }
+                        ?>
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Observações - Qualidade</label>
+                    <textarea name="obs_qualidade" id="obs_qualidade" class="form-control editorCKQl is-invalid" rows="4" required>
+                        <?php
+                        if(isset($valorForm['obs_qualidade'])){
+                            echo $valorForm['obs_qualidade'];
                         }
                         ?>
                     </textarea>

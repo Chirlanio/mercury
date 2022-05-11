@@ -33,7 +33,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Loja</label>
-                    <select name="loja_id" id="loja_id" class="form-control is-invalid" required>
+                    <select name="loja_id" id="loja_id" class="form-control is-invalid" required autofocus>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['loja_id'] as $lj) {

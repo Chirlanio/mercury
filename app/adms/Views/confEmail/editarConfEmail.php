@@ -30,7 +30,7 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['nome'])) {
                         echo $valorForm['nome'];
                     }
-                    ?>">
+                    ?>" autofocus required>
                 </div>
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> E-mail</label>

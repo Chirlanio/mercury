@@ -21,13 +21,12 @@ class ApagarDashboard
     {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
-           $apagarDash = new \App\adms\Models\AdmsApagarDashboard();
-           $apagarDash->apagarDashboard($this->DadosId);
+            $apagarDash = new \App\adms\Models\AdmsApagarDashboard();
+            $apagarDash->apagarDashboard($this->DadosId);
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Necessário selecionar uma Dashboard!</div>";
         }
         $UrlDestino = URLADM . 'dashboard/listar';
         header("Location: $UrlDestino");
     }
-
 }

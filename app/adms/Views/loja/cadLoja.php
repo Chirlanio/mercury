@@ -37,7 +37,7 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['id'])) {
                         echo $valorForm['id'];
                     }
-                    ?>" required>
+                    ?>" required autofocus>
                 </div>
                 <div class = "form-group col-md-3">
                     <label><span class = "text-danger">* </span>Nome da Loja</label>

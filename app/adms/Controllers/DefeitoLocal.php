@@ -8,11 +8,11 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of Bandeira
+ * Description of DefeitoLocal
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class Bandeira {
+class DefeitoLocal {
 
     private $Dados;
     private $PageId;
@@ -21,21 +21,21 @@ class Bandeira {
         
         $this->PageId = (int) $PageId ? $PageId : 1;
 
-        $botao = ['cad_bandeira' => ['menu_controller' => 'cadastrar-bandeira', 'menu_metodo' => 'cad-bandeira'],
-            'vis_bandeira' => ['menu_controller' => 'ver-bandeira', 'menu_metodo' => 'ver-bandeira'],
-            'edit_bandeira' => ['menu_controller' => 'editar-bandeira', 'menu_metodo' => 'edit-bandeira'],
-            'del_bandeira' => ['menu_controller' => 'apagar-bandeira', 'menu_metodo' => 'apagar-bandeira']];
+        $botao = ['cad_def_local' => ['menu_controller' => 'cadastrar-defeito-local', 'menu_metodo' => 'cad-defeito-local'],
+            'vis_def_local' => ['menu_controller' => 'ver-defeito-local', 'menu_metodo' => 'ver-defeito-local'],
+            'edit_def_local' => ['menu_controller' => 'editar-defeito-local', 'menu_metodo' => 'edit-defeito-local'],
+            'del_def_local' => ['menu_controller' => 'apagar-defeito-local', 'menu_metodo' => 'apagar-defeito-local']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
-        $listarBandeira = new \App\adms\Models\AdmsListarBandeira();
-        $this->Dados['listBandeira'] = $listarBandeira->listarBandeira($this->PageId);
-        $this->Dados['paginacao'] = $listarBandeira->getResultadoPg();
+        $listarDefLocal = new \App\adms\Models\AdmsListarDefeitoLocal();
+        $this->Dados['listDefLocal'] = $listarDefLocal->listarDefeitoLocal($this->PageId);
+        $this->Dados['paginacao'] = $listarDefLocal->getResultadoPg();
 
-        $carregarView = new \Core\ConfigView("adms/Views/bandeira/listarBandeira", $this->Dados);
+        $carregarView = new \Core\ConfigView("adms/Views/defeitoLocal/listarDefLocal", $this->Dados);
         $carregarView->renderizar();
     }
 

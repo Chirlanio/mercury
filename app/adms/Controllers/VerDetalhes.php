@@ -8,36 +8,36 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of VerBandeira
+ * Description of VerDetalhes
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class VerBandeira {
+class VerDetalhes {
 
     private $Dados;
     private $DadosId;
 
-    public function verBandeira($DadosId = null) {
+    public function verDetalhes($DadosId = null) {
 
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
-            $verBandeira = new \App\adms\Models\AdmsVerBandeira();
-            $this->Dados['dados_bandeira'] = $verBandeira->verBandeira($this->DadosId);
+            $verDetalhes = new \App\adms\Models\AdmsVerDetalhes();
+            $this->Dados['dados_detalhes'] = $verDetalhes->verDetalhes($this->DadosId);
 
-            $botao = ['list_bandeira' => ['menu_controller' => 'bandeira', 'menu_metodo' => 'listar'],
-                'edit_bandeira' => ['menu_controller' => 'editar-bandeira', 'menu_metodo' => 'edit-bandeira'],
-                'del_bandeira' => ['menu_controller' => 'apagar-bandeira', 'menu_metodo' => 'apagar-bandeira']];
+            $botao = ['list_detalhes' => ['menu_controller' => 'detalhes', 'menu_metodo' => 'listar'],
+                'edit_detalhes' => ['menu_controller' => 'editar-detalhes', 'menu_metodo' => 'edit-detalhes'],
+                'del_detalhes' => ['menu_controller' => 'apagar-detalhes', 'menu_metodo' => 'apagar-detalhes']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
             $listarMenu = new \App\adms\Models\AdmsMenu();
             $this->Dados['menu'] = $listarMenu->itemMenu();
 
-            $carregarView = new \Core\ConfigView("adms/Views/bandeira/verBandeira", $this->Dados);
+            $carregarView = new \Core\ConfigView("adms/Views/detalhes/verDetalhes", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Bandeira não encontrada!</div>";
-            $UrlDestino = URLADM . 'bandeira/listar';
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Detalhe não encontrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $UrlDestino = URLADM . 'detalhes/listar';
             header("Location: $UrlDestino");
         }
     }

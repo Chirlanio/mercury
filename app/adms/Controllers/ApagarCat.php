@@ -12,11 +12,13 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarCat {
+class ApagarCat
+{
 
     private $DadosId;
 
-    public function apagarCat($DadosId = null) {
+    public function apagarCat($DadosId = null)
+    {
 
         $this->DadosId = (int) $DadosId;
 
@@ -29,5 +31,4 @@ class ApagarCat {
         $UrlDestino = URLADM . 'categoria-artigo/listar';
         header("Location: $UrlDestino");
     }
-
 }

@@ -2,17 +2,17 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
 
 /**
- * Description of AdmsApagarDelivery
+ * Description of AdmsApagarDefeitos
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsApagarDelivery {
+class AdmsApagarDefeitoLocal {
 
     private $DadosId;
     private $Resultado;
@@ -21,16 +21,16 @@ class AdmsApagarDelivery {
         return $this->Resultado;
     }
 
-    public function apagarDelivery($DadosId = null) {
+    public function apagarDefeitoLocal($DadosId = null) {
         $this->DadosId = (int) $DadosId;
 
-        $apagarDelivery = new \App\adms\Models\helper\AdmsDelete();
-        $apagarDelivery->exeDelete("tb_delivery", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarDelivery->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Pedido apagado com sucesso!</div>";
+        $apagarDefeitos = new \App\adms\Models\helper\AdmsDelete();
+        $apagarDefeitos->exeDelete("adms_def_local_ordem_servico", "WHERE id =:id", "id={$this->DadosId}");
+        if ($apagarDefeitos->getResultado()) {
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Registro</strong> apagado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O pedido não foi apagado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> O registro não foi apagado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }

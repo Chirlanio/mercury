@@ -12,14 +12,16 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarMotivo {
+class ApagarMotivo
+{
 
     private $DadosId;
 
-    public function apagarMotivo($DadosId = null) {
-        
+    public function apagarMotivo($DadosId = null)
+    {
+
         $this->DadosId = (int) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
             $apagarMotivo = new \App\adms\Models\AdmsApagarMotivo();
             $apagarMotivo->apagarMotivo($this->DadosId);
@@ -29,5 +31,4 @@ class ApagarMotivo {
         $UrlDestino = URLADM . 'motivo-estorno/listar';
         header("Location: $UrlDestino");
     }
-
 }

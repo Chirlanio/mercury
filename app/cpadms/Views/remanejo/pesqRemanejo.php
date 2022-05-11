@@ -46,7 +46,7 @@ if (!defined('URLADM')) {
                             <label class="input-group-text font-weight-bold" for="loja_origem_id">Loja - Origem</label>
                         </div>
                         <?php
-                        echo "<select name='loja_origem_id' id='loja_origem_id' class='custom-select'>";
+                        echo "<select name='loja_origem_id' id='loja_origem_id' class='custom-select' autofocus>";
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['origem'] as $lo) {
                             extract($lo);

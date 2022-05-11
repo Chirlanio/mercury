@@ -5,19 +5,19 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['select']);
+//var_dump($valorForm);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Cadastrar Bandeira</h2>
+                <h2 class="display-4 titulo">Cadastrar Detalhes</h2>
             </div>
             <?php
-            if ($this->Dados['botao']['list_bandeira']) {
+            if ($this->Dados['botao']['list_detalhes']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'bandeira/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'detalhes/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
                 </div>
                 <?php
             }
@@ -32,29 +32,34 @@ if (isset($this->Dados['form'][0])) {
         <form method="POST" action="" class="was-validated" enctype="multipart/form-data"> 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label><span class="text-danger">*</span> Bandeira</label>
-                    <input name="nome" type="text" class="form-control is-invalid" placeholder="Nome da bandeira" value="<?php
-                    if (isset($valorForm['nome'])) {
-                        echo $valorForm['nome'];
+                    <label><span class="text-danger">*</span> Descrção do Detalhes</label>
+                    <input name="descricao" type="text" class="form-control is-invalid" placeholder="Descrição do detalhe" value="<?php
+                    if (isset($valorForm['descricao'])) {
+                        echo $valorForm['descricao'];
                     }
-                    ?>" required>
+                    ?>" required autofocus>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>
-                        <span tabindex="0" data-toggle="tooltip" data-placement="top" data-html="true" title="Página de icone: <a href='https://fontawesome.com/icons?d=gallery' target='_blank'>fontawesome</a>. Somente inserir o nome, Ex: fas fa-volume-up">
-                            <i class="fas fa-question-circle"></i>
-                        </span> <span class="text-danger">*</span> Ícone</label>
-                    <input name="icone" type="text" class="form-control is-invalid" placeholder="Ex: fas fa-cc-visa" value="<?php
-                    if (isset($valorForm['icone'])) {
-                        echo $valorForm['icone'];
-                    }
-                    ?>" required>
+                    <label><span class="text-danger">* </span>Situação</label>
+                    <select name="status_id" class="custom-select is-invalid" required>
+                        <option value="">Selecione...</option>
+                        <?php
+                        foreach ($this->Dados['select']['sit'] as $st) {
+                            extract($st);
+                            if (isset($valorForm['status_id']) == $s_id) {
+                                echo "<option value='$s_id' selected>$sit</option>";
+                            } else {
+                                echo "<option value='$s_id'>$sit</option>";
+                            }
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>
-            <input name="CadBandeira" type="submit" class="btn btn-warning" value="Salvar">
+            <input name="CadDetalhes" type="submit" class="btn btn-warning" value="Salvar">
         </form>
     </div>
 </div>
