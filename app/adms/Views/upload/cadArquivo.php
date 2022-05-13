@@ -34,7 +34,7 @@ if (isset($this->Dados['form'][0])) {
         <form method="POST" action="" enctype="multipart/form-data"> 
 
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Titulo</label>
                     <input name="nome" type="text" class="form-control" placeholder="Nome do arquivo" value="<?php
                     if (isset($valorForm['nome'])) {
@@ -42,23 +42,8 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>" autofocus required>
                 </div>
-                <div class="form-group col-md-4">
-                    <label>Campanha - Promoção</label>
-                    <select name="adms_art_id" id="adms_art_id" class="form-control">
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['art'] as $art) {
-                            extract($art);
-                            if (isset($valorForm['adms_art_id']) AND $valorForm['adms_art_id'] == $id_art) {
-                                echo "<option value='$id_art' selected>$titulo</option>";
-                            } else {
-                                echo "<option value='$id_art'>$titulo</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
+                
+                <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Situação</label>
                     <select name="status_id" id="status_id" class="form-control">
                         <option value="">Selecione</option>

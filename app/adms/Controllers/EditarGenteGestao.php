@@ -23,7 +23,7 @@ class EditarGenteGestao {
         if (!empty($this->Dados['EditGenteGestao'])) {
             unset($this->Dados['EditGenteGestao']);
             
-            $this->Dados['arquivo_novo'] = ($_FILES['arquivo_novo'] ? $_FILES['arquivo_novo'] : null);
+            $this->Dados['arquivo'] = ($_FILES['arquivo'] ? $_FILES['arquivo'] : null);
             var_dump($this->Dados);
             
             $editarGenteGestao = new \App\adms\Models\AdmsEditarGenteGestao();

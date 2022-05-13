@@ -13,7 +13,7 @@ if (!defined('URLADM')) {
             <?php
             if ($this->Dados['botao']['cad_arq']) {
                 ?>
-                <a href="<?php echo URLADM . 'cadastrar-arq/cad-arq'; ?>">
+                <a href="<?php echo URLADM . 'cadastrar-arquivo/cad-arquivo'; ?>">
                     <div class="p-2">
                         <button class="btn btn-outline-success btn-sm"><span><i class="fas fa-plus d-block d-md-none fa-2x"></i>
                                 <span class='d-none d-md-block'>Cadastrar</span>
@@ -45,7 +45,7 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th class="text-center">ID</th>
                         <th class="d-none d-sm-table-cell">Nome</th>
                         <th class="d-none d-sm-table-cell">Cadastrado</th>
                         <th class="d-none d-sm-table-cell">Atualizado</th>
@@ -58,7 +58,7 @@ if (!defined('URLADM')) {
                     foreach ($this->Dados['listArq'] as $Ajuste) {
                         extract($Ajuste);
                         ?>
-                    <th><?php echo $id; ?></th>
+                <th class="text-center"><?php echo $id; ?></th>
                     <td><?php echo $nome; ?></td>
                     <td class="d-none d-sm-table-cell"><?php echo date('d/m/Y', strtotime($created)); ?></td>
                     <td class="d-none d-sm-table-cell"><?php echo (!empty($modified) ? date('d/m/Y', strtotime($modified)) : ''); ?></td>
@@ -66,11 +66,12 @@ if (!defined('URLADM')) {
                     <td class="text-center">
                         <span class="d-none d-md-block">
                             <?php
+                            echo "<a href='" . URLADM . "assets/files/downloads/$id/$slug' class='btn btn-outline-success btn-sm' title='Baixar' download><i class='fa-solid fa-download'></i></a> ";
                             if ($this->Dados['botao']['edit_arq']) {
-                                echo "<a href='" . URLADM . "editar-arq/edit-arq/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                                echo "<a href='" . URLADM . "editar-arquivo/edit-arquivo/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fa-solid fa-pen-nib'></i></a> ";
                             }
                             if ($this->Dados['botao']['del_arq']) {
-                                echo "<a href='" . URLADM . "apagar-arq/apagar-arq/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                                echo "<a href='" . URLADM . "apagar-arquivo/apagar-arquivo/$id' class='btn btn-outline-danger btn-sm' title='Apagar' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fa-solid fa-eraser'></i></a> ";
                             }
                             ?>
                         </span>
@@ -80,11 +81,12 @@ if (!defined('URLADM')) {
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                 <?php
+                                echo "<a class='dropdown-item' href='" . URLADM . "assets/files/downloads/$id/$slug'>Baixar</a>";
                                 if ($this->Dados['botao']['edit_arq']) {
-                                    echo "<a class='dropdown-item' href='" . URLADM . "editar-arq/edit-arq/$id'>Editar</a>";
+                                    echo "<a class='dropdown-item' href='" . URLADM . "editar-arquivo/edit-arquivo/$id'>Editar</a>";
                                 }
                                 if ($this->Dados['botao']['del_arq']) {
-                                    echo "<a class='dropdown-item' href='" . URLADM . "apagar-arq/apagar-arq/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                    echo "<a class='dropdown-item' href='" . URLADM . "apagar-arquivo/apagar-arquivo/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                 }
                                 ?>
                             </div>

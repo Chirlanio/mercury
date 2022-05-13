@@ -29,7 +29,7 @@ extract($this->Dados['select']);
 
         <hr>
 
-        <?php if ($_SESSION['adms_niveis_acesso_id'] != 5) { ?>
+        <?php if ($_SESSION['adms_niveis_acesso_id'] <= 3) { ?>
 
             <div class="row"><!-- Inicio Cards -->
                 <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Transferência-->
@@ -426,7 +426,7 @@ extract($this->Dados['select']);
             <div class="row mb-3">
                 <div class="col-lg-4 col-sm-6">
                     <div class="card bg-success text-white anima-left">
-                        <a href="<?php echo URLADM . 'transferencia/listar-transf/'; ?>" class="text-white text-decoration-none">
+                        <a href="<?php ($_SESSION['adms_niveis_acesso_id'] <= 3) ? URLADM . 'transferencia/listar-transf/' : '#'; ?>" class="text-white text-decoration-none">
                             <div class="card-body">
                                 <i class="fas fa-truck fa-3x"></i>
                                 <?php
@@ -448,7 +448,7 @@ extract($this->Dados['select']);
                 <div class="col-lg-4 col-sm-6">
                     <div class="card bg-danger text-white anima-bottom">
                         <a href="<?php
-                        if ($_SESSION['adms_niveis_acesso_id'] != 6) {
+                        if ($_SESSION['adms_niveis_acesso_id'] <= 3) {
                             echo URLADM . 'ajuste/listar-ajuste/';
                         }
                         ?>" class="text-white text-decoration-none">
@@ -479,7 +479,7 @@ extract($this->Dados['select']);
                 <div class="col-lg-4 col-sm-6">
                     <div class="card bg-warning text-white anima-right">
                         <a href="<?php
-                        if ($_SESSION['adms_niveis_acesso_id'] != 6) {
+                        if ($_SESSION['adms_niveis_acesso_id'] <= 6) {
                             echo URLADM . 'listar-troca/listar-troca/';
                         }
                         ?>" class="text-white text-decoration-none">

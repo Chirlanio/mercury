@@ -5,8 +5,6 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($_FILES);
-//var_dump($this->Dados['select']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -18,13 +16,13 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['list_arq']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'listar-arquivo/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'arquivo/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
                 </div>
                 <?php
             }
             ?>
-
-        </div><hr>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
@@ -38,7 +36,7 @@ if (isset($this->Dados['form'][0])) {
             }
             ?>">
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Titulo</label>
                     <input name="nome" type="text" class="form-control" placeholder="Nome do arquivo" value="<?php
                     if (isset($valorForm['nome'])) {
@@ -46,23 +44,7 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-4">
-                    <label>Campanha - Promoção</label>
-                    <select name="adms_art_id" id="adms_art_id" class="form-control">
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['art'] as $art) {
-                            extract($art);
-                            if (isset($valorForm['adms_art_id']) AND $valorForm['adms_art_id'] == $id_art) {
-                                echo "<option value='$id_art' selected>$titulo</option>";
-                            } else {
-                                echo "<option value='$id_art'>$titulo</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Situação</label>
                     <select name="status_id" id="status_id" class="form-control">
                         <option value="">Selecione</option>
@@ -96,7 +78,7 @@ if (isset($this->Dados['form'][0])) {
                     } elseif (isset($valorForm['arquivo'])) {
                         echo $valorForm['arquivo'];
                     }
-                    ?>">                    
+                    ?>">
                 </div>
             </div>
 

@@ -32,14 +32,23 @@ class AdmsEditarGenteGestao {
 
     public function altGenteGestao(array $Dados) {
         $this->Dados = $Dados;
-        $this->Arquivo = $this->Dados['arquivo_novo'];
+        $this->Arquivo = $this->Dados['arquivo'];
         $this->ArqAntigo = $this->Dados['arquivo_antigo'];
-        unset($this->Dados['arquivo_novo'], $this->Dados['arquivo_antigo']);
+        $this->Dados['contato_matriz'] = str_replace('(', '', str_replace(')', '', str_replace(' ', '', str_replace('-', '', $this->Dados['contato_matriz']))));
+
+        if (!empty($this->Dados['arquivo_antigo'])) {
+            unset($this->Dados['arquivo'], $this->Dados['arquivo_antigo']);
+        }
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
+            if (empty($this->Dados['arquivo'])) {
+                $this->Dados['arquivo'] = $this->ArqAntigo;
+            } else {
+                $this->Dados['arquivo'] = $this->Arquivo;
+            }
             $this->valArquivo();
         } else {
             $this->Resultado = false;
@@ -54,8 +63,8 @@ class AdmsEditarGenteGestao {
             $this->Dados['arquivo'] = $slugArq->nomeSlug($this->Arquivo['name']);
 
             $uploadArq = new \App\adms\Models\helper\AdmsUpload();
-            $uploadArq->upload($this->Arquivo, 'assets/download/gente-gestao/', $this->Arquivo['name']);
-            
+            $uploadArq->upload($this->Arquivo, 'assets/download/gente-gestao/', $this->Dados['arquivo']);
+
             if ($uploadArq->getResultado()) {
                 $apagarArq = new \App\adms\Models\helper\AdmsApagarArq();
                 $apagarArq->apagarArq('assets/download/gente-gestao/' . $this->ArqAntigo);
@@ -69,7 +78,7 @@ class AdmsEditarGenteGestao {
     private function updateGenteGestao() {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upGenteGestao = new \App\adms\Models\helper\AdmsUpdate();
-        $upGenteGestao->exeUpdate("adms_gente_gesta", $this->Dados, "WHERE id =:id", "id=1");
+        $upGenteGestao->exeUpdate("adms_gente_gestao", $this->Dados, "WHERE id =:id", "id=1");
         if ($upGenteGestao->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Dados atualizados com sucesso!</div>";
             $this->Resultado = true;

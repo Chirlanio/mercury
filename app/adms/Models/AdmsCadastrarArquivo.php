@@ -8,11 +8,11 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsCadastrarArq
+ * Description of AdmsCadastrarArquivo
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsCadastrarArq {
+class AdmsCadastrarArquivo {
 
     private $Resultado;
     private $Dados;
@@ -23,18 +23,17 @@ class AdmsCadastrarArq {
         return $this->Resultado;
     }
 
-    public function verArq($DadosId) {
+    public function verArquivo($DadosId) {
         $this->DadosId = (int) $DadosId;
-        $verPerfil = new \App\adms\Models\helper\AdmsRead();
-        $verPerfil->fullRead("SELECT * FROM adms_artigos WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verPerfil->getResultado();
+        $verArq = new \App\adms\Models\helper\AdmsRead();
+        $verArq->fullRead("SELECT * FROM adms_up_down WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $this->Resultado = $verArq->getResultado();
         return $this->Resultado;
     }
 
-    public function cadArq(array $Dados) {
+    public function cadArquivo(array $Dados) {
 
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
         $this->Arquivo = $this->Dados['slug'];
         unset($this->Dados['slug']);
 
@@ -42,13 +41,13 @@ class AdmsCadastrarArq {
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->inserirArq();
+            $this->inserirArquivo();
         } else {
             $this->Resultado = false;
         }
     }
 
-    private function inserirArq() {
+    private function inserirArquivo() {
 
         $this->Dados['slug'] = $this->Arquivo['name'];
         $this->Dados['created'] = date("Y-m-d H:i:s");
@@ -65,7 +64,7 @@ class AdmsCadastrarArq {
                 $this->Resultado = true;
             } else {
                 $this->Dados['id'] = $cadArq->getResultado();
-                $this->valArq();
+                $this->valArquivo();
             }
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O arquivo não foi cadastrado!</div>";
@@ -73,10 +72,10 @@ class AdmsCadastrarArq {
         }
     }
 
-    private function valArq() {
+    private function valArquivo() {
 
         $uploadArq = new \App\adms\Models\helper\AdmsUpload();
-        $uploadArq->upload($this->Arquivo, 'assets/download/' . $this->Dados['id'] . '/', $this->Dados['slug']);
+        $uploadArq->upload($this->Arquivo, 'assets/files/downloads/' . $this->Dados['id'] . '/', $this->Dados['slug']);
 
         if ($uploadArq->getResultado()) {
             if ($uploadArq->getResultado()) {

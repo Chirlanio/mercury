@@ -12,12 +12,12 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class CadastrarArq {
+class CadastrarArquivo {
 
     private $Dados;
 
     //Função para cadastrar o usuário na base de dados
-    public function cadArq() {
+    public function cadArquivo() {
 
         //Recebe as informações do usuário para cadastro
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -31,25 +31,25 @@ class CadastrarArq {
             //var_dump($this->Dados);
 
             //Instancia a classe para cadastrar na base de dados
-            $cadArq = new \App\adms\Models\AdmsCadastrarArq();
-            $cadArq->cadArq($this->Dados);
+            $cadArq = new \App\adms\Models\AdmsCadastrarArquivo();
+            $cadArq->cadArquivo($this->Dados);
 
             //Verifica se o retorno do cadastro é true
             if ($cadArq->getResultado()) {
-                $UrlDestino = URLADM . 'listar-arquivo/listar';
+                $UrlDestino = URLADM . 'arquivo/listar';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
-                $this->cadArqViewPriv();
+                $this->cadArquivoViewPriv();
             }
         } else {
-            $this->cadArqViewPriv();
+            $this->cadArquivoViewPriv();
         }
     }
 
-    private function cadArqViewPriv() {
+    private function cadArquivoViewPriv() {
 
-        $listarSelect = new \App\adms\Models\AdmsCadastrarArq();
+        $listarSelect = new \App\adms\Models\AdmsCadastrarArquivo();
         $this->Dados['select'] = $listarSelect->listarCadastrar();
 
         $botao = ['list_arq' => ['menu_controller' => 'listar-arquivo', 'menu_metodo' => 'listar']];

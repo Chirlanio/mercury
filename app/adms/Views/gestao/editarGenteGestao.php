@@ -230,14 +230,20 @@ if (isset($this->Dados['form'][0])) {
                     <div class="form-group mb-3 col-md-12 border-bottom">
                         <div class="form-group">
                             <input name="arquivo_antigo" type="hidden" value="<?php
+                            if (isset($valorForm['arquivo'])) {
+                                echo $valorForm['arquivo'];
+                            } elseif (isset($valorForm['arquivo_antigo'])) {
+                                echo $valorForm['arquivo_antigo'];
+                            }
+                            ?>">
+                            <label for="arquivo"><span class="text-danger">* </span>Arquivo</label>
+                            <input name="arquivo" type="file" class="form-control-file" value="<?php
                             if (isset($valorForm['arquivo_antigo'])) {
                                 echo $valorForm['arquivo_antigo'];
                             } elseif (isset($valorForm['arquivo'])) {
                                 echo $valorForm['arquivo'];
                             }
                             ?>">
-                            <label for="arquivo_novo"><span class="text-danger">* </span>Arquivo</label>
-                            <input name="arquivo_novo" type="file" class="form-control-file">
                         </div>
                     </div>
                 </div>

@@ -2,17 +2,17 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
 
 /**
- * Description of AdmsApagarUsuario
+ * Description of AdmsApagarArquivo
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsApagarArq {
+class AdmsApagarArquivo {
 
     private $DadosId;
     private $Resultado;
@@ -22,15 +22,15 @@ class AdmsApagarArq {
         return $this->Resultado;
     }
 
-    public function apagarArq($DadosId = null) {
+    public function apagarArquivo($DadosId = null) {
         $this->DadosId = (int) $DadosId;
-        $this->verArq();
+        $this->verArquivo();
         if ($this->DadosArq) {
             $apagarArq = new \App\adms\Models\helper\AdmsDelete();
             $apagarArq->exeDelete("adms_up_down", "WHERE id =:id", "id={$this->DadosId}");
             if ($apagarArq->getResultado()) {
-                $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
-                $apagarImg->apagarImg('assets/download/' . $this->DadosId . '/' . $this->DadosArq[0]['slug'], 'assets/download/' . $this->DadosId);
+                $apagar = new \App\adms\Models\helper\AdmsApagarArq();
+                $apagar->apagarArq('assets/files/downloads/' . $this->DadosId . '/' . $this->DadosArq[0]['slug'], 'assets/files/downloads/' . $this->DadosId);
                 $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro e Arquivo apagado com sucesso!</div>";
                 $this->Resultado = true;
             } else {
@@ -43,7 +43,7 @@ class AdmsApagarArq {
         }
     }
 
-    public function verArq() {
+    public function verArquivo() {
         $verUsuario = new \App\adms\Models\helper\AdmsRead();
         $verUsuario->fullRead("SELECT * FROM adms_up_down
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");

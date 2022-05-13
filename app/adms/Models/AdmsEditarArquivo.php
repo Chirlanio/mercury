@@ -8,73 +8,80 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsEditarUsuario
+ * Description of AdmsEditarArquivo
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsEditarArq {
+class AdmsEditarArquivo {
 
     private $Resultado;
     private $Dados;
     private $DadosId;
     private $Arquivo;
-    private $ArqAntiga;
+    private $ArqAntigo;
 
     function getResultado() {
         return $this->Resultado;
     }
 
-    public function verArq($DadosId) {
-        
+    public function verArquivo($DadosId) {
+
         $this->DadosId = (int) $DadosId;
-        
+
         $verArq = new \App\adms\Models\helper\AdmsRead();
-        $verArq->fullRead("SELECT id, nome, slug, adms_art_id, status_id, created, modified FROM adms_up_down
+        $verArq->fullRead("SELECT * FROM adms_up_down
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verArq->getResultado();
         return $this->Resultado;
     }
 
-    public function altArq(array $Dados) {
-        
+    public function altArquivo(array $Dados) {
+
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
-        
+
         $this->Arquivo = $this->Dados['slug'];
-        unset($this->Arquivo['name']);
+        $this->ArqAntigo = $this->Dados['arq_antigo'];
+        
+        if (!empty($this->Dados['arq_antigo'])) {
+            unset($this->Dados['arq_antigo'], $this->Dados['slug']);
+        }
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
-        //var_dump($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->valArq();
+            if(empty($this->Dados['slug'])){
+                $this->Dados['slug'] = $this->ArqAntigo;
+            } else {
+                $this->Dados['slug'] = $this->Arquivo;
+            }
+            $this->valArquivo();
         } else {
             $this->Resultado = false;
         }
     }
 
-    private function valArq() {
+    private function valArquivo() {
         if (empty($this->Arquivo['name'])) {
-            $this->updateEditArq();
+            $this->updateEditArquivo();
         } else {
             $slugArq = new \App\adms\Models\helper\AdmsSlug();
             $this->Dados['slug'] = $slugArq->nomeSlug($this->Arquivo['name']);
 
             $uploadArq = new \App\adms\Models\helper\AdmsUpload();
-            $uploadArq->upload($this->Dados, 'assets/download/' . $this->Dados['id'] . '/', $this->Arquivo['name']);
+            $uploadArq->upload($this->Arquivo, 'assets/files/downloads/' . $this->Dados['id'] . '/', $this->Dados['slug']);
             if ($uploadArq->getResultado()) {
                 $apagarArq = new \App\adms\Models\helper\AdmsApagarArq();
-                $apagarArq->apagarArq('assets/download/' . $this->Dados['id'] . '/' . $this->ArqAntiga);
-                $this->updateEditArq();
+                $apagarArq->apagarArq('assets/files/downloads/' . $this->Dados['id'] . '/' . $this->ArqAntigo);
+                $this->updateEditArquivo();
             } else {
                 $this->Resultado = false;
             }
         }
     }
 
-    private function updateEditArq() {
-        
+    private function updateEditArquivo() {
+
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltArq = new \App\adms\Models\helper\AdmsUpdate();
         $upAltArq->exeUpdate("adms_up_down", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);

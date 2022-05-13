@@ -8,11 +8,11 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsListarArq
+ * Description of AdmsListarArquivo
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class AdmsListarArq {
+class AdmsListarArquivo {
 
     private $Resultado;
     private $PageId;
@@ -27,14 +27,14 @@ class AdmsListarArq {
 
         $this->PageId = (int) $PageId;
 
-        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'listar-arquivo/listar');
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'arquivo/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_up_down WHERE status_id =:status_id", "status_id=1");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarArtigo = new \App\adms\Models\helper\AdmsRead();
-        $listarArtigo->fullRead("SELECT a.*, st.nome status FROM adms_up_down a INNER JOIN tb_status st ON st.id=a.status_id WHERE a.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarArtigo->getResultado();
+        $listarArq = new \App\adms\Models\helper\AdmsRead();
+        $listarArq->fullRead("SELECT a.*, st.nome status FROM adms_up_down a INNER JOIN tb_status st ON st.id=a.status_id WHERE a.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarArq->getResultado();
         return $this->Resultado;
     }
 
