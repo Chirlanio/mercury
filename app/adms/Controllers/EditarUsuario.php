@@ -35,9 +35,12 @@ class EditarUsuario
     {
         if (!empty($this->Dados['EditUsuario'])) {
             unset($this->Dados['EditUsuario']);
+            
             $this->Dados['imagem_nova'] = ($_FILES['imagem_nova'] ? $_FILES['imagem_nova'] : null);
+            
             $editarUsuario = new \App\adms\Models\AdmsEditarUsuario();
             $editarUsuario->altUsuario($this->Dados);
+            
             if ($editarUsuario->getResultado()) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Usuário editado com sucesso!</div>";
                 $UrlDestino = URLADM . 'ver-usuario/ver-usuario/' . $this->Dados['id'];

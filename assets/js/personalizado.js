@@ -46,6 +46,48 @@ ClassicEditor
             console.error(error);
         });
 
+ClassicEditor
+        .create(document.querySelector('.editorObs'))
+        .catch(error => {
+            console.error(error);
+        });
+
+ClassicEditor
+        .create(document.querySelector('.editorFarUm'))
+        .catch(error => {
+            console.error(error);
+        });
+
+ClassicEditor
+        .create(document.querySelector('.editorFarDois'))
+        .catch(error => {
+            console.error(error);
+        });
+
+ClassicEditor
+        .create(document.querySelector('.editorMatUm'))
+        .catch(error => {
+            console.error(error);
+        });
+
+ClassicEditor
+        .create(document.querySelector('.editorMatDois'))
+        .catch(error => {
+            console.error(error);
+        });
+
+ClassicEditor
+        .create(document.querySelector('.editorDesUm'))
+        .catch(error => {
+            console.error(error);
+        });
+
+ClassicEditor
+        .create(document.querySelector('.editorDesDois'))
+        .catch(error => {
+            console.error(error);
+        });
+
 $(document).ready(function () {
     $('#date').mask('00/00/0000');
     $('#time').mask('00:00:00');

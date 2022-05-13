@@ -45,7 +45,7 @@ class AdmsEditarArq {
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
             $this->valArq();

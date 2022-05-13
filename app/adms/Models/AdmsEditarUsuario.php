@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -78,6 +78,7 @@ class AdmsEditarUsuario {
 
             $uploadImg = new \App\adms\Models\helper\AdmsUploadImgRed();
             $uploadImg->uploadImagem($this->Foto, 'assets/imagens/usuario/' . $this->Dados['id'] . '/', $this->Dados['imagem'], 150, 150);
+            
             if ($uploadImg->getResultado()) {
                 $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
                 $apagarImg->apagarImg('assets/imagens/usuario/' . $this->Dados['id'] . '/' . $this->ImgAntiga);

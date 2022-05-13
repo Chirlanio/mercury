@@ -18,7 +18,6 @@ class AdmsCadastrarArq {
     private $Dados;
     private $DadosId;
     private $Arquivo;
-    private $Artigo;
 
     function getResultado() {
         return $this->Resultado;

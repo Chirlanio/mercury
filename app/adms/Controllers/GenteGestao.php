@@ -21,6 +21,9 @@ class GenteGestao {
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
+        $listarDados = new \App\adms\Models\AdmsGenteGestao();
+        $this->Dados['gg'] = $listarDados->listar();
+
         $carregarView = new \Core\ConfigView("adms/Views/gestao/genteGestao", $this->Dados);
         $carregarView->renderizar();
     }

@@ -133,7 +133,6 @@ if (isset($this->Dados['form'][0])) {
                         echo $valorForm['imagem'];
                     }
                     ?>">
-
                     <label><span class="text-danger">*</span> Foto (150x150)</label>
                     <input name="imagem_nova" type="file" onchange="previewImagem();">
                 </div>
