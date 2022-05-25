@@ -60,14 +60,14 @@ class AdmsCadastrarArquivo {
 
         if ($cadArq->getResultado()) {
             if (empty($this->Arquivo['name'])) {
-                $_SESSION['msg'] = "<div class='alert alert-success'>Arquivo cadastrado com sucesso!</div>";
+                $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Arquivo</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
                 $this->Dados['id'] = $cadArq->getResultado();
                 $this->valArquivo();
             }
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O arquivo não foi cadastrado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro:</strong> O arquivo não foi cadastrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -79,14 +79,14 @@ class AdmsCadastrarArquivo {
 
         if ($uploadArq->getResultado()) {
             if ($uploadArq->getResultado()) {
-                $_SESSION['msg'] = "<div class='alert alert-success'>Arquivo cadastrado com sucesso!</div>";
+                $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Arquivos</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
-                $_SESSION['msg'] = "<div class='alert alert-warnnig'>Arquivo cadastrado com sucesso, arquivo não enviado!</div>";
+                $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro:</strong> Arquivo cadastrado, porém não foi enviado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             }
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-warning'>Erro: Arquivo cadastrado, porém não foi enviado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Arquivo </strong> cadastrado com sucesso, arquivo não enviado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -94,13 +94,11 @@ class AdmsCadastrarArquivo {
     public function listarCadastrar() {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
-        $listar->fullRead("SELECT id id_art, titulo FROM adms_artigos WHERE adms_sit_id =:adms_sit_id ORDER BY id DESC", "adms_sit_id=1");
-        $registro['art'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
         $registro['sit'] = $listar->getResultado();
 
-        $this->Resultado = ['art' => $registro['art'], 'sit' => $registro['sit']];
+        $this->Resultado = ['sit' => $registro['sit']];
 
         return $this->Resultado;
     }

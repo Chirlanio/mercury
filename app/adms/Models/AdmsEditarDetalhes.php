@@ -27,9 +27,7 @@ class AdmsEditarDetalhes {
         $this->DadosId = (int) $DadosId;
 
         $verDefeitos = new \App\adms\Models\helper\AdmsRead();
-        $verDefeitos->fullRead("SELECT d.id, d.descricao, d.status_id
-                FROM adms_detalhes_ordem_servico d
-                WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $verDefeitos->fullRead("SELECT d.id, d.descricao, d.status_id FROM adms_detalhes_ordem_servico d WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verDefeitos->getResultado();
         return $this->Resultado;
     }

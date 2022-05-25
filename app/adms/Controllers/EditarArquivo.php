@@ -39,7 +39,7 @@ class EditarArquivo {
             $editarArq = new \App\adms\Models\AdmsEditarArquivo();
             $editarArq->altArquivo($this->Dados);
             if ($editarArq->getResultado()) {
-                $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Arquivo</strong> cadastrado com sicesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Registro</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $UrlDestino = URLADM . 'arquivo/listar/';
                 header("Location: $UrlDestino");
             } else {
@@ -67,7 +67,7 @@ class EditarArquivo {
             $carregarView = new \Core\ConfigView("adms/Views/upload/editArquivo", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Cadastro do arquivo não foi encontrado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro:</strong> Nenhum registo encontrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $UrlDestino = URLADM . 'arquivo/listar';
             header("Location: $UrlDestino");
         }

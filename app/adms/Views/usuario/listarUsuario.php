@@ -56,7 +56,7 @@ if (!defined('URLADM')) {
                     <input name="PesqUsuario" type="submit" class="btn btn-outline-primary" my-2 value="Pesquisar">
                 </div>
             </div>
-        </form>
+        </form><hr>
         <?php
         if (empty($this->Dados['listUser'])) {
             ?>
@@ -72,7 +72,7 @@ if (!defined('URLADM')) {
             echo $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
-        ?><hr>
+        ?>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>

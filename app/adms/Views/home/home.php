@@ -426,7 +426,13 @@ extract($this->Dados['select']);
             <div class="row mb-3">
                 <div class="col-lg-4 col-sm-6">
                     <div class="card bg-success text-white anima-left">
-                        <a href="<?php ($_SESSION['adms_niveis_acesso_id'] <= 3) ? URLADM . 'transferencia/listar-transf/' : '#'; ?>" class="text-white text-decoration-none">
+                        <a href="<?php
+                        if ($_SESSION['adms_niveis_acesso_id'] <= 5) {
+                            echo URLADM . 'transferencia/listar-transf/';
+                        } else {
+                            echo "#";
+                        }
+                        ?>" class="text-white text-decoration-none">
                             <div class="card-body">
                                 <i class="fas fa-truck fa-3x"></i>
                                 <?php
@@ -448,8 +454,10 @@ extract($this->Dados['select']);
                 <div class="col-lg-4 col-sm-6">
                     <div class="card bg-danger text-white anima-bottom">
                         <a href="<?php
-                        if ($_SESSION['adms_niveis_acesso_id'] <= 3) {
+                        if ($_SESSION['adms_niveis_acesso_id'] <= 5) {
                             echo URLADM . 'ajuste/listar-ajuste/';
+                        } else {
+                            echo '#';
                         }
                         ?>" class="text-white text-decoration-none">
                             <div class="card-body">
@@ -479,8 +487,10 @@ extract($this->Dados['select']);
                 <div class="col-lg-4 col-sm-6">
                     <div class="card bg-warning text-white anima-right">
                         <a href="<?php
-                        if ($_SESSION['adms_niveis_acesso_id'] <= 6) {
+                        if ($_SESSION['adms_niveis_acesso_id'] <= 5) {
                             echo URLADM . 'listar-troca/listar-troca/';
+                        } else {
+                            echo "#";
                         }
                         ?>" class="text-white text-decoration-none">
                             <div class="card-body">

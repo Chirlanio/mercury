@@ -49,7 +49,7 @@ if (!defined('URLADM')) {
                         if (isset($_SESSION['pesqUsuarioNome'])) {
                             echo $_SESSION['pesqUsuarioNome'];
                         }
-                        ?>" autofocus>
+                        ?>">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-6 mb-3">
