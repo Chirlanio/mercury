@@ -35,23 +35,7 @@ if (isset($this->Dados['form'][0])) {
             }
             ?>">
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Responsável</label>
-                    <select name="resp_loja_id" id="resp_loja_id" class="form-control">
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['func_id'] as $consul) {
-                            extract($consul);
-                            if ($valorForm['resp_loja_id'] == $resp_loja_id) {
-                                echo "<option value='$resp_loja_id' selected>$resp_loja</option>";
-                            } else {
-                                echo "<option value='$resp_loja_id'>$resp_loja</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Loja</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] > 2) {
@@ -80,49 +64,70 @@ if (isset($this->Dados['form'][0])) {
                     ?>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Auditor</label>
-                    <?php
-                    if ($_SESSION['adms_niveis_acesso_id'] > 2) {
-                        echo '<select name="resp_auditor_id" id="resp_auditor_id" class="form-control" aria-label="Disabled input" disabled>';
-                        echo '<option value="">Selecione</option>';
-                        foreach ($this->Dados['select']['resp'] as $loja) {
-                            extract($loja);
-                            if ($valorForm['resp_auditor_id'] == $resp_auditor_id) {
-                                echo "<option value='$resp_auditor_id' selected>$resp_aud</option>";
+                <div class="form-group col-md-6">
+                    <label><span class="text-danger">*</span> Ciclo</label>
+                    <select name="ciclo_id" id="ciclo_id" class="form-control">
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['ciclo'] as $cl) {
+                            extract($cl);
+                            if ($valorForm['ciclo_id'] == $c_id) {
+                                echo "<option value='$c_id' selected>$ciclo</option>";
                             } else {
-                                echo "<option value='$resp_auditor_id'>$resp_aud</option>";
+                                echo "<option value='$c_id'>$ciclo</option>";
                             }
                         }
-                    } else {
-                        echo '<select name="resp_auditor_id" id="resp_auditor_id" class="form-control">';
-                        echo '<option value="">Selecione</option>';
-                        foreach ($this->Dados['select']['resp'] as $loja) {
-                            extract($loja);
-                            if ($valorForm['resp_auditor_id'] == $resp_auditor_id) {
-                                echo "<option value='$resp_auditor_id' selected>$resp_aud</option>";
-                            } else {
-                                echo "<option value='$resp_auditor_id'>$resp_aud</option>";
-                            }
-                        }
-                    }
-                    ?>
+                        ?>
                     </select>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Observação</label>
-                    <textarea name="obs" id="editor" class="form-control" rows="3"><?php
-                        if (isset($valorForm['obs'])) {
-                            echo $valorForm['obs'];
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">*</span> Responsável</label>
+                    <select name="responsavel_loja_id" id="responsavel_loja_id" class="form-control">
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['func_id'] as $consul) {
+                            extract($consul);
+                            if ($valorForm['responsavel_loja_id'] == $resp_loja_id) {
+                                echo "<option value='$resp_loja_id' selected>$resp_loja</option>";
+                            } else {
+                                echo "<option value='$resp_loja_id'>$resp_loja</option>";
+                            }
                         }
                         ?>
-                    </textarea>
+                    </select>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">*</span> Auditor</label>
+                    <?php
+                    if ($_SESSION['adms_niveis_acesso_id'] > 2) {
+                        echo '<select name="responsavel_auditoria_id" id="responsavel_auditoria_id" class="form-control" aria-label="Disabled input" disabled>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['resp'] as $loja) {
+                            extract($loja);
+                            if ($valorForm['responsavel_auditoria_id'] == $r_id) {
+                                echo "<option value='$r_id' selected>$resp_aud</option>";
+                            } else {
+                                echo "<option value='$r_id'>$resp_aud</option>";
+                            }
+                        }
+                    } else {
+                        echo '<select name="responsavel_auditoria_id" id="responsavel_auditoria_id" class="form-control">';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['resp'] as $loja) {
+                            extract($loja);
+                            if ($valorForm['responsavel_auditoria_id'] == $r_id) {
+                                echo "<option value='$r_id' selected>$resp_aud</option>";
+                            } else {
+                                echo "<option value='$r_id'>$resp_aud</option>";
+                            }
+                        }
+                    }
+                    echo "</select>";
+                    ?>
+                </div>
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Situação</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] > 2) {
@@ -152,7 +157,17 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
             </div>
-            <input name="modified" type="hidden" value="<?php echo date('Y-m-d H:i:s'); ?>">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label><span class="text-danger">*</span> Observação</label>
+                    <textarea name="obs" id="editor" class="form-control editorCK" rows="3"><?php
+                        if (isset($valorForm['obs'])) {
+                            echo $valorForm['obs'];
+                        }
+                        ?>
+                    </textarea>
+                </div>
+            </div>
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>

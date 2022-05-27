@@ -36,7 +36,7 @@ if (isset($this->Dados['form'][0])) {
             }
             ?>">
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Titulo</label>
                     <input name="nome" type="text" class="form-control" placeholder="Nome do arquivo" value="<?php
                     if (isset($valorForm['nome'])) {
@@ -44,14 +44,30 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">*</span> Loja</label>
+                    <select name="loja_id" id="loja_id" class="form-control">
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['loja'] as $lj) {
+                            extract($lj);
+                            if ($valorForm['loja_id'] == $l_id) {
+                                echo "<option value='$l_id' selected>$loja</option>";
+                            } else {
+                                echo "<option value='$l_id'>$loja</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Situação</label>
                     <select name="status_id" id="status_id" class="form-control">
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['sit'] as $sit) {
                             extract($sit);
-                            if (isset($valorForm['status_id']) AND $valorForm['status_id'] == $id_sit) {
+                            if ($valorForm['status_id'] == $id_sit) {
                                 echo "<option value='$id_sit' selected>$nome_sit</option>";
                             } else {
                                 echo "<option value='$id_sit'>$nome_sit</option>";

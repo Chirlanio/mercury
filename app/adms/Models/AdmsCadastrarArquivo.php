@@ -34,6 +34,7 @@ class AdmsCadastrarArquivo {
     public function cadArquivo(array $Dados) {
 
         $this->Dados = $Dados;
+        var_dump($this->Dados);
         $this->Arquivo = $this->Dados['slug'];
         unset($this->Dados['slug']);
 
@@ -86,7 +87,7 @@ class AdmsCadastrarArquivo {
                 $this->Resultado = true;
             }
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Arquivo </strong> cadastrado com sucesso, arquivo não enviado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Arquivo </strong> cadastrado com sucesso, arquivo não enviado, excede o tamanho máximo de 4M!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -97,8 +98,11 @@ class AdmsCadastrarArquivo {
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
         $registro['sit'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
+        $registro['loja'] = $listar->getResultado();
 
-        $this->Resultado = ['sit' => $registro['sit']];
+        $this->Resultado = ['sit' => $registro['sit'], 'loja' => $registro['loja']];
 
         return $this->Resultado;
     }

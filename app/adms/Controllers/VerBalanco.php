@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of VerAjuste
+ * Description of VerBalanco
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
@@ -24,7 +24,7 @@ class VerBalanco {
             $verBalanco = new \App\adms\Models\AdmsVerBalanco();
             $this->Dados['dados_balanco'] = $verBalanco->verBalanco($this->DadosId);
 
-            $botao = ['list_balanco' => ['menu_controller' => 'balanco', 'menu_metodo' => 'listar-balanco'],
+            $botao = ['list_balanco' => ['menu_controller' => 'balanco', 'menu_metodo' => 'listar'],
                 'vis_balanco' => ['menu_controller' => 'ver-balanco', 'menu_metodo' => 'ver-balanco'],
                 'edit_balanco' => ['menu_controller' => 'editar-balanco', 'menu_metodo' => 'edit-balanco'],
                 'del_balanco' => ['menu_controller' => 'apagar-balanco', 'menu_metodo' => 'apagar-balanco']];
@@ -38,7 +38,7 @@ class VerBalanco {
             $carregarView->renderizar();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Balanço não encontrado!</div>";
-            $UrlDestino = URLADM . 'balanco/listarBalanco';
+            $UrlDestino = URLADM . 'balanco/listar';
             header("Location: $UrlDestino");
         }
     }

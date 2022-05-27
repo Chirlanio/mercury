@@ -23,7 +23,7 @@ class CadastrarBalanco {
             $cadBalanco = new \App\adms\Models\AdmsCadastrarBalanco();
             $cadBalanco->cadBalanco($this->Dados);
             if ($cadBalanco->getResultado()) {
-                $UrlDestino = URLADM . 'balanco/listar-balanco';
+                $UrlDestino = URLADM . 'balanco/listar';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
@@ -38,7 +38,7 @@ class CadastrarBalanco {
         $listarSelect = new \App\adms\Models\AdmsCadastrarBalanco();
         $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-        $botao = ['list_balanco' => ['menu_controller' => 'balanco', 'menu_metodo' => 'listar-balanco']];
+        $botao = ['list_balanco' => ['menu_controller' => 'balanco', 'menu_metodo' => 'listar']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

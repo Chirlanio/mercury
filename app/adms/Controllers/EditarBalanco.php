@@ -24,7 +24,7 @@ class EditarBalanco {
             $this->editBalancoPriv();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
-            $UrlDestino = URLADM . 'balanco/listar-balanco';
+            $UrlDestino = URLADM . 'balanco/listar';
             header("Location: $UrlDestino");
         }
     }
@@ -37,7 +37,7 @@ class EditarBalanco {
             
             if ($editarBalanco->getResultado()) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
-                $UrlDestino = URLADM . 'balanco/listar-balanco/';
+                $UrlDestino = URLADM . 'balanco/listar';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
@@ -64,8 +64,8 @@ class EditarBalanco {
             $carregarView = new \Core\ConfigView("adms/Views/auditoria/editarBalanco", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Só é permitido editar balanços com o status \"Pendente\"!</div>";
-            $UrlDestino = URLADM . 'balanco/listarBalanco';
+            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Só é permitido editar balanços com o status \"Pendente\" ou \"Em Analise\"!</div>";
+            $UrlDestino = URLADM . 'balanco/listar';
             header("Location: $UrlDestino");
         }
     }

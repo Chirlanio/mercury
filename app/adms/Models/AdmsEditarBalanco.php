@@ -26,19 +26,9 @@ class AdmsEditarBalanco {
         $this->DadosId = (int) $DadosId;
         $verAjuste = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] == 1) {
-            $verAjuste->fullRead("SELECT aj.*, lj.id loja_id, lj.nome, f.id resp_loja_id, f.nome, sit.id sit_id, sit.nome sit
-                    FROM adms_aud_balancos aj
-                    INNER JOIN tb_lojas lj ON lj.id=aj.loja_id
-                    INNER JOIN tb_funcionarios f ON f.id=aj.resp_loja_id
-                    INNER JOIN tb_status sit ON sit.id=aj.status_id
-                    WHERE aj.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+            $verAjuste->fullRead("SELECT aj.*, lj.id loja_id, lj.nome, f.id resp_loja_id, f.nome, sit.id sit_id, sit.nome sit, r.nome resp FROM adms_balancos aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_funcionarios f ON f.id=aj.responsavel_loja_id INNER JOIN adms_responsavel_auditoria r ON r.id=aj.responsavel_auditoria_id INNER JOIN tb_status sit ON sit.id=aj.status_id WHERE aj.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         } else {
-            $verAjuste->fullRead("SELECT aj.*, lj.id loja_id, lj.nome, f.id resp_loja_id, f.nome, sit.id sit_id, sit.nome sit
-                    FROM adms_aud_balancos aj
-                    INNER JOIN tb_lojas lj ON lj.id=aj.loja_id
-                    INNER JOIN tb_funcionarios f ON f.id=aj.resp_loja_id
-                    INNER JOIN tb_status sit ON sit.id=aj.status_id
-                    WHERE aj.id =:id AND (aj.status_id =:status_id OR aj.status_id =:status_id2) LIMIT :limit", "id=" . $this->DadosId . "&status_id=2&status_id2=5&limit=1");
+            $verAjuste->fullRead("SELECT aj.*, lj.id loja_id, lj.nome, f.id resp_loja_id, f.nome, sit.id sit_id, sit.nome sit, r.nome resp FROM adms_aud_balancos aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_funcionarios f ON f.id=aj.resp_loja_id INNER JOIN adms_responsavel_auditoria r ON r.id=aj.responsavel_auditoria_id INNER JOIN tb_status sit ON sit.id=aj.status_id WHERE aj.id =:id AND (aj.status_id =:status_id OR aj.status_id =:status_id2) LIMIT :limit", "id=" . $this->DadosId . "&status_id=2&status_id2=5&limit=1");
         }
         $this->Resultado = $verAjuste->getResultado();
         return $this->Resultado;
@@ -53,7 +43,6 @@ class AdmsEditarBalanco {
 
         if ($valCampoVazio->getResultado()) {
             $this->updateEditBalanco();
-            //var_dump($this->Dados);
         } else {
             $this->Resultado = false;
         }
@@ -62,7 +51,7 @@ class AdmsEditarBalanco {
     private function updateEditBalanco() {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltBalanco = new \App\adms\Models\helper\AdmsUpdate();
-        $upAltBalanco->exeUpdate("adms_aud_balancos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
+        $upAltBalanco->exeUpdate("adms_balancos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltBalanco->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro atualizado com sucesso!</div>";
             $this->Resultado = true;
@@ -88,10 +77,13 @@ class AdmsEditarBalanco {
         }
         $registro['func_id'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id resp_auditor_id, nome resp_aud FROM adms_aud_resp ORDER BY nome ASC");
+        $listar->fullRead("SELECT id r_id, nome resp_aud FROM adms_responsavel_auditoria WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
         $registro['resp'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id c_id, nome ciclo FROM adms_ciclos WHERE status_id <=:status_id ORDER BY id DESC", "status_id=4");
+        $registro['ciclo'] = $listar->getResultado();
 
-        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit_id' => $registro['sit_id'], 'func_id' => $registro['func_id'], 'resp' => $registro['resp']];
+        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit_id' => $registro['sit_id'], 'func_id' => $registro['func_id'], 'resp' => $registro['resp'], 'ciclo' => $registro['ciclo']];
 
         return $this->Resultado;
     }

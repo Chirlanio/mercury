@@ -33,7 +33,11 @@ class AdmsListarArquivo {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarArq = new \App\adms\Models\helper\AdmsRead();
-        $listarArq->fullRead("SELECT a.*, st.nome status FROM adms_up_down a INNER JOIN tb_status st ON st.id=a.status_id WHERE a.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
+            $listarArq->fullRead("SELECT a.*, st.nome status, lj.nome loja FROM adms_up_down a INNER JOIN tb_status st ON st.id=a.status_id INNER JOIN tb_lojas lj ON lj.id=a.loja_id WHERE a.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        } else {
+            $listarArq->fullRead("SELECT a.*, st.nome status, lj.nome loja FROM adms_up_down a INNER JOIN tb_status st ON st.id=a.status_id INNER JOIN tb_lojas lj ON lj.id=a.loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        }
         $this->Resultado = $listarArq->getResultado();
         return $this->Resultado;
     }

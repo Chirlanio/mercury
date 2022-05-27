@@ -16,7 +16,7 @@ if (!empty($this->Dados['dados_balanco'][0])) {
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_balanco']) {
-                            echo "<a href='" . URLADM . "balanco/listar-balanco' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
+                            echo "<a href='" . URLADM . "balanco/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
                         }
                         if ($this->Dados['botao']['edit_balanco']) {
                             echo "<a href='" . URLADM . "editar-balanco/edit-balanco/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i> Editar</a> ";
@@ -33,7 +33,7 @@ if (!empty($this->Dados['dados_balanco'][0])) {
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
                             <?php
                             if ($this->Dados['botao']['list_balanco']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "balanco/listar-balanco'>Listar</a>";
+                                echo "<a class='dropdown-item' href='" . URLADM . "balanco/listar'>Listar</a>";
                             }
                             if ($this->Dados['botao']['edit_balanco']) {
                                 echo "<a class='dropdown-item' href='" . URLADM . "editar-balanco/edit-balanco/$id'>Editar</a>";
@@ -88,6 +88,6 @@ if (!empty($this->Dados['dados_balanco'][0])) {
     <?php
 } else {
     $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Cadastro não encontrado!</div>";
-    $UrlDestino = URLADM . 'auditoria/listarBalanco';
+    $UrlDestino = URLADM . 'balanco/listar';
     header("Location: $UrlDestino");
 }

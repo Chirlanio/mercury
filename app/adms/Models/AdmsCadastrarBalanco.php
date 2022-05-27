@@ -37,12 +37,12 @@ class AdmsCadastrarBalanco {
     private function inserirBalanco() {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadAjuste = new \App\adms\Models\helper\AdmsCreate;
-        $cadAjuste->exeCreate("adms_aud_balancos", $this->Dados);
+        $cadAjuste->exeCreate("adms_balancos", $this->Dados);
         if ($cadAjuste->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Balanço cadastrado com sucesso!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O balanço não foi cadastrado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Registro não realizado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -58,10 +58,13 @@ class AdmsCadastrarBalanco {
         }
         $registro['loja_id'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status ORDER BY id ASC");
+        $listar->fullRead("SELECT id sit_id, nome sit FROM adms_status_balancos ORDER BY id ASC");
         $registro['sit'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id resp_auditor_id, nome resp FROM adms_aud_resp ORDER BY id ASC");
+        $listar->fullRead("SELECT id c_id, nome ciclo, ano FROM adms_ciclos WHERE status_id !=:status_id ORDER BY id ASC", "status_id=4");
+        $registro['ciclo'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id resp_auditor_id, nome resp FROM adms_responsavel_auditoria ORDER BY id ASC");
         $registro['resp'] = $listar->getResultado();
 
         if ($_SESSION['adms_niveis_acesso_id'] >= 5) {
@@ -71,7 +74,7 @@ class AdmsCadastrarBalanco {
         }
         $registro['func_id'] = $listar->getResultado();
 
-        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'resp' => $registro['resp'], 'func_id' => $registro['func_id']];
+        $this->Resultado = ['loja_id' => $registro['loja_id'], 'ciclo' => $registro['ciclo'], 'sit' => $registro['sit'], 'resp' => $registro['resp'], 'func_id' => $registro['func_id']];
 
         return $this->Resultado;
     }

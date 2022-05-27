@@ -27,31 +27,33 @@ class AdmsListarBalanco {
 
         $this->PageId = (int) $PageId;
 
-        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'auditoria/listar-balanco');
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'balanco/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['ordem_nivac'] <= 5) {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_aud_balancos");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_balancos");
         } else {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_aud_balancos WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_balancos WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarBalanco = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= 5) {
-            $listarBalanco->fullRead("SELECT ba.*, lj.nome nome_loja, f.nome responsavel, r.nome aud_resp, st.nome status
-                    FROM adms_aud_balancos ba
+            $listarBalanco->fullRead("SELECT ba.*, lj.nome nome_loja, f.usuario responsavel, r.nome aud_resp, st.nome status, c.nome ciclo, c.ano
+                    FROM adms_balancos ba
                     INNER JOIN tb_lojas lj ON lj.id=ba.loja_id
-                    INNER JOIN tb_funcionarios f ON f.id=ba.resp_loja_id
-                    INNER JOIN adms_aud_resp r ON r.id=ba.resp_auditor_id
-                    INNER JOIN tb_status st ON st.id=ba.status_id
+                    INNER JOIN tb_funcionarios f ON f.id=ba.responsavel_loja_id
+                    INNER JOIN adms_responsavel_auditoria r ON r.id=ba.responsavel_auditoria_id
+                    INNER JOIN adms_status_balancos st ON st.id=ba.status_id
+                    INNER JOIN adms_ciclos c ON c.id=ba.ciclo_id
                     ORDER BY ba.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarBalanco->fullRead("SELECT ba.*, lj.nome nome_loja, f.nome responsavel, r.nome aud_resp, st.nome status
-                    FROM adms_aud_balancos ba
+            $listarBalanco->fullRead("SELECT ba.*, lj.nome nome_loja, f.nome responsavel, r.nome aud_resp, st.nome status, c.nome ciclo, c.ano
+                    FROM adms_balancos ba
                     INNER JOIN tb_lojas lj ON lj.id=ba.loja_id
-                    INNER JOIN tb_funcionarios f ON f.id=ba.resp_loja_id
-                    INNER JOIN adms_aud_resp r ON r.id=ba.resp_auditor_id
-                    INNER JOIN tb_status st ON st.id=ba.status_id
+                    INNER JOIN tb_funcionarios f ON f.id=ba.responsavel_loja_id
+                    INNER JOIN adms_responsavel_auditoria r ON r.id=ba.responsavel_auditoria_id
+                    INNER JOIN adms_status_balancos st ON st.id=ba.status_id
+                    INNER JOIN adms_ciclos c ON c.id=ba.ciclo_id
                     WHERE ba.loja_id =:loja_id ORDER BY ba.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listarBalanco->getResultado();

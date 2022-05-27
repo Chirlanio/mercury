@@ -24,20 +24,20 @@ class VerRespAuditoria {
             $verRespAuditoria = new \App\adms\Models\AdmsVerRespAuditoria();
             $this->Dados['dados_resp_auditoria'] = $verRespAuditoria->verRespAuditoria($this->DadosId);
 
-            $botao = ['list_bairro' => ['menu_controller' => 'bairro', 'menu_metodo' => 'listar'],
-                'edit_bairro' => ['menu_controller' => 'editar-bairro', 'menu_metodo' => 'edit-bairro'],
-                'del_bairro' => ['menu_controller' => 'apagar-bairro', 'menu_metodo' => 'apagar-bairro']];
+            $botao = ['list_resp_auditoria' => ['menu_controller' => 'responsavel-auditoria', 'menu_metodo' => 'listar'],
+                'edit_resp_auditoria' => ['menu_controller' => 'editar-resp-auditoria', 'menu_metodo' => 'edit-resp-auditoria'],
+                'del_resp_auditoria' => ['menu_controller' => 'apagar-resp-auditoria', 'menu_metodo' => 'apagar-resp-auditoria']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
             $listarMenu = new \App\adms\Models\AdmsMenu();
             $this->Dados['menu'] = $listarMenu->itemMenu();
 
-            $carregarView = new \Core\ConfigView("adms/Views/bairro/verBairro", $this->Dados);
+            $carregarView = new \Core\ConfigView("adms/Views/responsavelAuditoria/verRespAuditoria", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Bairro não encontrado!</div>";
-            $UrlDestino = URLADM . 'bairro/listar';
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Registro não encontrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $UrlDestino = URLADM . 'responsavel-auditoria/listar';
             header("Location: $UrlDestino");
         }
     }

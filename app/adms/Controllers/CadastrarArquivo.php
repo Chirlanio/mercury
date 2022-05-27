@@ -52,7 +52,7 @@ class CadastrarArquivo {
         $listarSelect = new \App\adms\Models\AdmsCadastrarArquivo();
         $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-        $botao = ['list_arq' => ['menu_controller' => 'listar-arquivo', 'menu_metodo' => 'listar']];
+        $botao = ['list_arq' => ['menu_controller' => 'arquivo', 'menu_metodo' => 'listar']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

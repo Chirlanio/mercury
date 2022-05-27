@@ -25,68 +25,13 @@ if (!defined('URLADM')) {
             }
             ?>
         </div>
-        <form class="form-inline" method="POST" action="<?php echo URLADM . 'pesq-balanco/listar'; ?>" enctype="multipart/form-data">
-            <div class="col-sm-12 col-lg-3 mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="loja_id" style="font-weight: bold">Loja</label>
-                    </div>
-                    <?php
-                    echo "<select name='loja_id' id='loja_id' class='custom-select'>";
-                    echo "<option value = ''>Selecione</option>";
-                    foreach ($this->Dados['select']['loja_id'] as $lo) {
-                        extract($lo);
-                        if ($_SESSION['pesqLoja'] == $loja_id) {
-                            echo "<option value='$loja_id' selected>$loja</option>";
-                        } else {
-                            echo "<option value='$loja_id'>$loja</option>";
-                        }
-                    }
-                    echo "</select>";
-                    ?>
-                </div>
-            </div>
-            <div class="col-sm-12 col-lg-3 mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="referencia" style="font-weight: bold">Referência</label>
-                    </div>
-                    <input name="referencia" type="text" id="referencia" class="form-control" placeholder="Digite a referência" value="<?php
-                    if (isset($_SESSION['referencia'])) {
-                        echo $_SESSION['referencia'];
-                    }
-                    ?>">
-                </div>
-            </div>
-            <div class="col-sm-12 col-lg-3 mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="status_aj_id" style="font-weight: bold">Situação</label>
-                    </div>
-                    <?php
-                    echo "<select name='status_aj_id' id='status_aj_id' class='custom-select'>";
-                    echo "<option value = ''>Selecione</option>";
-                    foreach ($this->Dados['select']['sit'] as $ld) {
-                        extract($ld);
-                        if ($_SESSION['sit'] == $sit_id) {
-                            echo "<option value='$sit_id' selected>$sit</option>";
-                        } else {
-                            echo "<option value='$sit_id'>$sit</option>";
-                        }
-                    }
-                    echo "</select>";
-                    ?>
-                </div>
-            </div>
-            <div class="col-sm-12 col-lg-3 mb-3">
-                <input name="PesqBalanco" type="submit" class="btn btn-outline-primary mx-sm-2" value="Pesquisar">
-            </div>
-        </form><hr>
+        
+        <hr>
         <?php
         if (empty($this->Dados['listBalanco'])) {
             ?>
             <div class="alert alert-danger" role="alert">
-                Nenhuma balanço encontrada!
+                Nenhuma registro encontrado!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -104,6 +49,8 @@ if (!defined('URLADM')) {
                     <tr>
                         <th class="text-center">ID</th>
                         <th>Loja</th>
+                        <th class="d-none d-sm-table-cell">Ciclo</th>
+                        <th class="d-none d-sm-table-cell">Ano</th>
                         <th class="d-none d-sm-table-cell">Responsável</th>
                         <th class="d-none d-sm-table-cell">Auditor</th>
                         <th class="d-none d-sm-table-cell text-center">Status</th>
@@ -112,26 +59,31 @@ if (!defined('URLADM')) {
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($this->Dados['listBalanco'] as $Ajuste) {
-                        extract($Ajuste);
+                    foreach ($this->Dados['listBalanco'] as $balanco) {
+                        extract($balanco);
                         ?>
                         <tr title="<?php echo strip_tags($obs) ?>">
                             <th class="text-center align-middle"><?php echo $id; ?></th>
                             <td class="align-middle"><?php echo $nome_loja; ?></td>
+                            <td class="align-middle"><?php echo $ciclo; ?></td>
+                            <td class="align-middle"><?php echo $ano; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $responsavel; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $aud_resp; ?></td>
                             <td class="d-none d-sm-table-cell align-middle text-center"><?php echo $status; ?></td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php
+                                    if ($this->Dados['botao']['list_produto']) {
+                                        echo "<a href='" . URLADM . "balanco-produto/listar/$id' class='btn btn-outline-info btn-sm' title='Listar'><i class='fas fa-list'></i></a> ";
+                                    }
                                     if ($this->Dados['botao']['vis_balanco']) {
-                                        echo "<a href='" . URLADM . "ver-balanco/ver-balanco/$id' class='btn btn-outline-primary btn-sm'>Visualizar</a> ";
+                                        echo "<a href='" . URLADM . "ver-balanco/ver-balanco/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['edit_balanco']) {
-                                        echo "<a href='" . URLADM . "editar-balanco/edit-balanco/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                                        echo "<a href='" . URLADM . "editar-balanco/edit-balanco/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['del_balanco']) {
-                                        echo "<a href='" . URLADM . "apagar-balanco/apagar-balanco/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                                        echo "<a href='" . URLADM . "apagar-balanco/apagar-balanco/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
                                     }
                                     ?>
                                 </span>

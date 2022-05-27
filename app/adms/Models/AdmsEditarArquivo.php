@@ -99,8 +99,11 @@ class AdmsEditarArquivo {
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
         $registro['sit'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE status_id =:status_id", "status_id=1");
+        $registro['loja'] = $listar->getResultado();
 
-        $this->Resultado = ['sit' => $registro['sit']];
+        $this->Resultado = ['sit' => $registro['sit'], 'loja' => $registro['loja']];
 
         return $this->Resultado;
     }

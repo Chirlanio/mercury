@@ -47,6 +47,7 @@ if (!defined('URLADM')) {
                     <tr>
                         <th class="text-center">ID</th>
                         <th class="d-none d-sm-table-cell">Nome</th>
+                        <th class="d-none d-sm-table-cell">Loja</th>
                         <th class="d-none d-sm-table-cell">Cadastrado</th>
                         <th class="d-none d-sm-table-cell">Atualizado</th>
                         <th class="d-none d-sm-table-cell">Situação</th>
@@ -55,11 +56,12 @@ if (!defined('URLADM')) {
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($this->Dados['listArq'] as $Ajuste) {
-                        extract($Ajuste);
+                    foreach ($this->Dados['listArq'] as $arquivo) {
+                        extract($arquivo);
                         ?>
                 <th class="text-center"><?php echo $id; ?></th>
                     <td><?php echo $nome; ?></td>
+                    <td><?php echo $loja; ?></td>
                     <td class="d-none d-sm-table-cell"><?php echo date('d/m/Y', strtotime($created)); ?></td>
                     <td class="d-none d-sm-table-cell"><?php echo (!empty($modified) ? date('d/m/Y', strtotime($modified)) : ''); ?></td>
                     <td class="d-none d-sm-table-cell text-center"><?php echo $status; ?></td>

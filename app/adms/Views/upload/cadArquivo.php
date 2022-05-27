@@ -6,7 +6,7 @@ if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
 //var_dump($_FILES);
-//var_dump($this->Dados['select']);
+//var_dump($this->Dados['form']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -18,7 +18,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['list_arq']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'listar-arquivo/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'arquivo/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
                 </div>
                 <?php
             }
@@ -34,7 +34,7 @@ if (isset($this->Dados['form'][0])) {
         <form method="POST" action="" enctype="multipart/form-data"> 
 
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Titulo</label>
                     <input name="nome" type="text" class="form-control" placeholder="Nome do arquivo" value="<?php
                     if (isset($valorForm['nome'])) {
@@ -43,7 +43,24 @@ if (isset($this->Dados['form'][0])) {
                     ?>" autofocus required>
                 </div>
                 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">*</span> Loja</label>
+                    <select name="loja_id" id="loja_id" class="form-control">
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['loja'] as $loja) {
+                            extract($loja);
+                            if (isset($valorForm['loja_id'])) {
+                                echo "<option value='$l_id' selected>$loja</option>";
+                            } else {
+                                echo "<option value='$l_id'>$loja</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Situação</label>
                     <select name="status_id" id="status_id" class="form-control">
                         <option value="">Selecione</option>

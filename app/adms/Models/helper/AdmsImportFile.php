@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsCreate
+ * Description of AdmsImportFile
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
@@ -32,7 +32,7 @@ class AdmsImportFile extends AdmsConn {
     }
 
     private function getIntrucao() {
-        $this->Query = "LOAD DATA LOCAL INFILE INTO " . URLADM . "'assets/files/remanejo/' TABLE {$this->Tabela} FIELDS TERMINATED by ';' LINES TERMINATED BY '\n' IGNORE 1 ROWS";
+        $this->Query = "LOAD DATA LOCAL INFILE INTO " . URLADM . "'assets/files/imports/' TABLE {$this->Tabela} FIELDS TERMINATED by ';' LINES TERMINATED BY '\n' IGNORE 1 ROWS";
     }
 
     private function executarInstrucao() {
