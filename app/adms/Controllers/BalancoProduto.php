@@ -21,10 +21,10 @@ class BalancoProduto {
 
         $this->PageId = (int) $PageId ? $PageId : 1;
 
-        $botao = ['cad_balanco' => ['menu_controller' => 'cadastrar-balanco-produto', 'menu_metodo' => 'cad-balanco-produto'],
-            'vis_balanco' => ['menu_controller' => 'ver-balanco-produto', 'menu_metodo' => 'ver-balanco-produto'],
-            'edit_balanco' => ['menu_controller' => 'editar-balanco-produto', 'menu_metodo' => 'edit-balanco-produto'],
-            'del_balanco' => ['menu_controller' => 'apagar-balanco-produto', 'menu_metodo' => 'apagar-balanco-produto']];
+        $botao = ['cad_balanco' => ['menu_controller' => 'cadastrar-balanco-produto', 'menu_metodo' => 'cad-balanco'],
+            'vis_balanco_produto' => ['menu_controller' => 'ver-balanco-produto', 'menu_metodo' => 'ver-balanco'],
+            'edit_balanco_produto' => ['menu_controller' => 'editar-balanco-produto', 'menu_metodo' => 'edit-balanco'],
+            'del_balanco_produto' => ['menu_controller' => 'apagar-balanco-produto', 'menu_metodo' => 'apagar-balanco']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

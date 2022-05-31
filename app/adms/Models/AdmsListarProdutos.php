@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -24,9 +24,9 @@ class AdmsListarProdutos {
     }
 
     public function listarProdutos($PageId = null) {
-        
+
         $this->PageId = (int) $PageId;
-        
+
         $paginacao = new \App\adms\Models\helper\AdmsPaginacaoCigam(URLADM . 'produtos/listar-produtos');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(DISTINCT referencia) AS num_result FROM msl_dprodutos_");

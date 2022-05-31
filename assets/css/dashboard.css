@@ -68,3 +68,8 @@ body {
     margin-left: 5px !important;
     margin-right: 5px !important;
 }
+
+.img-media{
+    width: 250px;
+    height: 250px;
+}

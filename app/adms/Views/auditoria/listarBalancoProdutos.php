@@ -48,8 +48,9 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="text-center">ID</th>
-                        <th>Código de barras</th>
+                        <th>Foto</th>
                         <th>Referência</th>
+                        <th>Código de barras</th>
                         <th>Tam</th>
                         <th class="d-none d-sm-table-cell text-center">Estoque</th>
                         <th class="d-none d-sm-table-cell text-center">Contagem</th>
@@ -66,8 +67,9 @@ if (!defined('URLADM')) {
                         ?>
                         <tr>
                             <th class="text-center align-middle"><?php echo $id; ?></th>
-                            <td class="align-middle"><?php echo $cod_barras; ?></td>
                             <td class="align-middle text-center" ><?php echo "<img class='imagem img-thumbnail' src='http://www.meiasola.com/powerbi/$referencia.jpg' alt='$referencia' />"; ?></td>
+                            <td class="align-middle text-center" ><?php echo $referencia; ?></td>
+                            <td class="align-middle"><?php echo $cod_barras; ?></td>
                             <td class="align-middle text-center"><?php echo $tam; ?></td>
                             <td class="d-none d-sm-table-cell align-middle text-center"><?php echo $qtde_estoque; ?></td>
                             <td class="d-none d-sm-table-cell align-middle text-center"><?php echo $qtde_contagem; ?></td>
@@ -77,14 +79,14 @@ if (!defined('URLADM')) {
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php
-                                    if ($this->Dados['botao']['vis_balanco']) {
-                                        echo "<a href='" . URLADM . "ver-balanco/ver-balanco/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                    if ($this->Dados['botao']['vis_balanco_produto']) {
+                                        echo "<a href='" . URLADM . "ver-balanco-produto/ver-balanco/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                     }
-                                    if ($this->Dados['botao']['edit_balanco']) {
-                                        echo "<a href='" . URLADM . "editar-balanco/edit-balanco/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                    if ($this->Dados['botao']['edit_balanco_produto']) {
+                                        echo "<a href='" . URLADM . "editar-balanco-produto/edit-balanco/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                     }
-                                    if ($this->Dados['botao']['del_balanco']) {
-                                        echo "<a href='" . URLADM . "apagar-balanco/apagar-balanco/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
+                                    if ($this->Dados['botao']['del_balanco_produto']) {
+                                        echo "<a href='" . URLADM . "apagar-balanco-produto/apagar-balanco/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
                                     }
                                     ?>
                                 </span>
@@ -94,14 +96,14 @@ if (!defined('URLADM')) {
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                         <?php
-                                        if ($this->Dados['botao']['vis_balanco']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-balanco/ver-balanco/$id'>Visualizar</a>";
+                                        if ($this->Dados['botao']['vis_balanco_produto']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-balanco-produto/ver-balanco/$id'>Visualizar</a>";
                                         }
-                                        if ($this->Dados['botao']['edit_balanco']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-balanco/edit-balanco/$id'>Editar</a>";
+                                        if ($this->Dados['botao']['edit_balanco_produto']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-balanco-produto/edit-balanco/$id'>Editar</a>";
                                         }
-                                        if ($this->Dados['botao']['del_balanco']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-balanco/apagar-balanco/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                        if ($this->Dados['botao']['del_balanco_produto']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-balanco-produto/apagar-balanco/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                         }
                                         ?>
                                     </div>
