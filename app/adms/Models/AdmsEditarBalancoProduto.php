@@ -75,7 +75,7 @@ class AdmsEditarBalancoProduto {
         $registro['balanco'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status ORDER BY id ASC");
-        $registro['sit_id'] = $listar->getResultado();
+        $registro['sits'] = $listar->getResultado();
 
         if ($_SESSION['adms_niveis_acesso_id'] <= 2) {
             $listar->fullRead("SELECT id resp_loja_id, nome resp_loja FROM tb_funcionarios ORDER BY nome ASC");
@@ -90,7 +90,7 @@ class AdmsEditarBalancoProduto {
         $listar->fullRead("SELECT id c_id, nome ciclo FROM adms_ciclos WHERE status_id <=:status_id ORDER BY id DESC", "status_id=4");
         $registro['ciclo'] = $listar->getResultado();
 
-        $this->Resultado = ['balanco' => $registro['balanco'], 'sit_id' => $registro['sit_id'], 'func_id' => $registro['func_id'], 'resp' => $registro['resp'], 'ciclo' => $registro['ciclo']];
+        $this->Resultado = ['balanco' => $registro['balanco'], 'sits' => $registro['sits'], 'func_id' => $registro['func_id'], 'resp' => $registro['resp'], 'ciclo' => $registro['ciclo']];
 
         return $this->Resultado;
     }

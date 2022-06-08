@@ -18,11 +18,19 @@ class PesqTransf {
     private $DadosForm;
     private $PageId;
     private $Origem;
+    private $Destino;
+    private $Status;
 
-    public function listar($PageId = null, $Origem = null) {
+    public function listar($PageId = null, $Origem = null, $Destino = null, $Status = null) {
 
         $this->Origem = (string) $Origem ? $Origem : filter_input(INPUT_GET, 'origem', FILTER_SANITIZE_STRING);
         $this->Dados['origem'] = $this->Origem;
+
+        $this->Destino = (string) $Destino ? $Destino : filter_input(INPUT_GET, 'destino', FILTER_SANITIZE_STRING);
+        $this->Dados['destino'] = $this->Origem;
+
+        $this->Status = (int) $Status ? $Status : filter_input(INPUT_GET, 'status', FILTER_SANITIZE_NUMBER_INT);
+        $this->Dados['status'] = $this->Status;
         
         $this->PageId = (int) $PageId ? $PageId : 1;
         $this->Dados['pg'] = $this->PageId;

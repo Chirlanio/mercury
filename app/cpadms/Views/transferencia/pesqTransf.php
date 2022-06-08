@@ -69,9 +69,9 @@ if (!defined('URLADM')) {
                         <select name='loja_destino_id' id='loja_destino_id' class='custom-select'>
                             <?php
                             echo "<option value = ''>Selecione</option>";
-                            foreach ($this->Dados['select']['loja_destino_id'] as $ld) {
+                            foreach ($this->Dados['select']['loja_destino'] as $ld) {
                                 extract($ld);
-                                if ($valorForm['loja_destino_id'] == $ld_id) {
+                                if (isset($valorForm['loja_destino_id']) == $ld_id) {
                                     echo "<option value='$ld_id' selected>$loja_dest</option>";
                                 } else {
                                     echo "<option value='$ld_id'>$loja_dest</option>";
@@ -89,7 +89,7 @@ if (!defined('URLADM')) {
                         <?php
                         echo "<select name='status_id' id='status_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['status_id'] as $ld) {
+                        foreach ($this->Dados['select']['status'] as $ld) {
                             extract($ld);
                             if (isset($valorForm['status_id']) == $sit_id) {
                                 echo "<option value='$sit_id' selected>$sit</option>";
@@ -158,13 +158,31 @@ if (!defined('URLADM')) {
                                     <span class="d-none d-md-block">
                                         <?php
                                         if ($this->Dados['botao']['vis_transf']) {
-                                            echo "<a href='" . URLADM . "ver-transf/ver-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                            if (!empty($_SESSION['pesqOrigem'])) {
+                                                echo "<a href='" . URLADM . "ver-transf/ver-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                            } elseif (!empty($_SESSION['pesqDestino'])) {
+                                                echo "<a href='" . URLADM . "ver-transf/ver-transf/$id?destino={$_SESSION['pesqDestino']}&pg={$this->Dados['pg']}' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                            } else {
+                                                echo "<a href='" . URLADM . "ver-transf/ver-transf/$id?status={$_SESSION['pesqStatus']}&pg={$this->Dados['pg']}' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                            }
                                         }
                                         if ($this->Dados['botao']['edit_transf']) {
-                                            echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                            if (!empty($_SESSION['pesqOrigem'])) {
+                                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                            } elseif (!empty($_SESSION['pesqDestino'])) {
+                                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?destino={$_SESSION['pesqDestino']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                            } else {
+                                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?status={$_SESSION['pesqStatus']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                            }
                                         }
                                         if ($this->Dados['botao']['del_transf']) {
-                                            echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id?pg={$this->Dados['pg']}' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
+                                            if (!empty($_SESSION['pesqOrigem'])) {
+                                                echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-danger btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                            } elseif (!empty($_SESSION['pesqDestino'])) {
+                                                echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id?destino={$_SESSION['pesqDestino']}&pg={$this->Dados['pg']}' class='btn btn-outline-danger btn-sm' title='Visualizar'><i class='fas fa-pen-nib'></i></a> ";
+                                            } else {
+                                                echo "<a href='" . URLADM . "apagar-transf/apagar-transf/$id?status={$_SESSION['pesqStatus']}&pg={$this->Dados['pg']}' class='btn btn-outline-danger btn-sm' title='Visualizar'><i class='fas fa-pen-nib'></i></a> ";
+                                            }
                                         }
                                         ?>
                                     </span>

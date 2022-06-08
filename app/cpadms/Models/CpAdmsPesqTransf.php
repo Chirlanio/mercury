@@ -36,16 +36,22 @@ class CpAdmsPesqTransf {
         if ((!empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['loja_destino_id'])) AND (!empty($this->Dados['status_id']))) {
             $this->pesqComp();
         } elseif ((!empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['status_id']))) {
+            unset($_SESSION['pesqDestino']);
             $this->pesqLojaOriSit();
         } elseif ((!empty($this->Dados['loja_destino_id'])) AND (!empty($this->Dados['status_id']))) {
+            unset($_SESSION['pesqOrigem']);
             $this->pesqLojaDesSit();
         } elseif ((!empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['loja_destino_id']))) {
+            unset($_SESSION['pesqStatus']);
             $this->pesqLojaOriDes();
         } elseif (!empty($this->Dados['loja_origem_id'])) {
+            unset($_SESSION['pesqStatus'], $_SESSION['pesqDestino']);
             $this->pesqLojaOrigem();
         } elseif (!empty($this->Dados['loja_destino_id'])) {
+            unset($_SESSION['pesqStatus'], $_SESSION['pesqOrigem']);
             $this->pesqLojaDestino();
         } elseif (!empty($this->Dados['status_id'])) {
+            unset($_SESSION['pesqDestino'], $_SESSION['pesqOrigem']);
             $this->pesqStatus();
         }
         return $this->Resultado;
@@ -296,15 +302,15 @@ class CpAdmsPesqTransf {
         $registro['loja_origem'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id ld_id, nome loja_dest FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_destino_id'] = $listar->getResultado();
+        $registro['loja_destino'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id id_tipo, nome tipo FROM tb_tipo_transf ORDER BY id ASC");
         $registro['tipo_transf_id'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_transf ORDER BY id ASC");
-        $registro['status_id'] = $listar->getResultado();
+        $registro['status'] = $listar->getResultado();
 
-        $this->Resultado = ['loja_origem' => $registro['loja_origem'], 'loja_destino_id' => $registro['loja_destino_id'], 'status_id' => $registro['status_id']];
+        $this->Resultado = ['loja_origem' => $registro['loja_origem'], 'loja_destino' => $registro['loja_destino'], 'status' => $registro['status']];
 
         return $this->Resultado;
     }

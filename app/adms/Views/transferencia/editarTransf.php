@@ -296,7 +296,6 @@ if (isset($this->Dados['form'][0])) {
                     ?>
                 </div>
             </div>
-            <input name="modified" type="hidden" value="<?php echo date('Y-m-d H:i:s'); ?>">
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>

@@ -34,7 +34,7 @@ if (!defined('URLADM')) {
                         <?php
                         echo "<select name='loja_origem_id' id='loja_origem_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['loja_origem_id'] as $lo) {
+                        foreach ($this->Dados['select']['loja_origem'] as $lo) {
                             extract($lo);
                             if (isset($valorForm['loja_origem_id']) == $loja_id) {
                                 echo "<option value='$loja_id' selected>$loja_orig</option>";
@@ -54,7 +54,7 @@ if (!defined('URLADM')) {
                         <?php
                         echo "<select name='loja_destino_id' id='loja_destino_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['loja_destino_id'] as $ld) {
+                        foreach ($this->Dados['select']['loja_destino'] as $ld) {
                             extract($ld);
                             if (isset($valorForm['loja_destino_id']) == $loja_id) {
                                 echo "<option value='$loja_id' selected>$loja_dest</option>";
@@ -74,7 +74,7 @@ if (!defined('URLADM')) {
                         <?php
                         echo "<select name='status_id' id='status_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['status_id'] as $ld) {
+                        foreach ($this->Dados['select']['status'] as $ld) {
                             extract($ld);
                             if (isset($valorForm['status_id']) == $sit_id) {
                                 echo "<option value='$sit_id' selected>$sit</option>";
@@ -110,6 +110,46 @@ if (!defined('URLADM')) {
         }
         ?>
         <hr>
+        <div class="table-responsive my-n1 d-print-none">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr class="bg-dark">
+                        <th class="text-white">Transferências - Total</th>
+                        <th class="text-white">Aguardando Coleta</th>
+                        <th class="text-white">Recolhido</th>
+                        <th class="text-white">Entregue</th>
+                        <th class="text-white">Cancelado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    echo "<tr>";
+                    foreach ($this->Dados['select']['transf'] as $lo) {
+                        extract($lo);
+                        echo "<td class='text-right'>" . $total_transf . "</td>";
+                    }
+                    foreach ($this->Dados['select']['aguardo'] as $ag) {
+                        extract($ag);
+                        echo "<td class='text-right'>" . $total_aguardo . "</td>";
+                    }
+                    foreach ($this->Dados['select']['recolhido'] as $rec) {
+                        extract($rec);
+                        echo "<td class='text-right'>" . $total_recolhido . "</td>";
+                    }
+                    foreach ($this->Dados['select']['entregue'] as $ent) {
+                        extract($ent);
+                        echo "<td class='text-right'>" . $total_entregue . "</td>";
+                    }
+                    foreach ($this->Dados['select']['cancelado'] as $can) {
+                        extract($can);
+                        echo "<td class='text-right'>" . $total_cancelado . "</td>";
+                    }
+                    echo "</tr>";
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <hr class="d-print-none">
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
@@ -178,30 +218,6 @@ if (!defined('URLADM')) {
                     ?>
                 </tbody>
             </table>
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Editar Transferência - ID: <?php echo $id; ?></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-group">
-                                <?php var_dump($this->Dados['list_transf']['0']); ?>
-                                <label>Recebido por:</label>
-                                <input type="text" name="recebido" class="form-group">
-                                
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-warning">Salvar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <?php
             echo $this->Dados['paginacao'];
             ?>

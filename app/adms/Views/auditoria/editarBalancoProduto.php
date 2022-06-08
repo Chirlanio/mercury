@@ -230,7 +230,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
             
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <div class="mb-3">
                         <ul class="list-group mb-3">
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -239,72 +239,48 @@ if (isset($this->Dados['form'][0])) {
                                     <small class="text-muted">
                                         <span class="m-auto lead">
                                             <?php
-                                            if (isset($valorForm['arquivo'])) {
-                                                echo $valorForm['arquivo'] . " - ";
+                                            if (isset($valorForm['img_um'])) {
+                                                echo $valorForm['img_um'] . " - ";
                                             }
                                             ?>
                                         </span>
-                                        <a href="<?php echo URLADM . 'assets/imagens/balanco/' . $valorForm['id'] . '/' . $valorForm['arquivo']; ?>" class="lead m-auto" download>Baixar</a>
+                                        <a href="<?php echo URLADM . 'assets/imagens/balanco/' . $valorForm['id'] . '/' . $valorForm['img_um']; ?>" class="btn btn-outline-primary btn-sm lead m-auto" download>Baixar</a>
                                     </small>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <input name="file_antigo" type="hidden" value="<?php
-                    if (isset($valorForm['file_antigo'])) {
-                        echo $valorForm['file_antigo'];
+                    <input name="img_um" type="hidden" value="<?php
+                    if (isset($valorForm['img_um'])) {
+                        echo $valorForm['img_um'];
                     } elseif (isset($valorForm['file_novo'])) {
                         echo $valorForm['file_novo'];
                     }
                     ?>">
 
-                    <label><span class="text-danger">*</span> Novo Documento</label>
-                    <input name="file_novo" type="file" class="custom-file">
+                    <label>Imagem 1:</label>
+                    <input name="img_um" type="file" class="custom-file">
+
+                    <label>Imagem 2:</label>
+                    <input name="img_dois" type="file" class="custom-file">
+
+                    <label>Imagem 3:</label>
+                    <input name="img_tres" type="file" class="custom-file">
                 </div>
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label><span class="text-danger">*</span> Responsável</label>
-                    <?php
-                    if ($_SESSION['adms_niveis_acesso_id'] == 1) {
-                        echo '<select name="adms_resp_aut_id" id="adms_resp_aut_id" class="form-control is-valid" required>';
-                        echo '<option value="">Selecione</option>';
-                        foreach ($this->Dados['select']['adms_resp_aut_id'] as $resp) {
-                            extract($resp);
-                            if ($valorForm['adms_resp_aut_id'] == $adms_resp_aut_id) {
-                                echo "<option value='$adms_resp_aut_id' selected>$resp_aut</option>";
-                            } else {
-                                echo "<option value='$adms_resp_aut_id'>$resp_aut</option>";
-                            }
-                        }
-                        echo '</select>';
-                    } else {
-                        echo '<select name="adms_resp_aut_id" id="adms_resp_aut_id" class="form-control is-valid" aria-label="Disabled input" required disabled>';
-                        echo '<option value="">Selecione</option>';
-                        foreach ($this->Dados['select']['adms_resp_aut_id'] as $resp) {
-                            extract($resp);
-                            if ($valorForm['adms_resp_aut_id'] == $adms_resp_aut_id) {
-                                echo "<option value='$adms_resp_aut_id' selected>$resp_aut</option>";
-                            } else {
-                                echo "<option value='$adms_resp_aut_id'>$resp_aut</option>";
-                            }
-                        }
-                        echo '</select>';
-                    }
-                    ?>
-                </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Situação</label>
-                    <select name="adms_sits_est_id" id="adms_sits_est_id" class="form-control is-invalid" required>
+                    <select name="status_id" id="status_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['adms_sits_est_id'] as $sit) {
-                            extract($sit);
-                            if ($valorForm['adms_sits_est_id'] == $adms_sits_est_id) {
-                                echo "<option value='$adms_sits_est_id' selected>$sit_est</option>";
+                        foreach ($this->Dados['select']['sits'] as $st) {
+                            extract($st);
+                            if ($valorForm['status_id'] == $sit_id) {
+                                echo "<option value='$sit_id' selected>$sit</option>";
                             } else {
-                                echo "<option value='$adms_sits_est_id'>$sit_est</option>";
+                                echo "<option value='$sit_id'>$sit</option>";
                             }
                         }
                         ?>
@@ -315,10 +291,10 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Observações</label>
-                    <textarea name="obs" id="editor" class="form-control editorCK" rows="3">
+                    <textarea name="obs_resposta" id="editor" class="form-control editorCKQl" rows="3">
                         <?php
-                        if (isset($valorForm['obs'])) {
-                            echo $valorForm['obs'];
+                        if (isset($valorForm['obs_resposta'])) {
+                            echo $valorForm['obs_resposta'];
                         }
                         ?>
                     </textarea>

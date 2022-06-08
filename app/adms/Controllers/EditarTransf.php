@@ -18,12 +18,20 @@ class EditarTransf {
     private $DadosId;
     private $PageId;
     private $Origem;
+    private $Destino;
+    private $Status;
 
     public function editTransf($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         $this->Origem = filter_input(INPUT_GET, "origem", FILTER_SANITIZE_STRING);
         $this->Dados['origem'] = $this->Origem;
+
+        $this->Destino = filter_input(INPUT_GET, "destino", FILTER_SANITIZE_STRING);
+        $this->Dados['destino'] = $this->Destino;
+
+        $this->Status = filter_input(INPUT_GET, "status", FILTER_SANITIZE_STRING);
+        $this->Dados['status'] = $this->Status;
 
         $this->PageId = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
         $this->Dados['pg'] = $this->PageId;
@@ -40,18 +48,11 @@ class EditarTransf {
 
     private function editTransfPriv() {
         if ((!empty($this->Dados['EditTransf'])) and (!empty($this->Dados['pg']))) {
-            unset($this->Dados['EditTransf'], $this->Dados['origem'], $this->Dados['pg']);
+            unset($this->Dados['EditTransf'], $this->Dados['origem'], $this->Dados['pg'], $this->Dados['destino'], $this->Dados['status']);
             $editarTransf = new \App\adms\Models\AdmsEditarTransf();
             $editarTransf->altTransf($this->Dados);
             if ($editarTransf->getResultado()) {
-                if (empty($this->Origem)) {
-                    $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
-                    $UrlDestino = URLADM . "transferência/listar-transf/{$this->PageId}";
-                } else {                    
-                    $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
-                    $UrlDestino = URLADM . "pesq-transf/listar/{$this->PageId}?origem={$this->Origem}";
-                }
-                header("Location: $UrlDestino");
+                $this->urlDestino();
             } else {
                 $this->Dados['form'] = $this->Dados;
                 $this->editTransfViewPriv();
@@ -61,6 +62,23 @@ class EditarTransf {
             $this->Dados['form'] = $verTransf->verTransf($this->DadosId);
             $this->editTransfViewPriv();
         }
+    }
+
+    private function urlDestino() {
+        if (!empty($this->Origem)) {
+            $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
+            $UrlDestino = URLADM . "pesq-transf/listar/{$this->PageId}?origem={$this->Origem}";
+        } elseif (!empty($this->Destino)) {
+            $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
+            $UrlDestino = URLADM . "pesq-transf/listar/{$this->PageId}?destino={$this->Destino}";
+        } elseif (!empty($this->Status)) {
+            $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
+            $UrlDestino = URLADM . "pesq-transf/listar/{$this->PageId}?status={$this->Status}";
+        } else {
+            $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";
+            $UrlDestino = URLADM . "transferência/listar-transf/{$this->PageId}";
+        }
+        header("Location: $UrlDestino");
     }
 
     private function editTransfViewPriv() {
@@ -78,7 +96,7 @@ class EditarTransf {
             $carregarView->renderizar();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Não é permitido alterar transferências com o status \"Recolhido\"!</div>";
-            $UrlDestino = URLADM . 'transferencia/listarTransf';
+            $UrlDestino = URLADM . 'transferencia/listar-transf';
             header("Location: $UrlDestino");
         }
     }

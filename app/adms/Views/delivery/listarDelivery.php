@@ -225,13 +225,13 @@ if (!defined('URLADM')) {
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                         <?php
                                         if ($this->Dados['botao']['vis_delivery']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-delivery/ver-delivery/$id'>Visualizar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-delivery/ver-delivery/$id_loja'>Visualizar</a>";
                                         }
                                         if ($this->Dados['botao']['edit_delivery']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-delivery/edit-delivery/$id'>Editar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-delivery/edit-delivery/$id_loja'>Editar</a>";
                                         }
-                                        if ($this->Dados['botao']['del_deliverya']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-delivery/apagar-delivery/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                        if ($this->Dados['botao']['del_delivery']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-delivery/apagar-delivery/$id_loja' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                         }
                                         ?>
                                     </div>
