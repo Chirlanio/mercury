@@ -28,41 +28,40 @@ class CpAdmsPesqDelivery {
 
         $this->PageId = (int) $PageId;
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
 
         $this->Dados['cliente'] = trim($this->Dados['cliente']);
 
         $_SESSION['pesqLoja'] = $this->Dados['loja_id'];
-        $_SESSION['pesqRota'] = $this->Dados['id'];
+        $_SESSION['pesqId'] = $this->Dados['id'];
         $_SESSION['pesqSit'] = $this->Dados['sit_id'];
         $_SESSION['pesqCli'] = $this->Dados['cliente'];
 
         if ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqComp();
         } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['id'])) AND (!empty($this->Dados['sit_id']))) {
-            $this->pesqLojaRotaSit();
+            $this->pesqLojaIdSit();
         } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['id'])) AND (!empty($this->Dados['cliente']))) {
-            $this->pesqLojaRotaCliente();
+            $this->pesqLojaIdCliente();
         } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqLojaSitCliente();
         } elseif ((!empty($this->Dados['id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
-            $this->pesqRotaSitCliente();
+            $this->pesqIdSitCliente();
         } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqLojaCliente();
         } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['id']))) {
-            $this->pesqLojaRota();
+            $this->pesqLojaId();
         } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['sit_id']))) {
             $this->pesqLojaStatus();
         } elseif ((!empty($this->Dados['id'])) AND (!empty($this->Dados['sit_id']))) {
-            $this->pesqRotaStatus();
+            $this->pesqIdStatus();
         } elseif ((!empty($this->Dados['id'])) AND (!empty($this->Dados['cliente']))) {
-            $this->pesqRotaCliente();
+            $this->pesqIdCliente();
         } elseif ((!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqSitCliente();
         } elseif (!empty($this->Dados['loja_id'])) {
             $this->pesqLoja();
         } elseif (!empty($this->Dados['id'])) {
-            $this->pesqRota();
+            $this->pesqId();
         } elseif (!empty($this->Dados['sit_id'])) {
             $this->pesqStatus();
         } elseif (!empty($this->Dados['cliente'])) {
@@ -76,360 +75,167 @@ class CpAdmsPesqDelivery {
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?loja=' . $this->Dados['loja_id'] . '&id=' . $this->Dados['id'] . '&situacao=' . $this->Dados['sit_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['adms_niveis_acesso_id'] == 5) {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND rota_id =:rota_id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND id =:id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
         } else {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND rota_id =:rota_id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND id =:id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == 5) {
-            $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.id =:id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id =:id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.id =:id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id =:id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarAjuste->getResultado();
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
-    private function pesqLojaRotaSit() {
+    private function pesqLojaIdSit() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?loja=' . $this->Dados['loja_id'] . '&id=' . $this->Dados['id'] . '&situacao=' . $this->Dados['sit_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['adms_niveis_ac_id'] == 5) {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND id =:id AND status_id =:status_id", "loja_id=" . $_SESSION['usuarioa_loja'] . "&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}");
+        if ($_SESSION['adms_niveis_acesso_id'] == 5) {
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND id =:id AND status_id =:status_id", "loja_id=" . $_SESSION['usuarioa_loja'] . "&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}");
         } else {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND id =:id AND status_id =:status_id", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND id =:id AND status_id =:status_id", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}");
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.id =:id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id =:id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
-    private function pesqLojaRotaCliente() {
+    private function pesqLojaIdCliente() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?loja=' . $this->Dados['loja_id'] . '&id=' . $this->Dados['id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND id =:id AND cliente LIKE '%' :cliente '%'",
-                "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&cliente={$this->Dados['cliente']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND id =:id AND cliente LIKE '%' :cliente '%'", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&cliente={$this->Dados['cliente']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.id =:id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id =:id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
     private function pesqLojaSitCliente() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?loja=' . $this->Dados['loja_id'] . '&situacao=' . $this->Dados['sit_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'",
-                "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
-    private function pesqRotaSitCliente() {
+    private function pesqIdSitCliente() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?id=' . $this->Dados['id'] . '&situacao=' . $this->Dados['sit_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE id =:id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'",
-                "id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE id =:id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'", "id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.id =:id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id =:id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
     private function pesqLojaCliente() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?loja=' . $this->Dados['loja_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND cliente LIKE '%' :cliente '%'",
-                "loja_id={$this->Dados['loja_id']}&cliente={$this->Dados['cliente']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND cliente LIKE '%' :cliente '%'", "loja_id={$this->Dados['loja_id']}&cliente={$this->Dados['cliente']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
-    private function pesqLojaRota() {
+    private function pesqLojaId() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?loja=' . $this->Dados['loja_id'] . '&id=' . $this->Dados['id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND id =:id",
-                "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND id =:id", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.id =:id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id LIKE '%' :id '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&id={$this->Dados['id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
     private function pesqLojaStatus() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?loja=' . $this->Dados['loja_id'] . '&situacao=' . $this->Dados['sit_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE loja_id =:loja_id AND status_id =:status_id",
-                "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE loja_id =:loja_id AND status_id =:status_id", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
-    private function pesqRotaCliente() {
+    private function pesqIdCliente() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?id=' . $this->Dados['id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE id =:id AND cliente LIKE '%' :cliente '%'",
-                "id={$this->Dados['id']}&cliente={$this->Dados['cliente']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE id =:id AND cliente LIKE '%' :cliente '%'", "id={$this->Dados['id']}&cliente={$this->Dados['cliente']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.id =:id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "id={$this->Dados['id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id =:id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "id={$this->Dados['id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
     private function pesqSitCliente() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?situacao=' . $this->Dados['sit_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE status_id =:status_id AND cliente LIKE '%' :cliente '%'",
-                "status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE status_id =:status_id AND cliente LIKE '%' :cliente '%'", "status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
-    private function pesqRotaStatus() {
+    private function pesqIdStatus() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?id=' . $this->Dados['id'] . '&situacao=' . $this->Dados['sit_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result
-                    FROM tb_delivery
-                    WHERE id =:id AND status_id =:status_id", "id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}");
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_delivery WHERE id =:id AND status_id =:status_id", "id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.id =:id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id =:id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "id={$this->Dados['id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
     private function pesqLoja() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?loja=' . $this->Dados['loja_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(d.id) AS num_result
-                    FROM tb_delivery d
-                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                    WHERE d.loja_id =:loja_id", "loja_id={$this->Dados['loja_id']}");
+        $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id WHERE d.loja_id =:loja_id", "loja_id={$this->Dados['loja_id']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
-    private function pesqRota() {
+    private function pesqId() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?id=' . $this->Dados['id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(d.id) AS num_result
-                    FROM tb_delivery d
-                    WHERE d.id =:id", "id={$this->Dados['id']}");
+        $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM tb_delivery d WHERE d.id =:id", "id={$this->Dados['id']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.id =:id ORDER BY id ASC LIMIT :limit OFFSET :offset", "id={$this->Dados['id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id =:id ORDER BY id DESC LIMIT :limit OFFSET :offset", "id={$this->Dados['id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
     private function pesqStatus() {
@@ -443,60 +249,25 @@ class CpAdmsPesqDelivery {
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= 5) {
-            $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.loja_id =:loja_id AND d.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id" . $_SESSION['usuario_loja'] . "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id" . $_SESSION['usuario_loja'] . "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarAjuste->getResultado();
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
     private function pesqCliente() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-delivery/listar', '?cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(d.id) AS num_result
-                    FROM tb_delivery d
-                    WHERE d.cliente LIKE '%' :cliente '%'", "cliente={$this->Dados['cliente']}");
+        $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM tb_delivery d WHERE d.cliente LIKE '%' :cliente '%'", "cliente={$this->Dados['cliente']}");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        $listarAjuste->fullRead("SELECT d.*,
-                lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma
-                FROM tb_delivery d
-                INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                INNER JOIN tb_bairros b ON b.id=d.bairro_id
-                INNER JOIN tb_rotas r ON r.id=d.rota_id
-                INNER JOIN tb_status_delivery s ON s.id=d.status_id
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id
-                INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida
-                INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                WHERE d.cliente LIKE '%' :cliente '%' ORDER BY id ASC LIMIT :limit OFFSET :offset", "cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarAjuste->getResultado();
+        $listarDelivery = new \App\adms\Models\helper\AdmsRead();
+        $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarDelivery->getResultado();
     }
 
     public function listarCadastrar() {

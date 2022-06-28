@@ -18,7 +18,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['vis_func']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-func/ver-func/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
+                    <a href="<?php echo URLADM . 'ver-func/ver-func/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm"><i class='fas fa-eye'></i> Visualizar</a>
                 </div>
                 <?php
             }
@@ -31,7 +31,7 @@ if (isset($this->Dados['form'][0])) {
             unset($_SESSION['msg']);
         }
         ?>
-        <form method="POST" action="" enctype="multipart/form-data"> 
+        <form method="POST" action="" class="was-validated" enctype="multipart/form-data"> 
             <input name="id" type="hidden" value="<?php
             if (isset($valorForm['id'])) {
                 echo $valorForm['id'];
@@ -42,17 +42,17 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Nome Completo</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
-                        echo '<input name="nome" type="text" class="form-control" aria-label="Disabled input" disabled placeholder="Nome completo do Usuário" value="';
+                        echo '<input name="nome" type="text" class="form-control is-invalid" aria-label="Disabled input" disabled placeholder="Nome completo do Usuário" value="';
                         if (isset($valorForm['nome'])) {
                             echo $valorForm['nome'];
                         }
-                        echo '">';
+                        echo '" required>';
                     } else {
-                        echo '<input name="nome" type="text" class="form-control" placeholder="Nome completo do Usuário" value ="';
+                        echo '<input name="nome" type="text" class="form-control is-invalid" placeholder="Nome completo do Usuário" value ="';
                         if (isset($valorForm['nome'])) {
                             echo $valorForm['nome'];
                         }
-                        echo '">';
+                        echo '" required>';
                     }
                     ?>
                 </div>
@@ -62,17 +62,17 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Usuário</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
-                        echo '<input name="usuario" type="text" class="form-control" aria-label="Disabled input" disabled placeholder="Nome do Usuário" value="';
+                        echo '<input name="usuario" type="text" class="form-control is-invalid" aria-label="Disabled input" disabled placeholder="Nome do Usuário" value="';
                         if (isset($valorForm['usuario'])) {
                             echo $valorForm['usuario'];
                         }
-                        echo '">';
+                        echo '" required>';
                     } else {
-                        echo '<input name="usuario" type="text" class="form-control" placeholder="Nome do Usuário" value ="';
+                        echo '<input name="usuario" type="text" class="form-control is-invalid" placeholder="Nome do Usuário" value ="';
                         if (isset($valorForm['usuario'])) {
                             echo $valorForm['usuario'];
                         }
-                        echo '">';
+                        echo '" required>';
                     }
                     ?>
                 </div>
@@ -80,19 +80,19 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span><span tabindex="0" data-toggle="tooltip" data-placement="top" data-html="true" title="CPF: Digite somente números, Ex: 12345678912">
                             <i class="fas fa-question-circle"></i>
                         </span> CPF</label>
-                    <input name="cpf" id="cpf" class="form-control" value="<?php
+                    <input name="cpf" id="cpf" class="form-control is-invalid" value="<?php
                     if (isset($valorForm['cpf'])) {
                         echo $valorForm['cpf'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Cupom Site</label>
-                    <input name="cupom_site" type="text" id="cupom_site" class="form-control" placeholder="Digite o cupom" value="<?php
+                    <input name="cupom_site" type="text" id="cupom_site" class="form-control is-invalid" placeholder="Digite o cupom" value="<?php
                     if (isset($valorForm['cupom_site'])) {
                         echo $valorForm['cupom_site'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
             </div>
             <div class="form-row">
@@ -100,7 +100,7 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Loja</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
-                        echo '<select name="loja_id" id="loja_id" class="form-control" aria-label="Disabled input" disabled>';
+                        echo '<select name="loja_id" id="loja_id" class="form-control is-invalid" aria-label="Disabled input" disabled required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['loja_id'] as $l) {
                             extract($l);
@@ -111,7 +111,7 @@ if (isset($this->Dados['form'][0])) {
                             }
                         }
                     } else {
-                        echo '<select name="loja_id" id="loja_id" class="form-control">';
+                        echo '<select name="loja_id" id="loja_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['loja_id'] as $l) {
                             extract($l);
@@ -129,7 +129,7 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Função</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
-                        echo '<select name="cargo_id" id="cargo_id" class="form-control" aria-label="Disabled input" disabled>';
+                        echo '<select name="cargo_id" id="cargo_id" class="form-control is-invalid" aria-label="Disabled input" disabled required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['cargo_id'] as $c) {
                             extract($c);
@@ -140,7 +140,7 @@ if (isset($this->Dados['form'][0])) {
                             }
                         }
                     } else {
-                        echo '<select name="cargo_id" id="cargo_id" class="form-control">';
+                        echo '<select name="cargo_id" id="cargo_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['cargo_id'] as $c) {
                             extract($c);
@@ -158,7 +158,7 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span>Situação</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
-                        echo '<select name="status_id" id="status_id" class="form-control" aria-label="Disabled input" disabled>';
+                        echo '<select name="status_id" id="status_id" class="form-control is-invalid" aria-label="Disabled input" disabled required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['sit_id'] as $sit) {
                             extract($sit);
@@ -169,7 +169,7 @@ if (isset($this->Dados['form'][0])) {
                             }
                         }
                     } else {
-                        echo '<select name="status_id" id="status_id" class="form-control">';
+                        echo '<select name="status_id" id="status_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['sit_id'] as $sit) {
                             extract($sit);

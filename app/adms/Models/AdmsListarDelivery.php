@@ -51,7 +51,7 @@ class AdmsListarDelivery {
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
                 INNER JOIN adms_cors cr ON cr.id=t.adms_cor_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
-                ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+                ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarPagina->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id,
                 d.parcelas, d.maq, d.troca, d.ponto_saida, d.status_id, d.created, d.modified,
@@ -67,7 +67,7 @@ class AdmsListarDelivery {
                 INNER JOIN adms_cors cr ON cr.id=t.adms_cor_id
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
                 WHERE d.loja_id =:loja_id
-                ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+                ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listarPagina->getResultado();
         return $this->Resultado;

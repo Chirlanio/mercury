@@ -1,5 +1,5 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -69,8 +69,8 @@ if (!defined('URL')) {
                             <label class="input-group-text" style="font-weight: bold;" for="id">ID</label>
                         </div>
                         <input name="id" type="text" id="id" class="form-control" placeholder="Digite o ID" value="<?php
-                        if (isset($_SESSION['id'])) {
-                            echo $_SESSION['id'];
+                        if (isset($_SESSION['pesqId'])) {
+                            echo $_SESSION['pesqId'];
                         }
                         ?>" autofocus>
                     </div>
@@ -101,8 +101,8 @@ if (!defined('URL')) {
                             <label class="input-group-text" style="font-weight: bold;" for="cliente">Cliente</label>
                         </div>
                         <input name="cliente" type="text" id="cliente" class="form-control" placeholder="Digite o nome do Cliente" value="<?php
-                        if (isset($_SESSION['cliente'])) {
-                            echo $_SESSION['cliente'];
+                        if (isset($_SESSION['pesqCli'])) {
+                            echo $_SESSION['pesqCli'];
                         }
                         ?>">
                     </div>
@@ -206,7 +206,7 @@ if (!defined('URL')) {
                                 </td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $saida; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle d-print-none"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></td>
-                                <td class="d-none d-sm-table-cell align-middle d-print-none"><?php echo date('d/m/Y H:i:s', strtotime($modified)); ?></td>
+                                <td class="d-none d-sm-table-cell align-middle d-print-none"><?php echo (!empty($modified)) ? date('d/m/Y H:i:s', strtotime($modified)) : ''; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle">
                                     <span class="badge badge-<?php echo $cr_cor; ?>"><?php echo $sit; ?></span>
                                 </td>

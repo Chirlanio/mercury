@@ -42,6 +42,8 @@ class AdmsEditarFunc {
         
         $this->Cupom = $this->Dados['cupom_site'];
         unset($this->Dados['cupom_site']);
+        
+        $this->Dados['cpf'] = str_replace('.', '', str_replace('-', '', $this->Dados['cpf']));
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);

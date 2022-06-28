@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-var_dump($this->Dados['form']);
+//var_dump($this->Dados['form']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -17,7 +17,7 @@ var_dump($this->Dados['form']);
             if ($this->Dados['botao']['list_func']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'funcionarios/listar-func'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'funcionarios/listar-func'; ?>" class="btn btn-outline-info btn-sm"><i class='fas fa-list'></i> Listar</a>
                 </div>
                 <?php
             }
@@ -116,7 +116,6 @@ var_dump($this->Dados['form']);
                     </select>
                 </div>
             </div>
-            <input name="created" type="hidden" value="<?php echo date("Y-m-d H:i:s"); ?>">
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>

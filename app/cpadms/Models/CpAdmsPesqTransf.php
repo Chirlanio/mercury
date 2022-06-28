@@ -19,6 +19,7 @@ class CpAdmsPesqTransf {
     private $PageId;
     private $LimiteResultado = 20;
     private $ResultadoPg;
+    private $Nivac = 8;
 
     function getResultadoPg() {
         return $this->ResultadoPg;
@@ -65,7 +66,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
                     FROM tb_transferencias t
                     INNER JOIN tb_lojas l ON l.id=t.loja_origem_id
@@ -95,7 +96,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
                     FROM tb_transferencias t
                     INNER JOIN tb_lojas l ON l.id=t.loja_origem_id
@@ -130,7 +131,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
                     FROM tb_transferencias t
                     INNER JOIN tb_lojas l ON l.id=t.loja_origem_id
@@ -167,7 +168,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
                     FROM tb_transferencias t
                     INNER JOIN tb_lojas l ON l.id=t.loja_origem_id 
@@ -200,7 +201,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
             $listarTransf->fullRead("SELECT t.id, t.loja_origem_id, t.loja_destino_id, t.nf, t.qtd_vol, t.qtd_prod, t.tipo_transf_id, t.status_id, t.recebido, t.created, t.modified, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
                     FROM tb_transferencias t
                     INNER JOIN tb_lojas l ON l.id=t.loja_origem_id 
@@ -233,7 +234,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
                     FROM tb_transferencias t
                     INNER JOIN tb_lojas l ON l.id=t.loja_origem_id 
@@ -266,7 +267,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr
                     FROM tb_transferencias t
                     INNER JOIN tb_lojas l ON l.id=t.loja_origem_id 
@@ -294,7 +295,7 @@ class CpAdmsPesqTransf {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['ordem_nivac'] >= 4) {
+        if ($_SESSION['ordem_nivac'] >= $this->Nivac) {
             $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");

@@ -86,6 +86,9 @@ if (!empty($this->Dados['dados_ped'][0])) {
                         <th scope="row">Bairro:</th>
                         <td colspan="10"><?php echo $bairro; ?></td>
                     </tr>
+                    <?php
+                        if($loja != "E-Commerce"){
+                    ?>
                     <tr>
                         <th colspan="12" scope="row" class="table-active text-center">PAGAMENTO NA ROTA</th>
                     </tr>
@@ -120,6 +123,7 @@ if (!empty($this->Dados['dados_ped'][0])) {
                             }
                             ?></td>
                     </tr>
+                        <?php }?>
                     <tr>
                         <th scope="row">Observações:</th>
                         <td colspan="12"><?php echo $obs; ?></td>
@@ -129,6 +133,10 @@ if (!empty($this->Dados['dados_ped'][0])) {
                     </tr>
                 </tbody>
             </table>
+            <div class="d-none d-print-block">
+                <label>Recebido Por:</label>
+                <input type="text" class="form-control">
+            </div>
         </div>
     </div>
     <?php

@@ -42,7 +42,7 @@ class PesqDelivery {
         } else {
             $this->PageId = (int) $PageId ? $PageId : 1;
             $this->DadosForm['loja_id'] = filter_input(INPUT_GET, 'loja', FILTER_DEFAULT);
-            $this->DadosForm['rota_id'] = filter_input(INPUT_GET, 'rota', FILTER_DEFAULT);
+            $this->DadosForm['id'] = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
             $this->DadosForm['sit_id'] = filter_input(INPUT_GET, 'situacao', FILTER_DEFAULT);
             $this->DadosForm['cliente'] = filter_input(INPUT_GET, 'cliente', FILTER_DEFAULT);
         }
