@@ -14,6 +14,7 @@ define('USER', 'root');
 define('PASS', '');
 define('DBNAME', 'meiaso26_bd_meiasola');
 define('PORT', 3306);
+define('POWERBI', 'fSKnOXkXyNAV3U5B');
 
 define('HOSTCIGAM', 'meiasolab.cigamgestor.com.br');
 define('USERCIGAM', 'bi_msl');
