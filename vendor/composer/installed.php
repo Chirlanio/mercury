@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '069627a155e3e64b7191918635c7ee8ad6e43964',
+        'name' => 'vendor/portal',
+        'dev' => true,
+    ),
+    'versions' => array(
+        'ckeditor/ckeditor' => array(
+            'pretty_version' => '4.16.2',
+            'version' => '4.16.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ckeditor/ckeditor',
+            'aliases' => array(),
+            'reference' => 'b2758d4603322b1fc12b4e6208240f1e785e1cfa',
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.5.1',
+            'version' => '6.5.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'reference' => 'dd803df5ad7492e1b40637f7ebd258fee5ca7355',
+            'dev_requirement' => false,
+        ),
+        'vendor/portal' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '069627a155e3e64b7191918635c7ee8ad6e43964',
+            'dev_requirement' => false,
+        ),
+    ),
+);

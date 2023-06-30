@@ -1,0 +1,52 @@
+*{padding: 0; margin: 0; box-sizing: border-box;}
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    font-family: 'Arial';
+}
+
+.box_login{
+    width: 500px;
+    height: 500px;
+    background-color: #6d4bfc;
+    border: 0;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.box_login .capa{
+    height: 230px;
+    background: #000;
+    background-size: 100%;
+}
+
+h1{
+    font-size: 24px;
+    color: #fff;
+    text-align: left;
+    margin: 15px 0px 20px 15px;
+    font-weight: 500;
+}
+
+form input{
+    margin: 0px 20px;
+    width: calc(100% - 40px);
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #6d4bfc;
+}
+
+form .btn-login{
+    margin: 0px 20px;
+    width: calc(100% - 40px);
+    background: #3ceb88;
+    color: #fff;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
