@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados);
+var_dump($this->Dados['form'][0]);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -209,45 +209,84 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
             </div>
-            
+
             <div class="form-row">
-                
+
                 <ul class="list-unstyled d-flex justify-content-between m-auto">
                     <li class="media">
-                        <?php
-                        $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
-                        ?>
-                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $image_antiga; ?>" alt="Imagem do Produto" id="preview-product-one" style="width: 120px; height: 120px;">
+                        <input name="imagem_one" type="hidden" value="<?php
+                        if (isset($valorForm['image_one'])) {
+                            echo $valorForm['image_one'];
+                        } elseif (isset($valorForm['image_one_new'])) {
+                            echo $valorForm['image_one_new'];
+                        }
+                        ?>">
+                               <?php
+                               if ((isset($valorForm['image_one_new'])) AND (!empty($valorForm['image_one_new']))) {
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_one_new'];
+                               } elseif (isset($valorForm['image_one']) AND (!empty($valorForm['image_one']))) {
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_one'];
+                               } else {
+                                   $path_image = URLADM . 'assets/imagens/naodisp.jpg';
+                               }
+                               ?>
+                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $path_image; ?>" alt="Imagem do Produto" id="preview-product-one-new" style="width: 120px; height: 120px;">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1"> Foto Produto</h5>
-                            <input class="mr-3" name="image_one" type="file" onchange="previewImageOne();">
+                            <input class="mr-3" name="image_one_new" type="file" onchange="previewImageOneNew();">
                         </div>
                     </li>
-                    
+
                     <li class="media">
-                        <?php
-                        $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
-                        ?>
-                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $image_antiga; ?>" alt="Imagem do Produto" id="preview-product-two" style="width: 120px; height: 120px;">
+                        <input name="image_two" type="hidden" value="<?php
+                        if (isset($valorForm['image_two'])) {
+                            echo $valorForm['image_two'];
+                        } elseif (isset($valorForm['image_two_new'])) {
+                            echo $valorForm['image_two_new'];
+                        }
+                        ?>">
+                               <?php
+                               if ((isset($valorForm['image_two_new'])) AND (!empty($valorForm['image_two_new']))) {
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_two_new'];
+                               } elseif (isset($valorForm['image_two']) AND (!empty($valorForm['image_two']))) {
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_two'];
+                               } else {
+                                   $path_image = URLADM . 'assets/imagens/naodisp.jpg';
+                               }
+                               ?>
+                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $path_image; ?>" alt="Imagem do Produto" id="preview-product-two-new" style="width: 120px; height: 120px;">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1"> Foto Solado</h5>
-                            <input class="mr-3" name="image_two" type="file" onchange="previewImageTwo();">
+                            <input class="mr-3" name="image_two_new" type="file" onchange="previewImageTwoNew();">
                         </div>
                     </li>
-                    
+
                     <li class="media">
-                        <?php
-                        $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
-                        ?>
-                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $image_antiga; ?>" alt="Imagem do Produto" id="preview-product-three" style="width: 120px; height: 120px;">
+                        <input name="image_three" type="hidden" value="<?php
+                        if (isset($valorForm['image_three'])) {
+                            echo $valorForm['image_three'];
+                        } elseif (isset($valorForm['image_three_new'])) {
+                            echo $valorForm['image_three_new'];
+                        }
+                        ?>">
+                               <?php
+                               if ((isset($valorForm['image_three_new'])) AND (!empty($valorForm['image_three_new']))) {
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_three_new'];
+                               } elseif (isset($valorForm['image_three']) AND (!empty($valorForm['image_three']))) {
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_three'];
+                               } else {
+                                   $path_image = URLADM . 'assets/imagens/naodisp.jpg';
+                               }
+                               ?>
+                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $path_image; ?>" alt="Imagem do Produto" id="preview-product-three-new" style="width: 120px; height: 120px;">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1"> Foto Defeito</h5>
-                            <input class="mr-3" name="image_three" type="file" onchange="previewImageThree();">
+                            <input class="mr-3" name="image_three_new" type="file" onchange="previewImageThreeNew();">
                         </div>
                     </li>
-                    
+
                 </ul>
-                
+
             </div>
 
             <div class="form-row">
@@ -306,7 +345,7 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['data_emissao_nota_transf'])) {
                         echo $valorForm['data_emissao_nota_transf'];
                     }
-                    ?>" required>
+                    ?>" >
                 </div>
 
                 <?php

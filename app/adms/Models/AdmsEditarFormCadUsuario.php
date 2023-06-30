@@ -23,8 +23,7 @@ class AdmsEditarFormCadUsuario {
 
     public function verFormCadUsuario() {
         $verFormCadUsuario = new \App\adms\Models\helper\AdmsRead();
-        $verFormCadUsuario->fullRead("SELECT * FROM adms_cads_usuarios
-                WHERE id =:id LIMIT :limit", "id=1&limit=1");
+        $verFormCadUsuario->fullRead("SELECT * FROM adms_cads_usuarios WHERE id =:id LIMIT :limit", "id=1&limit=1");
         $this->Resultado = $verFormCadUsuario->getResultado();
         return $this->Resultado;
     }

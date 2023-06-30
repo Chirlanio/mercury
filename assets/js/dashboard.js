@@ -68,6 +68,48 @@ function previewImageThree() {
     }
 }
 
+function previewImageOneNew() {
+    var imageOne = document.querySelector('input[name=image_one_new').files[0];
+    var preview = document.querySelector('#preview-product-one-new');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imageOne) {
+        reader.readAsDataURL(imageOne);
+    } else {
+        preview.src = "";
+    }
+}
+
+function previewImageTwoNew() {
+    var imageTwo = document.querySelector('input[name=image_two_new').files[0];
+    var preview = document.querySelector('#preview-product-two-new');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imageTwo) {
+        reader.readAsDataURL(imageTwo);
+    } else {
+        preview.src = "";
+    }
+}
+
+function previewImageThreeNew() {
+    var imageThree = document.querySelector('input[name=image_three_new').files[0];
+    var preview = document.querySelector('#preview-product-three-new');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imageThree) {
+        reader.readAsDataURL(imageThree);
+    } else {
+        preview.src = "";
+    }
+}
+
 //Carregar modal define para Editar
 $(document).ready(function () {
     $('a[data-confirm]').click(function (ev) {

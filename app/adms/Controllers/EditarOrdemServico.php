@@ -20,9 +20,6 @@ class EditarOrdemServico {
     public function editOrdemServico($DadosId = null) {
 
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        $this->Dados['image_one'] = ($_FILES['image_one'] ? $_FILES['image_one'] : null);
-        $this->Dados['image_two'] = ($_FILES['image_two'] ? $_FILES['image_two'] : null);
-        $this->Dados['image_three'] = ($_FILES['image_three'] ? $_FILES['image_three'] : null);
 
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
@@ -37,6 +34,11 @@ class EditarOrdemServico {
     private function editOrdemServicoPriv() {
         if (!empty($this->Dados['EditOrdem'])) {
             unset($this->Dados['EditOrdem']);
+
+            $this->Dados['image_one_new'] = ($_FILES['image_one_new'] ? $_FILES['image_one_new'] : null);
+            $this->Dados['image_two_new'] = ($_FILES['image_two_new'] ? $_FILES['image_two_new'] : null);
+            $this->Dados['image_three_new'] = ($_FILES['image_three_new'] ? $_FILES['image_three_new'] : null);
+            var_dump($this->Dados);
 
             $editarOrdemServico = new \App\adms\Models\AdmsEditarOrdemServico();
             $editarOrdemServico->altOrdemServico($this->Dados);

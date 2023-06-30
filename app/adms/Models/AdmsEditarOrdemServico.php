@@ -30,6 +30,12 @@ class AdmsEditarOrdemServico {
     private $data_nota_transf_saldo_produto;
     private $obs_loja;
     private $obs_qualidade;
+    private $imageOne;
+    private $imageOneNew;
+    private $imageTwo;
+    private $imageTwoNew;
+    private $imageThree;
+    private $imageThreeNew;
 
     function getResultado() {
         return $this->Resultado;
@@ -40,15 +46,7 @@ class AdmsEditarOrdemServico {
         $this->DadosId = (int) $DadosId;
 
         $verOrderService = new \App\adms\Models\helper\AdmsRead();
-        $verOrderService->fullRead("SELECT os.*, lj.nome loja, se.nome sit, tp.nome tipo, t.nome tam, m.nome marca, ljc.nome loja_conserto
-                FROM adms_qualidade_ordem_servico os
-                INNER JOIN tb_lojas lj ON lj.id=os.loja_id
-                LEFT JOIN tb_lojas ljc ON ljc.id=os.loja_id_conserto
-                INNER JOIN adms_sits_ordem_servico se ON se.id=os.status_id
-                INNER JOIN adms_tips_ordem_servico tp ON tp.id=os.type_order_id
-                INNER JOIN tb_tam t ON t.id=os.tam_id
-                INNER JOIN adms_marcas m ON m.id=os.marca_id
-                WHERE os.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $verOrderService->fullRead("SELECT os.*, lj.nome loja, se.nome sit, tp.nome tipo, t.nome tam, m.nome marca, ljc.nome loja_conserto FROM adms_qualidade_ordem_servico os INNER JOIN tb_lojas lj ON lj.id=os.loja_id LEFT JOIN tb_lojas ljc ON ljc.id=os.loja_id_conserto INNER JOIN adms_sits_ordem_servico se ON se.id=os.status_id INNER JOIN adms_tips_ordem_servico tp ON tp.id=os.type_order_id INNER JOIN tb_tam t ON t.id=os.tam_id INNER JOIN adms_marcas m ON m.id=os.marca_id WHERE os.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verOrderService->getResultado();
         return $this->Resultado;
     }
@@ -69,10 +67,16 @@ class AdmsEditarOrdemServico {
         $this->data_nota_transf_saldo_produto = !empty($this->Dados['data_nota_transf_saldo_produto']) ? $this->Dados['data_nota_transf_saldo_produto'] : null;
         $this->obs_loja = !empty($this->Dados['obs_loja']) ? $this->Dados['obs_loja'] : null;
         $this->obs_qualidade = !empty($this->Dados['obs_qualidade']) ? $this->Dados['obs_qualidade'] : null;
+        $this->imageOne = !empty($this->Dados['image_one']) ? $this->Dados['image_one'] : null;
+        $this->imageTwo = !empty($this->Dados['image_two']) ? $this->Dados['image_two'] : null;
+        $this->imageThree = !empty($this->Dados['image_three']) ? $this->Dados['image_three'] : null;
+        $this->imageOneNew = !empty($this->Dados['image_one_new']) ? $this->Dados['image_one_new'] : null;
+        $this->imageTwoNew = !empty($this->Dados['image_two_new']) ? $this->Dados['image_two_new'] : null;
+        $this->imageThreeNew = !empty($this->Dados['image_three_new']) ? $this->Dados['image_three_new'] : null;
 
         unset($this->Dados['order_service_zznet'], $this->Dados['date_order_service_zznet'], $this->Dados['data_confir_nota_transf'], $this->Dados['loja_id_conserto'], $this->Dados['nf_conserto_devolucao'],
                 $this->Dados['data_emissao_conserto'], $this->Dados['nf_retorno_conserto'], $this->Dados['data_emissao_retorno_conserto'], $this->Dados['data_confir_retorno_conserto'], $this->Dados['nf_transf_saldo_produto'],
-                $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['obs_qualidade'], $this->Dados['obs_loja']);
+                $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['obs_qualidade'], $this->Dados['obs_loja'], $this->Dados['image_one'], $this->Dados['image_two'], $this->Dados['image_three']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
