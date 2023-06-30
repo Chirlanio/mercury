@@ -26,6 +26,48 @@ function previewImagem() {
     }
 }
 
+function previewImageOne() {
+    var imageOne = document.querySelector('input[name=image_one').files[0];
+    var preview = document.querySelector('#preview-product-one');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imageOne) {
+        reader.readAsDataURL(imageOne);
+    } else {
+        preview.src = "";
+    }
+}
+
+function previewImageTwo() {
+    var imageTwo = document.querySelector('input[name=image_two').files[0];
+    var preview = document.querySelector('#preview-product-two');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imageTwo) {
+        reader.readAsDataURL(imageTwo);
+    } else {
+        preview.src = "";
+    }
+}
+
+function previewImageThree() {
+    var imageThree = document.querySelector('input[name=image_three').files[0];
+    var preview = document.querySelector('#preview-product-three');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imageThree) {
+        reader.readAsDataURL(imageThree);
+    } else {
+        preview.src = "";
+    }
+}
+
 //Carregar modal define para Editar
 $(document).ready(function () {
     $('a[data-confirm]').click(function (ev) {

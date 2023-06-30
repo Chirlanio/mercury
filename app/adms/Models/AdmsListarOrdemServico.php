@@ -16,7 +16,7 @@ class AdmsListarOrdemServico {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = 2;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -27,7 +27,7 @@ class AdmsListarOrdemServico {
 
         $this->PageId = (int) $PageId;
 
-        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'ordem-servico/listar-ordem-servico');
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'ordem-servico/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['ordem_nivac'] <= 5) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico");

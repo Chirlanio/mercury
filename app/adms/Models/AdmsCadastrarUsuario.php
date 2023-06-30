@@ -67,8 +67,10 @@ class AdmsCadastrarUsuario {
     }
 
     private function inserirUsuario() {
+        
         $this->Dados['senha'] = password_hash($this->Dados['senha'], PASSWORD_DEFAULT);
         $this->Dados['created'] = date("Y-m-d H:i:s");
+        
         $slugImg = new \App\adms\Models\helper\AdmsSlug();
         $this->Dados['imagem'] = $slugImg->nomeSlug($this->Foto['name']);
 

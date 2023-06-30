@@ -185,6 +185,46 @@ if (isset($this->Dados['form'][0])) {
             </div>
 
             <div class="form-row">
+                
+                <ul class="list-unstyled d-flex justify-content-between m-auto">
+                    <li class="media">
+                        <?php
+                        $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
+                        ?>
+                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $image_antiga; ?>" alt="Imagem do Produto" id="preview-product-one" style="width: 120px; height: 120px;">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1"> Foto Produto</h5>
+                            <input class="mr-3" name="image_one" type="file" onchange="previewImageOne();">
+                        </div>
+                    </li>
+                    
+                    <li class="media">
+                        <?php
+                        $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
+                        ?>
+                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $image_antiga; ?>" alt="Imagem do Produto" id="preview-product-two" style="width: 120px; height: 120px;">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1"> Foto Solado</h5>
+                            <input class="mr-3" name="image_two" type="file" onchange="previewImageTwo();">
+                        </div>
+                    </li>
+                    
+                    <li class="media">
+                        <?php
+                        $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
+                        ?>
+                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $image_antiga; ?>" alt="Imagem do Produto" id="preview-product-three" style="width: 120px; height: 120px;">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1"> Foto Defeito</h5>
+                            <input class="mr-3" name="image_three" type="file" onchange="previewImageThree();">
+                        </div>
+                    </li>
+                    
+                </ul>
+                
+            </div>
+
+            <div class="form-row">
 
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Ordem Serviço</label>
@@ -389,7 +429,7 @@ if (isset($this->Dados['form'][0])) {
                         </textarea>
                     </div>
                 </div>
-                <?php }
+            <?php }
             ?>
             <p>
                 <span class="text-danger">* </span>Campo obrigatório

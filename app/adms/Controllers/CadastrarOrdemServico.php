@@ -22,7 +22,11 @@ class CadastrarOrdemServico {
 
         if (!empty($this->Dados['CadOrdem'])) {
             unset($this->Dados['CadOrdem']);
-            
+
+            $this->Dados['image_one'] = ($_FILES['image_one'] ? $_FILES['image_one'] : null);
+            $this->Dados['image_two'] = ($_FILES['image_two'] ? $_FILES['image_two'] : null);
+            $this->Dados['image_three'] = ($_FILES['image_three'] ? $_FILES['image_three'] : null);
+
             $cadOrdemServico = new \App\adms\Models\AdmsCadastrarOrdemServico();
             $cadOrdemServico->cadOrdemServico($this->Dados);
             if ($cadOrdemServico->getResultado()) {

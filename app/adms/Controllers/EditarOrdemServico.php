@@ -18,7 +18,11 @@ class EditarOrdemServico {
     private $DadosId;
 
     public function editOrdemServico($DadosId = null) {
+
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        $this->Dados['image_one'] = ($_FILES['image_one'] ? $_FILES['image_one'] : null);
+        $this->Dados['image_two'] = ($_FILES['image_two'] ? $_FILES['image_two'] : null);
+        $this->Dados['image_three'] = ($_FILES['image_three'] ? $_FILES['image_three'] : null);
 
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {

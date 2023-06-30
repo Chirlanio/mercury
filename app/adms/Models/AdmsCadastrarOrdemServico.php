@@ -29,6 +29,9 @@ class AdmsCadastrarOrdemServico {
     private $data_nota_transf_saldo_produto;
     private $obs_loja;
     private $obs_qualidade;
+    private $imageOne;
+    private $imageTwo;
+    private $imageThree;
 
     function getResultado() {
         return $this->Resultado;
@@ -50,10 +53,13 @@ class AdmsCadastrarOrdemServico {
         $this->data_nota_transf_saldo_produto = !empty($this->Dados['data_nota_transf_saldo_produto']) ? $this->Dados['data_nota_transf_saldo_produto'] : null;
         $this->obs_loja = !empty($this->Dados['obs_loja']) ? $this->Dados['obs_loja'] : null;
         $this->obs_qualidade = !empty($this->Dados['obs_qualidade']) ? $this->Dados['obs_qualidade'] : null;
+        $this->imageOne = !empty($this->Dados['image_one']) ? $this->Dados['image_one'] : null;
+        $this->imageTwo = !empty($this->Dados['image_two']) ? $this->Dados['image_two'] : null;
+        $this->imageThree = !empty($this->Dados['image_three']) ? $this->Dados['image_three'] : null;
 
         unset($this->Dados['order_service_zznet'], $this->Dados['date_order_service_zznet'], $this->Dados['data_confir_nota_transf'], $this->Dados['loja_id_conserto'], $this->Dados['nf_conserto_devolucao'],
                 $this->Dados['data_emissao_conserto'], $this->Dados['nf_retorno_conserto'], $this->Dados['data_emissao_retorno_conserto'], $this->Dados['data_confir_retorno_conserto'], $this->Dados['nf_transf_saldo_produto'],
-                $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['obs_qualidade'], $this->Dados['obs_loja']);
+                $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['obs_qualidade'], $this->Dados['obs_loja'], $this->Dados['image_one'], $this->Dados['image_two'], $this->Dados['image_three']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
@@ -80,12 +86,46 @@ class AdmsCadastrarOrdemServico {
         $this->Dados['data_nota_transf_saldo_produto'] = $this->data_nota_transf_saldo_produto;
         $this->Dados['obs_loja'] = $this->obs_loja;
         $this->Dados['obs_qualidade'] = $this->obs_qualidade;
+        $this->Dados['image_one'] = $this->imageOne;
+        $this->Dados['image_two'] = $this->imageTwo;
+        $this->Dados['image_three'] = $this->imageThree;
         $this->Dados['created'] = date("Y-m-d H:i:s");
+
+        $slugImg = new \App\adms\Models\helper\AdmsSlug();
+        $this->Dados['image_one'] = $slugImg->nomeSlug($this->imageOne['name']);
+        $this->Dados['image_two'] = $slugImg->nomeSlug($this->imageTwo['name']);
+        $this->Dados['image_three'] = $slugImg->nomeSlug($this->imageThree['name']);
 
         $cadOrdem = new \App\adms\Models\helper\AdmsCreate;
         $cadOrdem->exeCreate("adms_qualidade_ordem_servico", $this->Dados);
+        var_dump($this->Dados);
 
         if ($cadOrdem->getResultado()) {
+            if ((empty($this->imageOne['name'])) and (empty($this->imageTwo['name'])) and (empty($this->imageThree['name']))) {
+                $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de serviço</strong> cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                $this->Resultado = true;
+            } else {
+                $this->Dados['id'] = $cadOrdem->getResultado();
+                $this->valFoto();
+            }
+        } else {
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A solicitação não foi cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = false;
+        }
+    }
+
+    private function valFoto() {
+
+        $uploadImg = new \App\adms\Models\helper\AdmsUpload();
+        $uploadImg->upload($this->imageOne, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_one']);
+
+        $uploadImg = new \App\adms\Models\helper\AdmsUpload();
+        $uploadImg->upload($this->imageTwo, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_two']);
+
+        $uploadImg = new \App\adms\Models\helper\AdmsUpload();
+        $uploadImg->upload($this->imageThree, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_three']);
+
+        if ($uploadImg->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de serviço</strong> cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

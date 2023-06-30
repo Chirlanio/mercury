@@ -17,12 +17,18 @@ class CadastrarUsuario {
     private $Dados;
 
     public function cadUsuario() {
+        
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        
         if (!empty($this->Dados['CadUsuario'])) {
+            
             unset($this->Dados['CadUsuario']);
+            
             $this->Dados['imagem_nova'] = ($_FILES['imagem_nova'] ? $_FILES['imagem_nova'] : null);
+            
             $cadUsuario = new \App\adms\Models\AdmsCadastrarUsuario();
             $cadUsuario->cadUsuario($this->Dados);
+            
             if ($cadUsuario->getResultado()) {
                 $UrlDestino = URLADM . 'usuarios/listar';
                 header("Location: $UrlDestino");
