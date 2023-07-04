@@ -35,16 +35,7 @@ class AdmsEditarEstorno {
         $verEstorno->fullRead("SELECT es.id, es.loja_id, es.adms_func_id, es.nome_cliente, es.cpf_cliente, es.valor_lancado, es.valor_correto,
                 es.valor_estorno, es.doc_nf, es.tb_forma_pag_id, es.adms_bandeira_id, es.qtd_parcelas, es.nsu, es.auto_cartao, es.adms_tps_est_id,
                 es.adms_resp_aut_id, es.adms_mot_est_id, es.arquivo, es.obs, es.adms_sits_est_id, es.created,
-                lj.nome loja, f.nome func, fp.nome pag, b.nome bandeira, rp.nome resp,
-                se.nome sit
-                FROM adms_estornos es
-                INNER JOIN tb_lojas lj ON lj.id=es.loja_id
-                INNER JOIN tb_funcionarios f ON f.id=es.adms_func_id
-                LEFT JOIN tb_forma_pag fp ON fp.id=es.tb_forma_pag_id
-                LEFT JOIN adms_bandeiras b ON b.id=es.adms_bandeira_id
-                INNER JOIN adms_resp_autorizacao rp ON rp.id=es.adms_resp_aut_id
-                INNER JOIN adms_sits_estornos se ON se.id=es.adms_sits_est_id
-                WHERE es.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+                lj.nome loja, f.nome func, fp.nome pag, b.nome bandeira, rp.nome resp, se.nome sit FROM adms_estornos es INNER JOIN tb_lojas lj ON lj.id=es.loja_id INNER JOIN tb_funcionarios f ON f.id=es.adms_func_id LEFT JOIN tb_forma_pag fp ON fp.id=es.tb_forma_pag_id LEFT JOIN adms_bandeiras b ON b.id=es.adms_bandeira_id INNER JOIN adms_resp_autorizacao rp ON rp.id=es.adms_resp_aut_id INNER JOIN adms_sits_estornos se ON se.id=es.adms_sits_est_id WHERE es.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verEstorno->getResultado();
         return $this->Resultado;
     }

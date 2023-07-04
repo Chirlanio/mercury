@@ -38,7 +38,7 @@ class EditarOrdemServico {
             $this->Dados['image_one_new'] = ($_FILES['image_one_new'] ? $_FILES['image_one_new'] : null);
             $this->Dados['image_two_new'] = ($_FILES['image_two_new'] ? $_FILES['image_two_new'] : null);
             $this->Dados['image_three_new'] = ($_FILES['image_three_new'] ? $_FILES['image_three_new'] : null);
-            var_dump($this->Dados);
+            //var_dump($this->Dados);
 
             $editarOrdemServico = new \App\adms\Models\AdmsEditarOrdemServico();
             $editarOrdemServico->altOrdemServico($this->Dados);

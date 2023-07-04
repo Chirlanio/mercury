@@ -67,30 +67,31 @@ class AdmsEditarOrdemServico {
         $this->data_nota_transf_saldo_produto = !empty($this->Dados['data_nota_transf_saldo_produto']) ? $this->Dados['data_nota_transf_saldo_produto'] : null;
         $this->obs_loja = !empty($this->Dados['obs_loja']) ? $this->Dados['obs_loja'] : null;
         $this->obs_qualidade = !empty($this->Dados['obs_qualidade']) ? $this->Dados['obs_qualidade'] : null;
-        $this->imageOne = !empty($this->Dados['image_one']) ? $this->Dados['image_one'] : null;
+        $this->imageOne = ((!empty($this->Dados['image_one_new'])) ? $this->Dados['image_one_new'] : $this->Dados['image_one']);
         $this->imageTwo = !empty($this->Dados['image_two']) ? $this->Dados['image_two'] : null;
         $this->imageThree = !empty($this->Dados['image_three']) ? $this->Dados['image_three'] : null;
         $this->imageOneNew = !empty($this->Dados['image_one_new']) ? $this->Dados['image_one_new'] : null;
         $this->imageTwoNew = !empty($this->Dados['image_two_new']) ? $this->Dados['image_two_new'] : null;
         $this->imageThreeNew = !empty($this->Dados['image_three_new']) ? $this->Dados['image_three_new'] : null;
 
+//var_dump($this->Dados);
+
         unset($this->Dados['order_service_zznet'], $this->Dados['date_order_service_zznet'], $this->Dados['data_confir_nota_transf'], $this->Dados['loja_id_conserto'], $this->Dados['nf_conserto_devolucao'],
                 $this->Dados['data_emissao_conserto'], $this->Dados['nf_retorno_conserto'], $this->Dados['data_emissao_retorno_conserto'], $this->Dados['data_confir_retorno_conserto'], $this->Dados['nf_transf_saldo_produto'],
-                $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['obs_qualidade'], $this->Dados['obs_loja'], $this->Dados['image_one'], $this->Dados['image_two'], $this->Dados['image_three']);
+                $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['obs_qualidade'], $this->Dados['obs_loja'], $this->Dados['image_one'], $this->Dados['image_two'], $this->Dados['image_three'],
+                $this->Dados['image_one_new'], $this->Dados['image_two_new'], $this->Dados['image_three_new']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->updateEditOrdemServico();
+            $this->valFoto();
         } else {
             $this->Resultado = false;
         }
     }
 
     private function updateEditOrdemServico() {
-        
-        var_dump($this->Dados);
 
         $this->Dados['order_service_zznet'] = $this->order_service_zznet;
         $this->Dados['date_order_service_zznet'] = $this->date_order_service_zznet;
@@ -104,9 +105,17 @@ class AdmsEditarOrdemServico {
         $this->Dados['nf_transf_saldo_produto'] = $this->nf_transf_saldo_produto;
         $this->Dados['data_nota_transf_saldo_produto'] = $this->data_nota_transf_saldo_produto;
         $this->Dados['obs_loja'] = $this->obs_loja;
+        $this->Dados['image_one'] = !empty($this->imageOneNew['name']) ? $this->imageOneNew['name'] : $this->imageOne;
+        $this->Dados['image_two'] = !empty($this->imageTwoNew['name']) ? $this->imageTwoNew['name'] : $this->imageTwo;
+        $this->Dados['image_three'] = !empty($this->imageThreeNew['name']) ? $this->imageThreeNew['name'] : $this->imageThree;
         $this->Dados['obs_qualidade'] = $this->obs_qualidade;
 
         $this->Dados['modified'] = date("Y-m-d H:i:s");
+        
+        $fileName = new \App\adms\Models\helper\AdmsSlug();
+        $this->Dados['image_one'] = $fileName->nomeSlug($this->Dados['image_one']);
+
+        //var_dump($this->imageOne);
         $upAltOrderService = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrderService->exeUpdate("adms_qualidade_ordem_servico", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltOrderService->getResultado()) {
@@ -115,6 +124,28 @@ class AdmsEditarOrdemServico {
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A ordem de serviço não foi atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
+        }
+    }
+
+    private function valFoto() {
+        if (empty($this->imageOne['name'])) {
+            //var_dump($this->Dados);
+            $this->updateEditOrdemServico();
+        } else {
+            $slugImg = new \App\adms\Models\helper\AdmsSlug();
+            $this->Dados['image_one'] = $slugImg->nomeSlug($this->imageOne['name']);
+
+            $uploadImg = new \App\adms\Models\helper\AdmsUpload();
+            $uploadImg->upload($this->imageOne, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_one']);
+            //var_dump($uploadImg);
+            
+            if ($uploadImg->getResultado()) {
+                $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->Dados['image_one']);
+                $this->updateEditOrdemServico();
+            } else {
+                $this->Resultado = false;
+            }
         }
     }
 

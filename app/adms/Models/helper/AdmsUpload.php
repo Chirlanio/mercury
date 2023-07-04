@@ -53,7 +53,7 @@ class AdmsUpload {
         if ($this->Arquivo) {
             $this->valDiretorio();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A extensão do arquivo é inválida. Selecione um arquivo válido! Ex: .txt, .xlsx, .doc, .pdf.</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A extensão do arquivo é inválida. Selecione um arquivo válido! Ex: .txt, .xlsx, .doc, .pdf.!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -69,7 +69,7 @@ class AdmsUpload {
         if (move_uploaded_file($this->DadosArq['tmp_name'], $this->Diretorio . $this->NomeArq)) {
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Não foi possível realizar o upload do arquivo!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Não foi possível realizar o upload do arquivo!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }

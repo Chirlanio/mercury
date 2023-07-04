@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-var_dump($this->Dados['form'][0]);
+//var_dump($this->Dados['form'][0]);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -214,7 +214,7 @@ var_dump($this->Dados['form'][0]);
 
                 <ul class="list-unstyled d-flex justify-content-between m-auto">
                     <li class="media">
-                        <input name="imagem_one" type="hidden" value="<?php
+                        <input name="image_one" type="hidden" value="<?php
                         if (isset($valorForm['image_one'])) {
                             echo $valorForm['image_one'];
                         } elseif (isset($valorForm['image_one_new'])) {
