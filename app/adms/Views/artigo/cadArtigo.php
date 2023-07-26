@@ -46,7 +46,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Descrição</label>
-                    <textarea name="descricao" id="editor-um" class="form-control is-invalid" rows="3" required><?php
+                    <textarea name="descricao" id="editor-um" class="form-control is-invalid editorCK" rows="3" required><?php
                         if (isset($valorForm['descricao'])) {
                             echo $valorForm['descricao'];
                         }
@@ -58,7 +58,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Conteúdo do Artigo</label>
-                    <textarea name="conteudo" id="editor-dois" class="form-control" rows="3"><?php
+                    <textarea name="conteudo" id="editor-dois" class="form-control editorCKQl" rows="3"><?php
                         if (isset($valorForm['conteudo'])) {
                             echo $valorForm['conteudo'];
                         }
@@ -69,7 +69,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Resumo Publico</label>
-                    <textarea name="resumo_publico" id="editor-tres" class="form-control" rows="3"><?php
+                    <textarea name="resumo_publico" id="editor-tres" class="form-control editorDesUm" rows="3"><?php
                         if (isset($valorForm['resumo_publico'])) {
                             echo $valorForm['resumo_publico'];
                         }

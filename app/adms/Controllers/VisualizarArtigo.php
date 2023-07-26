@@ -8,11 +8,11 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of VisuArtigo
+ * Description of VisualizarArtigo
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class VisuArtigo {
+class VisualizarArtigo {
 
     private $Dados;
     private $Slug;

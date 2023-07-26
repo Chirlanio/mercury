@@ -25,10 +25,10 @@ if (!defined('URLADM')) {
                             ?>
                             <div class="row featurette">
                                 <div class="col-md-7 order-md-2" id="anim-right">
-                                    <a href="<?php echo URLADM . 'visu-artigo/index/' . $slug; ?>">
+                                    <a href="<?php echo URLADM . 'visualizar-artigo/index/' . $slug; ?>">
                                         <h2 class="featurette-heading text-primary"><?php echo $titulo; ?></h2>
                                     </a>
-                                    <p class="lead"><?php echo strip_tags($resumo_publico); ?> <a href="<?php echo URLADM . 'visu-artigo/index/' . $slug; ?>" style="text-decoration: none;" class="text-primary">Continuar lendo</a></p>
+                                    <p class="lead"><?php echo strip_tags($resumo_publico); ?> <a href="<?php echo URLADM . 'visualizar-artigo/index/' . $slug; ?>" style="text-decoration: none;" class="text-primary">Continuar lendo</a></p>
                                 </div>
                                 <div class="col-md-5 order-md-1" id="anim-left">
                                     <img class="featurette-image img-fluid img-thumbnail mx-auto" src="<?php echo URLADM . 'assets/imagens/artigos/' . $id . '/' . $imagem; ?>" alt="<?php echo $titulo; ?>">
@@ -41,10 +41,10 @@ if (!defined('URLADM')) {
                             ?>
                             <div class = "row featurette">
                                 <div class = "col-md-7 anim_left">
-                                    <a href="<?php echo URLADM . 'visu-artigo/index/' . $slug; ?>">
+                                    <a href="<?php echo URLADM . 'visualizar-artigo/index/' . $slug; ?>">
                                         <h2 class="featurette-heading text-primary"><?php echo $titulo; ?></h2>
                                     </a>
-                                    <p class="lead"><?php echo strip_tags($resumo_publico); ?> <a href="<?php echo URLADM . 'visu-artigo/index/' . $slug; ?>"  style="text-decoration: none;" class="text-primary">Continuar lendo</a></p>
+                                    <p class="lead"><?php echo strip_tags($resumo_publico); ?> <a href="<?php echo URLADM . 'visualizar-artigo/index/' . $slug; ?>"  style="text-decoration: none;" class="text-primary">Continuar lendo</a></p>
                                 </div>
                                 <div class = "col-md-5 anim_right">
                                     <img class = "featurette-image img-fluid img-thumbnail mx-auto" src = "<?php echo URLADM . 'assets/imagens/artigos/' . $id . '/' . $imagem; ?>" alt="<?php echo $titulo; ?>">
@@ -70,7 +70,7 @@ if (!defined('URLADM')) {
                             foreach ($this->Dados['artRecente'] as $artigoRec) {
                                 extract($artigoRec);
                                 if ($dias <= 10) {
-                                    echo "<li><a href='" . URLADM . "visu-artigo/index/$slug'>$titulo</a></li>";
+                                    echo "<li><a href='" . URLADM . "visualizar-artigo/index/$slug'>$titulo</a></li>";
                                 }
                             }
                             ?>
@@ -86,7 +86,7 @@ if (!defined('URLADM')) {
                             <?php
                             foreach ($this->Dados['artDestaque'] as $artigoDest) {
                                 extract($artigoDest);
-                                echo "<li><a href='" . URLADM . "visu-artigo/index/$slug'>$titulo</a></li>";
+                                echo "<li><a href='" . URLADM . "visualizar-artigo/index/$slug'>$titulo</a></li>";
                             }
                             ?>
                         </ol>

@@ -25,7 +25,7 @@ class AdmsVisuArtigo {
         $verArtigo->fullRead("SELECT a.*,
                 up.id id_arq, up.nome nome_arq, up.slug link
                 FROM adms_artigos a
-                LEFT JOIN adms_up_down up ON up.adms_art_id=a.id
+                LEFT JOIN adms_up_down up ON up.id=a.adms_art_id
                 WHERE a.slug =:slug AND a.adms_sit_id =:adms_sit_id LIMIT :limit", "slug=" . $this->Slug . "&adms_sit_id=1&limit=1");
         $this->Resultado = $verArtigo->getResultado();
         return $this->Resultado;
