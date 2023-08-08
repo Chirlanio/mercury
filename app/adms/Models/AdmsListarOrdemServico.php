@@ -16,7 +16,7 @@ class AdmsListarOrdemServico {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 2;
+    private $LimiteResultado = 20;
     private $ResultadoPg;
 
     function getResultadoPg() {

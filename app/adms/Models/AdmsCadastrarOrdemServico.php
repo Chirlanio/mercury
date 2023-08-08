@@ -98,7 +98,7 @@ class AdmsCadastrarOrdemServico {
 
         $cadOrdem = new \App\adms\Models\helper\AdmsCreate;
         $cadOrdem->exeCreate("adms_qualidade_ordem_servico", $this->Dados);
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
 
         if ($cadOrdem->getResultado()) {
             if ((empty($this->imageOne['name'])) and (empty($this->imageTwo['name'])) and (empty($this->imageThree['name']))) {

@@ -11,6 +11,20 @@ if (!defined('URLADM')) {
                 <h2 class="display-4 titulo">Listar Ordens de Serviços</h2>
             </div>
             <?php
+            if ($this->Dados['botao']['gerar']) {
+                ?>
+                <a href="<?php echo URLADM . 'gerar-planilha-order-service/gerar'; ?>">
+                    <div class="p-2">
+                        <button class="btn btn-success btn-sm">
+                            <span>
+                                <i class="fas fa-table d-block d-md-none fa-2x"></i>
+                                <span class='d-none d-md-block'>Planilha</span>
+                            </span>
+                        </button>
+                    </div>
+                </a>
+                <?php
+            }
             if ($this->Dados['botao']['cad_ordem_servico']) {
                 ?>
                 <a href="<?php echo URLADM . 'cadastrar-ordem-servico/cad-ordem-servico'; ?>">

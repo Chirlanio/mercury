@@ -22,6 +22,7 @@ class OrdemServico {
         $this->PageId = (int) $PageId ? $PageId : 1;
 
         $botao = ['cad_ordem_servico' => ['menu_controller' => 'cadastrar-ordem-servico', 'menu_metodo' => 'cad-ordem-servico'],
+            'gerar' => ['menu_controller' => 'gerar-planilha-order-service', 'menu_metodo' => 'gerar'],
             'vis_ordem_servico' => ['menu_controller' => 'ver-ordem-servico', 'menu_metodo' => 'ver-ordem-servico'],
             'edit_ordem_servico' => ['menu_controller' => 'editar-ordem-servico', 'menu_metodo' => 'edit-ordem-servico'],
             'del_ordem_servico' => ['menu_controller' => 'apagar-ordem-servico', 'menu_metodo' => 'apagar-ordem-servico']];

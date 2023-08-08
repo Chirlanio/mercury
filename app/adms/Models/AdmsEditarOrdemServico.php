@@ -48,6 +48,7 @@ class AdmsEditarOrdemServico {
         $verOrderService = new \App\adms\Models\helper\AdmsRead();
         $verOrderService->fullRead("SELECT os.*, lj.nome loja, se.nome sit, tp.nome tipo, t.nome tam, m.nome marca, ljc.nome loja_conserto FROM adms_qualidade_ordem_servico os INNER JOIN tb_lojas lj ON lj.id=os.loja_id LEFT JOIN tb_lojas ljc ON ljc.id=os.loja_id_conserto INNER JOIN adms_sits_ordem_servico se ON se.id=os.status_id INNER JOIN adms_tips_ordem_servico tp ON tp.id=os.type_order_id INNER JOIN tb_tam t ON t.id=os.tam_id INNER JOIN adms_marcas m ON m.id=os.marca_id WHERE os.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verOrderService->getResultado();
+        //var_dump($this->Resultado);
         return $this->Resultado;
     }
 
@@ -68,7 +69,7 @@ class AdmsEditarOrdemServico {
         $this->obs_loja = !empty($this->Dados['obs_loja']) ? $this->Dados['obs_loja'] : null;
         $this->obs_qualidade = !empty($this->Dados['obs_qualidade']) ? $this->Dados['obs_qualidade'] : null;
         $this->imageOne = ((!empty($this->Dados['image_one_new'])) ? $this->Dados['image_one_new'] : $this->Dados['image_one']);
-        $this->imageTwo = !empty($this->Dados['image_two']) ? $this->Dados['image_two'] : null;
+        $this->imageTwo = !empty($this->Dados['image_two_new']) ? $this->Dados['image_two_new'] : $this->Dados['image_two'];
         $this->imageThree = !empty($this->Dados['image_three']) ? $this->Dados['image_three'] : null;
         $this->imageOneNew = !empty($this->Dados['image_one_new']) ? $this->Dados['image_one_new'] : null;
         $this->imageTwoNew = !empty($this->Dados['image_two_new']) ? $this->Dados['image_two_new'] : null;
@@ -85,7 +86,7 @@ class AdmsEditarOrdemServico {
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->valFoto();
+            $this->valImage();
         } else {
             $this->Resultado = false;
         }
@@ -111,11 +112,12 @@ class AdmsEditarOrdemServico {
         $this->Dados['obs_qualidade'] = $this->obs_qualidade;
 
         $this->Dados['modified'] = date("Y-m-d H:i:s");
-        
-        $fileName = new \App\adms\Models\helper\AdmsSlug();
-        $this->Dados['image_one'] = $fileName->nomeSlug($this->Dados['image_one']);
 
-        //var_dump($this->imageOne);
+        $fileName = new \App\adms\Models\helper\AdmsSlug();
+        $this->Dados['image_one'] = $fileName->nomeSlug($this->imageOneNew['name']);
+        $this->Dados['image_two'] = !empty($fileName->nomeSlug($this->imageTwoNew['name'])) ? $fileName->nomeSlug($this->imageTwoNew['name']) : $this->imageTwo;
+        $this->Dados['image_three'] = !empty($fileName->nomeSlug($this->imageThreeNew['name'])) ? $fileName->nomeSlug($this->imageThreeNew['name']) : $this->imageThree;
+
         $upAltOrderService = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrderService->exeUpdate("adms_qualidade_ordem_servico", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltOrderService->getResultado()) {
@@ -127,25 +129,53 @@ class AdmsEditarOrdemServico {
         }
     }
 
-    private function valFoto() {
-        if (empty($this->imageOne['name'])) {
-            //var_dump($this->Dados);
+    private function valImage() {
+        if ((empty($this->imageOne)) and (empty($this->imageTwo)) and (empty($this->imageThree))) {
             $this->updateEditOrdemServico();
         } else {
             $slugImg = new \App\adms\Models\helper\AdmsSlug();
-            $this->Dados['image_one'] = $slugImg->nomeSlug($this->imageOne['name']);
+            if ((isset($this->imageOneNew)) and (!empty($this->imageOneNew))) {
+                $this->imageOne['name'] = $slugImg->nomeSlug($this->imageOneNew['name']);
+            }
+
+            if ((isset($this->imageTwoNew)) and (!empty($this->imageTwoNew))) {
+                $this->imageTwo['name'] = $slugImg->nomeSlug($this->imageTwoNew['name']);
+            }
+
+            if ((isset($this->imageThreeNew)) and (!empty($this->imageThreeNew))) {
+                $this->imageThree['name'] = $slugImg->nomeSlug($this->imageThreeNew['name']);
+            }
 
             $uploadImg = new \App\adms\Models\helper\AdmsUpload();
-            $uploadImg->upload($this->imageOne, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_one']);
-            //var_dump($uploadImg);
-            
-            if ($uploadImg->getResultado()) {
-                $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
-                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->Dados['image_one']);
-                $this->updateEditOrdemServico();
-            } else {
-                $this->Resultado = false;
+            if ((isset($this->imageOneNew)) and (!empty($this->imageOneNew))) {
+                $uploadImg->upload($this->imageOne, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->imageOne['name']);
             }
+
+            if ((isset($this->imageTwoNew)) and (!empty($this->imageTwoNew))) {
+                $uploadImg->upload($this->imageTwo, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->imageTwo['name']);
+            }
+
+            if ((isset($this->imageThreeNew)) and (!empty($this->imageThreeNew))) {
+                $uploadImg->upload($this->imageThree, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->imageThree['name']);
+            }
+        }
+
+        if ($uploadImg->getResultado()) {
+            $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
+            if ((isset($this->imageOneNew)) and (!empty($this->imageOneNew))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->Dados['image_one']);
+            }
+            
+            if ((isset($this->imageTwoNew)) and (!empty($this->imageTwoNew))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->Dados['image_two']);
+            }
+            
+            if ((isset($this->imageThreeNew)) and (!empty($this->imageThreeNew))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->Dados['image_three']);
+            }
+            $this->updateEditOrdemServico();
+        } else {
+            $this->Resultado = false;
         }
     }
 

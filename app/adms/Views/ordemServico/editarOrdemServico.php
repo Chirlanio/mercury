@@ -223,7 +223,7 @@ if (isset($this->Dados['form'][0])) {
                         ?>">
                                <?php
                                if ((isset($valorForm['image_one_new'])) AND (!empty($valorForm['image_one_new']))) {
-                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_one_new'];
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_one'];
                                } elseif (isset($valorForm['image_one']) AND (!empty($valorForm['image_one']))) {
                                    $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_one'];
                                } else {
@@ -247,7 +247,7 @@ if (isset($this->Dados['form'][0])) {
                         ?>">
                                <?php
                                if ((isset($valorForm['image_two_new'])) AND (!empty($valorForm['image_two_new']))) {
-                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_two_new'];
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_two'];
                                } elseif (isset($valorForm['image_two']) AND (!empty($valorForm['image_two']))) {
                                    $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_two'];
                                } else {
@@ -271,7 +271,7 @@ if (isset($this->Dados['form'][0])) {
                         ?>">
                                <?php
                                if ((isset($valorForm['image_three_new'])) AND (!empty($valorForm['image_three_new']))) {
-                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_three_new'];
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_three'];
                                } elseif (isset($valorForm['image_three']) AND (!empty($valorForm['image_three']))) {
                                    $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['image_three'];
                                } else {
