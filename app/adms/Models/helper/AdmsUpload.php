@@ -17,6 +17,10 @@ class AdmsUpload {
     private $DadosArq;
     private $Diretorio;
     private $NomeArq;
+    /**
+     * @var array Description: Recebe uma array com os dados do arquivo que vai ser enviado
+     * @name $Arquivo
+     */
     private $Arquivo;
     private $Resultado;
 

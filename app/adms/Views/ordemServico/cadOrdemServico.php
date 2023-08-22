@@ -220,6 +220,17 @@ if (isset($this->Dados['form'][0])) {
                         </div>
                     </li>
                     
+                    <li class="media">
+                        <?php
+                        $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
+                        ?>
+                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $image_antiga; ?>" alt="Imagem do cupom" id="preview-product-cupom" style="width: 120px; height: 120px;">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1"> Cupom Fiscal</h5>
+                            <input class="mr-3" name="cupom_fiscal" type="file" onchange="previewCupom();">
+                        </div>
+                    </li>
+                    
                 </ul>
                 
             </div>

@@ -36,6 +36,8 @@ class AdmsEditarOrdemServico {
     private $imageTwoNew;
     private $imageThree;
     private $imageThreeNew;
+    private $cupomFiscal;
+    private $cupomFiscalNew;
 
     function getResultado() {
         return $this->Resultado;
@@ -48,7 +50,6 @@ class AdmsEditarOrdemServico {
         $verOrderService = new \App\adms\Models\helper\AdmsRead();
         $verOrderService->fullRead("SELECT os.*, lj.nome loja, se.nome sit, tp.nome tipo, t.nome tam, m.nome marca, ljc.nome loja_conserto FROM adms_qualidade_ordem_servico os INNER JOIN tb_lojas lj ON lj.id=os.loja_id LEFT JOIN tb_lojas ljc ON ljc.id=os.loja_id_conserto INNER JOIN adms_sits_ordem_servico se ON se.id=os.status_id INNER JOIN adms_tips_ordem_servico tp ON tp.id=os.type_order_id INNER JOIN tb_tam t ON t.id=os.tam_id INNER JOIN adms_marcas m ON m.id=os.marca_id WHERE os.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verOrderService->getResultado();
-        //var_dump($this->Resultado);
         return $this->Resultado;
     }
 
@@ -68,19 +69,19 @@ class AdmsEditarOrdemServico {
         $this->data_nota_transf_saldo_produto = !empty($this->Dados['data_nota_transf_saldo_produto']) ? $this->Dados['data_nota_transf_saldo_produto'] : null;
         $this->obs_loja = !empty($this->Dados['obs_loja']) ? $this->Dados['obs_loja'] : null;
         $this->obs_qualidade = !empty($this->Dados['obs_qualidade']) ? $this->Dados['obs_qualidade'] : null;
-        $this->imageOne = ((!empty($this->Dados['image_one_new'])) ? $this->Dados['image_one_new'] : $this->Dados['image_one']);
-        $this->imageTwo = !empty($this->Dados['image_two_new']) ? $this->Dados['image_two_new'] : $this->Dados['image_two'];
-        $this->imageThree = !empty($this->Dados['image_three']) ? $this->Dados['image_three'] : null;
-        $this->imageOneNew = !empty($this->Dados['image_one_new']) ? $this->Dados['image_one_new'] : null;
-        $this->imageTwoNew = !empty($this->Dados['image_two_new']) ? $this->Dados['image_two_new'] : null;
-        $this->imageThreeNew = !empty($this->Dados['image_three_new']) ? $this->Dados['image_three_new'] : null;
-
-//var_dump($this->Dados);
+        $this->imageOne = $this->Dados['image_one'];
+        $this->imageTwo = $this->Dados['image_two'];
+        $this->imageThree = $this->Dados['image_three'];
+        $this->imageOneNew = $this->Dados['image_one_new'];
+        $this->imageTwoNew = $this->Dados['image_two_new'];
+        $this->imageThreeNew = $this->Dados['image_three_new'];
+        $this->cupomFiscal = $this->Dados['cupom_fiscal'];
+        $this->cupomFiscalNew = $this->Dados['cupom_fiscal_new'];
 
         unset($this->Dados['order_service_zznet'], $this->Dados['date_order_service_zznet'], $this->Dados['data_confir_nota_transf'], $this->Dados['loja_id_conserto'], $this->Dados['nf_conserto_devolucao'],
                 $this->Dados['data_emissao_conserto'], $this->Dados['nf_retorno_conserto'], $this->Dados['data_emissao_retorno_conserto'], $this->Dados['data_confir_retorno_conserto'], $this->Dados['nf_transf_saldo_produto'],
                 $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['obs_qualidade'], $this->Dados['obs_loja'], $this->Dados['image_one'], $this->Dados['image_two'], $this->Dados['image_three'],
-                $this->Dados['image_one_new'], $this->Dados['image_two_new'], $this->Dados['image_three_new']);
+                $this->Dados['image_one_new'], $this->Dados['image_two_new'], $this->Dados['image_three_new'], $this->Dados['cupom_fiscal_new']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -109,14 +110,16 @@ class AdmsEditarOrdemServico {
         $this->Dados['image_one'] = !empty($this->imageOneNew['name']) ? $this->imageOneNew['name'] : $this->imageOne;
         $this->Dados['image_two'] = !empty($this->imageTwoNew['name']) ? $this->imageTwoNew['name'] : $this->imageTwo;
         $this->Dados['image_three'] = !empty($this->imageThreeNew['name']) ? $this->imageThreeNew['name'] : $this->imageThree;
+        $this->Dados['cupom_fiscal'] = !empty($this->cupomFiscalNew['name']) ? $this->cupomFiscalNew['name'] : $this->cupomFiscal;
         $this->Dados['obs_qualidade'] = $this->obs_qualidade;
 
         $this->Dados['modified'] = date("Y-m-d H:i:s");
 
         $fileName = new \App\adms\Models\helper\AdmsSlug();
-        $this->Dados['image_one'] = $fileName->nomeSlug($this->imageOneNew['name']);
-        $this->Dados['image_two'] = !empty($fileName->nomeSlug($this->imageTwoNew['name'])) ? $fileName->nomeSlug($this->imageTwoNew['name']) : $this->imageTwo;
-        $this->Dados['image_three'] = !empty($fileName->nomeSlug($this->imageThreeNew['name'])) ? $fileName->nomeSlug($this->imageThreeNew['name']) : $this->imageThree;
+        $this->Dados['image_one'] = !empty($this->imageOneNew['name']) ? $fileName->nomeSlug($this->imageOneNew['name']) : $this->imageOne;
+        $this->Dados['image_two'] = !empty($this->imageTwoNew['name']) ? $fileName->nomeSlug($this->imageTwoNew['name']) : $this->imageTwo;
+        $this->Dados['image_three'] = !empty($this->imageThreeNew['name']) ? $fileName->nomeSlug($this->imageThreeNew['name']) : $this->imageThree;
+        $this->Dados['cupom_fiscal'] = !empty($this->cupomFiscalNew['name']) ? $fileName->nomeSlug($this->cupomFiscalNew['name']) : $this->cupomFiscal;
 
         $upAltOrderService = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrderService->exeUpdate("adms_qualidade_ordem_servico", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
@@ -130,48 +133,64 @@ class AdmsEditarOrdemServico {
     }
 
     private function valImage() {
-        if ((empty($this->imageOne)) and (empty($this->imageTwo)) and (empty($this->imageThree))) {
+
+        var_dump($this->Dados);
+        if ((empty($this->imageOneNew['name'])) and (empty($this->imageTwoNew['name'])) and (empty($this->imageThreeNew['name'])) and (empty($this->cupomFiscalNew['name']))) {
             $this->updateEditOrdemServico();
         } else {
             $slugImg = new \App\adms\Models\helper\AdmsSlug();
             if ((isset($this->imageOneNew)) and (!empty($this->imageOneNew))) {
-                $this->imageOne['name'] = $slugImg->nomeSlug($this->imageOneNew['name']);
+                $this->Dados['image_one'] = $slugImg->nomeSlug($this->imageOneNew['name']);
             }
 
             if ((isset($this->imageTwoNew)) and (!empty($this->imageTwoNew))) {
-                $this->imageTwo['name'] = $slugImg->nomeSlug($this->imageTwoNew['name']);
+                $this->Dados['image_two'] = $slugImg->nomeSlug($this->imageTwoNew['name']);
             }
 
             if ((isset($this->imageThreeNew)) and (!empty($this->imageThreeNew))) {
-                $this->imageThree['name'] = $slugImg->nomeSlug($this->imageThreeNew['name']);
+                $this->Dados['image_three'] = $slugImg->nomeSlug($this->imageThreeNew['name']);
+            }
+
+            if ((isset($this->cupomFiscalNew)) and (!empty($this->cupomFiscalNew))) {
+                $this->Dados['cupom_fiscal'] = $slugImg->nomeSlug($this->cupomFiscalNew['name']);
             }
 
             $uploadImg = new \App\adms\Models\helper\AdmsUpload();
-            if ((isset($this->imageOneNew)) and (!empty($this->imageOneNew))) {
-                $uploadImg->upload($this->imageOne, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->imageOne['name']);
+            if ((isset($this->imageOneNew['name'])) and (!empty($this->imageOneNew['name']))) {
+                $uploadImg->upload($this->imageOneNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_one']);
             }
 
-            if ((isset($this->imageTwoNew)) and (!empty($this->imageTwoNew))) {
-                $uploadImg->upload($this->imageTwo, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->imageTwo['name']);
+            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
+                $uploadImg->upload($this->imageTwoNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_two']);
             }
 
-            if ((isset($this->imageThreeNew)) and (!empty($this->imageThreeNew))) {
-                $uploadImg->upload($this->imageThree, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->imageThree['name']);
+            if ((isset($this->imageThreeNew['name'])) and (!empty($this->imageThreeNew['name']))) {
+                $uploadImg->upload($this->imageThreeNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_three']);
+            }
+
+            if ((isset($this->cupomFiscalNew['name'])) and (!empty($this->cupomFiscalNew['name']))) {
+                $uploadImg->upload($this->cupomFiscalNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['cupom_fiscal']);
             }
         }
 
         if ($uploadImg->getResultado()) {
+
+            //var_dump($this->imageOne);
             $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
-            if ((isset($this->imageOneNew)) and (!empty($this->imageOneNew))) {
-                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->Dados['image_one']);
+            if ((isset($this->imageOneNew['name'])) and (!empty($this->imageOneNew['name']))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageOne);
             }
-            
-            if ((isset($this->imageTwoNew)) and (!empty($this->imageTwoNew))) {
-                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->Dados['image_two']);
+
+            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageTwo);
             }
-            
-            if ((isset($this->imageThreeNew)) and (!empty($this->imageThreeNew))) {
-                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->Dados['image_three']);
+
+            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageThree);
+            }
+
+            if ((isset($this->cupomFiscalNew['name'])) and (!empty($this->cupomFiscalNew['name']))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->cupomFiscal);
             }
             $this->updateEditOrdemServico();
         } else {

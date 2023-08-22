@@ -168,7 +168,7 @@ if (!empty($this->Dados['dados_ordem_servico'][0])) {
                                     </small>
                                 </div>
                             </li>
-                            
+
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-0"><p>Observações - Qualidade:</p></h6>
@@ -177,7 +177,7 @@ if (!empty($this->Dados['dados_ordem_servico'][0])) {
                             </li>
                         </ul>
                     </div>
-                    
+
                     <div class="col-md-8 order-md-1">
                         <h4 class="mb-3">Loja - Ordem de Serviço</h4>
                         <form class="needs-validation" novalidate>
@@ -229,6 +229,53 @@ if (!empty($this->Dados['dados_ordem_servico'][0])) {
                                 <div class="col-md-4 mb-3">
                                     <label for="loc_id">Local</label>
                                     <input type="text" name="loc_id" id="loc_id" class="form-control bg-white" value="<?php echo $local; ?>" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <?php
+                                    if ((isset($image_one)) and (!empty($image_one))) {
+                                        $_SESSION['image_path_one'] = URLADM . 'assets/imagens/order_service/' . $id . '/' . $image_one;
+                                    } else {
+                                        $_SESSION['image_path_one'] = URLADM . 'assets/imagens/naodisp.jpg';
+                                    }
+                                    ?>
+                                    <label>Produto</label>
+                                    <img class="img-thumbnail" style="height: 250px; max-width: 100%;" src="<?php echo $_SESSION['image_path_one']; ?>" alt="<?php echo $image_one; ?>"/>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <?php
+                                    if ((isset($image_two)) and (!empty($image_two))) {
+                                        $_SESSION['image_path_two'] = URLADM . 'assets/imagens/order_service/' . $id . '/' . $image_two;
+                                    } else {
+                                        $_SESSION['image_path_two'] = URLADM . 'assets/imagens/naodisp.jpg';
+                                    }
+                                    ?>
+                                    <label>Solado</label>
+                                    <img class="img-thumbnail" style="height: 250px; max-width: 100%;" src="<?php echo $_SESSION['image_path_two']; ?>" alt="<?php echo $image_two; ?>"/>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <?php
+                                    if ((isset($image_three)) and (!empty($image_three))) {
+                                        $_SESSION['image_path_three'] = URLADM . 'assets/imagens/order_service/' . $id . '/' . $image_three;
+                                    } else {
+                                        $_SESSION['image_path_three'] = URLADM . 'assets/imagens/naodisp.jpg';
+                                    }
+                                    ?>
+                                    <label>Defeito</label>
+                                    <img class="img-thumbnail" style="height: 250px; max-width: 100%;" src="<?php echo $_SESSION['image_path_three']; ?>" alt="<?php echo $image_three; ?>"/>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <?php
+                                    if ((isset($cupom_fiscal)) and (!empty($cupom_fiscal))) {
+                                        $_SESSION['image_path_cupom'] = URLADM . 'assets/imagens/order_service/' . $id . '/' . $cupom_fiscal;
+                                    } else {
+                                        $_SESSION['image_path_cupom'] = URLADM . 'assets/imagens/naodisp.jpg';
+                                    }
+                                    ?>
+                                    <label>Cupom Fiscal</label>
+                                    <img class="img-thumbnail" style="height: 250px; max-width: 100%;" src="<?php echo $_SESSION['image_path_cupom']; ?>" alt="<?php echo $cupom_fiscal; ?>"/>
                                 </div>
                             </div>
 

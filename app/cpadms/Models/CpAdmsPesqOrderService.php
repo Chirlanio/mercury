@@ -61,7 +61,7 @@ class CpAdmsPesqOrderService {
                 INNER JOIN adms_tips_ordem_servico tp ON tp.id=os.type_order_id
                 INNER JOIN tb_tam t ON t.id=os.tam_id
                 INNER JOIN adms_marcas m ON m.id=os.marca_id
-                WHERE os.loja_id =:loja_id AND os.client_name LIKE '%' :client_name '%' OR os.id =:id OR lj.nome LIKE '%' :loja '%' OR os.order_service =:ordem OR os.referencia LIKE '%' :referencia '%' ORDER BY os.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&client_name={$this->Dados['search']}&id={$this->Dados['search']}&loja={$this->Dados['search']}&referencia={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+                WHERE os.loja_id =:loja_id AND (os.client_name LIKE '%' :client_name '%' OR os.id =:id OR lj.nome LIKE '%' :loja '%' OR os.order_service =:ordem OR os.referencia LIKE '%' :referencia '%') ORDER BY os.id DESC LIMIT :limit OFFSET :offset", "loja_id={$_SESSION['usuario_loja']}&client_name={$this->Dados['search']}&id={$this->Dados['search']}&loja={$this->Dados['search']}&ordem={$this->Dados['search']}&referencia={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarOrderService->fullRead("SELECT os.*, lj.nome loja, se.nome status, tp.nome tipo, t.nome tam, m.nome marca, ljc.nome loja_conserto, c.cor
                 FROM adms_qualidade_ordem_servico os

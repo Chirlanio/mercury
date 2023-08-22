@@ -285,6 +285,30 @@ if (isset($this->Dados['form'][0])) {
                         </div>
                     </li>
 
+                    <li class="media">
+                        <input name="cupom_fiscal" type="hidden" value="<?php
+                        if (isset($valorForm['cupom_fiscal'])) {
+                            echo $valorForm['cupom_fiscal'];
+                        } elseif (isset($valorForm['cupom_fiscal_new'])) {
+                            echo $valorForm['cupom_fiscal_new'];
+                        }
+                        ?>">
+                               <?php
+                               if ((isset($valorForm['cupom_fiscal_new'])) AND (!empty($valorForm['cupom_fiscal_new']))) {
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['cupom_fiscal'];
+                               } elseif (isset($valorForm['cupom_fiscal']) AND (!empty($valorForm['cupom_fiscal']))) {
+                                   $path_image = URLADM . 'assets/imagens/order_service/' . $valorForm['id'] . '/' . $valorForm['cupom_fiscal'];
+                               } else {
+                                   $path_image = URLADM . 'assets/imagens/naodisp.jpg';
+                               }
+                               ?>
+                        <img class="mr-3 mb-1 img-thumbnail" src="<?php echo $path_image; ?>" alt="Imagem do Produto" id="preview-product-cupom-new" style="width: 120px; height: 120px;">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1"> Cupom Fiscal</h5>
+                            <input class="mr-3" name="cupom_fiscal_new" type="file" onchange="previewImageCupomNew();">
+                        </div>
+                    </li>
+
                 </ul>
 
             </div>

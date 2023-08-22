@@ -68,6 +68,20 @@ function previewImageThree() {
     }
 }
 
+function previewCupom() {
+    var imageCupom = document.querySelector('input[name=cupom_fiscal').files[0];
+    var preview = document.querySelector('#preview-product-cupom');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imageCupom) {
+        reader.readAsDataURL(imageCupom);
+    } else {
+        preview.src = "";
+    }
+}
+
 function previewImageOneNew() {
     var imageOne = document.querySelector('input[name=image_one_new').files[0];
     var preview = document.querySelector('#preview-product-one-new');
@@ -105,6 +119,20 @@ function previewImageThreeNew() {
     };
     if (imageThree) {
         reader.readAsDataURL(imageThree);
+    } else {
+        preview.src = "";
+    }
+}
+
+function previewImageCupomNew() {
+    var imageCupom = document.querySelector('input[name=cupom_fiscal_new').files[0];
+    var preview = document.querySelector('#preview-product-cupom-new');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imageCupom) {
+        reader.readAsDataURL(imageCupom);
     } else {
         preview.src = "";
     }

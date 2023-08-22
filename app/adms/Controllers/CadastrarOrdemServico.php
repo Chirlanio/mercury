@@ -26,6 +26,7 @@ class CadastrarOrdemServico {
             $this->Dados['image_one'] = ($_FILES['image_one'] ? $_FILES['image_one'] : null);
             $this->Dados['image_two'] = ($_FILES['image_two'] ? $_FILES['image_two'] : null);
             $this->Dados['image_three'] = ($_FILES['image_three'] ? $_FILES['image_three'] : null);
+            $this->Dados['cupom_fiscal'] = ($_FILES['cupom_fiscal'] ? $_FILES['cupom_fiscal'] : null);
 
             $cadOrdemServico = new \App\adms\Models\AdmsCadastrarOrdemServico();
             $cadOrdemServico->cadOrdemServico($this->Dados);
