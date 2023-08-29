@@ -41,6 +41,8 @@ class AdmsCadastrarOrdemServico {
     public function cadOrdemServico(array $Dados) {
 
         $this->Dados = $Dados;
+        
+        $this->Dados['referencia'] = strtoupper($this->Dados['referencia']);
         $this->order_service_zznet = !empty($this->Dados['order_service_zznet']) ? str_replace('-', '', $this->Dados['order_service_zznet']) : null;
         $this->date_order_service_zznet = !empty($this->Dados['date_order_service_zznet']) ? $this->Dados['date_order_service_zznet'] : null;
         $this->num_nota_transf = !empty($this->Dados['data_confir_nota_transf']) ? $this->Dados['data_confir_nota_transf'] : null;
