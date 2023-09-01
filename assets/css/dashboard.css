@@ -8,7 +8,7 @@ body {
     background-color: #222c3c;
     min-width: 250px;
     max-width: 250px;
-    min-height: calc(100vh - 56px);
+    min-height: calc(100vh - 138px);
     transition: all 0.3s;
 }
 .sidebar ul li a{
@@ -27,7 +27,7 @@ body {
 }
 /*Seletor utilizado para ativar o botão ocultar menu em PC*/ 
 .sidebar.toggled{
-    margin-left: -250px;
+    margin-left: -200px;
 }
 
 @media (max-width: 768px){

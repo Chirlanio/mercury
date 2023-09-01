@@ -35,7 +35,7 @@ class EditarSitOrderPayment {
             $editarSit = new \App\adms\Models\AdmsEditarSitOrderPayment();
             $editarSit->altSit($this->Dados);
             if ($editarSit->getResultado()) {
-                $UrlDestino = URLADM . 'ver-sit-aj/ver-sit/' . $this->Dados['id'];
+                $UrlDestino = URLADM . 'situacao-order-payment/listar';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;

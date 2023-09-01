@@ -47,6 +47,7 @@ if (!defined('URLADM')) {
                     <tr>
                         <th class="text-center">ID</th>
                         <th>Nome</th>
+                        <th class="d-none d-sm-table-cell text-center">Ordem</th>
                         <th class="d-none d-sm-table-cell text-center">Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
@@ -59,6 +60,7 @@ if (!defined('URLADM')) {
                         <tr>
                             <th class="text-center align-middle"><?php echo $id; ?></th>
                             <td class="align-middle"><?php echo $name; ?></td>
+                            <td class="align-middle text-center"><?php echo $order_sit; ?></td>
                             <td class="d-none d-lg-table-cell align-middle text-center"><?php echo $status; ?></td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">
@@ -67,7 +69,7 @@ if (!defined('URLADM')) {
                                         echo "<a href='" . URLADM . "editar-sit-order-payment/edit-sit/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['del_sit']) {
-                                        echo "<a href='" . URLADM . "apagar-sit-aj/apagar-sit/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
+                                        echo "<a href='" . URLADM . "apagar-sit-order-payment/apagar-sit/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
                                     }
                                     ?>
                                 </span>
@@ -81,7 +83,7 @@ if (!defined('URLADM')) {
                                             echo "<a class='dropdown-item' href='" . URLADM . "editar-sit-order-payment/edit-sit/$id'>Editar</a>";
                                         }
                                         if ($this->Dados['botao']['del_sit']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-sit-aj/apagar-sit/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-sit-order-payment/apagar-sit/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                         }
                                         ?>
                                     </div>

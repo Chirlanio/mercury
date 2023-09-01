@@ -17,7 +17,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['vis_sit']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-sit-aj/ver-sit/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
+                    <a href="<?php echo URLADM . 'situacao-order-payment/listar'; ?>" class="btn btn-outline-primary btn-sm">Listar</a>
                 </div>
                 <?php
             }
@@ -42,19 +42,19 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['name'])) {
                         echo $valorForm['name'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Nome</label>
+                    <label><span class="text-danger">*</span> Ordem</label>
                     <input name="order_sit" type="text" class="form-control" value="<?php
                     if (isset($valorForm['order_sit'])) {
                         echo $valorForm['order_sit'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Cor</label>
-                    <select name="status_id" id="status_id" class="form-control">
+                    <label><span class="text-danger">*</span> Situação</label>
+                    <select name="status_id" id="status_id" class="form-control" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['sit'] as $sit) {

@@ -22,8 +22,8 @@ class SituacaoOrderPayment {
         $this->PageId = (int) $PageId ? $PageId : 1;
 
         $botao = ['cad_sit' => ['menu_controller' => 'cadastrar-sit', 'menu_metodo' => 'cad-sit'],
-            'edit_sit' => ['menu_controller' => 'editar-sit', 'menu_metodo' => 'edit-sit'],
-            'del_sit' => ['menu_controller' => 'apagar-sit', 'menu_metodo' => 'apagar-sit']];
+            'edit_sit' => ['menu_controller' => 'editar-sit-order-payment', 'menu_metodo' => 'edit-sit'],
+            'del_sit' => ['menu_controller' => 'apagar-sit-order-payment', 'menu_metodo' => 'apagar-sit']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
