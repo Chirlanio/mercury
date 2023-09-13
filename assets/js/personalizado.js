@@ -137,6 +137,8 @@ $(document).ready(function () {
     $('#valor_venda').mask("#.##0,00", {reverse: true});
     $('#valor_correto').mask("#.##0,00", {reverse: true});
     $('#valor_estorno').mask("#.##0,00", {reverse: true});
+    $('#cost_center_id').mask("0.0.0.0000", {reverse: true});
+    $('.cost_center').mask("0.0.0.0000", {reverse: true});
     $('#ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
         translation: {
             'Z': {
