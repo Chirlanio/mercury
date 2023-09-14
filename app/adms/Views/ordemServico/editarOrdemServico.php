@@ -212,7 +212,7 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
 
-                <ul class="list-unstyled d-flex justify-content-between m-auto">
+                <ul class="list-unstyled d-flex justify-content-between">
                     <li class="media">
                         <input name="image_one" type="hidden" value="<?php
                         if (isset($valorForm['image_one'])) {
@@ -260,6 +260,10 @@ if (isset($this->Dados['form'][0])) {
                             <input class="mr-3" name="image_two_new" type="file" onchange="previewImageTwoNew();">
                         </div>
                     </li>
+                    
+                </ul>
+                
+                <ul class="list-unstyled d-flex justify-content-between">
 
                     <li class="media">
                         <input name="image_three" type="hidden" value="<?php

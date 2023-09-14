@@ -186,8 +186,8 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 
-                <ul class="list-unstyled d-flex justify-content-between m-auto">
-                    <li class="media">
+                <ul class="list-unstyled d-flex justify-content-between">
+                    <li class="media col-6 col-md-6 col-lg-6">
                         <?php
                         $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
                         ?>
@@ -198,7 +198,7 @@ if (isset($this->Dados['form'][0])) {
                         </div>
                     </li>
                     
-                    <li class="media">
+                    <li class="media col-6 col-md-6 col-lg-6">
                         <?php
                         $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
                         ?>
@@ -209,7 +209,11 @@ if (isset($this->Dados['form'][0])) {
                         </div>
                     </li>
                     
-                    <li class="media">
+                </ul>
+                
+                <ul class="list-unstyled d-flex justify-content-between">
+                    
+                    <li class="media col-6 col-md-6 col-lg-6">
                         <?php
                         $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
                         ?>
@@ -220,7 +224,7 @@ if (isset($this->Dados['form'][0])) {
                         </div>
                     </li>
                     
-                    <li class="media">
+                    <li class="media col-6 col-md-6 col-lg-6">
                         <?php
                         $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
                         ?>
