@@ -122,19 +122,19 @@ class AdmsCadastrarOrdemServico {
 
     private function valFoto() {
 
-        $uploadImg = new \App\adms\Models\helper\AdmsUpload();
-        $uploadImg->upload($this->imageOne, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_one']);
+        $uploadOne = new \App\adms\Models\helper\AdmsUpload();
+        $uploadOne->upload($this->imageOne, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_one']);
 
-        $uploadImg = new \App\adms\Models\helper\AdmsUpload();
-        $uploadImg->upload($this->imageTwo, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_two']);
+        $uploadTwo = new \App\adms\Models\helper\AdmsUpload();
+        $uploadTwo->upload($this->imageTwo, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_two']);
 
-        $uploadImg = new \App\adms\Models\helper\AdmsUpload();
-        $uploadImg->upload($this->imageThree, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_three']);
+        $uploadThree = new \App\adms\Models\helper\AdmsUpload();
+        $uploadThree->upload($this->imageThree, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_three']);
 
         $uploadImg = new \App\adms\Models\helper\AdmsUpload();
         $uploadImg->upload($this->cupomFiscal, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['cupom_fiscal']);
 
-        if ($uploadImg->getResultado()) {
+        if (($uploadImg->getResultado()) and ($uploadOne->getResultado()) and ($uploadTwo->getResultado()) and ($uploadThree->getResultado())) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de serviço</strong> cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

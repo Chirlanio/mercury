@@ -81,7 +81,7 @@ class AdmsEditarOrdemServico {
         unset($this->Dados['order_service_zznet'], $this->Dados['date_order_service_zznet'], $this->Dados['data_confir_nota_transf'], $this->Dados['loja_id_conserto'], $this->Dados['nf_conserto_devolucao'],
                 $this->Dados['data_emissao_conserto'], $this->Dados['nf_retorno_conserto'], $this->Dados['data_emissao_retorno_conserto'], $this->Dados['data_confir_retorno_conserto'], $this->Dados['nf_transf_saldo_produto'],
                 $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['data_nota_transf_saldo_produto'], $this->Dados['obs_qualidade'], $this->Dados['obs_loja'], $this->Dados['image_one'], $this->Dados['image_two'], $this->Dados['image_three'],
-                $this->Dados['image_one_new'], $this->Dados['image_two_new'], $this->Dados['image_three_new'], $this->Dados['cupom_fiscal_new']);
+                $this->Dados['image_one_new'], $this->Dados['image_two_new'], $this->Dados['image_three_new'], $this->Dados['cupom_fiscal_new'], $this->Dados['cupom_fiscal']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -134,7 +134,7 @@ class AdmsEditarOrdemServico {
 
     private function valImage() {
 
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
         if ((empty($this->imageOneNew['name'])) and (empty($this->imageTwoNew['name'])) and (empty($this->imageThreeNew['name'])) and (empty($this->cupomFiscalNew['name']))) {
             $this->updateEditOrdemServico();
         } else {
