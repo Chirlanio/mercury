@@ -40,7 +40,7 @@ class AdmsEditOrderPayment {
 
     public function altOrder(array $Dados) {
         $this->Dados = $Dados;
-        $this->File = !empty($this->Dados['new_file']) ? $this->Dados['new_file'] : $this->Dados['file_name'];
+        $this->File = (!empty($this->Dados['new_file']['name'])) ? $this->Dados['new_file'] : $this->Dados['file_name'];
         $this->Bank = $this->Dados['bank_id'];
         $this->NumberNf = $this->Dados['number_nf'];
         $this->Agency = $this->Dados['agency'];
@@ -83,26 +83,28 @@ class AdmsEditOrderPayment {
     }
 
     private function updateEditOrderPayment() {
-        $this->Dados['number_nf'] = $this->NumberNf;
-        $this->Dados['bank_id'] = $this->Bank;
-        $this->Dados['agency'] = $this->Agency;
-        $this->Dados['checking_account'] = $this->Checking;
-        $this->Dados['advance_amount'] = $this->AdvanceAmount;
-        $this->Dados['adms_type_key_pix_id'] = $this->TypeKey;
-        $this->Dados['key_pix'] = $this->KeyPix;
-        $this->Dados['file_name'];
+        $this->Dados['number_nf'] = !empty($this->NumberNf) ? $this->NumberNf : null ;
+        $this->Dados['bank_id'] = !empty($this->Bank) ? $this->Bank : null;
+        $this->Dados['agency'] = !empty($this->Agency) ? $this->Agency : null;
+        $this->Dados['checking_account'] = !empty($this->Checking) ? $this->Checking : null;
+        $this->Dados['advance_amount'] = !empty($this->AdvanceAmount) ? $this->AdvanceAmount : null;
+        $this->Dados['adms_type_key_pix_id'] = !empty($this->TypeKey) ? $this->TypeKey : null;
+        $this->Dados['key_pix'] = !empty($this->KeyPix) ? $this->KeyPix : null;
 
+        if (!empty($this->File['name'])) {
+            $slugImg = new \App\adms\Models\helper\AdmsSlug();
+            $this->Dados['file_name'] = $slugImg->nomeSlug($this->File['name']);
+        }
         $this->Dados['modified'] = date("Y-m-d H:i:s");
 
-        var_dump($this->Dados);
         $upAltOrder = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrder->exeUpdate("adms_order_payments", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltOrder->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'> atualizada com sucesso!</div>";
-            //$this->Resultado = true;
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A olicitação não foi atualizada!</div>";
-            //$this->Resultado = false;
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A ordem de pagamento não foi atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = false;
         }
     }
 

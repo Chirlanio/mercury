@@ -40,9 +40,10 @@ class AdmsAddOrderPayment {
         $this->KeyPix = $this->Dados['key_pix'];
         $this->AdvanceAmount = $this->Dados['advance_amount'];
         $this->NumberNf = $this->Dados['number_nf'];
-        $this->Filename = $this->Dados['file_name'];
+        $this->Filename = !empty($this->Dados['file_name']) ? $this->Dados['file_name'] : null;
         unset($this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name']);
 
+        //var_dump($this->Dados);
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
 
@@ -56,18 +57,20 @@ class AdmsAddOrderPayment {
     private function insertOrder() {
 
         $this->Dados['created_date'] = date("Y-m-d");
-        $this->Dados['agency'] = $this->Agency;
-        $this->Dados['checking_account'] = $this->Checking;
-        $this->Dados['bank_id'] = $this->Bank;
+        $this->Dados['agency'] = (!empty($this->Agency) ? $this->Agency : null);
+        $this->Dados['checking_account'] = (!empty($this->Checking) ? $this->Checking : null);
+        $this->Dados['bank_id'] = (!empty($this->Bank) ? $this->Bank : null);
         $this->Dados['adms_type_key_pix_id'] = (!empty($this->TypeKey) ? $this->TypeKey : null);
         $this->Dados['advance_amount'] = (!empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
         $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));
         $this->Dados['number_nf'] = (!empty($this->NumberNf) ? $this->NumberNf : 0);
-        $this->Dados['key_pix'] = $this->KeyPix;
+        $this->Dados['key_pix'] = (!empty($this->KeyPix) ? $this->KeyPix : null);
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
-        $slugFile = new \App\adms\Models\helper\AdmsSlug();
-        $this->Dados['file_name'] = $slugFile->nomeSlug($this->Filename['name']);
+        if (!empty($this->Dados['file_name'])) {
+            $slugFile = new \App\adms\Models\helper\AdmsSlug();
+            $this->Dados['file_name'] = $slugFile->nomeSlug($this->Filename['name']);
+        }
 
         $addOrder = new \App\adms\Models\helper\AdmsCreate;
         $addOrder->exeCreate("adms_order_payments", $this->Dados);

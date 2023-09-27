@@ -338,13 +338,13 @@ if (isset($this->Dados['form'][0])) {
                     <label> Valor - Adiantamento</label>
                     <?php
                     if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
-                        echo '<input name="advance_amount" id="advance_amount" type="number" class="form-control is-valid" value="';
+                        echo '<input name="advance_amount" id="valor_lancado" type="text" class="form-control is-valid" value="';
                         if (isset($valorForm['advance_amount']) && !empty($valorForm['advance_amount'])) {
                             echo $valorForm['advance_amount'];
                         }
                         echo '">';
                     } else {
-                        echo '<input name="advance_amount" id="advance_amount" type="number" class="form-control is-valid" aria-label="Disabled input" value ="';
+                        echo '<input name="advance_amount" id="valor_lancado" type="text" class="form-control is-valid" aria-label="Disabled input" value ="';
                         if (isset($valorForm['advance_amount']) && !empty($valorForm['advance_amount'])) {
                             echo $valorForm['advance_amount'];
                         }

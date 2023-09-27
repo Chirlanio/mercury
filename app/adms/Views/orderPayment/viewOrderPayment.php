@@ -22,7 +22,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i> Editar</a> ";
                         }
                         if ($this->Dados['botao']['del_order']) {
-                            echo "<a href='" . URLADM . "delete-order-payment/order-payment/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i> Apagar</a> ";
+                            echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i> Apagar</a> ";
                         }
                         ?>
                     </span>
@@ -62,7 +62,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Data de Pagamento:</h6>
-                                    <small class="text-muted lead"><?php echo date("d/m/Y", strtotime($created_date)); ?></small>
+                                    <small class="text-muted lead"><?php echo date("d/m/Y", strtotime($date_payment)); ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condenced">
@@ -74,7 +74,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Valor - Adiantamento:</h6>
-                                    <small class="text-muted lead"><?php echo "R$ " . $advance_amount > 0 ? number_format($advance_amount, 2, ',', '.') : "R$ 0,00"; ?></small>
+                                    <small class="text-muted lead"><?php echo !empty($advance_amount) ? "R$ " .  number_format($advance_amount, 2, ',', '.') : "R$ 0,00"; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -98,7 +98,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Cadastrado</h6>
-                                    <small class="lead"><?php echo date('d/m/Y H:i:s', strtotime($created_date)); ?></small>
+                                    <small class="lead"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></small>
                                     <small class="lead"><?php
                                         if (!empty($modified)) {
                                             echo '<h6 class="my-2">Atualizado</h6>';
@@ -172,7 +172,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <div class="mb-3">
                                 <div class="form-control text-center"><strong>Pagamento via PIX</strong></div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label for="adms_type_key_pix_id">Tipo de Chave:</label>
@@ -209,7 +209,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                                     </li>
                                 </ul>
                             </div>
-                            
+
                         </form>
                     </div>
                 </div>

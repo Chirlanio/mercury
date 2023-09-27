@@ -33,7 +33,7 @@ class EditOrderPayments {
     private function editOrderPaymentPriv() {
         if (!empty($this->Dados['EditOrder'])) {
             unset($this->Dados['EditOrder']);
-            $this->Dados['new_file'] = ($_FILES['new_file'] ? $_FILES['new_file'] : null);
+            $this->Dados['new_file'] = ($_FILES['new_file'] ? $_FILES['new_file'] : $this->Dados['file_name']);
 
             $editOrder = new \App\adms\Models\AdmsEditOrderPayment();
             $editOrder->altOrder($this->Dados);

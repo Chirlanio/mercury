@@ -10,7 +10,7 @@ if (!defined('URLADM')) {
 /**
  * Description of AdmsCampoVazioComTag
  *
- * @copyright (c) year, Cesar Szpak - Celke
+ * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
 class AdmsCampoVazioComTag
 {

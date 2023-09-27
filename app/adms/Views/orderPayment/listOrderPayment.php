@@ -9,7 +9,7 @@ if (!defined('URLADM')) {
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Solicitações de Estornos</h2>
+                <h2 class="display-4 titulo">Ordens de Pagamentos</h2>
             </div>
             <?php
             if ($this->Dados['botao']['add_payment']) {
@@ -28,14 +28,14 @@ if (!defined('URLADM')) {
             }
             ?>
         </div>
-        <form class="form" method="POST" action="<?php echo URLADM . 'pesq-estorno/listar'; ?>" enctype="multipart/form-data">
+        <form class="form" method="POST" action="<?php echo URLADM . 'search-order-payments/list'; ?>" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-sm-12 col-lg-12 mb-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <label class="input-group-text" style="font-weight: bold" for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
                         </div>
-                        <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Pesquise por cliente, loja, situação ou ID" value="<?php
+                        <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Pesquise por fornecedor, área, centro de custo ou ID" value="<?php
                         if (isset($_SESSION['search'])) {
                             echo $_SESSION['search'];
                         }
@@ -125,14 +125,16 @@ if (!defined('URLADM')) {
                                     extract($backlog);
                                     ?>
                                     <div class="card bg-light m-1 w-auto">
-                                        <h5 class="card-header">ID: <?php echo $id; ?></h5>
+                                        <h5 class="card-header">
+                                            <!--<input type="checkbox" aria-label="Checkbox for following text input">-->
+                                            ID: <?php echo $id; ?>
+                                        </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_backlog; ?></h5>
                                             <p class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></p>
                                             <p class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_backlog; ?></p>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
-                                                    <a href='apagar-estorno/apagar-estorno/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a>
                                                     <?php
                                                     if ($this->Dados['botao']['view_payment']) {
                                                         echo "<a href='" . URLADM . "view-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
@@ -141,7 +143,7 @@ if (!defined('URLADM')) {
                                                         echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['del_payment']) {
-                                                        echo "<a href='" . URLADM . "apagar-estorno/apagar-estorno/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                                                     }
                                                     ?>
                                                 </span>
@@ -195,7 +197,6 @@ if (!defined('URLADM')) {
                                             <p class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_doing; ?></p>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
-                                                    <a href='apagar-estorno/apagar-estorno/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a>
 
                                                     <?php
                                                     if ($this->Dados['botao']['view_payment']) {
@@ -259,7 +260,6 @@ if (!defined('URLADM')) {
                                             <p class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_waiting; ?></p>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
-                                                    <a href='apagar-estorno/apagar-estorno/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a>
 
                                                     <?php
                                                     if ($this->Dados['botao']['view_payment']) {
@@ -323,7 +323,6 @@ if (!defined('URLADM')) {
                                             <p class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_done; ?></p>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
-                                                    <a href='apagar-estorno/apagar-estorno/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a>
 
                                                     <?php
                                                     if ($this->Dados['botao']['view_payment']) {

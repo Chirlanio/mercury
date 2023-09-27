@@ -24,7 +24,7 @@ class OrderPayments {
         $botao = ['add_payment' => ['menu_controller' => 'add-order-payments', 'menu_metodo' => 'order-payment'],
             'view_payment' => ['menu_controller' => 'view-order-payments', 'menu_metodo' => 'order-payment'],
             'edit_payment' => ['menu_controller' => 'edit-order-payments', 'menu_metodo' => 'order-payment'],
-            'del_payment' => ['menu_controller' => 'delete-order-payments', 'menu_metodo' => 'order-payments']];
+            'del_payment' => ['menu_controller' => 'delete-order-payments', 'menu_metodo' => 'order-payment']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
