@@ -23,7 +23,7 @@ class OrderPayments {
 
         $botao = ['add_payment' => ['menu_controller' => 'add-order-payments', 'menu_metodo' => 'order-payment'],
             'view_payment' => ['menu_controller' => 'view-order-payments', 'menu_metodo' => 'order-payment'],
-            'edit_payment' => ['menu_controller' => 'editar-order-payments', 'menu_metodo' => 'order-payment'],
+            'edit_payment' => ['menu_controller' => 'edit-order-payments', 'menu_metodo' => 'order-payment'],
             'del_payment' => ['menu_controller' => 'delete-order-payments', 'menu_metodo' => 'order-payments']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
@@ -41,7 +41,14 @@ class OrderPayments {
         $listDoing = new \App\adms\Models\AdmsListOrderPayments();
         $this->Dados['list_doing'] = $listDoing->listDoing($this->PageId);
         $this->Dados['paginacao'] = $listDoing->getResultadoPg();
-        
+
+        $listWaiting = new \App\adms\Models\AdmsListOrderPayments();
+        $this->Dados['list_waiting'] = $listWaiting->listWaiting($this->PageId);
+        $this->Dados['paginacao'] = $listWaiting->getResultadoPg();
+
+        $listDone = new \App\adms\Models\AdmsListOrderPayments();
+        $this->Dados['list_done'] = $listDone->listDone($this->PageId);
+        $this->Dados['paginacao'] = $listDone->getResultadoPg();
 
         $carregarView = new \Core\ConfigView("adms/Views/orderPayment/listOrderPayment", $this->Dados);
         $carregarView->renderizar();
