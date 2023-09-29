@@ -21,10 +21,7 @@ class OrderPayments {
 
         $this->PageId = (int) $PageId ? $PageId : 1;
 
-        $botao = ['add_payment' => ['menu_controller' => 'add-order-payments', 'menu_metodo' => 'order-payment'],
-            'view_payment' => ['menu_controller' => 'view-order-payments', 'menu_metodo' => 'order-payment'],
-            'edit_payment' => ['menu_controller' => 'edit-order-payments', 'menu_metodo' => 'order-payment'],
-            'del_payment' => ['menu_controller' => 'delete-order-payments', 'menu_metodo' => 'order-payment']];
+        $botao = ['add_payment' => ['menu_controller' => 'add-order-payments', 'menu_metodo' => 'order-payment'], 'listOrder' => ['menu_controller' => 'create-spreadsheet-order-payments', 'menu_metodo' => 'create'], 'view_payment' => ['menu_controller' => 'view-order-payments', 'menu_metodo' => 'order-payment'], 'edit_payment' => ['menu_controller' => 'edit-order-payments', 'menu_metodo' => 'order-payment'], 'del_payment' => ['menu_controller' => 'delete-order-payments', 'menu_metodo' => 'order-payment']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

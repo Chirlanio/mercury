@@ -21,6 +21,7 @@ class SearchOrderPayments {
     public function list($PageId = null) {
 
         $botao = ['list_payment' => ['menu_controller' => 'order-payments', 'menu_metodo' => 'list'],
+            'listOrder' => ['menu_controller' => 'create-spreadsheet-order-payments', 'menu_metodo' => 'create'],
             'add_payment' => ['menu_controller' => 'add-order-payments', 'menu_metodo' => 'order-payment'],
             'view_payment' => ['menu_controller' => 'view-order-payments', 'menu_metodo' => 'order-payment'],
             'edit_payment' => ['menu_controller' => 'edit-order-payments', 'menu_metodo' => 'order-payment'],
@@ -32,7 +33,7 @@ class SearchOrderPayments {
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
         $this->DadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
+        
         if (!empty($this->DadosForm['SearchOrder'])) {
             unset($this->DadosForm['SearchOrder']);
         } else {
@@ -40,9 +41,24 @@ class SearchOrderPayments {
             $this->DadosForm['search'] = filter_input(INPUT_GET, 'search', FILTER_DEFAULT);
         }
 
-        $listOrder = new \App\cpadms\Models\CpAdmsSearchOrderPayments();
-        $this->Dados['listOrder'] = $listOrder->list($this->PageId, $this->DadosForm);
-        $this->Dados['paginacao'] = $listOrder->getResultadoAj();
+        $listBacklog = new \App\cpadms\Models\CpAdmsSearchOrderPayments();
+        $this->Dados['list_backlog'] = $listBacklog->listBacklog($this->PageId, $this->DadosForm);
+        $this->Dados['paginacao'] = $listBacklog->getResultado();
+
+        $listDoing = new \App\cpadms\Models\CpAdmsSearchOrderPayments();
+        $this->Dados['list_doing'] = $listDoing->listDoing($this->PageId, $this->DadosForm);
+        $this->Dados['paginacao'] = $listDoing->getResultado();
+
+        $listWaiting = new \App\cpadms\Models\CpAdmsSearchOrderPayments();
+        $this->Dados['list_waiting'] = $listWaiting->listWaiting($this->PageId, $this->DadosForm);
+        $this->Dados['paginacao'] = $listWaiting->getResultado();
+
+        $listDone = new \App\cpadms\Models\CpAdmsSearchOrderPayments();
+        $this->Dados['list_done'] = $listDone->listDone($this->PageId, $this->DadosForm);
+        $this->Dados['paginacao'] = $listDone->getResultado();
+        
+        $listSelect = new \App\cpadms\Models\CpAdmsSearchOrderPayments();
+        $this->Dados['select'] = $listSelect->listAdd();
 
         $carregarView = new \Core\ConfigView("cpadms/Views/orderPayments/searchOrderPayment", $this->Dados);
         $carregarView->renderizar();

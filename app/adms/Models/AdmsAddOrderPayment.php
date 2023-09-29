@@ -67,11 +67,11 @@ class AdmsAddOrderPayment {
         $this->Dados['key_pix'] = (!empty($this->KeyPix) ? $this->KeyPix : null);
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
-        if (!empty($this->Dados['file_name'])) {
+        if (!empty($this->Filename['name'])) {
             $slugFile = new \App\adms\Models\helper\AdmsSlug();
             $this->Dados['file_name'] = $slugFile->nomeSlug($this->Filename['name']);
         }
-
+        
         $addOrder = new \App\adms\Models\helper\AdmsCreate;
         $addOrder->exeCreate("adms_order_payments", $this->Dados);
 

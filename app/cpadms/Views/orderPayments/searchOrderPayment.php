@@ -3,44 +3,43 @@ if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
-//var_dump($this->Dados['select']['backlog'][0]);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Ordens de Pagamentos</h2>
+                <h2 class="display-4 titulo">Pesquisar Ordens de Pagamentos</h2>
             </div>
-            <?php
-            if ($this->Dados['botao']['listOrder']) {
-                ?>
-                <a href="<?php echo URLADM . 'create-spreadsheet-order-payments/create'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-success btn-sm">
-                            <span>
-                                <i class="fas fa-table d-block d-md-none fa-2x"></i>
-                                <span class='d-none d-md-block'>Planilha</span>
-                            </span>
-                        </button>
+            <div class="p-2">
+                <span class="d-none d-md-block">
+                    <?php
+                    if ($this->Dados['botao']['listOrder']) {
+                        echo "<a href='" . URLADM . "create-spreadsheet-order-payments/create' class='btn btn-success btn-sm'><i class='fas fa-table'></i></a> ";
+                    }
+                    if ($this->Dados['botao']['list_payment']) {
+                        echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
+                    }
+                    if ($this->Dados['botao']['add_payment']) {
+                        echo "<a href='" . URLADM . "add-order-payments/order-payment' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                    }
+                    ?>
+                </span>
+                <div class="dropdown d-block d-md-none">
+                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ações
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
+                        <?php
+                        if ($this->Dados['botao']['list_payment']) {
+                            echo "<a class='dropdown-item' href='" . URLADM . "order-payments/list'>Listar</a>";
+                        }
+                        if ($this->Dados['botao']['add_payment']) {
+                            echo "<a class='dropdown-item' href='" . URLADM . "add-order-payments/order-payment'>Cadastrar</a>";
+                        }
+                        ?>
                     </div>
-                </a>
-                <?php
-            }
-            if ($this->Dados['botao']['add_payment']) {
-                ?>
-                <a href="<?php echo URLADM . 'add-order-payments/order-payment'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            <span>
-                                <i class="fas fa-plus d-block d-md-none fa-2x"></i>
-                                <span class='d-none d-md-block'>Cadastrar</span>
-                            </span>
-                        </button>
-                    </div>
-                </a>
-                <?php
-            }
-            ?>
+                </div>
+            </div>
         </div>
         <form class="form" method="POST" action="<?php echo URLADM . 'search-order-payments/list'; ?>" enctype="multipart/form-data">
             <div class="row">
@@ -49,8 +48,8 @@ if (!defined('URLADM')) {
                         <div class="input-group-prepend">
                             <label class="input-group-text" style="font-weight: bold" for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
                         </div>
-                        <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Pesquise por fornecedor, área, centro de custo ou ID" value="<?php
-                        if (isset($_SESSION['search'])) {
+                        <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Pesquise por cliente, loja, situação ou ID" value="<?php
+                        if ((isset($_SESSION['search'])) AND (!empty($_SESSION['search']))) {
                             echo $_SESSION['search'];
                         }
                         ?>">
@@ -64,7 +63,7 @@ if (!defined('URLADM')) {
             </div>
         </form>
         <?php
-        if (empty($this->Dados['list_backlog'])) {
+        if ((empty($this->Dados['list_backlog'])) AND (empty($this->Dados['list_doing'])) AND (empty($this->Dados['list_waiting'])) AND (empty($this->Dados['list_done']))) {
             ?>
             <div class="alert alert-danger" role="alert">
                 Nenhuma ordem de pagamento encontrada!
@@ -79,7 +78,6 @@ if (!defined('URLADM')) {
             unset($_SESSION['msg']);
         }
         ?>
-
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -263,6 +261,7 @@ if (!defined('URLADM')) {
                         <td class="d-none d-sm-table-cell">
                             <div name="waiting" class="list-group border p-2">
                                 <?php
+                                //var_dump($this->Dados['list_waiting']);
                                 foreach ($this->Dados['list_waiting'] as $waiting) {
                                     extract($waiting);
                                     ?>

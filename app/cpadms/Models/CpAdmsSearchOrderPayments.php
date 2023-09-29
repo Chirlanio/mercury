@@ -24,57 +24,136 @@ class CpAdmsSearchOrderPayments {
         return $this->ResultadoPg;
     }
 
-    public function list($PageId = null, $Dados = null) {
+    public function listBacklog($PageId = null, $Dados = null) {
 
         $this->PageId = (int) $PageId;
         $this->Dados = $Dados;
 
         $this->Dados['search'] = trim($this->Dados['search']);
 
-        $_SESSION['serach'] = $this->Dados['search'];
+        $_SESSION['search'] = $this->Dados['search'];
 
         if (!empty($this->Dados['search'])) {
-            $this->pesqSearch();
+            $this->searchBacklog();
         }
         return $this->Resultado;
     }
 
-    private function pesqSearch() {
+    private function searchBacklog() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'search-order-payments/list', '?search=' . $this->Dados['search']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $paginacao->paginacao("SELECT COUNT(o.id) / COUNT(DISTINCT(o.adms_sits_order_pay_id)) AS num_result FROM adms_order_payments o WHERE o.loja_id =:loja_id AND e.nome_cliente LIKE '%' :nome_cliente '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&nome_cliente={$this->Dados['search']}");
-        } else {
-            $paginacao->paginacao("SELECT COUNT(o.id) / COUNT(DISTINCT(o.adms_sits_order_pay_id)) AS num_result FROM adms_order_payments o WHERE o.nome_cliente LIKE '%' :nome_cliente '%'", "nome_cliente={$this->Dados['search']}");
-        }
+        $paginacao->paginacao("SELECT COUNT(op.id) / COUNT(DISTINCT(op.adms_sits_order_pay_id)) AS num_result FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=1");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarEstorno = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['adms_niveis_acesso_id'] == 5) {
-            $listarEstorno->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, c.cor cor_cr FROM adms_estornos aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN adms_sits_estornos st ON st.id=aj.adms_sits_est_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id AND aj.nome_cliente LIKE '%' :nome_cliente '%' OR st.nome LIKE '%' :status '%' OR lj.nome LIKE '%' :nome_loja '%' OR aj.id LIKE '%' :est_id '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&nome_cliente={$this->Dados['search']}&status={$this->Dados['search']}&nome_loja={$this->Dados['search']}&est_id={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        } else {
-            $listarEstorno->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, c.cor cor_cr FROM adms_estornos aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN adms_sits_estornos st ON st.id=aj.adms_sits_est_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.nome_cliente LIKE '%' :nome_cliente '%' OR st.nome LIKE '%' :status '%' OR lj.nome LIKE '%' :nome_loja '%' OR aj.id LIKE '%' :est_id '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "nome_cliente={$this->Dados['search']}&status={$this->Dados['search']}&nome_loja={$this->Dados['search']}&est_id={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        }
-        $this->Resultado = $listarEstorno->getResultado();
+        $listOrder = new \App\adms\Models\helper\AdmsRead();
+        $listOrder->fullRead("SELECT op.*, sp.fantasy_name fornecedor_backlog, a.name area_backlog FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+
+        $this->Resultado = $listOrder->getResultado();
     }
 
-    public function listarCadastrar() {
+    public function listDoing($PageId = null, $Dados = null) {
 
-        $listar = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
-            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
-        } else {
-            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+        $this->PageId = (int) $PageId;
+        $this->Dados = $Dados;
+
+        $this->Dados['search'] = trim($this->Dados['search']);
+
+        $_SESSION['search'] = $this->Dados['search'];
+
+        if (!empty($this->Dados['search'])) {
+            $this->searchDoing();
         }
-        $registro['loja_id'] = $listar->getResultado();
-
-        $listar->fullRead("SELECT id sit_id, nome sit FROM adms_sits_estornos ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
-
-        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit']];
-
         return $this->Resultado;
     }
 
+    private function searchDoing() {
+
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'search-order-payments/list', '?search=' . $_SESSION['search']);
+        $paginacao->condicao($this->PageId, $this->LimiteResultado);
+        $paginacao->paginacao("SELECT COUNT(op.id) / COUNT(DISTINCT(op.adms_sits_order_pay_id)) AS num_result FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=2");
+        $this->ResultadoPg = $paginacao->getResultado();
+
+        $listOrder = new \App\adms\Models\helper\AdmsRead();
+        $listOrder->fullRead("SELECT op.*, sp.fantasy_name fornecedor_doing, a.name area_doing FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=2&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+
+        $this->Resultado = $listOrder->getResultado();
+    }
+
+    public function listWaiting($PageId = null, $Dados = null) {
+
+        $this->PageId = (int) $PageId;
+        $this->Dados = $Dados;
+
+        $this->Dados['search'] = trim($this->Dados['search']);
+
+        $_SESSION['search'] = $this->Dados['search'];
+
+        if (!empty($this->Dados['search'])) {
+            $this->searchWaiting();
+        }
+        return $this->Resultado;
+    }
+
+    private function searchWaiting() {
+
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'search-order-payments/list', '?search=' . $_SESSION['search']);
+        $paginacao->condicao($this->PageId, $this->LimiteResultado);
+        $paginacao->paginacao("SELECT COUNT(op.id) / COUNT(DISTINCT(op.adms_sits_order_pay_id)) AS num_result FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=3");
+        $this->ResultadoPg = $paginacao->getResultado();
+
+        $listOrder = new \App\adms\Models\helper\AdmsRead();
+        $listOrder->fullRead("SELECT op.*, sp.fantasy_name fornecedor_waiting, a.name area_waiting FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=3&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+
+        $this->Resultado = $listOrder->getResultado();
+    }
+
+    public function listDone($PageId = null, $Dados = null) {
+
+        $this->PageId = (int) $PageId;
+        $this->Dados = $Dados;
+
+        $this->Dados['search'] = trim($this->Dados['search']);
+
+        $_SESSION['search'] = $this->Dados['search'];
+
+        if (!empty($this->Dados['search'])) {
+            $this->searchDone();
+        }
+        return $this->Resultado;
+    }
+
+    private function searchDone() {
+
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'search-order-payments/list', '?search=' . $_SESSION['search']);
+        $paginacao->condicao($this->PageId, $this->LimiteResultado);
+        $paginacao->paginacao("SELECT COUNT(op.id) / COUNT(DISTINCT(op.adms_sits_order_pay_id)) AS num_result FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=4");
+        $this->ResultadoPg = $paginacao->getResultado();
+
+        $listOrder = new \App\adms\Models\helper\AdmsRead();
+        $listOrder->fullRead("SELECT op.*, sp.fantasy_name fornecedor_done, a.name area_done FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=4&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+
+        $this->Resultado = $listOrder->getResultado();
+    }
+
+    public function listAdd() {
+
+        $listar = new \App\adms\Models\helper\AdmsRead();
+
+        $listar->fullRead("SELECT SUM(op.total_value) AS total_backlog FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=1&fantasy_name=" . $_SESSION['search'] . "&corporate_social=" . $_SESSION['search'] . "&id=" . $_SESSION['search'] . "&area=" . $_SESSION['search'] . "&costCenter=" . $_SESSION['search']);
+        $registro['backlog'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT SUM(op.total_value) AS total_doing FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=2&fantasy_name=" . $_SESSION['search'] . "&corporate_social=" . $_SESSION['search'] . "&id=" . $_SESSION['search'] . "&area=" . $_SESSION['search'] . "&costCenter=" . $_SESSION['search']);
+        $registro['doing'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT SUM(op.total_value) AS total_waiting FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=3&fantasy_name=" . $_SESSION['search'] . "&corporate_social=" . $_SESSION['search'] . "&id=" . $_SESSION['search'] . "&area=" . $_SESSION['search'] . "&costCenter=" . $_SESSION['search']);
+        $registro['waiting'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT SUM(total_value) AS total_done FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=4&fantasy_name=" . $_SESSION['search'] . "&corporate_social=" . $_SESSION['search'] . "&id=" . $_SESSION['search'] . "&area=" . $_SESSION['search'] . "&costCenter=" . $_SESSION['search']);
+        $registro['done'] = $listar->getResultado();
+
+        $this->Resultado = ['backlog' => $registro['backlog'], 'doing' => $registro['doing'], 'waiting' => $registro['waiting'], 'done' => $registro['done']];
+
+        return $this->Resultado;
+    }
 }
