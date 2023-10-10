@@ -183,6 +183,17 @@ if (!empty($this->Dados['dados_order'][0])) {
                                     <input type="text" class="form-control bg-white" id="key_pix" value="<?php echo $key_pix; ?>" readonly>
                                 </div>
                             </div>
+                            
+                            <div class="mb-3">
+                                <ul class="list-group mb-3">
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h6 class="my-0"><p>Observações:</p></h6>
+                                            <small class="text-muted lead"><?php echo $obs; ?></small>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
 
                             <div class="mb-3">
                                 <ul class="list-group mb-3">

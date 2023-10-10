@@ -93,6 +93,72 @@ class AdmsEditarOrdemServico {
         }
     }
 
+    private function valImage() {
+
+        if ((empty($this->imageOneNew['name'])) and (empty($this->imageTwoNew['name'])) and (empty($this->imageThreeNew['name'])) and (empty($this->cupomFiscalNew['name']))) {
+            $this->updateEditOrdemServico();
+        } else {
+            $slugImg = new \App\adms\Models\helper\AdmsSlug();
+            if ((isset($this->imageOneNew)) and (!empty($this->imageOneNew))) {
+                $this->Dados['image_one'] = $slugImg->nomeSlug($this->imageOneNew['name']);
+            }
+
+            if ((isset($this->imageTwoNew)) and (!empty($this->imageTwoNew))) {
+                $this->Dados['image_two'] = $slugImg->nomeSlug($this->imageTwoNew['name']);
+            }
+
+            if ((isset($this->imageThreeNew)) and (!empty($this->imageThreeNew))) {
+                $this->Dados['image_three'] = $slugImg->nomeSlug($this->imageThreeNew['name']);
+            }
+
+            if ((isset($this->cupomFiscalNew)) and (!empty($this->cupomFiscalNew))) {
+                $this->Dados['cupom_fiscal'] = $slugImg->nomeSlug($this->cupomFiscalNew['name']);
+            }
+
+            $uploadImg = new \App\adms\Models\helper\AdmsUpload();
+            if ((isset($this->imageOneNew['name'])) and (!empty($this->imageOneNew['name']))) {
+                $uploadImg->upload($this->imageOneNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_one']);
+            }
+
+            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
+                $uploadImg->upload($this->imageTwoNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_two']);
+            }
+
+            if ((isset($this->imageThreeNew['name'])) and (!empty($this->imageThreeNew['name']))) {
+                $uploadImg->upload($this->imageThreeNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_three']);
+            }
+
+            if ((isset($this->cupomFiscalNew['name'])) and (!empty($this->cupomFiscalNew['name']))) {
+                $uploadImg->upload($this->cupomFiscalNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['cupom_fiscal']);
+            }
+            $uploadImg->getResultado();
+        }
+
+        if ((!empty($this->imageOneNew['name'])) or (!empty($this->imageTwoNew['name'])) or (!empty($this->imageThreeNew['name'])) or (!empty($this->cupomFiscalNew['name']))) {
+
+            //var_dump($this->imageOne);
+            $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
+            if ((isset($this->imageOneNew['name'])) and (!empty($this->imageOneNew['name']))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageOne);
+            }
+
+            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageTwo);
+            }
+
+            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageThree);
+            }
+
+            if ((isset($this->cupomFiscalNew['name'])) and (!empty($this->cupomFiscalNew['name']))) {
+                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->cupomFiscal);
+            }
+            $this->updateEditOrdemServico();
+        } else {
+            $this->Resultado = false;
+        }
+    }
+
     private function updateEditOrdemServico() {
 
         $this->Dados['order_service_zznet'] = $this->order_service_zznet;
@@ -132,72 +198,6 @@ class AdmsEditarOrdemServico {
         }
     }
 
-    private function valImage() {
-
-        //var_dump($this->Dados);
-        if ((empty($this->imageOneNew['name'])) and (empty($this->imageTwoNew['name'])) and (empty($this->imageThreeNew['name'])) and (empty($this->cupomFiscalNew['name']))) {
-            $this->updateEditOrdemServico();
-        } else {
-            $slugImg = new \App\adms\Models\helper\AdmsSlug();
-            if ((isset($this->imageOneNew)) and (!empty($this->imageOneNew))) {
-                $this->Dados['image_one'] = $slugImg->nomeSlug($this->imageOneNew['name']);
-            }
-
-            if ((isset($this->imageTwoNew)) and (!empty($this->imageTwoNew))) {
-                $this->Dados['image_two'] = $slugImg->nomeSlug($this->imageTwoNew['name']);
-            }
-
-            if ((isset($this->imageThreeNew)) and (!empty($this->imageThreeNew))) {
-                $this->Dados['image_three'] = $slugImg->nomeSlug($this->imageThreeNew['name']);
-            }
-
-            if ((isset($this->cupomFiscalNew)) and (!empty($this->cupomFiscalNew))) {
-                $this->Dados['cupom_fiscal'] = $slugImg->nomeSlug($this->cupomFiscalNew['name']);
-            }
-
-            $uploadImg = new \App\adms\Models\helper\AdmsUpload();
-            if ((isset($this->imageOneNew['name'])) and (!empty($this->imageOneNew['name']))) {
-                $uploadImg->upload($this->imageOneNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_one']);
-            }
-
-            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
-                $uploadImg->upload($this->imageTwoNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_two']);
-            }
-
-            if ((isset($this->imageThreeNew['name'])) and (!empty($this->imageThreeNew['name']))) {
-                $uploadImg->upload($this->imageThreeNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['image_three']);
-            }
-
-            if ((isset($this->cupomFiscalNew['name'])) and (!empty($this->cupomFiscalNew['name']))) {
-                $uploadImg->upload($this->cupomFiscalNew, 'assets/imagens/order_service/' . $this->Dados['id'] . '/', $this->Dados['cupom_fiscal']);
-            }
-        }
-
-        if ($uploadImg->getResultado()) {
-
-            //var_dump($this->imageOne);
-            $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
-            if ((isset($this->imageOneNew['name'])) and (!empty($this->imageOneNew['name']))) {
-                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageOne);
-            }
-
-            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
-                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageTwo);
-            }
-
-            if ((isset($this->imageTwoNew['name'])) and (!empty($this->imageTwoNew['name']))) {
-                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->imageThree);
-            }
-
-            if ((isset($this->cupomFiscalNew['name'])) and (!empty($this->cupomFiscalNew['name']))) {
-                $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->cupomFiscal);
-            }
-            $this->updateEditOrdemServico();
-        } else {
-            $this->Resultado = false;
-        }
-    }
-
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
@@ -230,5 +230,4 @@ class AdmsEditarOrdemServico {
 
         return $this->Resultado;
     }
-
 }

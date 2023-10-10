@@ -8,27 +8,26 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of DeleteBrands
+ * Description of DeleteBanks
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class DeleteBrands
-{
+class DeleteBanks {
 
     private $DadosId;
 
-    public function deleteBrand($DadosId = null)
+    public function deleteBank($DadosId = null)
     {
 
         $this->DadosId = (int) $DadosId;
 
         if (!empty($this->DadosId)) {
-            $deleteBrand = new \App\adms\Models\AdmsDeleteBrand();
-            $deleteBrand->deleteBrand($this->DadosId);
+            $deleteBank = new \App\adms\Models\AdmsDeleteBank();
+            $deleteBank->deleteBank($this->DadosId);
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Necessário selecionar um fornecedor!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
         }
-        $UrlDestino = URLADM . 'brands/list';
+        $UrlDestino = URLADM . 'banks/list';
         header("Location: $UrlDestino");
     }
 }

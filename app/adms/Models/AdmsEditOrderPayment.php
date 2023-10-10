@@ -25,6 +25,7 @@ class AdmsEditOrderPayment {
     private $TypeKey;
     private $KeyPix;
     private $NumberNf;
+    private $obs;
 
     function getResultado() {
         return $this->Resultado;
@@ -48,12 +49,13 @@ class AdmsEditOrderPayment {
         $this->Checking = $this->Dados['checking_account'];
         $this->TypeKey = $this->Dados['adms_type_key_pix_id'];
         $this->KeyPix = $this->Dados['key_pix'];
+        $this->obs = (!empty($this->Dados['obs']) ? $this->Dados['obs'] : null);
 
         $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));
         if ((!empty($this->Dados['total_value'])) and (!empty($this->Dados['advance_amount']))) {
             $this->Dados['advance_amount'] = (!empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
         }
-        unset($this->Dados['new_file'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount']);
+        unset($this->Dados['new_file'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount'], $this->Dados['obs']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -90,6 +92,7 @@ class AdmsEditOrderPayment {
         $this->Dados['advance_amount'] = !empty($this->AdvanceAmount) ? $this->AdvanceAmount : null;
         $this->Dados['adms_type_key_pix_id'] = !empty($this->TypeKey) ? $this->TypeKey : null;
         $this->Dados['key_pix'] = !empty($this->KeyPix) ? $this->KeyPix : null;
+        $this->Dados['obs'] = $this->obs;
 
         if (!empty($this->File['name'])) {
             $slugImg = new \App\adms\Models\helper\AdmsSlug();
@@ -120,7 +123,7 @@ class AdmsEditOrderPayment {
         $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers WHERE status_id =:status_id ORDER BY brand ASC", 'status_id=1');
         $registro['brand'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id s_id, fantasy_name supplier FROM adms_suppliers WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
+        $listar->fullRead("SELECT id s_id, fantasy_name supplier, cnpj_cpf FROM adms_suppliers WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['supp'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id t_id, name typePayment FROM adms_type_payments ORDER BY name ASC");

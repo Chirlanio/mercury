@@ -24,6 +24,7 @@ class AdmsAddOrderPayment {
     private $TypeKey;
     private $KeyPix;
     private $NumberNf;
+    private $obs;
 
     function getResultado() {
         return $this->Resultado;
@@ -41,9 +42,9 @@ class AdmsAddOrderPayment {
         $this->AdvanceAmount = $this->Dados['advance_amount'];
         $this->NumberNf = $this->Dados['number_nf'];
         $this->Filename = !empty($this->Dados['file_name']) ? $this->Dados['file_name'] : null;
-        unset($this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name']);
+        $this->obs = !empty($this->Dados['obs']) ? $this->Dados['obs'] : null;
+        unset($this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name'], $this->Dados['obs']);
 
-        //var_dump($this->Dados);
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
 
@@ -65,6 +66,8 @@ class AdmsAddOrderPayment {
         $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));
         $this->Dados['number_nf'] = (!empty($this->NumberNf) ? $this->NumberNf : 0);
         $this->Dados['key_pix'] = (!empty($this->KeyPix) ? $this->KeyPix : null);
+        $this->Dados['adms_sits_order_pay_id'] = ($this->Dados['advance'] == 1 ? 3 : 1);
+        $this->Dados['obs'] = $this->obs;
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
         if (!empty($this->Filename['name'])) {
@@ -104,19 +107,19 @@ class AdmsAddOrderPayment {
     public function listAdd() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        $listar->fullRead("SELECT id a_id, name area FROM adms_areas ORDER BY name ASC");
+        $listar->fullRead("SELECT id a_id, name area FROM adms_areas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['area'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers ORDER BY name ASC");
+        $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         $registro['cost'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers ORDER BY brand ASC");
+        $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers WHERE status_id =:status_id ORDER BY brand ASC", "status_id=1");
         $registro['brand'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id sup_id, fantasy_name FROM adms_suppliers ORDER BY fantasy_name ASC");
+        $listar->fullRead("SELECT id sup_id, fantasy_name, cnpj_cpf FROM adms_suppliers WHERE status_id =:status_id ORDER BY fantasy_name ASC", "status_id=1");
         $registro['supplier'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id t_id, name type_payment FROM adms_type_payments ORDER BY id ASC");
+        $listar->fullRead("SELECT id t_id, name type_payment FROM adms_type_payments WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['type_payment'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id b_id, bank_name FROM adms_banks WHERE status_id =:status_id ORDER BY bank_name ASC", "status_id=1");

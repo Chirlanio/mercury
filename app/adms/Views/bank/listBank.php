@@ -8,21 +8,21 @@ if (!defined('URLADM')) {
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Marcas - Fornecedor</h2>
+                <h2 class="display-4 titulo">Bancos</h2>
             </div>
             <div class="p-2">
                 <?php
-                if ($this->Dados['botao']['add_brand']) {
-                    echo "<a href='" . URLADM . "add-brands/add-brand' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                if ($this->Dados['botao']['add_bank']) {
+                    echo "<a href='" . URLADM . "add-banks/add-bank' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
                 }
                 ?>                
             </div>
         </div>
         <?php
-        if (empty($this->Dados['listBrand'])) {
+        if (empty($this->Dados['listBank'])) {
             ?>
             <div class="alert alert-danger" role="alert">
-                Nenhuma marca encontrada!
+                Nenhum banco encontrado!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -40,33 +40,33 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="text-center">ID</th>
-                        <th class="text-center">Marca</th>
-                        <th class="text-center">Fornecedor</th>
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Nome</th>
                         <th class="text-center">Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($this->Dados['listBrand'] as $c) {
+                    foreach ($this->Dados['listBank'] as $c) {
                         extract($c);
                         ?>
                         <tr>
                             <th class="text-center align-middle"><?php echo $id; ?></th>
-                            <td class="align-middle"><?php echo $brand; ?></td>
-                            <td class="align-middle"><?php echo $supplier; ?></td>
+                            <td class="align-middle"><?php echo $cod_bank; ?></td>
+                            <td class="align-middle"><?php echo $bank_name; ?></td>
                             <td class="text-center align-middle"><?php echo $status; ?></td>
                             <td class="text-center align-middle">
                                 <span class="d-none d-md-block">
                                     <?php
-                                    if ($this->Dados['botao']['view_brand']) {
-                                        echo "<a href='" . URLADM . "view-brands/view-brand/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                    if ($this->Dados['botao']['view_bank']) {
+                                        echo "<a href='" . URLADM . "view-banks/view-bank/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                     }
-                                    if ($this->Dados['botao']['edit_brand']) {
-                                        echo "<a href='" . URLADM . "edit-brands/edit-brand/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                    if ($this->Dados['botao']['edit_bank']) {
+                                        echo "<a href='" . URLADM . "edit-banks/edit-bank/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                     }
-                                    if ($this->Dados['botao']['del_brand']) {
-                                        echo "<a href='" . URLADM . "delete-brands/delete-brand/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
+                                    if ($this->Dados['botao']['del_bank']) {
+                                        echo "<a href='" . URLADM . "delete-banks/delete-bank/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
                                     }
                                     ?>
                                 </span>
@@ -76,14 +76,14 @@ if (!defined('URLADM')) {
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                         <?php
-                                        if ($this->Dados['botao']['view_brand']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "view-brands/view-brand/$id'>Visualizar</a>";
+                                        if ($this->Dados['botao']['view_bank']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "view-banks/view-bank/$id'>Visualizar</a>";
                                         }
-                                        if ($this->Dados['botao']['edit_brand']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-brands/edit-brand/$id'>Editar</a>";
+                                        if ($this->Dados['botao']['edit_bank']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-banks/edit-bank/$id'>Editar</a>";
                                         }
-                                        if ($this->Dados['botao']['del_brand']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-brands/delete-brand/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                        if ($this->Dados['botao']['del_bank']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-banks/delete-bank/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                         }
                                         ?>
                                     </div>

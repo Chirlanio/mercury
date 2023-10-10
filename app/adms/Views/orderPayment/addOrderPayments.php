@@ -119,9 +119,9 @@ if (isset($this->Dados['form'][0])) {
                         foreach ($this->Dados['select']['supplier'] as $supplier) {
                             extract($supplier);
                             if (isset($valorForm['adms_supplier_id']) == $sup_id) {
-                                echo "<option value='$sup_id' selected>$fantasy_name</option>";
+                                echo "<option value='$sup_id' selected>$fantasy_name - $cnpj_cpf</option>";
                             } else {
-                                echo "<option value='$sup_id'>$fantasy_name</option>";
+                                echo "<option value='$sup_id'>$fantasy_name - $cnpj_cpf</option>";
                             }
                         }
                         ?>
@@ -286,7 +286,20 @@ if (isset($this->Dados['form'][0])) {
                     ?>">
                 </div>
             </div>
-            
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Observações</label>
+                    <textarea name="obs" id="obs" class="form-control editorCK is-invalid" rows="4">
+                        <?php
+                        if (isset($valorForm['obs'])) {
+                            echo $valorForm['obs'];
+                        }
+                        ?>
+                    </textarea>
+                </div>
+            </div>
+
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Arquivo</label>

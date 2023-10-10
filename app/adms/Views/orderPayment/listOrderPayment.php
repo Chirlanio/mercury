@@ -85,12 +85,9 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="d-none d-sm-table-cell text-center">Solicitações</th>
-                        <th class="text-center"></th>
-                        <th class="d-none d-sm-table-cell text-center">Fluxo Semanal</th>
-                        <th class="text-center"></th>
+                        <th class="d-none d-sm-table-cell text-center">Lançamento Fiscal</th>
+                        <th class="d-none d-sm-table-cell text-center">Contas a Pagar</th>
                         <th class="d-none d-sm-table-cell text-center">Pagos</th>
-                        <th class="text-center"></th>
-                        <th class="d-none d-sm-table-cell text-center">Comprovante</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,7 +100,6 @@ if (!defined('URLADM')) {
                             }
                             ?>
                         </td>
-                        <td class="text-center">|</td>
                         <td class="text-center">
                             <?php
                             foreach ($this->Dados['select']['doing'] as $d) {
@@ -112,7 +108,6 @@ if (!defined('URLADM')) {
                             }
                             ?>
                         </td>
-                        <td class="text-center">|</td>
                         <td class="text-center">
                             <?php
                             foreach ($this->Dados['select']['waiting'] as $w) {
@@ -121,7 +116,6 @@ if (!defined('URLADM')) {
                             }
                             ?>
                         </td>
-                        <td class="text-center">|</td>
                         <td class="text-center">
                             <?php
                             foreach ($this->Dados['select']['done'] as $do) {
@@ -140,8 +134,10 @@ if (!defined('URLADM')) {
                                     ?>
                                     <div class="card bg-light m-1 w-auto">
                                         <h5 class="card-header">
-                                            <!--<input type="checkbox" aria-label="Checkbox for following text input">-->
-                                            ID: <?php echo $id; ?>
+                                            <div class="d-flex align-content-between justify-content-between">
+                                                ID: <?php echo $id; ?>
+                                                <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning'></i>" : ''); ?>
+                                            </div>
                                         </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_backlog; ?></h5>
@@ -188,15 +184,6 @@ if (!defined('URLADM')) {
                             </div>
                         </td>
 
-                        <td class="text-center order-payment">
-                            <div>
-                                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-                                    <button id="back-backlog" type="button" class="btn btn-outline-dark disabled"><<</button>
-                                    <button id="for-doing" type="button" class="btn btn-outline-secondary">>></button>
-                                </div>
-                            </div>
-                        </td>
-
                         <td class="d-none d-sm-table-cell">
                             <div name="doing" class="list-group border p-2">
                                 <?php
@@ -204,7 +191,12 @@ if (!defined('URLADM')) {
                                     extract($doing);
                                     ?>
                                     <div class="card text-white bg-secondary m-1 w-auto">
-                                        <h5 class="card-header">ID: <?php echo $id; ?></h5>
+                                        <h5 class="card-header">
+                                            <div class="d-flex align-content-between justify-content-between">
+                                                ID: <?php echo $id; ?>
+                                                <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning'></i>" : ''); ?>
+                                            </div>
+                                        </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_doing; ?></h5>
                                             <p class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></p>
@@ -251,15 +243,6 @@ if (!defined('URLADM')) {
                             </div>
                         </td>
 
-                        <td class="text-center order-payment">
-                            <div>
-                                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-                                    <button id="back-doing" type="button" class="btn btn-outline-secondary"><<</button>
-                                    <button id="for-waiting" type="button" class="btn btn-outline-info">>></button>
-                                </div>
-                            </div>
-                        </td>
-
                         <td class="d-none d-sm-table-cell">
                             <div name="waiting" class="list-group border p-2">
                                 <?php
@@ -267,7 +250,12 @@ if (!defined('URLADM')) {
                                     extract($waiting);
                                     ?>
                                     <div class="card text-white bg-info border-info m-1 w-auto">
-                                        <h5 class="card-header">ID: <?php echo $id; ?></h5>
+                                        <h5 class="card-header">
+                                            <div class="d-flex align-content-between justify-content-between">
+                                                ID: <?php echo $id; ?>
+                                                <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning'></i>" : ''); ?>
+                                            </div>
+                                        </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_waiting; ?></h5>
                                             <p class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></p>
@@ -314,15 +302,6 @@ if (!defined('URLADM')) {
                             </div>
                         </td>
 
-                        <td class="text-center order-payment">
-                            <div>
-                                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-                                    <button id="back-waiting" type="button" class="btn btn-outline-info"><<</button>
-                                    <button id="for-done" type="button" class="btn btn-outline-success">>></button>
-                                </div>
-                            </div>
-                        </td>
-
                         <td class="d-none d-sm-table-cell">
                             <div name="done" class="list-group border p-2">
                                 <?php
@@ -330,7 +309,12 @@ if (!defined('URLADM')) {
                                     extract($done);
                                     ?>
                                     <div class="card text-white bg-success m-1 w-auto">
-                                        <h5 class="card-header">ID: <?php echo $id; ?></h5>
+                                        <h5 class="card-header">
+                                            <div class="d-flex align-content-between justify-content-between">
+                                                ID: <?php echo $id; ?>
+                                                <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning'></i>" : ''); ?>
+                                            </div>
+                                        </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_done; ?></h5>
                                             <p class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></p>
