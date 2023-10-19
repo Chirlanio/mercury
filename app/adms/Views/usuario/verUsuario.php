@@ -85,6 +85,12 @@ if (!empty($this->Dados['dados_usuario'][0])) {
                 <dt class="col-sm-3">E-mail</dt>
                 <dd class="col-sm-9"><?php echo $email; ?></dd>
 
+                <dt class="col-sm-3">Área</dt>
+                <dd class="col-sm-9"><?php echo $area; ?></dd>
+
+                <dt class="col-sm-3">Gerência</dt>
+                <dd class="col-sm-9"><?php echo $manager; ?></dd>
+
                 <dt class="col-sm-3">Usuário</dt>
                 <dd class="col-sm-9"><?php echo $usuario; ?></dd>
 

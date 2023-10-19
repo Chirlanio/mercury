@@ -50,7 +50,7 @@ class AdmsEditOrderPayment {
         $this->TypeKey = $this->Dados['adms_type_key_pix_id'];
         $this->KeyPix = $this->Dados['key_pix'];
         $this->obs = (!empty($this->Dados['obs']) ? $this->Dados['obs'] : null);
-
+        
         $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));
         if ((!empty($this->Dados['total_value'])) and (!empty($this->Dados['advance_amount']))) {
             $this->Dados['advance_amount'] = (!empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
@@ -93,6 +93,7 @@ class AdmsEditOrderPayment {
         $this->Dados['adms_type_key_pix_id'] = !empty($this->TypeKey) ? $this->TypeKey : null;
         $this->Dados['key_pix'] = !empty($this->KeyPix) ? $this->KeyPix : null;
         $this->Dados['obs'] = $this->obs;
+        $this->Dados['update_user_id'] = $_SESSION['usuario_id'];
 
         if (!empty($this->File['name'])) {
             $slugImg = new \App\adms\Models\helper\AdmsSlug();
@@ -138,7 +139,7 @@ class AdmsEditOrderPayment {
         $listar->fullRead("SELECT id tp_id, name typePix FROM adms_type_key_pixs WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         $registro['typeKey'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id st_id, exibition_name sit FROM adms_sits_order_payments WHERE status_id =:status_id ORDER BY exibition_name ASC", "status_id=1");
+        $listar->fullRead("SELECT id st_id, exibition_name sit FROM adms_sits_order_payments WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['sits'] = $listar->getResultado();
 
         $this->Resultado = ['area' => $registro['area'], 'costCenter' => $registro['costCenter'], 'brand' => $registro['brand'], 'supp' => $registro['supp'], 'typePayment' => $registro['typePayment'], 'bank' => $registro['bank'], 'manager' => $registro['manager'], 'typeKey' => $registro['typeKey'], 'sits' => $registro['sits']];

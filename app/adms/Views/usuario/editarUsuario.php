@@ -56,7 +56,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> E-mail</label>
                     <input name="email" type="text" class="form-control" placeholder="Seu melhor e-mail" value="<?php
                     if (isset($valorForm['email'])) {
@@ -64,7 +64,7 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Usuário</label>
                     <input name="usuario" type="text" class="form-control" id="nome" placeholder="Digite o usuário" value="<?php
                     if (isset($valorForm['usuario'])) {
@@ -72,7 +72,7 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Loja</label>
                     <select name="loja_id" id="loja_id" class="form-control">
                         <option value="">Selecione</option>
@@ -83,6 +83,22 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$id_loja' selected>$loja</option>";
                             } else {
                                 echo "<option value='$id_loja'>$loja</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Área</label>
+                    <select name="adms_area_id" id="adms_area_id" class="form-control">
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['area'] as $a) {
+                            extract($a);
+                            if ($valorForm['adms_area_id'] == $a_id) {
+                                echo "<option value='$a_id' selected>$name_area</option>";
+                            } else {
+                                echo "<option value='$a_id'>$name_area</option>";
                             }
                         }
                         ?>

@@ -71,6 +71,7 @@ class AdmsLogin {
             $_SESSION['nivac_cor'] = $this->Resultado[0]['cor'];
             $_SESSION['nome_gerente'] = $this->Resultado[0]['nome_usuario'];
             $_SESSION['nome_loja'] = $this->Resultado[0]['loja'];
+            $_SESSION['area_id'] = $this->Resultado[0]['adms_area_id'];
             $this->Resultado = true;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Usuário ou a senha incorreto!</div>";

@@ -80,6 +80,7 @@ if (!defined('URLADM')) {
                         <th class="text-center">ID</th>
                         <th>Nome</th>
                         <th class="d-none d-sm-table-cell">E-mail</th>
+                        <th class="d-none d-sm-table-cell">Área</th>
                         <th class="d-none d-lg-table-cell text-center">Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
@@ -93,6 +94,7 @@ if (!defined('URLADM')) {
                             <th class="text-center align-middle"><?php echo $id; ?></th>
                             <td class="align-middle"><?php echo $nome; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $email; ?></td>
+                            <td class="d-none d-sm-table-cell align-middle"><?php echo $area; ?></td>
                             <td class="d-none d-lg-table-cell align-middle text-center">
                                 <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $nome_sit; ?></span>
                             </td>

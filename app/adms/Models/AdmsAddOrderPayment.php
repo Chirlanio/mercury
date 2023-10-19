@@ -68,6 +68,7 @@ class AdmsAddOrderPayment {
         $this->Dados['key_pix'] = (!empty($this->KeyPix) ? $this->KeyPix : null);
         $this->Dados['adms_sits_order_pay_id'] = ($this->Dados['advance'] == 1 ? 3 : 1);
         $this->Dados['obs'] = $this->obs;
+        $this->Dados['adms_user_id'] = $_SESSION['usuario_id'];
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
         if (!empty($this->Filename['name'])) {
@@ -110,7 +111,7 @@ class AdmsAddOrderPayment {
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['area'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
+        $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area_id AND status_id =:status_id ORDER BY name ASC", "adms_area_id=".$_SESSION['area_id']."status_id=1");
         $registro['cost'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers WHERE status_id =:status_id ORDER BY brand ASC", "status_id=1");

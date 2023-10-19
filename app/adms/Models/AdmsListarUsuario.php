@@ -38,11 +38,12 @@ class AdmsListarUsuario {
         $listarUsuario = new \App\adms\Models\helper\AdmsRead();
         $listarUsuario->fullRead("SELECT user.id, user.nome, user.email,
                 sit.nome nome_sit,
-                cr.cor cor_cr
+                cr.cor cor_cr, a.name area
                 FROM adms_usuarios user 
                 INNER JOIN adms_sits_usuarios sit ON sit.id=user.adms_sits_usuario_id
                 INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id
                 INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
+                INNER JOIN adms_areas a ON a.id = user.adms_area_id
                 WHERE nivac.ordem >=:ordem
                 ORDER BY id ASC LIMIT :limit OFFSET :offset", "ordem=" . $_SESSION['ordem_nivac'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarUsuario->getResultado();

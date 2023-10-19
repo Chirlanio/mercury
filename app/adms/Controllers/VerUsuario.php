@@ -37,7 +37,7 @@ class VerUsuario {
             $carregarView = new \Core\ConfigView("adms/Views/usuario/verUsuario", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Usuário não encontrado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Usuário não encontrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $UrlDestino = URLADM . 'usuarios/listar';
             header("Location: $UrlDestino");
         }

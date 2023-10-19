@@ -92,10 +92,10 @@ class AdmsEditarUsuario {
         $upAltSenha = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSenha->exeUpdate("adms_usuarios", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltSenha->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Usuário atualizado com sucesso!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Usuário</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O usuario não foi atualizado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Cadastro não atualizado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -112,7 +112,10 @@ class AdmsEditarUsuario {
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits_usuarios ORDER BY nome ASC");
         $registro['sit'] = $listar->getResultado();
 
-        $this->Resultado = ['loja_id' => $registro['loja_id'], 'nivac' => $registro['nivac'], 'sit' => $registro['sit']];
+        $listar->fullRead("SELECT id a_id, name name_area FROM adms_areas ORDER BY name ASC");
+        $registro['area'] = $listar->getResultado();
+
+        $this->Resultado = ['loja_id' => $registro['loja_id'], 'nivac' => $registro['nivac'], 'sit' => $registro['sit'], 'area' => $registro['area']];
 
         return $this->Resultado;
     }
