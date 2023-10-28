@@ -173,7 +173,6 @@ selectType.addEventListener('change', function () {
 });
 
 firstChild.children[1].addEventListener('change', function () {
-    console.log(firstChild.children[1].value);
     var quantidade = firstChild.children[1].value;
 
     if (quantidade >= 0 || quantidade <= 10) {// Limpa os campos de entrada anteriores
@@ -189,6 +188,7 @@ firstChild.children[1].addEventListener('change', function () {
             divFormGroup.classList.add('form-group', 'col-md-3', 'input-dinamico');
             var label = document.createElement('label');
             label.textContent = 'Valor - Parcela';
+            
             var input = document.createElement('input');
             input.setAttribute('name', 'installment_values[]');
             input.setAttribute('type', 'text');
