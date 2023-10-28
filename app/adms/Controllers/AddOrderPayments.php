@@ -19,7 +19,7 @@ class AddOrderPayments {
     public function orderPayment() {
 
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
+        
         if (!empty($this->Dados['AddOrder'])) {
             unset($this->Dados['AddOrder']);
             $this->Dados['file_name'] = ($_FILES['file_name'] ? $_FILES['file_name'] : null);

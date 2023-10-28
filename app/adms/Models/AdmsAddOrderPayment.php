@@ -75,7 +75,7 @@ class AdmsAddOrderPayment {
             $slugFile = new \App\adms\Models\helper\AdmsSlug();
             $this->Dados['file_name'] = $slugFile->nomeSlug($this->Filename['name']);
         }
-        
+
         $addOrder = new \App\adms\Models\helper\AdmsCreate;
         $addOrder->exeCreate("adms_order_payments", $this->Dados);
 
@@ -111,7 +111,7 @@ class AdmsAddOrderPayment {
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['area'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area_id AND status_id =:status_id ORDER BY name ASC", "adms_area_id=".$_SESSION['area_id']."status_id=1");
+        $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         $registro['cost'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers WHERE status_id =:status_id ORDER BY brand ASC", "status_id=1");

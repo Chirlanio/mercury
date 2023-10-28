@@ -85,9 +85,9 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="d-none d-sm-table-cell text-center">Solicitações</th>
-                        <th class="d-none d-sm-table-cell text-center">Lançamento Fiscal</th>
-                        <th class="d-none d-sm-table-cell text-center">Contas a Pagar</th>
-                        <th class="d-none d-sm-table-cell text-center">Pagos</th>
+                        <th class="d-none d-sm-table-cell text-center">Registrado no Fiscal</th>
+                        <th class="d-none d-sm-table-cell text-center">Lançado no Banco</th>
+                        <th class="d-none d-sm-table-cell text-center">Pago</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -135,14 +135,19 @@ if (!defined('URLADM')) {
                                     <div class="card bg-light m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between">
-                                                ID: <?php echo $id; ?>
+                                                <span>ID: <?php echo $id; ?></span>
                                                 <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning'></i>" : ''); ?>
+                                                <?php echo ((!empty($installments) and $installments > 1) ? "<i class='fa-solid fa-calendar-days text-info'></i>" : ''); ?>
+                                                <?php echo ($proof == 1 ? "<i class='fa-solid fa-file-invoice text-white'></i>" : ''); ?>
                                             </div>
                                         </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_backlog; ?></h5>
-                                            <p class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></p>
-                                            <p class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_backlog; ?></p>
+                                            <ul class="list-unstyled">
+                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></li>
+                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment)); ?></li>
+                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_backlog; ?></li>
+                                            </ul>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
                                                     <?php
@@ -193,14 +198,19 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-secondary m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between">
-                                                ID: <?php echo $id; ?>
+                                                <span>ID: <?php echo $id; ?></span>
                                                 <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning'></i>" : ''); ?>
+                                                <?php echo ((!empty($installments) and $installments > 1) ? "<i class='fa-solid fa-calendar-days text-info'></i>" : ''); ?>
+                                                <?php echo ($proof == 1 ? "<i class='fa-solid fa-file-invoice text-white'></i>" : ''); ?>
                                             </div>
                                         </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_doing; ?></h5>
-                                            <p class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></p>
-                                            <p class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_doing; ?></p>
+                                            <ul class="list-unstyled">
+                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></li>
+                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment)); ?></li>
+                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_doing; ?></li>
+                                            </ul>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
 
@@ -252,14 +262,19 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-info border-info m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between">
-                                                ID: <?php echo $id; ?>
+                                                <span>ID: <?php echo $id; ?></span>
                                                 <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning'></i>" : ''); ?>
+                                                <?php echo ((!empty($installments) and $installments > 1) ? "<i class='fa-solid fa-calendar-days text-danger'></i>" : ''); ?>
+                                                <?php echo ($proof == 1 ? "<i class='fa-solid fa-file-invoice text-white'></i>" : ''); ?>
                                             </div>
                                         </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_waiting; ?></h5>
-                                            <p class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></p>
-                                            <p class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_waiting; ?></p>
+                                            <ul class="list-unstyled">
+                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></li>
+                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment)); ?></li>
+                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_waiting; ?></li>
+                                            </ul>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
 
@@ -311,14 +326,19 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-success m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between">
-                                                ID: <?php echo $id; ?>
+                                                <span>ID: <?php echo $id; ?></span>
                                                 <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning'></i>" : ''); ?>
+                                                <?php echo ((!empty($installments) and $installments > 1) ? "<i class='fa-solid fa-calendar-days text-danger'></i>" : ''); ?>
+                                                <?php echo ($proof == 1 ? "<i class='fa-solid fa-file-invoice text-white'></i>" : ''); ?>
                                             </div>
                                         </h5>
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo "Área: " . $area_done; ?></h5>
-                                            <p class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></p>
-                                            <p class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_done; ?></p>
+                                            <ul class="list-unstyled">
+                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></li>
+                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment)); ?></li>
+                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_done; ?></li>
+                                            </ul>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
 

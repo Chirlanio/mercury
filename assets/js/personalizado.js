@@ -146,6 +146,13 @@ $(document).ready(function () {
             }
         }
     });
+    $('#installments').mask('ZZ', {
+        translation: {
+            'Z': {
+                pattern: /[0-9]/, optional: true
+            }
+        }
+    });
     $('#ip_address').mask('099.099.099.099');
     $('#percent').mask('##0,00%', {reverse: true});
     $('#clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});

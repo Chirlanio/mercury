@@ -38,9 +38,9 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Nome</label>
-                    <input name="name" type="text" class="form-control" placeholder="Nome da situação" value="<?php
-                    if (isset($valorForm['name'])) {
-                        echo $valorForm['name'];
+                    <input name="exibition_name" type="text" class="form-control" placeholder="Nome da situação" value="<?php
+                    if (isset($valorForm['exibition_name'])) {
+                        echo $valorForm['exibition_name'];
                     }
                     ?>" required>
                 </div>

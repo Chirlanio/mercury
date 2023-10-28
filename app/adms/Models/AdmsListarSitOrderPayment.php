@@ -31,7 +31,7 @@ class AdmsListarSitOrderPayment {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarSit = new \App\adms\Models\helper\AdmsRead();
-        $listarSit->fullRead("SELECT o.id, o.name, o.order_sit, s.nome status
+        $listarSit->fullRead("SELECT o.id, o.exibition_name, o.order_sit, s.nome status
                 FROM adms_sits_order_payments o
                 INNER JOIN adms_sits s ON s.id = o.status_id
                 ORDER BY o.order_sit ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");

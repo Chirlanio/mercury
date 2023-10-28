@@ -59,7 +59,7 @@ if (!defined('URLADM')) {
                         ?>
                         <tr>
                             <th class="text-center align-middle"><?php echo $id; ?></th>
-                            <td class="align-middle"><?php echo $name; ?></td>
+                            <td class="align-middle"><?php echo $exibition_name; ?></td>
                             <td class="align-middle text-center"><?php echo $order_sit; ?></td>
                             <td class="d-none d-lg-table-cell align-middle text-center"><?php echo $status; ?></td>
                             <td class="text-center">

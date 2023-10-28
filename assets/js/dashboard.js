@@ -146,7 +146,7 @@ $(document).ready(function () {
             $('body').append('<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header bg-danger text-white">EXCLUIR REGISTRO<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Tem certeza de que deseja excluir o item selecionado?</div><div class="modal-footer"><button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button><a class="btn btn-danger text-white" id="dataComfirmOK">Apagar</a></div></div></div></div>');
         }
         $('#dataComfirmOK').attr('href', href);
-        $('#confirm-delete').modal({ show: true });
+        $('#confirm-delete').modal({show: true});
         return false;
     });
 });
@@ -154,4 +154,55 @@ $(document).ready(function () {
 //Apresentar tooltip
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
+});
+
+var selectType = document.getElementById('adms_type_payment_id');
+var div = document.getElementById('parc');
+var firstChild = div.children[0];
+
+selectType.addEventListener('change', function () {
+    const value = 2;
+    if (parseInt(selectType.value) === value) {
+        div.classList.remove('d-none');
+        div.classList.add('d-flex');
+    } else {
+        div.classList.remove('d-flex');
+        div.classList.add('d-none');
+        console.log(div);
+    }
+});
+
+firstChild.addEventListener('change', function () {
+    console.log(firstChild.children[1].value);
+    firstChild.children[1].addEventListener('change', function () {
+        var quantidade = firstChild.children[1].value;
+
+
+        if (firstChild.children[1].value > 1 && firstChild.children[1].value <= 10) {// Limpa os campos de entrada anteriores
+            var camposExistentes = document.querySelectorAll('.input-dinamico');
+
+            camposExistentes.forEach(function (campo) {
+                campo.remove();
+            });
+            // Adiciona novos campos de entrada de acordo com a quantidade
+            for (var i = 1; i <= quantidade - 1; i++) {
+
+                var divFormGroup = document.createElement('div');
+                divFormGroup.classList.add('form-group', 'col-md-3', 'input-dinamico');
+                var label = document.createElement('label');
+                label.textContent = 'Valor - Parcela';
+                var input = document.createElement('input');
+                input.setAttribute('name', 'installment_value[]');
+                input.setAttribute('type', 'text');
+                input.setAttribute('id', 'text');
+                input.classList.add('form-control');
+                
+                
+                divFormGroup.appendChild(label);
+                divFormGroup.appendChild(input);
+                div.appendChild(divFormGroup);
+            }
+        }
+    });
+
 });
