@@ -25,6 +25,9 @@ class AdmsAddOrderPayment {
     private $KeyPix;
     private $NumberNf;
     private $obs;
+    private $installmentValues;
+    private $datePayments;
+    private $DateProof;
 
     function getResultado() {
         return $this->Resultado;
@@ -43,13 +46,16 @@ class AdmsAddOrderPayment {
         $this->NumberNf = $this->Dados['number_nf'];
         $this->Filename = !empty($this->Dados['file_name']) ? $this->Dados['file_name'] : null;
         $this->obs = !empty($this->Dados['obs']) ? $this->Dados['obs'] : null;
-        unset($this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name'], $this->Dados['obs']);
+        $this->installmentValues = !empty($this->Dados['installment_values']) ? $this->Dados['installment_values'] : null;
+        $this->datePayments = !empty($this->Dados['date_payments']) ? $this->Dados['date_payments'] : null;
+        unset($this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
 
+        var_dump($this->installmentValues);
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->insertOrder();
+            //$this->insertOrder();
         } else {
             $this->Resultado = false;
         }
@@ -85,6 +91,7 @@ class AdmsAddOrderPayment {
                 $this->Resultado = true;
             } else {
                 $this->Dados['id'] = $addOrder->getResultado();
+                $this->insertInstallment();
                 $this->valArquivo();
             }
         } else {
@@ -103,6 +110,19 @@ class AdmsAddOrderPayment {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Solicitação cadastrada. Erro ao realizar o upload do arquivo!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
+    }
+
+    private function insertInstallment() {
+
+        $this->DateProof['adms_order_payment_id'] = $this->Dados['id'];
+        $this->DateProof['installment'] = $this->Dados['installments'];
+        $this->DateProof['date_payment'] = $this->datePayments;
+        $this->DateProof['installment_value'] = $this->installmentValues;
+
+        var_dump($this->DateProof);
+
+        $installment = new \App\adms\Models\helper\AdmsCreate();
+        $installment->exeCreate('adms_installments', $this->DateProof);
     }
 
     public function listAdd() {

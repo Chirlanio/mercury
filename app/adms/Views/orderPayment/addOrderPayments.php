@@ -229,20 +229,7 @@ if (isset($this->Dados['form'][0])) {
 
                 <div class="form-group col-md-3">
                     <label> Parcelas</label>
-                    <input name="installments" id="installments" type="number" min="0" max="10" class="form-control" value="<?php
-                    if (isset($valorForm['installments'])) {
-                        echo $valorForm['installments'];
-                    }
-                    ?>">
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label> Valor - Parcela</label>
-                    <input name="installment_value" id="valor_estorno" type="text" class="form-control" value="<?php
-                    if (isset($valorForm['installment_value'])) {
-                        echo $valorForm['installment_value'];
-                    }
-                    ?>">
+                    <input name="installments" id="installments" type="number" min="0" max="10" class="form-control" value="0">
                 </div>
 
             </div>

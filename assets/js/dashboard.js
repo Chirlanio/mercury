@@ -172,37 +172,39 @@ selectType.addEventListener('change', function () {
     }
 });
 
-firstChild.addEventListener('change', function () {
+firstChild.children[1].addEventListener('change', function () {
     console.log(firstChild.children[1].value);
-    firstChild.children[1].addEventListener('change', function () {
-        var quantidade = firstChild.children[1].value;
+    var quantidade = firstChild.children[1].value;
 
+    if (quantidade >= 0 || quantidade <= 10) {// Limpa os campos de entrada anteriores
+        var camposExistentes = document.querySelectorAll('.input-dinamico');
 
-        if (firstChild.children[1].value > 1 && firstChild.children[1].value <= 10) {// Limpa os campos de entrada anteriores
-            var camposExistentes = document.querySelectorAll('.input-dinamico');
+        camposExistentes.forEach(function (campo) {
+            campo.remove();
+        });
+        // Adiciona novos campos de entrada de acordo com a quantidade
+        for (var i = 1; i <= quantidade; i++) {
 
-            camposExistentes.forEach(function (campo) {
-                campo.remove();
-            });
-            // Adiciona novos campos de entrada de acordo com a quantidade
-            for (var i = 1; i <= quantidade - 1; i++) {
+            var divFormGroup = document.createElement('div');
+            divFormGroup.classList.add('form-group', 'col-md-3', 'input-dinamico');
+            var label = document.createElement('label');
+            label.textContent = 'Valor - Parcela';
+            var input = document.createElement('input');
+            input.setAttribute('name', 'installment_values[]');
+            input.setAttribute('type', 'text');
+            input.setAttribute('id', 'text');
+            input.classList.add('form-control');
 
-                var divFormGroup = document.createElement('div');
-                divFormGroup.classList.add('form-group', 'col-md-3', 'input-dinamico');
-                var label = document.createElement('label');
-                label.textContent = 'Valor - Parcela';
-                var input = document.createElement('input');
-                input.setAttribute('name', 'installment_value[]');
-                input.setAttribute('type', 'text');
-                input.setAttribute('id', 'text');
-                input.classList.add('form-control');
-                
-                
-                divFormGroup.appendChild(label);
-                divFormGroup.appendChild(input);
-                div.appendChild(divFormGroup);
-            }
+            var dateInput = document.createElement('input');
+            dateInput.setAttribute('name', 'date_payments[]');
+            dateInput.setAttribute('type', 'date');
+            dateInput.setAttribute('id', 'dateInput');
+            dateInput.classList.add('form-control');
+
+            divFormGroup.appendChild(label);
+            divFormGroup.appendChild(input);
+            divFormGroup.appendChild(dateInput);
+            div.appendChild(divFormGroup);
         }
-    });
-
+    }
 });

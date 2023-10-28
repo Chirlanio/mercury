@@ -15,6 +15,7 @@ if (!defined('URLADM')) {
 class AddOrderPayments {
 
     private $Dados;
+    private $DataPayment;
 
     public function orderPayment() {
 
