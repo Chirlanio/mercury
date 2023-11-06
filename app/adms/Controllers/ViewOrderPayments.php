@@ -20,11 +20,14 @@ class ViewOrderPayments {
     public function orderPayment($DadosId = null) {
 
         $this->DadosId = (int) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
-            
+
             $viewOrder = new \App\adms\Models\AdmsViewOrderPayment();
             $this->Dados['dados_order'] = $viewOrder->viewOrder($this->DadosId);
+
+            $installments = new \App\adms\Models\AdmsViewOrderPayment();
+            $this->Dados['installments'] = $installments->listInstallments($this->DadosId);
 
             $botao = ['list_order' => ['menu_controller' => 'order-payments', 'menu_metodo' => 'list'],
                 'edit_order' => ['menu_controller' => 'edit-order-payments', 'menu_metodo' => 'order-payment'],
@@ -43,5 +46,4 @@ class ViewOrderPayments {
             header("Location: $UrlDestino");
         }
     }
-
 }

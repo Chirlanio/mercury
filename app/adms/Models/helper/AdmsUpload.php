@@ -34,6 +34,7 @@ class AdmsUpload {
         $this->NomeArq = $NomeArq;
         $this->Arquivo = false;
         $this->validarArq();
+        var_dump($this->DadosArq);
     }
 
     private function validarArq() {

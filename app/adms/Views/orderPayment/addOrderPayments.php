@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($valorForm);
+//var_dump($_FILES);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -198,7 +198,7 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
 
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label> Valor - Adiantamento</label>
                     <input name="advance_amount" id="money" type="text" class="form-control" value="<?php
                     if (isset($valorForm['advance_amount'])) {
@@ -207,7 +207,7 @@ if (isset($this->Dados['form'][0])) {
                     ?>">
                 </div>
 
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Comprovante?</label>
                     <select name="proof" id="proof" class="form-control is-invalid" required>
                         <?php
@@ -215,13 +215,26 @@ if (isset($this->Dados['form'][0])) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
                             echo "<option value='2'>Não</option>";
-                        } else {
+                        } elseif ($valorForm['proof'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Sim</option>";
                             echo "<option value='2' selected>Não</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2'>Não</option>";
                         }
                         ?>
                     </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label> Lançamento</label>
+                    <input name="launch_numebr" id="launch_numebr" type="number" class="form-control" value="<?php
+                    if (isset($valorForm['launch_numebr'])) {
+                        echo $valorForm['launch_numebr'];
+                    }
+                    ?>">
                 </div>
             </div>
 
@@ -272,12 +285,12 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-5">
-                    <label><span class="text-danger">*</span> Títular</label>
-                    <input name="name_supplier" type="text" class="form-control is-invalid" value="<?php
+                    <label>Títular</label>
+                    <input name="name_supplier" type="text" class="form-control is-valid" value="<?php
                     if (isset($valorForm['name_supplier'])) {
                         echo $valorForm['name_supplier'];
                     }
-                    ?>" required>
+                    ?>">
                 </div>
             </div>
 
@@ -289,7 +302,7 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-2">
-                    <label><span class="text-danger">*</span> Tipo de Chave</label>
+                    <label>Tipo de Chave</label>
                     <select name="adms_type_key_pix_id" id="adms_type_key_pix_id" class="form-control is-valid">
                         <option value="">Selecione</option>
                         <?php
@@ -331,7 +344,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Arquivo</label>
-                    <input class="form-control-file is-invalid" name="file_name" type="file" required />
+                    <input class="form-control-file is-invalid" name="file_name[]" type="file" required multiple/>
                 </div>
             </div>
             <p>

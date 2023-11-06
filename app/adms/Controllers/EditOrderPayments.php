@@ -16,9 +16,12 @@ class EditOrderPayments {
 
     private $Dados;
     private $DadosId;
-
     public function orderPayment($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    
+        var_dump($this->Dados);
+        var_dump($this->DadosId);
+
 
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {

@@ -26,6 +26,7 @@ class AdmsEditOrderPayment {
     private $KeyPix;
     private $NumberNf;
     private $obs;
+    private $titular;
 
     function getResultado() {
         return $this->Resultado;
@@ -33,6 +34,7 @@ class AdmsEditOrderPayment {
 
     public function viewOrder($DadosId) {
         $this->DadosId = (int) $DadosId;
+        $_SESSION['id'] = $this->DadosId;
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
         $viewOrder->fullRead("SELECT op.* FROM adms_order_payments op WHERE op.id =:id LIMIT :limit", "id={$this->DadosId}&limit=1");
         $this->Resultado = $viewOrder->getResultado();
@@ -49,14 +51,17 @@ class AdmsEditOrderPayment {
         $this->Checking = $this->Dados['checking_account'];
         $this->TypeKey = $this->Dados['adms_type_key_pix_id'];
         $this->KeyPix = $this->Dados['key_pix'];
+        $this->titular = (!empty($this->Dados['name_supplier']) ? $this->Dados['name_supplier'] : null);
         $this->obs = (!empty($this->Dados['obs']) ? $this->Dados['obs'] : null);
+        //var_dump($this->Dados);
         
         $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));
         if ((!empty($this->Dados['total_value'])) and (!empty($this->Dados['advance_amount']))) {
             $this->Dados['advance_amount'] = (!empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
         }
-        unset($this->Dados['new_file'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount'], $this->Dados['obs']);
+        unset($this->Dados['name_supplier'], $this->Dados['new_file'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
 
+        var_dump($this->Dados);
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
 
@@ -93,6 +98,7 @@ class AdmsEditOrderPayment {
         $this->Dados['adms_type_key_pix_id'] = !empty($this->TypeKey) ? $this->TypeKey : null;
         $this->Dados['key_pix'] = !empty($this->KeyPix) ? $this->KeyPix : null;
         $this->Dados['obs'] = $this->obs;
+        $this->Dados['name_supplier'] = $this->titular;
         $this->Dados['update_user_id'] = $_SESSION['usuario_id'];
 
         if (!empty($this->File['name'])) {
@@ -142,7 +148,10 @@ class AdmsEditOrderPayment {
         $listar->fullRead("SELECT id st_id, exibition_name sit FROM adms_sits_order_payments WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['sits'] = $listar->getResultado();
 
-        $this->Resultado = ['area' => $registro['area'], 'costCenter' => $registro['costCenter'], 'brand' => $registro['brand'], 'supp' => $registro['supp'], 'typePayment' => $registro['typePayment'], 'bank' => $registro['bank'], 'manager' => $registro['manager'], 'typeKey' => $registro['typeKey'], 'sits' => $registro['sits']];
+        $listar->fullRead("SELECT * FROM adms_installments WHERE adms_order_payment_id =:adms_order_payment_id ORDER BY id ASC", "adms_order_payment_id=" . $_SESSION['id']);
+        $registro['install'] = $listar->getResultado();
+
+        $this->Resultado = ['area' => $registro['area'], 'costCenter' => $registro['costCenter'], 'brand' => $registro['brand'], 'supp' => $registro['supp'], 'typePayment' => $registro['typePayment'], 'bank' => $registro['bank'], 'manager' => $registro['manager'], 'typeKey' => $registro['typeKey'], 'sits' => $registro['sits'], 'install' => $registro['install']];
 
         return $this->Resultado;
     }

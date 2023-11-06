@@ -72,6 +72,11 @@ if (!defined('URLADM')) {
                 </button>
             </div>
             <?php
+            $redirectUrl = URLADM . 'order-payments/list';
+            if ((empty($this->Dados['list_backlog'])) AND (empty($this->Dados['list_doing'])) AND (empty($this->Dados['list_waiting'])) AND (empty($this->Dados['list_done']))) {
+                header("Location: $redirectUrl");
+                exit();
+            }
         }
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
@@ -83,11 +88,8 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="d-none d-sm-table-cell text-center">Solicitações</th>
-                        <th class="text-center"></th>
-                        <th class="d-none d-sm-table-cell text-center">Lançamento Fiscal</th>
-                        <th class="text-center"></th>
-                        <th class="d-none d-sm-table-cell text-center">Contas a Pagar</th>
-                        <th class="text-center"></th>
+                        <th class="d-none d-sm-table-cell text-center">Registrado no Fiscal</th>
+                        <th class="d-none d-sm-table-cell text-center">Lançado no Banco</th>
                         <th class="d-none d-sm-table-cell text-center">Pagos</th>
                     </tr>
                 </thead>
@@ -101,7 +103,6 @@ if (!defined('URLADM')) {
                             }
                             ?>
                         </td>
-                        <td class="text-center">|</td>
                         <td class="text-center">
                             <?php
                             foreach ($this->Dados['select']['doing'] as $d) {
@@ -110,7 +111,6 @@ if (!defined('URLADM')) {
                             }
                             ?>
                         </td>
-                        <td class="text-center">|</td>
                         <td class="text-center">
                             <?php
                             foreach ($this->Dados['select']['waiting'] as $w) {
@@ -119,7 +119,6 @@ if (!defined('URLADM')) {
                             }
                             ?>
                         </td>
-                        <td class="text-center">|</td>
                         <td class="text-center">
                             <?php
                             foreach ($this->Dados['select']['done'] as $do) {
@@ -188,15 +187,6 @@ if (!defined('URLADM')) {
                             </div>
                         </td>
 
-                        <td class="text-center order-payment">
-                            <div>
-                                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-                                    <button id="back-backlog" type="button" class="btn btn-outline-dark disabled"><<</button>
-                                    <button id="for-doing" type="button" class="btn btn-outline-secondary">>></button>
-                                </div>
-                            </div>
-                        </td>
-
                         <td class="d-none d-sm-table-cell">
                             <div name="doing" class="list-group border p-2">
                                 <?php
@@ -256,19 +246,9 @@ if (!defined('URLADM')) {
                             </div>
                         </td>
 
-                        <td class="text-center order-payment">
-                            <div>
-                                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-                                    <button id="back-doing" type="button" class="btn btn-outline-secondary"><<</button>
-                                    <button id="for-waiting" type="button" class="btn btn-outline-info">>></button>
-                                </div>
-                            </div>
-                        </td>
-
                         <td class="d-none d-sm-table-cell">
                             <div name="waiting" class="list-group border p-2">
                                 <?php
-                                //var_dump($this->Dados['list_waiting']);
                                 foreach ($this->Dados['list_waiting'] as $waiting) {
                                     extract($waiting);
                                     ?>
@@ -322,15 +302,6 @@ if (!defined('URLADM')) {
 
                                 <?php } ?>
 
-                            </div>
-                        </td>
-
-                        <td class="text-center order-payment">
-                            <div>
-                                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-                                    <button id="back-waiting" type="button" class="btn btn-outline-info"><<</button>
-                                    <button id="for-done" type="button" class="btn btn-outline-success">>></button>
-                                </div>
                             </div>
                         </td>
 

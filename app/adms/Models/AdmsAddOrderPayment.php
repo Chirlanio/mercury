@@ -27,7 +27,8 @@ class AdmsAddOrderPayment {
     private $obs;
     private $installmentValues;
     private $datePayments;
-    private $DateProof;
+    private $titular;
+    private $launchNumebr;
 
     function getResultado() {
         return $this->Resultado;
@@ -36,7 +37,6 @@ class AdmsAddOrderPayment {
     public function addOrder(array $Dados) {
 
         $this->Dados = $Dados;
-
         $this->Agency = $this->Dados['agency'];
         $this->Checking = $this->Dados['checking_account'];
         $this->Bank = $this->Dados['bank_id'];
@@ -48,14 +48,15 @@ class AdmsAddOrderPayment {
         $this->obs = !empty($this->Dados['obs']) ? $this->Dados['obs'] : null;
         $this->installmentValues = !empty($this->Dados['installment_values']) ? $this->Dados['installment_values'] : null;
         $this->datePayments = !empty($this->Dados['date_payments']) ? $this->Dados['date_payments'] : null;
-        unset($this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
+        $this->titular = !empty($this->Dados['name_supplier']) ? $this->Dados['name_supplier'] : null;
+        $this->launchNumebr = !empty($this->Dados['launch_numebr']) ? $this->Dados['launch_numebr'] : null;
+        unset($this->Dados['launch_numebr'], $this->Dados['name_supplier'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
 
-        var_dump($this->installmentValues);
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            //$this->insertOrder();
+            $this->insertOrder();
         } else {
             $this->Resultado = false;
         }
@@ -75,18 +76,20 @@ class AdmsAddOrderPayment {
         $this->Dados['adms_sits_order_pay_id'] = ($this->Dados['advance'] == 1 ? 3 : 1);
         $this->Dados['obs'] = $this->obs;
         $this->Dados['adms_user_id'] = $_SESSION['usuario_id'];
+        $this->Dados['name_supplier'] = $this->titular;
+        $this->Dados['launch_numebr'] = $this->launchNumebr;
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
-        if (!empty($this->Filename['name'])) {
+        if (!empty($this->Filename['name'][0])) {
             $slugFile = new \App\adms\Models\helper\AdmsSlug();
-            $this->Dados['file_name'] = $slugFile->nomeSlug($this->Filename['name']);
+            $this->Dados['file_name'] = $slugFile->nomeSlug($this->Filename['name'][0]);
         }
 
         $addOrder = new \App\adms\Models\helper\AdmsCreate;
         $addOrder->exeCreate("adms_order_payments", $this->Dados);
 
         if ($addOrder->getResultado()) {
-            if (empty($this->Filename['name'])) {
+            if (empty($this->Filename['name'][0])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
@@ -101,8 +104,26 @@ class AdmsAddOrderPayment {
     }
 
     private function valArquivo() {
-        $uploadFile = new \App\adms\Models\helper\AdmsUpload();
-        $uploadFile->upload($this->Filename, 'assets/files/orderPayments/' . $this->Dados['id'] . '/', $this->Dados['file_name']);
+        if (!isset($this->Filename['name'][0])) {
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Nenhum arquivo foi selecionado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = false;
+            return;
+        }
+
+        $uploadPath = 'assets/files/orderPayments/' . $this->Dados['id'] . '/';
+        $arquivosParaUpload = [];
+
+        foreach ($this->Filename['name'] as $key => $filename) {
+            $arquivosParaUpload[] = [
+                'tmp_name' => $this->Filename['tmp_name'][$key],
+                'name' => $filename,
+                'type' => $this->Filename['type'][$key]
+            ];
+        }
+
+        $uploadFile = new \App\adms\Models\helper\AdmsUploadMultFiles();
+        $uploadFile->upload($uploadPath, $arquivosParaUpload);
+
         if ($uploadFile->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação cadastrada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
@@ -113,16 +134,29 @@ class AdmsAddOrderPayment {
     }
 
     private function insertInstallment() {
+        $installments = intval($this->Dados['installments']);
+        $datePayments = $this->datePayments;
+        $installmentValues = $this->installmentValues;
 
-        $this->DateProof['adms_order_payment_id'] = $this->Dados['id'];
-        $this->DateProof['installment'] = $this->Dados['installments'];
-        $this->DateProof['date_payment'] = $this->datePayments;
-        $this->DateProof['installment_value'] = $this->installmentValues;
+        $insertData = [];
 
-        var_dump($this->DateProof);
+        // Prepara os dados para inserção
+        for ($i = 0; $i < $installments; $i++) {
+            $insertData[] = [
+                'adms_order_payment_id' => $this->Dados['id'],
+                'installment' => $installments,
+                'date_payment' => $datePayments[$i],
+                'installment_value' => str_replace(',', '.', $installmentValues[$i]),
+                'created' => date("Y-m-d H:i:s")
+            ];
+        }
 
+        // Insere os dados no banco de dados
         $installment = new \App\adms\Models\helper\AdmsCreate();
-        $installment->exeCreate('adms_installments', $this->DateProof);
+
+        foreach ($insertData as $data) {
+            $installment->exeCreate('adms_installments', $data);
+        }
     }
 
     public function listAdd() {

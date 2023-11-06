@@ -192,7 +192,7 @@ firstChild.children[1].addEventListener('change', function () {
             var input = document.createElement('input');
             input.setAttribute('name', 'installment_values[]');
             input.setAttribute('type', 'text');
-            input.setAttribute('id', 'text');
+            input.setAttribute('id', 'text'+i);
             input.classList.add('form-control');
 
             var dateInput = document.createElement('input');

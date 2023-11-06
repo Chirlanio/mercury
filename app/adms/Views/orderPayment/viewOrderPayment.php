@@ -74,7 +74,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Valor - Adiantamento:</h6>
-                                    <small class="text-muted lead"><?php echo !empty($advance_amount) ? "R$ " .  number_format($advance_amount, 2, ',', '.') : "R$ 0,00"; ?></small>
+                                    <small class="text-muted lead"><?php echo!empty($advance_amount) ? "R$ " . number_format($advance_amount, 2, ',', '.') : "R$ 0,00"; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -183,7 +183,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                                     <input type="text" class="form-control bg-white" id="key_pix" value="<?php echo $key_pix; ?>" readonly>
                                 </div>
                             </div>
-                            
+
                             <div class="mb-3">
                                 <ul class="list-group mb-3">
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -194,7 +194,30 @@ if (!empty($this->Dados['dados_order'][0])) {
                                     </li>
                                 </ul>
                             </div>
-
+                            <?php
+                            if (!empty($this->Dados['installments'])) {
+                                ?>
+                                <div class="mb-3">
+                                    <ul class="list-group">
+                                        <li class="list-group-item justify-content-between lh-condensed">
+                                            <h6 class="my-0"><p>Boletos:</p></h6>
+                                            <div class="row">
+                                                <?php
+                                                $install = $this->Dados['installments'];
+                                                foreach ($install as $key => $inst) {
+                                                    extract($inst);
+                                                    ?>
+                                                    <div class="col border rounded shadow col-auto col-md-3 m-1">
+                                                        <h6 class="my-0 border-bottom"><p class="bold mt-1 mb-0"><?php echo $key + 1; ?>ª - Parcela</p></h6>
+                                                        <p class="text-muted mt-1"><?php echo "<strong>Data</strong>: " . date('d/m/Y', strtotime($date_payment)); ?></p>
+                                                        <p class="text-muted mt-0"><?php echo "<strong>R$</strong> " . str_replace('.', ',', $installment_value); ?></p>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <?php } ?>
                             <div class="mb-3">
                                 <ul class="list-group mb-3">
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -232,4 +255,4 @@ if (!empty($this->Dados['dados_order'][0])) {
     $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Nenhuma solicitação encontrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
     $UrlDestino = URLADM . 'order-payments/list';
     header("Location: $UrlDestino");
-}
+}    
