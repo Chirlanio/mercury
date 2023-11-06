@@ -1,3 +1,13 @@
+const editorCK = document.querySelector('.editorCK');
+const editorCKQl = document.querySelector('.editorCKQl');
+const editorObs = document.querySelector('.editorObs');
+const editorFarUm = document.querySelector('.editorFarUm');
+const editorFarDois = document.querySelector('.editorFarDois');
+const editorMatUm = document.querySelector('.editorMatUm');
+const editorMatDois = document.querySelector('.editorMatDois');
+const editorDesUm = document.querySelector('.editorDesUm');
+const editorDesDois = document.querySelector('.editorDesDois');
+
 window.sr = ScrollReveal({
     reset: true
 });
@@ -65,59 +75,98 @@ $(function () {
     });
 });
 
-ClassicEditor
-        .create(document.querySelector('.editorCK'))
-        .catch(error => {
-            console.error(error);
-        });
+var ClassicEditor;
 
-ClassicEditor
-        .create(document.querySelector('.editorCKQl'))
-        .catch(error => {
-            console.error(error);
-        });
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorCK')) {
+        ClassicEditor
+                .create(document.querySelector('.editorCK'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
 
-ClassicEditor
-        .create(document.querySelector('.editorObs'))
-        .catch(error => {
-            console.error(error);
-        });
 
-ClassicEditor
-        .create(document.querySelector('.editorFarUm'))
-        .catch(error => {
-            console.error(error);
-        });
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorCKQl')) {
+        ClassicEditor
+                .create(document.querySelector('.editorCKQl'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
 
-ClassicEditor
-        .create(document.querySelector('.editorFarDois'))
-        .catch(error => {
-            console.error(error);
-        });
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorObs')) {
+        ClassicEditor
+                .create(document.querySelector('.editorObs'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
 
-ClassicEditor
-        .create(document.querySelector('.editorMatUm'))
-        .catch(error => {
-            console.error(error);
-        });
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorFarUm')) {
+        ClassicEditor
+                .create(document.querySelector('.editorFarUm'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
 
-ClassicEditor
-        .create(document.querySelector('.editorMatDois'))
-        .catch(error => {
-            console.error(error);
-        });
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorFarDois')) {
+        ClassicEditor
+                .create(document.querySelector('.editorFarDois'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
 
-ClassicEditor
-        .create(document.querySelector('.editorDesUm'))
-        .catch(error => {
-            console.error(error);
-        });
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorMatUm')) {
+        ClassicEditor
+                .create(document.querySelector('.editorMatUm'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
 
-ClassicEditor
-        .create(document.querySelector('.editorDesDois'))
-        .catch(error => {
-            console.error(error);
-        });
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorMatDois')) {
+        ClassicEditor
+                .create(document.querySelector('.editorMatDois'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
+
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorDesUm')) {
+        ClassicEditor
+                .create(document.querySelector('.editorDesUm'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
+
+$(document).ready(function () {
+    if (editorCK.classList.contains('editorDesDois')) {
+        ClassicEditor
+                .create(document.querySelector('.editorDesDois'))
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+});
 
 $(document).ready(function () {
     $('#date').mask('00/00/0000');
@@ -137,6 +186,8 @@ $(document).ready(function () {
     $('#valor_venda').mask("#.##0,00", {reverse: true});
     $('#valor_correto').mask("#.##0,00", {reverse: true});
     $('#valor_estorno').mask("#.##0,00", {reverse: true});
+    $('#text1').mask("#.##0,00", {reverse: true});
+    $('#text2').mask("#.##0,00", {reverse: true});
     $('#cost_center_id').mask("0.0.0.00.#0000", {reverse: false});
     $('.cost_center').mask("0.0.0.00.#0000", {reverse: false});
     $('#ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
@@ -169,6 +220,19 @@ $(document).ready(function () {
         }
     });
     $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+});
+
+$(document).change(function () {
+    $('#text1').mask("#.##0,00", {reverse: true});
+    $('#text2').mask("#.##0,00", {reverse: true});
+    $('#text3').mask("#.##0,00", {reverse: true});
+    $('#text4').mask("#.##0,00", {reverse: true});
+    $('#text5').mask("#.##0,00", {reverse: true});
+    $('#text6').mask("#.##0,00", {reverse: true});
+    $('#text7').mask("#.##0,00", {reverse: true});
+    $('#text8').mask("#.##0,00", {reverse: true});
+    $('#text9').mask("#.##0,00", {reverse: true});
+    $('#text10').mask("#.##0,00", {reverse: true});
 });
 
 function valorEstorno() {

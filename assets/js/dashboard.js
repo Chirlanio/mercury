@@ -187,6 +187,7 @@ firstChild.children[1].addEventListener('change', function () {
             var divFormGroup = document.createElement('div');
             divFormGroup.classList.add('form-group', 'col-md-3', 'input-dinamico');
             var label = document.createElement('label');
+            label.setAttribute('for', 'text'+i);
             label.textContent = 'Valor - Parcela';
             
             var input = document.createElement('input');

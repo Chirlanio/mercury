@@ -32,7 +32,7 @@ if (isset($this->Dados['form'][0])) {
         <form method="POST" action="" enctype="multipart/form-data" class="was-validated">
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Área</label>
+                    <label for="adms_area_id"><span class="text-danger">*</span> Área</label>
                     <select name="adms_area_id" id="adms_area_id" class="form-control is-invalid" required autofocus>
                         <option value="">Selecione</option>
                         <?php
@@ -48,7 +48,7 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Centro de Custos</label>
+                    <label for="adms_cost_center_id"><span class="text-danger">*</span> Centro de Custos</label>
                     <select name="adms_cost_center_id" id="adms_cost_center_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
@@ -65,8 +65,8 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Marca</label>
-                    <select name="adms_brand_id" class="form-control is-invalid" required>
+                    <label for="adms_brand_id"><span class="text-danger">*</span> Marca</label>
+                    <select name="adms_brand_id" id="adms_brand_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['brand'] as $brand) {
@@ -81,7 +81,7 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label><span class="text-danger">*</span> Data de Pagamento</label>
+                    <label for="date_payment"><span class="text-danger">*</span> Data de Pagamento</label>
                     <input name="date_payment" type="date" id="date_payment" class="form-control is-invalid" value="<?php
                     if (isset($valorForm['date_payment'])) {
                         echo $valorForm['date_payment'];
@@ -92,7 +92,7 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Aprovador</label>
+                    <label for="manager_id"><span class="text-danger">*</span> Aprovador</label>
                     <select name="manager_id" id="manager_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
@@ -112,7 +112,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
 
                 <div class="form-group col-md-3">
-                    <label> Nota fiscal</label>
+                    <label for="number_nf"> Nota fiscal</label>
                     <input name="number_nf" id="number_nf" type="number" class="form-control" value="<?php
                     if (isset($valorForm['number_nf'])) {
                         echo $valorForm['number_nf'];
@@ -121,8 +121,8 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-7">
-                    <label><span class="text-danger">*</span> Fornecedor</label>
-                    <select name="adms_supplier_id" class="form-control is-invalid" required>
+                    <label for="adms_supplier_id"><span class="text-danger">*</span> Fornecedor</label>
+                    <select name="adms_supplier_id" id="adms_supplier_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['supplier'] as $supplier) {
@@ -138,7 +138,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label><span class="text-danger">*</span> Valor Total</label>
+                    <label for="valor_correto"><span class="text-danger">*</span> Valor Total</label>
                     <input name="total_value" type="text" id="valor_correto" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['total_value'])) {
                         echo $valorForm['total_value'];
@@ -149,8 +149,8 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Descrição</label>
-                    <input name="description" type="text" class="form-control is-invalid" required value="<?php
+                    <label for="description"><span class="text-danger">*</span> Descrição</label>
+                    <input name="description" id="description" type="text" class="form-control is-invalid" required value="<?php
                     if (isset($valorForm['description'])) {
                         echo $valorForm['description'];
                     }
@@ -161,7 +161,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
 
                 <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Forma de Pagamento</label>
+                    <label for="adms_type_payment_id"><span class="text-danger">*</span> Forma de Pagamento</label>
                     <select name="adms_type_payment_id" id="adms_type_payment_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
@@ -178,7 +178,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Adiantamento</label>
+                    <label for="advance"><span class="text-danger">*</span> Adiantamento</label>
                     <select name="advance" id="advance" class="form-control is-invalid" required>
                         <?php
                         if (isset($valorForm['advance']) == 1) {
@@ -199,7 +199,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label> Valor - Adiantamento</label>
+                    <label for="money"> Valor - Adiantamento</label>
                     <input name="advance_amount" id="money" type="text" class="form-control" value="<?php
                     if (isset($valorForm['advance_amount'])) {
                         echo $valorForm['advance_amount'];
@@ -208,7 +208,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label><span class="text-danger">*</span> Comprovante?</label>
+                    <label for="proof"><span class="text-danger">*</span> Comprovante?</label>
                     <select name="proof" id="proof" class="form-control is-invalid" required>
                         <?php
                         if (isset($valorForm['proof']) == 1) {
@@ -229,7 +229,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label> Lançamento</label>
+                    <label for="launch_numebr"> Lançamento Fiscal</label>
                     <input name="launch_numebr" id="launch_numebr" type="number" class="form-control" value="<?php
                     if (isset($valorForm['launch_numebr'])) {
                         echo $valorForm['launch_numebr'];
@@ -241,7 +241,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row d-none" id="parc">
 
                 <div class="form-group col-md-3">
-                    <label> Parcelas</label>
+                    <label for="installments"> Parcelas</label>
                     <input name="installments" id="installments" type="number" min="0" max="10" class="form-control" value="0">
                 </div>
 
@@ -250,7 +250,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <!-- Dados para pagamento -->
                 <div class="form-group col-md-3">
-                    <label>Banco</label>
+                    <label for="bank_id">Banco</label>
                     <select name="bank_id" id="bank_id" class="form-control is-valid">
                         <option value="">Selecione</option>
                         <?php
@@ -267,8 +267,8 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label>Agência</label>
-                    <input name="agency" type="number" class="form-control" value="<?php
+                    <label for="agency">Agência</label>
+                    <input name="agency" id="agency" type="number" class="form-control" value="<?php
                     if (isset($valorForm['agency'])) {
                         echo $valorForm['agency'];
                     }
@@ -276,8 +276,8 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label>Conta</label>
-                    <input name="checking_account" type="number" class="form-control" value="<?php
+                    <label for="checking_account">Conta</label>
+                    <input name="checking_account" id="checking_account" type="number" class="form-control" value="<?php
                     if (isset($valorForm['checking_account'])) {
                         echo $valorForm['checking_account'];
                     }
@@ -285,8 +285,8 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-5">
-                    <label>Títular</label>
-                    <input name="name_supplier" type="text" class="form-control is-valid" value="<?php
+                    <label for="name_supplier">Títular</label>
+                    <input name="name_supplier" id="name_supplier" type="text" class="form-control is-valid" value="<?php
                     if (isset($valorForm['name_supplier'])) {
                         echo $valorForm['name_supplier'];
                     }
@@ -302,7 +302,7 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-2">
-                    <label>Tipo de Chave</label>
+                    <label for="adms_type_key_pix_id">Tipo de Chave</label>
                     <select name="adms_type_key_pix_id" id="adms_type_key_pix_id" class="form-control is-valid">
                         <option value="">Selecione</option>
                         <?php
@@ -319,8 +319,8 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-10">
-                    <label>Chave PIX</label>
-                    <input name="key_pix" type="text" class="form-control" value="<?php
+                    <label for="key_pix">Chave PIX</label>
+                    <input name="key_pix" id="key_pix" type="text" class="form-control" value="<?php
                     if (isset($valorForm['key_pix'])) {
                         echo $valorForm['key_pix'];
                     }
@@ -330,7 +330,7 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label>Observações</label>
+                    <label for="obs">Observações</label>
                     <textarea name="obs" id="obs" class="form-control editorCK is-invalid" rows="4">
                         <?php
                         if (isset($valorForm['obs'])) {
@@ -343,8 +343,8 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Arquivo</label>
-                    <input class="form-control-file is-invalid" name="file_name[]" type="file" required multiple/>
+                    <label for="file_name"><span class="text-danger">*</span> Arquivo</label>
+                    <input class="form-control-file is-invalid" name="file_name[]" id="file_name" type="file" required multiple/>
                 </div>
             </div>
             <p>

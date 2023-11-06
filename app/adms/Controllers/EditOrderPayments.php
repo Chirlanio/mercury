@@ -16,12 +16,9 @@ class EditOrderPayments {
 
     private $Dados;
     private $DadosId;
+    
     public function orderPayment($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-    
-        var_dump($this->Dados);
-        var_dump($this->DadosId);
-
 
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
@@ -36,7 +33,7 @@ class EditOrderPayments {
     private function editOrderPaymentPriv() {
         if (!empty($this->Dados['EditOrder'])) {
             unset($this->Dados['EditOrder']);
-            $this->Dados['new_file'] = ($_FILES['new_file'] ? $_FILES['new_file'] : $this->Dados['file_name']);
+            $this->Dados['new_files'] = ($_FILES['new_files'] ? $_FILES['new_files'] : $this->Dados['file_name']);
 
             $editOrder = new \App\adms\Models\AdmsEditOrderPayment();
             $editOrder->altOrder($this->Dados);

@@ -91,6 +91,12 @@ if (!empty($this->Dados['dados_order'][0])) {
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
+                                    <h6 class="my-2">Lançamento Fiscal:</h6>
+                                    <small class="text-muted lead" ><?php echo !empty($launch_number) ? $launch_number : ""; ?></small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
                                     <h6 class="my-2">Situação:</h6>
                                     <small class="badge badge-info badge-pill lead"><?php echo $exibition_name; ?></small>
                                 </div>
@@ -225,7 +231,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                                             <h6 class="my-0"><p>Arquivos:</p></h6>
                                             <small class="text-muted">
                                                 <?php
-                                                $types = array('png', 'jpg', 'jpeg', 'gif', 'xls', 'txt', 'doc', 'csv', 'pdf', 'docx', 'xlsx');
+                                                $types = array('png', 'jpg', 'jpeg', 'doc', 'pdf', 'docx');
                                                 $path = 'assets/files/orderPayments/' . $id . '/';
                                                 $dir = new DirectoryIterator($path);
                                                 foreach ($dir as $fileInfo) {
