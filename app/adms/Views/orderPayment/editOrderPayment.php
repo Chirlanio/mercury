@@ -455,7 +455,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
 
                 <div class="form-group col-md-3">
-                    <label for="bank_id"><span class="text-danger">*</span> Banco</label>
+                    <label for="bank_id">Banco</label>
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                         echo '<select name="bank_id" id="bank_id" class="form-control is-valid">';
@@ -659,7 +659,8 @@ if (isset($this->Dados['form'][0])) {
                                             if (in_array($ext, $types)) {
                                                 $arquivo = $fileInfo->getFilename();
                                                 echo "<span class='m-auto lead'>";
-                                                echo $arquivo . " - <a href='" . URLADM . "assets/files/orderPayments/" . $valorForm['id'] . "/$arquivo' class='btn btn-outline-primary btn-sm' download><i class='fas fa-download'></i> Baixar</a><br>";
+                                                echo $arquivo . " - <a href='" . URLADM . "assets/files/orderPayments/" . $valorForm['id'] . "/$arquivo' class='btn btn-dark btn-sm mr-1' download><i class='fas fa-download'></i> Baixar</a>";
+                                                echo "<a href='" . URLADM . "edit-order-payments/order-payment/" . $valorForm['id'] . "?id=" . $valorForm['id'] . "&file=$arquivo' class='btn btn-dark btn-sm'><i class='fa-solid fa-trash'></i></a><br>";
                                                 echo "</span>";
                                             }
                                         }

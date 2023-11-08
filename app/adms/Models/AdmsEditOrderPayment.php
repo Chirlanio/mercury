@@ -45,6 +45,7 @@ class AdmsEditOrderPayment {
 
     public function altOrder(array $Dados) {
         $this->Dados = $Dados;
+        
         $this->File = (!empty($this->Dados['new_files']['name'])) ? $this->Dados['new_files'] : $this->Dados['file_name'];
         $this->Bank = $this->Dados['bank_id'];
         $this->NumberNf = $this->Dados['number_nf'];
@@ -60,9 +61,9 @@ class AdmsEditOrderPayment {
 
         $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));
         if ((!empty($this->Dados['total_value'])) and (!empty($this->Dados['advance_amount']))) {
-            $this->Dados['advance_amount'] = (!empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
+            $this->AdvanceAmount = (!empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
         }
-        unset($this->Dados['i_id'], $this->Dados['launch_number'], $this->Dados['name_supplier'], $this->Dados['new_files'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
+        unset($this->Dados['id'], $this->Dados['delete'], $this->Dados['i_id'], $this->Dados['launch_number'], $this->Dados['name_supplier'], $this->Dados['new_files'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -70,7 +71,7 @@ class AdmsEditOrderPayment {
         if ($valCampoVazio->getResultado()) {
             if (!empty($this->File['name'][0])) {
                 $this->valArquivo();
-            }else{
+            } else {
                 $this->updateEditOrderPayment();
             }
         } else {
@@ -83,7 +84,7 @@ class AdmsEditOrderPayment {
             $this->updateEditOrderPayment();
         }
 
-        $uploadPath = 'assets/files/orderPayments/' . $this->Dados['id'] . '/';
+        $uploadPath = 'assets/files/orderPayments/' . $_SESSION['id'] . '/';
         $arquivosParaUpload = [];
 
         foreach ($this->File['name'] as $key => $filename) {
@@ -101,7 +102,7 @@ class AdmsEditOrderPayment {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Solicitação atualizada. Erro ao realizar o upload do arquivo!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -125,10 +126,9 @@ class AdmsEditOrderPayment {
             $this->Dados['file_name'] = $slugImg->nomeSlug($this->File['name'][0]);
         }
         $this->Dados['modified'] = date("Y-m-d H:i:s");
-        //var_dump($this->Dados);
 
         $upAltOrder = new \App\adms\Models\helper\AdmsUpdate();
-        $upAltOrder->exeUpdate("adms_order_payments", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
+        $upAltOrder->exeUpdate("adms_order_payments", $this->Dados, "WHERE id =:id", "id=" . $_SESSION['id']);
         if ($upAltOrder->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;

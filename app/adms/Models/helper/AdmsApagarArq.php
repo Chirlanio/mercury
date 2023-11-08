@@ -20,6 +20,7 @@ class AdmsApagarArq {
     public function apagarArq($NomeArq, $Diretorio = null) {
         $this->NomeArq = (string) $NomeArq;
         $this->Diretorio = (string) $Diretorio;
+
         $this->excluirArq();
         if (!empty($this->Diretorio)) {
             $this->excluirDiretorio();
@@ -27,15 +28,15 @@ class AdmsApagarArq {
     }
 
     private function excluirArq() {
-        if (file_exists($this->NomeArq)) {
-            unlink($this->NomeArq);
+        if (file_exists($this->Diretorio.$this->NomeArq)) {
+            unlink($this->Diretorio . $this->NomeArq);
+            return true;
         }
     }
 
     private function excluirDiretorio() {
         if (file_exists($this->Diretorio)) {
-            rmdir($this->Diretorio);
+            rmdir(URLADM . $this->Diretorio);
         }
     }
-
 }

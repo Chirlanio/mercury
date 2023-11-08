@@ -90,7 +90,6 @@ class AdmsEsqueceuSenha {
         $this->DadosEmail['cont_email'] .= "Usuário: " . $this->DadosUsuario[0]['usuario'] . "<br><br>";
         $this->DadosEmail['cont_email'] .= "Se você não solicitou essa alteração, nenhuma ação é necessária. Sua senha permanecerá a mesma até que você ative este código.<br><br>";
 
-
         $this->DadosEmail['cont_text_email'] = "Olá " . $prim_nome . " Você solicitou uma alteração de senha. Seguindo o link abaixo você poderá alterar sua senha. Para continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço abaixo no seu navegador. " . URLADM . "atual-senha/atual-senha?chave=" . $this->DadosUsuario[0]['recuperar_senha'] . " Usuário: " . $this->DadosUsuario[0]['usuario'] . "Se você não solicitou essa alteração, nenhuma ação é necessária. Sua senha permanecerá a mesma até que você ative este código.";
 
         $emailPHPMailer = new \App\adms\Models\helper\AdmsPhpMailer();

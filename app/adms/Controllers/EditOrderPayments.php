@@ -16,9 +16,15 @@ class EditOrderPayments {
 
     private $Dados;
     private $DadosId;
-    
+
     public function orderPayment($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        $this->Dados['id'] = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
+        $this->Dados['delete'] = filter_input(INPUT_GET, 'file', FILTER_DEFAULT);
+
+        if (!empty($this->Dados['delete'])) {
+            $this->delFiles();
+        }
 
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
@@ -74,4 +80,8 @@ class EditOrderPayments {
         }
     }
 
+    private function delFiles() {
+        $delFilename = new \App\adms\Models\helper\AdmsApagarArq();
+        $delFilename->apagarArq($this->Dados['delete'], 'assets/files/orderPayments/' . $this->Dados['id'] . '/');
+    }
 }

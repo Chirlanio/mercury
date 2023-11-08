@@ -43,7 +43,7 @@ class AdmsUploadMultFiles {
         foreach ($this->Arquivos as $arquivo) {
             $tipoArquivo = $arquivo['type'];
 
-            if (in_array($tipoArquivo, $this->TiposAceitos)) {
+            if ((in_array($tipoArquivo, $this->TiposAceitos)) and (!empty($tipoArquivo))) {
                 $this->validate();
             } else {
                 $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A extensão do arquivo é inválida. Selecione um arquivo válido! Ex: .txt, .xlsx, .doc, .pdf.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -61,10 +61,10 @@ class AdmsUploadMultFiles {
             $nomeArquivo = $Filename->nomeSlug($this->Arquivos[$key]['name']);
 
             if ((move_uploaded_file($nomeArquivoTemp, $this->Diretorio . $nomeArquivo)) and (!empty($nomeArquivoTemp))) {
-                $this->Resultado = true;
-            } else {
                 $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Não foi possível realizar o upload do arquivo!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = false;
+            } else {
+                $this->Resultado = true;
             }
         }
     }

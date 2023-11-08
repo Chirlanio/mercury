@@ -30,6 +30,7 @@ if (isset($this->Dados['form'][0])) {
         }
         ?>
         <form method="POST" action="" enctype="multipart/form-data" class="was-validated">
+            
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="adms_area_id"><span class="text-danger">*</span> Área</label>
@@ -229,10 +230,10 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label for="launch_numebr"> Lançamento Fiscal</label>
-                    <input name="launch_numebr" id="launch_numebr" type="number" class="form-control" value="<?php
-                    if (isset($valorForm['launch_numebr'])) {
-                        echo $valorForm['launch_numebr'];
+                    <label for="launch_number"> Lançamento Fiscal</label>
+                    <input name="launch_number" id="launch_number" type="number" class="form-control" value="<?php
+                    if (isset($valorForm['launch_number'])) {
+                        echo $valorForm['launch_number'];
                     }
                     ?>">
                 </div>
