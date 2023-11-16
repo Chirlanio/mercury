@@ -30,7 +30,7 @@ if (isset($this->Dados['form'][0])) {
         }
         ?>
         <form method="POST" action="" enctype="multipart/form-data" class="was-validated">
-            
+
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="adms_area_id"><span class="text-danger">*</span> Área</label>
@@ -53,12 +53,23 @@ if (isset($this->Dados['form'][0])) {
                     <select name="adms_cost_center_id" id="adms_cost_center_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['cost'] as $cc) {
-                            extract($cc);
-                            if (isset($valorForm['adms_cost_center_id']) == $c_id) {
-                                echo "<option value='$c_id' selected>$costCenter</option>";
-                            } else {
-                                echo "<option value='$c_id'>$costCenter</option>";
+                        if ($_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                            foreach ($this->Dados['select']['cost'] as $cc) {
+                                extract($cc);
+                                if (isset($valorForm['adms_cost_center_id']) == $c_id) {
+                                    echo "<option value='$c_id' selected>$costCenter - $cost_center_id</option>";
+                                } else {
+                                    echo "<option value='$c_id'>$costCenter - $cost_center_id</option>";
+                                }
+                            }
+                        } else {
+                            foreach ($this->Dados['select']['cost'] as $cc) {
+                                extract($cc);
+                                if (isset($valorForm['adms_cost_center_id']) == $c_id) {
+                                    echo "<option value='$c_id' selected>$costCenter</option>";
+                                } else {
+                                    echo "<option value='$c_id'>$costCenter</option>";
+                                }
                             }
                         }
                         ?>

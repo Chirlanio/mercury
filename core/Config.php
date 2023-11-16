@@ -9,7 +9,8 @@ define('URLADM', 'http://localhost/mercury/');
 define('CONTROLER', 'Home');
 define('METODO', 'index');
 define('LIMIT', 20);
-define('ADMPERMITION', 1);
+define('SUPADMPERMITION', 1);
+define('ADMPERMITION', 2);
 define('STOREPERMITION', 5);
 define('FINANCIALPERMITION', 9);
 

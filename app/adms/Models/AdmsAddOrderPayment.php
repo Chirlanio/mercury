@@ -97,7 +97,7 @@ class AdmsAddOrderPayment {
                 $this->Dados['id'] = $addOrder->getResultado();
                 $this->insertInstallment();
                 $this->valArquivo();
-                $this->viewManager();
+                //$this->viewManager();
             }
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A solicitação não foi cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -123,8 +123,16 @@ class AdmsAddOrderPayment {
             ];
         }
 
-        $uploadFile = new \App\adms\Models\helper\AdmsUploadMultFiles();
-        $uploadFile->upload($uploadPath, $arquivosParaUpload);
+        if (count($arquivosParaUpload) > 1) {
+            $uploadFile = new \App\adms\Models\helper\AdmsUploadMultFiles();
+            $uploadFile->upload($uploadPath, $arquivosParaUpload);
+        } else {
+            $newName = new \App\adms\Models\helper\AdmsSlug();
+            $this->Filename['name'][0] = $newName->nomeSlug($this->Filename['name'][0]);
+
+            $uploadFile = new \App\adms\Models\helper\AdmsUpload();
+            $uploadFile->upload($arquivosParaUpload[0], $uploadPath, $this->Filename['name'][0]);
+        }
 
         if ($uploadFile->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação cadastrada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -184,7 +192,6 @@ class AdmsAddOrderPayment {
         $this->DadosEmail['cont_email'] .= "ID: " . $this->Dados['id'] . ".<br>";
         $this->DadosEmail['cont_email'] .= "Valor: " . number_format($this->Dados['total_value'], 2, ',', '.') . ".<br>";
         $this->DadosEmail['cont_email'] .= "Data Pagamento: " . date("d/m/Y", strtotime($this->Dados['date_payment'])) . ".<br>";
-        //$this->DadosEmail['cont_email'] .= "Usuário: " . $this->DadosUsuario[0]['usuario'] . "<br><br>";
         $this->DadosEmail['cont_email'] .= "Se você não reconhece a solicitação entre em contado com o setor Financeiro.<br><br>";
 
         $this->DadosEmail['cont_text_email'] = "Olá " . $prim_nome . " Foi cadastrada uma nova ordem de pagamento. Segue informações sobre o cadastro. ID: " . $this->Dados['id'] . " Valor: " . number_format($this->Dados['total_value'], 2, ',', '.') . " Data Pagamento: " . date("d/m/Y", strtotime($this->Dados['date_payment'])) . ". Se você não reconhece a solicitação entre em contado com o setor Financeiro.";
@@ -199,7 +206,6 @@ class AdmsAddOrderPayment {
             //$_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Erro ao recuperar a senha!</div>";
             $this->Resultado = false;
         }
-        var_dump($this->Resultado);
     }
 
     public function listAdd() {
@@ -208,7 +214,11 @@ class AdmsAddOrderPayment {
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['area'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
+        if ($_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+            $listar->fullRead("SELECT id c_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
+        } else {
+            $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area_id AND status_id =:status_id ORDER BY name ASC", "adms_area_id=" . $_SESSION['area_id'] . "&status_id=1");
+        }
         $registro['cost'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers WHERE status_id =:status_id ORDER BY brand ASC", "status_id=1");

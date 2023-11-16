@@ -64,7 +64,7 @@ if (!defined('URLADM')) {
             </div>
         </form>
         <?php
-        if (empty($this->Dados['list_backlog'])) {
+        if ((empty($this->Dados['list_backlog'])) and (empty($this->Dados['list_doing'])) and (empty($this->Dados['list_waiting'])) and (empty($this->Dados['list_done']))) {
             ?>
             <div class="alert alert-danger" role="alert">
                 Nenhuma ordem de pagamento encontrada!

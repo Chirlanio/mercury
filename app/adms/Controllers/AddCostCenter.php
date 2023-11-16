@@ -17,9 +17,9 @@ class AddCostCenter {
     private $Dados;
 
     public function costCenter() {
-        
+
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        
+
         if (!empty($this->Dados['AddCostCenter'])) {
             unset($this->Dados['AddCostCenter']);
             $AddCostCenter = new \App\adms\Models\AdmsAddCostCenter();
@@ -37,20 +37,19 @@ class AddCostCenter {
     }
 
     private function addCostCenterViewPriv() {
-        
+
         $botao = ['list_cost' => ['menu_controller' => 'cost-centers', 'menu_metodo' => 'list']];
-        
+
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
-        
+
         $listarSelect = new \App\adms\Models\AdmsAddCostCenter();
-        $this->Dados['select']=$listarSelect->listAdd();
-        
+        $this->Dados['select'] = $listarSelect->listAdd();
+
         $carregarView = new \Core\ConfigView("adms/Views/costCenter/addCostCenter", $this->Dados);
         $carregarView->renderizar();
     }
-
 }

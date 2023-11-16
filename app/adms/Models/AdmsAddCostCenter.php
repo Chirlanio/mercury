@@ -24,6 +24,7 @@ class AdmsAddCostCenter {
     public function addCostCenter(array $Dados) {
 
         $this->Dados = $Dados;
+        $this->Dados['cost_center_id'] = str_replace('.', '', $this->Dados['cost_center_id']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
@@ -55,15 +56,17 @@ class AdmsAddCostCenter {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        $listar->fullRead("SELECT id r_id, nome responsavel FROM tb_funcionarios WHERE cargo_id =:cargo_id AND status_id =:status_id ORDER BY id ASC", "cargo_id=2&status_id=1");
+        $listar->fullRead("SELECT id r_id, name responsavel FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         $registro['resp'] = $listar->getResultado();
-        
+
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
         $registro['sits'] = $listar->getResultado();
 
-        $this->Resultado = ['resp' => $registro['resp'], 'sits' => $registro['sits']];
+        $listar->fullRead("SELECT id a_id, name name_area FROM adms_areas ORDER BY name ASC");
+        $registro['areas'] = $listar->getResultado();
+
+        $this->Resultado = ['resp' => $registro['resp'], 'sits' => $registro['sits'], 'areas' => $registro['areas']];
 
         return $this->Resultado;
     }
-
 }

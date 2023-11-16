@@ -143,8 +143,12 @@ class AdmsEditOrderPayment {
 
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas ORDER BY name ASC");
         $registro['area'] = $listar->getResultado();
-
-        $listar->fullRead("SELECT id cc_id, name costCenter FROM adms_cost_centers ORDER BY name ASC");
+        
+        if ($_SESSION['adms_niveis_acesso_id'] <= STOREPERMITION) {
+            $listar->fullRead("SELECT id cc_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
+        } else {//$_SESSION['area_id']
+            $listar->fullRead("SELECT id cc_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area_id AND status_id =:status_id ORDER BY name ASC", "adms_area_id=" . $_SESSION['area_id'] . "&status_id=1");
+        }
         $registro['costCenter'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers WHERE status_id =:status_id ORDER BY brand ASC", 'status_id=1');

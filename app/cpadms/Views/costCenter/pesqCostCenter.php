@@ -83,6 +83,7 @@ if (!defined('URLADM')) {
                         <th class="d-none d-sm-table-cell">Id Centro de Custo</th>
                         <th class="d-none d-sm-table-cell">Centro de Custo</th>
                         <th class="d-none d-sm-table-cell">Responsável</th>
+                        <th class="d-none d-sm-table-cell">Área</th>
                         <th class="d-none d-sm-table-cell text-center">Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
@@ -98,6 +99,7 @@ if (!defined('URLADM')) {
                                 <td class="align-middle cost_center"><?php echo $cost_center_id; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $name; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $gerencia; ?></td>
+                                <td class="d-none d-sm-table-cell align-middle"><?php echo $name_area; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle text-center"><?php echo $status; ?></td>
                                 <td class="text-center">
                                     <span class="d-none d-md-block">

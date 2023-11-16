@@ -91,7 +91,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Nível de Acesso</label>
                     <select name="adms_niveis_acesso_id" id="adms_niveis_acesso_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
@@ -107,7 +107,23 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
+                    <label><span class="text-danger">*</span> Área</label>
+                    <select name="adms_area_id" id="adms_area_id" class="form-control is-invalid" required>
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['areas'] as $ar) {
+                            extract($ar);
+                            if ($valorForm['areas'] == $a_id) {
+                                echo "<option value='$a_id' selected>$name_area</option>";
+                            } else {
+                                echo "<option value='$a_id'>$name_area</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Situação</label>
                     <select name="adms_sits_usuario_id" id="adms_sits_usuario_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>

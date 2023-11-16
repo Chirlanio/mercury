@@ -27,14 +27,9 @@ class AdmsLogin {
         if ($this->Resultado) {
             $validaLogin = new \App\adms\Models\helper\AdmsRead();
             $validaLogin->fullRead("SELECT user.id, user.nome, user.email, user.usuario, user.senha, user.imagem, user.loja_id, user.adms_niveis_acesso_id,
-                    nivac.ordem	ordem_nivac, nivac.adms_cor_id, c.cor, f.usuario nome_usuario, cg.nome cargo, l.nome loja
+                    user.adms_area_id, nivac.ordem ordem_nivac, nivac.adms_cor_id, c.cor, f.usuario nome_usuario, cg.nome cargo, l.nome loja
                     FROM adms_usuarios user
-                    INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
-                    INNER JOIN adms_cors c ON c.id=nivac.adms_cor_id
-                    INNER JOIN tb_funcionarios f ON f.loja_id=user.loja_id AND f.cargo_id=2 AND f.status_id=1
-                    INNER JOIN tb_cargos cg ON cg.id=f.cargo_id
-                    INNER JOIN tb_lojas l ON l.id=user.loja_id
-                    WHERE user.usuario =:usuario AND f.status_id =:status_id LIMIT :limit", "usuario={$this->Dados['usuario']}&status_id=1&limit=1");
+                    INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id INNER JOIN adms_cors c ON c.id=nivac.adms_cor_id INNER JOIN tb_funcionarios f ON f.loja_id=user.loja_id AND f.cargo_id=2 AND f.status_id=1 INNER JOIN tb_cargos cg ON cg.id=f.cargo_id INNER JOIN tb_lojas l ON l.id=user.loja_id WHERE user.usuario =:usuario AND f.status_id =:status_id LIMIT :limit", "usuario={$this->Dados['usuario']}&status_id=1&limit=1");
             $this->Resultado = $validaLogin->getResultado();
             if (!empty($this->Resultado)) {
                 $this->validarSenha();

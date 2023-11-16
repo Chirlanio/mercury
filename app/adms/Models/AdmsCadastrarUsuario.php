@@ -114,7 +114,10 @@ class AdmsCadastrarUsuario {
         $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY nome ASC");
         $registro['loja'] = $listar->getResultado();
 
-        $this->Resultado = ['nivac' => $registro['nivac'], 'sit' => $registro['sit'], 'loja' => $registro['loja']];
+        $listar->fullRead("SELECT id a_id, name name_area FROM adms_areas ORDER BY name ASC");
+        $registro['areas'] = $listar->getResultado();
+
+        $this->Resultado = ['nivac' => $registro['nivac'], 'sit' => $registro['sit'], 'loja' => $registro['loja'], 'areas' => $registro['areas']];
 
         return $this->Resultado;
     }

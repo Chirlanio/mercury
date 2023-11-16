@@ -188,8 +188,8 @@ $(document).ready(function () {
     $('#valor_estorno').mask("#.##0,00", {reverse: true});
     $('#text1').mask("#.##0,00", {reverse: true});
     $('#text2').mask("#.##0,00", {reverse: true});
-    $('#cost_center_id').mask("0.0.0.00.#0000", {reverse: false});
-    $('.cost_center').mask("0.0.0.00.#0000", {reverse: false});
+    $('#cost_center_id').mask("0.0.00.00", {reverse: false});
+    $('.cost_center').mask("0.0.00.00", {reverse: false});
     $('#ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
         translation: {
             'Z': {

@@ -27,9 +27,9 @@ class AdmsEditCostCenter {
         $this->DadosId = (int) $DadosId;
 
         $viewCostCenter = new \App\adms\Models\helper\AdmsRead();
-        $viewCostCenter->fullRead("SELECT cc.id c_id, cc.cost_center_id, cc.name costCenter, cc.manager_id, cc.status_id, cc.created, cc.modified
+        $viewCostCenter->fullRead("SELECT cc.id c_id, cc.cost_center_id, cc.name costCenter, cc.adms_area_id, cc.manager_id, cc.status_id, cc.created, cc.modified
                 FROM adms_cost_centers cc
-                LEFT JOIN tb_funcionarios f ON f.id=cc.manager_id
+                LEFT JOIN adms_managers f ON f.id=cc.manager_id
                 LEFT JOIN adms_sits s ON s.id=cc.status_id
                 WHERE cc.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $viewCostCenter->getResultado();
@@ -67,13 +67,16 @@ class AdmsEditCostCenter {
     public function listAdd() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        $listar->fullRead("SELECT id f_id, nome gerencia FROM tb_funcionarios WHERE cargo_id =:cargo_id AND status_id =:status_id ORDER BY id ASC", "cargo_id=2&status_id=1");
+        $listar->fullRead("SELECT id f_id, name gerencia FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         $registro['resp'] = $listar->getResultado();
         
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
         $registro['sits'] = $listar->getResultado();
+        
+        $listar->fullRead("SELECT id a_id, name name_area FROM adms_areas WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
+        $registro['areas'] = $listar->getResultado();
 
-        $this->Resultado = ['resp' => $registro['resp'], 'sits' => $registro['sits']];
+        $this->Resultado = ['resp' => $registro['resp'], 'sits' => $registro['sits'], 'areas' => $registro['areas']];
 
         return $this->Resultado;
     }

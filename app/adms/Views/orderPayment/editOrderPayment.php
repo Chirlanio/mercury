@@ -99,9 +99,9 @@ if (isset($this->Dados['form'][0])) {
                         foreach ($this->Dados['select']['costCenter'] as $cc) {
                             extract($cc);
                             if ($valorForm['adms_cost_center_id'] == $cc_id) {
-                                echo "<option value='$cc_id' selected>$costCenter</option>";
+                                echo "<option value='$cc_id' selected>$costCenter - $cost_center_id</option>";
                             } else {
-                                echo "<option value='$cc_id'>$costCenter</option>";
+                                echo "<option value='$cc_id'>$costCenter - $cost_center_id</option>";
                             }
                         }
                         echo '</select>';

@@ -51,10 +51,10 @@ class CpAdmsPesqCostCenter {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listCostCenter = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['adms_niveis_acesso_id'] == 5) {
-            $listCostCenter->fullRead("SELECT cc.*, f.nome gerencia, s.nome status FROM adms_cost_centers cc INNER JOIN tb_funcionarios f ON f.id=cc.manager_id INNER JOIN adms_sits s ON s.id=cc.status_id WHERE cc.name LIKE '%' :name '%' AND cc.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&name={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $listCostCenter->fullRead("SELECT cc.*, f.name gerencia, a.name name_area, s.nome status FROM adms_cost_centers cc INNER JOIN adms_managers f ON f.id=cc.manager_id INNER JOIN adms_sits s ON s.id=cc.status_id LEFT JOIN adms_areas a ON a.id=cc.adms_area_id WHERE cc.name LIKE '%' :name '%' AND cc.status_id =:status_id ORDER BY name ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&name={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listCostCenter->fullRead("SELECT cc.*, f.nome gerencia, s.nome status FROM adms_cost_centers cc INNER JOIN tb_funcionarios f ON f.id=cc.manager_id INNER JOIN adms_sits s ON s.id=cc.status_id WHERE cc.name LIKE '%' :name '%' ORDER BY id ASC LIMIT :limit OFFSET :offset", "name={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listCostCenter->fullRead("SELECT cc.*, f.name gerencia, a.name name_area, s.nome status FROM adms_cost_centers cc INNER JOIN adms_managers f ON f.id=cc.manager_id INNER JOIN adms_sits s ON s.id=cc.status_id LEFT JOIN adms_areas a ON a.id=cc.adms_area_id WHERE cc.name LIKE '%' :name '%' ORDER BY name ASC LIMIT :limit OFFSET :offset", "name={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listCostCenter->getResultado();
     }
