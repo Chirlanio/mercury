@@ -35,7 +35,7 @@ class Artigo {
         $this->Dados['listArtigo'] = $listarAjuste->listar($this->PageId);
         $this->Dados['paginacao'] = $listarAjuste->getResultadoPg();
 
-        $carregarView = new \Core\ConfigView("adms/Views/artigo/listarArtigo", $this->Dados);
+        $carregarView = new \Core\ConfigView("adms/Views/biblioteca/bibliotecaProcessos", $this->Dados);
         $carregarView->renderizar();
     }
 

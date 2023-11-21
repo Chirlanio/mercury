@@ -11,9 +11,9 @@ if (!defined('URLADM')) {
                 <h2 class="display-4 titulo">Biblioteca de Processos</h2>
             </div>
             <?php
-            if ($this->Dados['botao']['cad_artigo']) {
+            if ($this->Dados['botao']['add_process']) {
                 ?>
-                <a href="<?php echo URLADM . 'cadastrar-artigo/cad-artigo'; ?>">
+                <a href="<?php echo URLADM . 'add-process-library/add-process'; ?>">
                     <div class="p-2">
                         <button class="btn btn-outline-success btn-sm"><span><i class="fas fa-plus d-block d-md-none fa-2x"></i>
                                 <span class='d-none d-md-block'>Cadastrar</span>
@@ -26,10 +26,10 @@ if (!defined('URLADM')) {
             ?>
         </div>
         <?php
-        if (empty($this->Dados['listArtigo'])) {
+        if (empty($this->Dados['listProcess'])) {
             ?>
             <div class="alert alert-danger" role="alert">
-                Nenhum artigo encontrado!
+                Nenhuma política ou processo encontrado!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -46,38 +46,40 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th class="d-none d-sm-table-cell">Titulo</th>
+                        <th>Titulo</th>
                         <th class="d-none d-sm-table-cell">Data Inicial</th>
                         <th class="d-none d-sm-table-cell">Data Final</th>
-                        <th class="d-none d-sm-table-cell">Tipo</th>
-                        <th class="d-none d-sm-table-cell">Categoria</th>
+                        <th class="d-none d-sm-table-cell">Área</th>
+                        <th class="d-none d-sm-table-cell">Setor</th>
+                        <th class="d-none d-sm-table-cell">Versão</th>
                         <th class="d-none d-sm-table-cell">Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($this->Dados['listArtigo'] as $Ajuste) {
-                        extract($Ajuste);
+                    foreach ($this->Dados['listProcess'] as $pro) {
+                        extract($pro);
                         ?>
                             <th><?php echo $id; ?></th>
-                            <td><?php echo $titulo; ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo date('d/m/Y', strtotime($dataInicial)); ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo date('d/m/Y', strtotime($dataFinal)); ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo $tipo; ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo $cat; ?></td>
+                            <td><?php echo $title; ?></td>
+                            <td class="d-none d-sm-table-cell"><?php echo date('d/m/Y', strtotime($date_validation_start)); ?></td>
+                            <td class="d-none d-sm-table-cell"><?php echo date('d/m/Y', strtotime($date_validation_end)); ?></td>
+                            <td class="d-none d-sm-table-cell"><?php echo $area; ?></td>
+                            <td class="d-none d-sm-table-cell"><?php echo $sector_name; ?></td>
+                            <td class="d-none d-sm-table-cell"><?php echo $version_number; ?></td>
                             <td class="d-none d-sm-table-cell text-center"><span class="badge badge-<?php echo $color;?>"><?php echo $status; ?></span></td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php
-                                    if ($this->Dados['botao']['vis_artigo']) {
-                                        echo "<a href='" . URLADM . "ver-artigo/ver-artigo/$id' class='btn btn-outline-primary btn-sm'>Visualizar</a> ";
+                                    if ($this->Dados['botao']['view_process']) {
+                                        echo "<a href='" . URLADM . "view-process/view-process/$id' class='btn btn-outline-primary btn-sm'>Visualizar</a> ";
                                     }
-                                    if ($this->Dados['botao']['edit_artigo']) {
-                                        echo "<a href='" . URLADM . "editar-artigo/edit-artigo/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                                    if ($this->Dados['botao']['edit_process']) {
+                                        echo "<a href='" . URLADM . "edit-process/edit-process/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
                                     }
-                                    if ($this->Dados['botao']['del_artigo']) {
-                                        echo "<a href='" . URLADM . "apagar-artigo/apagar-artigo/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                                    if ($this->Dados['botao']['del_process']) {
+                                        echo "<a href='" . URLADM . "delete-process/delete-process/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
                                     }
                                     ?>
                                 </span>
@@ -87,14 +89,14 @@ if (!defined('URLADM')) {
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                         <?php
-                                        if ($this->Dados['botao']['vis_artigo']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-artigo/ver-artigo/$id'>Visualizar</a>";
+                                        if ($this->Dados['botao']['view_process']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "view-process/view-process/$id'>Visualizar</a>";
                                         }
-                                        if ($this->Dados['botao']['edit_artigo']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-artigo/edit-artigo/$id'>Editar</a>";
+                                        if ($this->Dados['botao']['edit_process']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-process/edit-process/$id'>Editar</a>";
                                         }
-                                        if ($this->Dados['botao']['del_artigo']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-artigo/apagar-artigo/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                        if ($this->Dados['botao']['del_process']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-process/delete-process/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                         }
                                         ?>
                                     </div>
