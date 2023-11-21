@@ -216,7 +216,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                                                     <div class="col border rounded shadow col-auto col-md-3 m-1">
                                                         <h6 class="my-0 border-bottom"><p class="bold mt-1 mb-0"><?php echo $key + 1; ?>ª - Parcela</p></h6>
                                                         <p class="text-muted mt-1"><?php echo "<strong>Data</strong>: " . date('d/m/Y', strtotime($date_payment)); ?></p>
-                                                        <p class="text-muted mt-0"><?php echo "<strong>R$</strong> " . str_replace('.', ',', $installment_value); ?></p>
+                                                        <p class="text-muted mt-0"><?php echo "<strong>R$</strong> " . number_format($installment_value, 2, ',', '.'); ?></p>
                                                     </div>
                                                 <?php } ?>
                                             </div>

@@ -29,6 +29,7 @@ class AdmsEditOrderPayment {
     private $titular;
     private $launchNumber;
     private $installmentId;
+    private $installments;
 
     function getResultado() {
         return $this->Resultado;
@@ -45,7 +46,7 @@ class AdmsEditOrderPayment {
 
     public function altOrder(array $Dados) {
         $this->Dados = $Dados;
-        
+
         $this->File = (!empty($this->Dados['new_files']['name'])) ? $this->Dados['new_files'] : $this->Dados['file_name'];
         $this->Bank = $this->Dados['bank_id'];
         $this->NumberNf = $this->Dados['number_nf'];
@@ -57,6 +58,9 @@ class AdmsEditOrderPayment {
         $this->titular = (!empty($this->Dados['name_supplier']) ? $this->Dados['name_supplier'] : null);
         $this->launchNumber = (!empty($this->Dados['launch_number']) ? $this->Dados['launch_number'] : null);
         $this->installmentId = (!empty($this->Dados['i_id']) ? $this->Dados['i_id'] : null);
+        $this->installments['installment_values'] = $this->Dados['installment_values'];
+        $this->installments['date_payments'] = $this->Dados['date_payments'];
+        $this->installments['i_id'] = $this->Dados['i_id'];
         $this->obs = (!empty($this->Dados['obs']) ? $this->Dados['obs'] : null);
 
         $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));
@@ -118,7 +122,7 @@ class AdmsEditOrderPayment {
         $this->Dados['obs'] = $this->obs;
         $this->Dados['name_supplier'] = $this->titular;
         $this->Dados['launch_number'] = $this->launchNumber;
-        $this->Dados['installment_value'] = !empty($this->Dados['installment_values']) ? $this->Dados['installment_values'] : null;
+        $this->Dados['installment_value'] = !empty($this->installments['installment_values'][0]) ? $this->installments['installment_values'][0] : null;
         $this->Dados['update_user_id'] = $_SESSION['usuario_id'];
 
         if (!empty($this->File['name'][0])) {
@@ -126,15 +130,49 @@ class AdmsEditOrderPayment {
             $this->Dados['file_name'] = $slugImg->nomeSlug($this->File['name'][0]);
         }
         $this->Dados['modified'] = date("Y-m-d H:i:s");
+        //$this->updateInstallment();
 
         $upAltOrder = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrder->exeUpdate("adms_order_payments", $this->Dados, "WHERE id =:id", "id=" . $_SESSION['id']);
         if ($upAltOrder->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->updateInstallment();
             $this->Resultado = true;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A ordem de pagamento não foi atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
+        }
+    }
+
+    private function updateInstallment() {
+        $installments = count($this->installments);
+        $installId = $this->installments['i_id'];
+        $datePayments = $this->installments['date_payments'];
+        $installmentValues = $this->installments['installment_values'];
+
+        $insertData = [];
+
+        // Prepara os dados para inserção
+        for ($i = 0; $i < $installments; $i++) {
+            $insertData[] = [
+                'id' => $installId[$i],
+                'installment' => $installments,
+                'date_payment' => $datePayments[$i],
+                'installment_value' => str_replace(',', '.', str_replace('.', '', $installmentValues[$i])),
+                'modified' => date("Y-m-d H:i:s")
+            ];
+        }
+
+        // Insere os dados no banco de dados
+        $upAltInstallment = new \App\adms\Models\helper\AdmsUpdate();
+
+        foreach ($insertData as $data) {
+            $upAltInstallment->exeUpdate("adms_installments", $data, "WHERE id =:id", "id=" . $data['id']);
+            if ($upAltInstallment->getResultado()) {
+                $this->Resultado = true;
+            } else {
+                $this->Resultado = false;
+            }
         }
     }
 
@@ -143,7 +181,7 @@ class AdmsEditOrderPayment {
 
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas ORDER BY name ASC");
         $registro['area'] = $listar->getResultado();
-        
+
         if ($_SESSION['adms_niveis_acesso_id'] <= STOREPERMITION) {
             $listar->fullRead("SELECT id cc_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         } else {//$_SESSION['area_id']
@@ -172,7 +210,7 @@ class AdmsEditOrderPayment {
         $listar->fullRead("SELECT id st_id, exibition_name sit FROM adms_sits_order_payments WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['sits'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id i_id, adms_order_payment_id, installment installments, installment_value installment_values, date_payment date_payments FROM adms_installments WHERE adms_order_payment_id =:adms_order_payment_id ORDER BY id ASC", "adms_order_payment_id=" . $_SESSION['id']);
+        $listar->fullRead("SELECT id i_id, adms_order_payment_id, installment qtdInstallments, installment_value installment_values, date_payment date_payments FROM adms_installments WHERE adms_order_payment_id =:adms_order_payment_id ORDER BY id ASC", "adms_order_payment_id=" . $_SESSION['id']);
         $registro['install'] = $listar->getResultado();
 
         $this->Resultado = ['area' => $registro['area'], 'costCenter' => $registro['costCenter'], 'brand' => $registro['brand'], 'supp' => $registro['supp'], 'typePayment' => $registro['typePayment'], 'bank' => $registro['bank'], 'manager' => $registro['manager'], 'typeKey' => $registro['typeKey'], 'sits' => $registro['sits'], 'install' => $registro['install']];

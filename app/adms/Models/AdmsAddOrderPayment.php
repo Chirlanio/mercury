@@ -88,7 +88,7 @@ class AdmsAddOrderPayment {
 
         $addOrder = new \App\adms\Models\helper\AdmsCreate;
         $addOrder->exeCreate("adms_order_payments", $this->Dados);
-
+        
         if ($addOrder->getResultado()) {
             if (empty($this->Filename['name'][0])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -156,7 +156,7 @@ class AdmsAddOrderPayment {
                 'adms_order_payment_id' => $this->Dados['id'],
                 'installment' => $installments,
                 'date_payment' => $datePayments[$i],
-                'installment_value' => str_replace(',', '.', $installmentValues[$i]),
+                'installment_value' => str_replace(',', '.', str_replace('.', '', $installmentValues[$i])),
                 'created' => date("Y-m-d H:i:s")
             ];
         }

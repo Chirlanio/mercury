@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//ar_dump($valorForm);
+//var_dump($this->Dados['select']['install']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -441,11 +441,12 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row" id="parc">
                 <?php
                 if (!empty($this->Dados['select']['install'])) {
-                    echo "<div class='form-group col-md-3'><label for='installments'> Parcelas</label><input name='installments' id='installments' type='number' min='0' max='10' class='form-control' value='" . $this->Dados['select']['install'][0]['installments'] . "'></div>";
-
+                    echo "<div class='form-group col-md-3'><label for='installments'> Parcelas</label><input name='installments' id='installments' type='number' min='0' max='10' class='form-control' value='" . $this->Dados['select']['install'][0]['qtdInstallments'] . "'></div>";
+                    $keyNum = 1;
                     foreach ($this->Dados['select']['install'] as $key => $value) {
                         extract($value);
-                        echo "<div class='form-group col-md-3 input-dinamico'><input name='i_id' id='i_id' type='hidden' value='" . $i_id . "'><label for='text'>Valor - Parcela</label><input name='installment_values[]' type='text' id='text' class='form-control' value='" . str_replace('.', ',', $installment_values) . "'><input name='date_payments[]' type='date' id='dateInput' class='form-control' value='$date_payments'></div>";
+                        echo "<div class='form-group col-md-3 input-dinamico'><input name='i_id[]' id='$i_id' type='hidden' value='" . $i_id . "'><label for='text'>Valor - Parcela</label><input name='installment_values[]' type='text' id='text$keyNum' class='form-control' value='" . str_replace('.', ',', $installment_values) . "'><input name='date_payments[]' type='date' id='dateInput' class='form-control' value='$date_payments'></div>";
+                        $keyNum++;
                     }
                 }
                 ?>
