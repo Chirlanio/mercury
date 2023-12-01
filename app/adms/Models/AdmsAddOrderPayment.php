@@ -86,7 +86,7 @@ class AdmsAddOrderPayment {
             $this->Dados['file_name'] = $slugFile->nomeSlug($this->Filename['name'][0]);
         }
 
-        $addOrder = new \App\adms\Models\helper\AdmsCreate;
+        $addOrder = new \App\adms\Models\helper\AdmsCreate();
         $addOrder->exeCreate("adms_order_payments", $this->Dados);
         
         if ($addOrder->getResultado()) {
@@ -97,7 +97,7 @@ class AdmsAddOrderPayment {
                 $this->Dados['id'] = $addOrder->getResultado();
                 $this->insertInstallment();
                 $this->valArquivo();
-                //$this->viewManager();
+                $this->viewManager();
             }
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A solicitação não foi cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";

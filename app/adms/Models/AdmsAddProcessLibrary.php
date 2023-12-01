@@ -16,64 +16,114 @@ class AdmsAddProcessLibrary {
 
     private $Resultado;
     private $Dados;
-    private $Foto;
+    private $File;
 
     function getResultado() {
         return $this->Resultado;
     }
 
     public function addProcess(array $Dados) {
-        
+
         $this->Dados = $Dados;
-        
-        $this->Foto = $this->Dados['imagem_nova'];
-        unset($this->Dados['imagem_nova']);
+
+        $this->File = $this->Dados['file_name_process'];
+        unset($this->Dados['file_name_process']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->inserProcess();
+            $this->insertProcess();
+            $this->insertFiles();
         } else {
             $this->Resultado = false;
         }
     }
 
-    private function inserProcess() {
-        
+    private function insertProcess() {
+
+        $slugFile = new \App\adms\Models\helper\AdmsSlug();
+        $this->Dados['file_name_process'] = $slugFile->nomeSlug($this->File['name'][0]);
         $this->Dados['created'] = date("Y-m-d H:i:s");
-        
-        $slugImg = new \App\adms\Models\helper\AdmsSlug();
-        $this->Dados['imagem'] = $slugImg->nomeSlug($this->Foto['name']);
 
-        $slugPg = new \App\adms\Models\helper\AdmsSlug();
-        $this->Dados['slug'] = $slugPg->nomeSlug($this->Dados['slug']);
+        $addProcess = new \App\adms\Models\helper\AdmsCreate();
+        $addProcess->exeCreate("adms_process_librarys", $this->Dados);
 
-        $cadArtigo = new \App\adms\Models\helper\AdmsCreate;
-        $cadArtigo->exeCreate("adms_process_librarys", $this->Dados);
-        if ($cadArtigo->getResultado()) {
-            if (empty($this->Foto['name'])) {
-                $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Processo/Política</strong> cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        if ($addProcess->getResultado()) {
+            if (empty($this->File['name'][0])) {
+                $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Processo/Política</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $cadArtigo->getResultado();
-                $this->valFoto();
+                $this->Dados['id'] = $addProcess->getResultado();
+                $this->valArquivo();
             }
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> O processo/política não foi cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> O processo/política não foi cadastrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
 
-    private function valFoto() {
-        $uploadImg = new \App\adms\Models\helper\AdmsUploadImgRed();
-        $uploadImg->uploadImagem($this->Foto, 'assets/imagens/artigos/' . $this->Dados['id'] . '/', $this->Dados['imagem'], 1200, 627);
-        if ($uploadImg->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Artigo</strong>  cadastrado com sucesso. Upload da imagem realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+    private function valArquivo() {
+        if (!isset($this->File['name'][0])) {
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Nenhum arquivo foi selecionado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = false;
+            return;
+        }
+
+        $uploadPath = 'assets/files/processLibrary/' . $this->Dados['id'] . '/';
+        $arquivosParaUpload = [];
+
+        foreach ($this->File['name'] as $key => $filename) {
+            $arquivosParaUpload[] = [
+                'tmp_name' => $this->File['tmp_name'][$key],
+                'name' => $filename,
+                'type' => $this->File['type'][$key]
+            ];
+        }
+
+        if (count($arquivosParaUpload) > 1) {
+            $uploadFile = new \App\adms\Models\helper\AdmsUploadMultFiles();
+            $uploadFile->upload($uploadPath, $arquivosParaUpload);
+        } else {
+            $newName = new \App\adms\Models\helper\AdmsSlug();
+            $this->File['name'][0] = $newName->nomeSlug($this->File['name'][0]);
+
+            $uploadFile = new \App\adms\Models\helper\AdmsUpload();
+            $uploadFile->upload($arquivosParaUpload[0], $uploadPath, $this->File);
+        }
+
+        if ($uploadFile->getResultado()) {
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Processo/Política:</strong> Cadastrada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro:</strong> Artigo cadastrado. Erro ao realizar o upload da imagem!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Processo/Política cadastrada. Erro ao realizar o upload do(s) arquivo(s)!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
+        }
+    }
+
+    private function insertFiles() {
+        $countFiles = count($this->File['name']);
+
+        $insertData = [];
+
+        $slugName = new \App\adms\Models\helper\AdmsSlug();
+
+        // Prepara os dados para inserção
+        for ($i = 0; $i < $countFiles; $i++) {
+            $insertData[] = [
+                'adms_process_library_id' => $this->Dados['id'],
+                'exibition_name' => $this->File['name'][$i],
+                'file_name_slug' => $slugName->nomeSlug($this->File['name'][$i]),
+                'status_id' => 1,
+                'created' => date("Y-m-d H:i:s")
+            ];
+        }
+
+        // Insere os dados no banco de dados
+        $installment = new \App\adms\Models\helper\AdmsCreate();
+
+        foreach ($insertData as $data) {
+            $installment->exeCreate('adms_process_library_files', $data);
         }
     }
 
@@ -83,15 +133,23 @@ class AdmsAddProcessLibrary {
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
         $registro['sit'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id id_tpart, nome nome_tpart FROM adms_tps_artigos ORDER BY nome ASC");
-        $registro['tpart'] = $listar->getResultado();
+        $listar->fullRead("SELECT id cat_id, name_category category FROM adms_cats_process_librarys ORDER BY name_category ASC");
+        $registro['cats'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id id_catart, nome nome_catart FROM adms_cats_artigos ORDER BY nome ASC");
-        $registro['catart'] = $listar->getResultado();
+        $listar->fullRead("SELECT id a_id, name area_name FROM adms_areas ORDER BY name ASC");
+        $registro['area'] = $listar->getResultado();
 
-        $this->Resultado = ['sit' => $registro['sit'], 'tpart' => $registro['tpart'], 'catart' => $registro['catart']];
+        $listar->fullRead("SELECT id sec_id, sector_name FROM adms_sectors ORDER BY sector_name ASC");
+        $registro['sector'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id m_id, name manager FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC ", "status_id=1");
+        $registro['manager'] = $listar->getResultado();
+
+        $listar->fullRead("SELECT id f_id, nome manager_sector FROM tb_funcionarios WHERE cargo_id =:cargo_id AND status_id =:status_id ORDER BY nome", "cargo_id=2&status_id=1");
+        $registro['manager_sector'] = $listar->getResultado();
+
+        $this->Resultado = ['sit' => $registro['sit'], 'cats' => $registro['cats'], 'area' => $registro['area'], 'sector' => $registro['sector'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector']];
 
         return $this->Resultado;
     }
-
 }

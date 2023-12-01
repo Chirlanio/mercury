@@ -11,7 +11,7 @@ if (isset($this->Dados['form'][0])) {
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Cadastrar Política/Processos</h2>
+                <h2 class="display-4 titulo">Cadastrar Política/Processo</h2>
             </div>
             <?php
             if ($this->Dados['botao']['list_process']) {
@@ -32,9 +32,8 @@ if (isset($this->Dados['form'][0])) {
         ?>
         <form method="POST" action="" enctype="multipart/form-data" class="was-validated"> 
 
-            <h2 class="display-4 titulo">Conteúdo</h2>
             <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Titulo</label>
                     <input name="title" type="text" class="form-control is-invalid" placeholder="Titulo do processo" value="<?php
                     if (isset($valorForm['title'])) {
@@ -42,55 +41,46 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>" required autofocus>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Descrição</label>
-                    <textarea name="description" id="editor-um" class="form-control is-invalid editorCK" rows="3" required><?php
-                        if (isset($valorForm['description'])) {
-                            echo $valorForm['description'];
-                        }
-                        ?>
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Processo</label>
-                    <textarea name="content_text" id="editor-dois" class="form-control editorCKQl" rows="3"><?php
-                        if (isset($valorForm['content_text'])) {
-                            echo $valorForm['content_text'];
-                        }
-                        ?>
-                    </textarea>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Resumo Publico</label>
-                    <textarea name="public_summary" id="editor-tres" class="form-control editorDesUm" rows="3"><?php
-                        if (isset($valorForm['public_summary'])) {
-                            echo $valorForm['public_summary'];
-                        }
-                        ?>
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="form-row">
 
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Categoria</label>
                     <select name="adms_cats_process_id" id="adms_cats_process_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['catart'] as $catPro) {
+                        foreach ($this->Dados['select']['cats'] as $catPro) {
                             extract($catPro);
-                            if (isset($valorForm['adms_cats_process_id']) AND $valorForm['adms_cats_process_id'] == $id_catart) {
-                                echo "<option value='$id_catart' selected>$nome_catart</option>";
+                            if (isset($valorForm['adms_cats_process_id']) AND $valorForm['adms_cats_process_id'] == $cat_id) {
+                                echo "<option value='$cat_id' selected>$category</option>";
                             } else {
-                                echo "<option value='$id_catart'>$nome_catart</option>";
+                                echo "<option value='$cat_id'>$category</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="version_number"><span class="text-danger">*</span> Versão</label>
+                    <input name="version_number" id="version_number" type="text" class="form-control is-invalid" placeholder="1.0.0.23" value="<?php
+                    if (isset($valorForm['version_number'])) {
+                        echo $valorForm['version_number'];
+                    }
+                    ?>" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Área</label>
+                    <select name="adms_area_id" id="adms_area_id" class="form-control is-invalid" required>
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['area'] as $arPro) {
+                            extract($arPro);
+                            if (isset($valorForm['adms_area_id']) AND $valorForm['adms_area_id'] == $a_id) {
+                                echo "<option value='$a_id' selected>$area_name</option>";
+                            } else {
+                                echo "<option value='$a_id'>$area_name</option>";
                             }
                         }
                         ?>
@@ -98,16 +88,16 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Área</label>
-                    <select name="adms_cats_process_id" id="adms_cats_process_id" class="form-control is-invalid" required>
+                    <label><span class="text-danger">*</span> Gestor da Área</label>
+                    <select name="adms_manager_area_id" id="adms_manager_area_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['catart'] as $catPro) {
-                            extract($catPro);
-                            if (isset($valorForm['adms_cats_process_id']) AND $valorForm['adms_cats_process_id'] == $id_catart) {
-                                echo "<option value='$id_catart' selected>$nome_catart</option>";
+                        foreach ($this->Dados['select']['manager'] as $manPro) {
+                            extract($manPro);
+                            if (isset($valorForm['adms_manager_area_id']) AND $valorForm['adms_manager_area_id'] == $m_id) {
+                                echo "<option value='$m_id' selected>$manager</option>";
                             } else {
-                                echo "<option value='$id_catart'>$nome_catart</option>";
+                                echo "<option value='$m_id'>$manager</option>";
                             }
                         }
                         ?>
@@ -116,19 +106,57 @@ if (isset($this->Dados['form'][0])) {
 
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Setor</label>
-                    <select name="adms_cats_process_id" id="adms_cats_process_id" class="form-control is-invalid" required>
+                    <select name="adms_sector_id" id="adms_sector_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['catart'] as $catPro) {
-                            extract($catPro);
-                            if (isset($valorForm['adms_cats_process_id']) AND $valorForm['adms_cats_process_id'] == $id_catart) {
-                                echo "<option value='$id_catart' selected>$nome_catart</option>";
+                        foreach ($this->Dados['select']['sector'] as $secPro) {
+                            extract($secPro);
+                            if (isset($valorForm['adms_sector_id']) AND $valorForm['adms_sector_id'] == $sec_id) {
+                                echo "<option value='$sec_id' selected>$sector_name</option>";
                             } else {
-                                echo "<option value='$id_catart'>$nome_catart</option>";
+                                echo "<option value='$sec_id'>$sector_name</option>";
                             }
                         }
                         ?>
                     </select>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Gestor do Setor</label>
+                    <select name="adms_manager_sector_id" id="adms_manager_sector_id" class="form-control is-invalid" required>
+                        <option value="">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['manager_sector'] as $fPro) {
+                            extract($fPro);
+                            if (isset($valorForm['adms_manager_sector_id']) AND $valorForm['adms_manager_sector_id'] == $f_id) {
+                                echo "<option value='$f_id' selected>$manager_sector</option>";
+                            } else {
+                                echo "<option value='$f_id'>$manager_sector</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Data Inicial</label>
+                    <input name="date_validation_start" type="date" class="form-control is-invalid" value="<?php
+                    if (isset($valorForm['date_validation_start'])) {
+                        echo $valorForm['date_validation_start'];
+                    }
+                    ?>" required>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Data Final</label>
+                    <input name="date_validation_end" type="date" class="form-control is-invalid" value="<?php
+                    if (isset($valorForm['date_validation_end'])) {
+                        echo $valorForm['date_validation_end'];
+                    }
+                    ?>" required="">
                 </div>
 
                 <div class="form-group col-md-3">
@@ -150,70 +178,16 @@ if (isset($this->Dados['form'][0])) {
             </div>
 
             <div class="form-row">
-
-                <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Gestor da Área</label>
-                    <select name="adms_manager_area_id" id="adms_manager_area_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['catart'] as $catPro) {
-                            extract($catPro);
-                            if (isset($valorForm['adms_manager_area_id']) AND $valorForm['adms_cats_process_id'] == $id_catart) {
-                                echo "<option value='$id_catart' selected>$nome_catart</option>";
-                            } else {
-                                echo "<option value='$id_catart'>$nome_catart</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Gestor do Setor</label>
-                    <select name="adms_manager_sector_id" id="adms_manager_sector_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['catart'] as $catPro) {
-                            extract($catPro);
-                            if (isset($valorForm['adms_manager_sector_id']) AND $valorForm['adms_cats_process_id'] == $id_catart) {
-                                echo "<option value='$id_catart' selected>$nome_catart</option>";
-                            } else {
-                                echo "<option value='$id_catart'>$nome_catart</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-                
-                <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Data Inicial</label>
-                    <input name="date_validation_start" type="date" class="form-control is-invalid" value="<?php
-                    if (isset($valorForm['date_validation_start'])) {
-                        echo $valorForm['date_validation_start'];
-                    }
-                    ?>" required>
-                </div>
-                
-                <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Data Final</label>
-                    <input name="date_validation_end" type="date" class="form-control is-invalid" value="<?php
-                    if (isset($valorForm['date_validation_end'])) {
-                        echo $valorForm['date_validation_end'];
-                    }
-                    ?>" required="">
-                </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Arquivos</label>
-                    <input class="form-control-file is-invalid" name="file_name_process[]" type="file" required>
+                    <input name="file_name_process[]" id="file_name_process" class="form-control-file is-invalid" type="file" multiple required/>
                 </div>
             </div>
 
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>
-            <input name="CadArtigo" type="submit" class="btn btn-warning" value="Salvar">
+            <input name="AddProcess" type="submit" class="btn btn-warning" value="Salvar">
         </form>
     </div>
 </div>

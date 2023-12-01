@@ -22,9 +22,9 @@ class ProcessLibrary {
         $this->PageId = (int) $PageId ? $PageId : 1;
 
         $botao = ['add_process' => ['menu_controller' => 'add-process-library', 'menu_metodo' => 'add-process'],
-            'view_process' => ['menu_controller' => 'view-process', 'menu_metodo' => 'view-process'],
-            'edit_process' => ['menu_controller' => 'edit-process', 'menu_metodo' => 'edit-process'],
-            'del_process' => ['menu_controller' => 'delete-artigo', 'menu_metodo' => 'delete-process']];
+            'view_process' => ['menu_controller' => 'view-process-library', 'menu_metodo' => 'process-library'],
+            'edit_process' => ['menu_controller' => 'edit-process-library', 'menu_metodo' => 'process-library'],
+            'del_process' => ['menu_controller' => 'delete-process-library', 'menu_metodo' => 'process-library']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -35,8 +35,10 @@ class ProcessLibrary {
         $this->Dados['listProcess'] = $listProcess->list($this->PageId);
         $this->Dados['paginacao'] = $listProcess->getResultadoPg();
 
+        $listAreas = new \App\adms\Models\AdmsListProcessLibrary();
+        $this->Dados['areas'] = $listAreas->listAreas();
+
         $carregarView = new \Core\ConfigView("adms/Views/biblioteca/processLibrary", $this->Dados);
         $carregarView->renderizar();
     }
-
 }

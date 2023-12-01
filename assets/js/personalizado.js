@@ -89,9 +89,9 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
-    if (editorCK.classList.contains('editorCKQl')) {
+    if (editorCKQl.classList.contains('editorCKQl')) {
         ClassicEditor
-                .create(document.querySelector('.editorCKQl'))
+                .create(document.getElementById('editorCKQl'))
                 .catch(error => {
                     console.error(error);
                 });
@@ -99,7 +99,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    if (editorCK.classList.contains('editorObs')) {
+    if (editorObs.classList.contains('editorObs')) {
         ClassicEditor
                 .create(document.querySelector('.editorObs'))
                 .catch(error => {
@@ -109,7 +109,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    if (editorCK.classList.contains('editorFarUm')) {
+    if (editorFarUm.classList.contains('editorFarUm')) {
         ClassicEditor
                 .create(document.querySelector('.editorFarUm'))
                 .catch(error => {
@@ -119,7 +119,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    if (editorCK.classList.contains('editorFarDois')) {
+    if (editorFarDois.classList.contains('editorFarDois')) {
         ClassicEditor
                 .create(document.querySelector('.editorFarDois'))
                 .catch(error => {
@@ -129,7 +129,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    if (editorCK.classList.contains('editorMatUm')) {
+    if (editorMatUm.classList.contains('editorMatUm')) {
         ClassicEditor
                 .create(document.querySelector('.editorMatUm'))
                 .catch(error => {
@@ -139,7 +139,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    if (editorCK.classList.contains('editorMatDois')) {
+    if (editorMatDois.classList.contains('editorMatDois')) {
         ClassicEditor
                 .create(document.querySelector('.editorMatDois'))
                 .catch(error => {
@@ -149,7 +149,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    if (editorCK.classList.contains('editorDesUm')) {
+    if (editorDesUm.classList.contains('editorDesUm')) {
         ClassicEditor
                 .create(document.querySelector('.editorDesUm'))
                 .catch(error => {
@@ -159,7 +159,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    if (editorCK.classList.contains('editorDesDois')) {
+    if (editorDesDois.classList.contains('editorDesDois')) {
         ClassicEditor
                 .create(document.querySelector('.editorDesDois'))
                 .catch(error => {
@@ -190,6 +190,7 @@ $(document).ready(function () {
     $('#text2').mask("#.##0,00", {reverse: true});
     $('#cost_center_id').mask("0.0.00.00", {reverse: false});
     $('.cost_center').mask("0.0.00.00", {reverse: false});
+    $('#version_number').mask("0.0.0.00", {reverse: false});
     $('#ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
         translation: {
             'Z': {

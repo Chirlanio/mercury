@@ -22,10 +22,9 @@ class AddProcessLibrary {
 
         if (!empty($this->Dados['AddProcess'])) {
             unset($this->Dados['AddProcess']);
-            $this->Dados['imagem_nova'] = ($_FILES['imagem_nova'] ? $_FILES['imagem_nova'] : null);
+            $this->Dados['file_name_process'] = ($_FILES['file_name_process'] ? $_FILES['file_name_process'] : null);
             $addProcess = new \App\adms\Models\AdmsAddProcessLibrary();
             $addProcess->addProcess($this->Dados);
-            //var_dump($this->Dados);
             if ($addProcess->getResultado()) {
                 $UrlDestino = URLADM . 'process-library/list';
                 header("Location: $UrlDestino");
@@ -55,5 +54,4 @@ class AddProcessLibrary {
         $carregarView = new \Core\ConfigView("adms/Views/biblioteca/addProcessLibrary", $this->Dados);
         $carregarView->renderizar();
     }
-
 }

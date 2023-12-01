@@ -161,6 +161,6 @@ if (!empty($this->Dados['dados_ajuste'][0])) {
     <?php
 } else {
     $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Página não encontrada!</div>";
-    $UrlDestino = URLADM . 'ajuste/listarAjuste';
+    $UrlDestino = URLADM . 'ajuste/listar-ajuste';
     header("Location: $UrlDestino");
 }
