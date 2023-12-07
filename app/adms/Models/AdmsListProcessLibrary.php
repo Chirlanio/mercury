@@ -16,7 +16,7 @@ class AdmsListProcessLibrary {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = LIMIT;
+    private $LimiteResultado = 100;
     private $ResultadoPg;
 
     function getResultadoPg() {

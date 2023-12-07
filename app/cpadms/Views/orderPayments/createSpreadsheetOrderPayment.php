@@ -18,7 +18,7 @@ if (!defined('URLADM')) {
         $html = '';
         $html .= '<table border="1" class="table table-striped table-hover table-bordered">';
         $html .= '<tr>';
-        $html .= '<th colspan="23">Ordens de Pagamentos</th>';
+        $html .= '<th colspan="26">Ordens de Pagamentos</th>';
         $html .= '</tr>';
 
         $html .= "<tr>";
@@ -34,6 +34,7 @@ if (!defined('URLADM')) {
         $html .= "<th class='d-none d-sm-table-cell'>Forma de Pagamento</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Adiantamento</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Valor Adiantamento</th>";
+        $html .= "<th class='d-none d-sm-table-cell'>Diferença</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Nota fiscal</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Banco</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Agência</th>";
@@ -42,6 +43,8 @@ if (!defined('URLADM')) {
         $html .= "<th class='d-none d-sm-table-cell'>Tipo de Chave - PIX</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Chave PIX</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Comprovante</th>";
+        $html .= "<th class='d-none d-sm-table-cell'>Cadastrado Por</th>";
+        $html .= "<th class='d-none d-sm-table-cell'>Atualizado Por</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Situaçao</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Cadastro</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Atualizado</th>";
@@ -62,7 +65,8 @@ if (!defined('URLADM')) {
             $html .= "<td class='d-none d-sm-table-cell'>R$ " . number_format($total_value, 2, ',', '.') . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $typePayment . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . ($advance == 1 ? "Sim" : "Não") . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . number_format($advance_amount, 2, ',', '.') . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>R$ " . number_format($advance_amount, 2, ',', '.') . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>R$ " . number_format($diff_payment_advance, 2, ',', '.') . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($number_nf) ? $number_nf : "") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($bank) ? $bank : "") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($agency) ? $agency : "") . "</td>";
@@ -71,6 +75,8 @@ if (!defined('URLADM')) {
             $html .= "<td class='d-none d-sm-table-cell'>" . $typeKey . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $key_pix . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $file_name . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . $create_user . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . $update_user . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $sit . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . date('d/m/Y H:i:s', strtotime($created)) . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($modified) ? date('d/m/Y H:i:s', strtotime($modified)) : "") . "</td>";

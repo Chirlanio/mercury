@@ -135,30 +135,31 @@ if (!defined('URLADM')) {
                                     <div class="card bg-light m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $id; ?></span>
-                                                <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments) and $installments > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof == 1 ? "<i class='fa-solid fa-file-invoice text-dark' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $bk_id; ?></span>
+                                                <?php echo ($adv_bk == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                <?php echo ((!empty($installments_bk) and $installments_bk > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
+                                                <?php echo ($proof_bk == 1 ? "<i class='fa-solid fa-file-invoice text-dark' title='Comprovante'></i>" : ''); ?>
                                             </div>
                                         </h5>
                                         <div class="card-body">
-                                            <h5 class="card-title" style='font-size: 15px;'><?php echo "Área: " . $area_backlog; ?></h5>
+                                            <h5 class="card-title" style='font-size: 15px;'><?php echo "Área: " . $area_bk; ?></h5>
                                             <ul class="list-unstyled" style='font-size: 12px;'>
-                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></li>
-                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment)); ?></li>
-                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_backlog; ?></li>
+                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date_bk)); ?></li>
+                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment_bk)); ?></li>
+                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_bk; ?></li>
+                                                <li class="card-text"><?php echo ($advance_amount_bk > 0 && date("Y-m-d", strtotime($date_payment_bk)) >= date('Y-m-d') ? "<strong>Adiantamento: </strong> R$ " : "<strong>Valor: </strong> R$ ") . ($advance_amount_bk > 0 && date("Y-m-d", strtotime($date_payment_bk)) >= date('Y-m-d') ? number_format($advance_amount_bk, 2, ',', '.') : number_format($diff_payment_advance_bk, 2, ',', '.')); ?></li>
                                             </ul>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
                                                     <?php
                                                     if ($this->Dados['botao']['view_payment']) {
-                                                        echo "<a href='" . URLADM . "view-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
+                                                        echo "<a href='" . URLADM . "view-order-payments/order-payment/$bk_id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['edit_payment']) {
-                                                        echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
+                                                        echo "<a href='" . URLADM . "edit-order-payments/order-payment/$bk_id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['del_payment']) {
-                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$bk_id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                                                     }
                                                     ?>
                                                 </span>
@@ -169,13 +170,13 @@ if (!defined('URLADM')) {
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                                         <?php
                                                         if ($this->Dados['botao']['view_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "view-order-payments/order-payment/$id'>Visualizar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "view-order-payments/order-payment/$bk_id'>Visualizar</a>";
                                                         }
                                                         if ($this->Dados['botao']['edit_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-order-payments/order-payment/$id'>Editar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-order-payments/order-payment/$bk_id'>Editar</a>";
                                                         }
                                                         if ($this->Dados['botao']['del_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-order-payments/order-orderpayment/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-order-payments/order-orderpayment/$bk_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                                         }
                                                         ?>
                                                     </div>
@@ -198,31 +199,32 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-secondary m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $id; ?></span>
-                                                <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments) and $installments > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $do_id; ?></span>
+                                                <?php echo ($adv_do == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                <?php echo ((!empty($installments_do) and $installments_do > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
+                                                <?php echo ($proof_do == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
                                             </div>
                                         </h5>
                                         <div class="card-body">
                                             <h5 class="card-title" style='font-size: 15px;'><?php echo "Área: " . $area_doing; ?></h5>
                                             <ul class="list-unstyled" style='font-size: 12px;'>
-                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></li>
-                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment)); ?></li>
+                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date_do)); ?></li>
+                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment_do)); ?></li>
                                                 <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_doing; ?></li>
+                                                <li class="card-text"><?php echo ($advance_amount_do > 0 && date("Y-m-d", strtotime($date_payment_do)) >= date('Y-m-d') ? "<strong>Adiantamento: </strong> R$ " : "<strong>Valor: </strong> R$ ") . ($advance_amount_do > 0 && date("Y-m-d", strtotime($date_payment_do)) >= date('Y-m-d') ? number_format($advance_amount_do, 2, ',', '.') : number_format($diff_payment_advance_do, 2, ',', '.')); ?></li>
                                             </ul>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
 
                                                     <?php
                                                     if ($this->Dados['botao']['view_payment']) {
-                                                        echo "<a href='" . URLADM . "view-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
+                                                        echo "<a href='" . URLADM . "view-order-payments/order-payment/$do_id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['edit_payment']) {
-                                                        echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
+                                                        echo "<a href='" . URLADM . "edit-order-payments/order-payment/$do_id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['del_payment']) {
-                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$do_id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                                                     }
                                                     ?>
                                                 </span>
@@ -233,13 +235,13 @@ if (!defined('URLADM')) {
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                                         <?php
                                                         if ($this->Dados['botao']['view_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "view-order-payments/order-payment/$id'>Visualizar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "view-order-payments/order-payment/$do_id'>Visualizar</a>";
                                                         }
                                                         if ($this->Dados['botao']['edit_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-order-payments/order-payment/$id'>Editar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-order-payments/order-payment/$do_id'>Editar</a>";
                                                         }
                                                         if ($this->Dados['botao']['del_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-order-payment/order-payment/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-order-payment/order-payment/$do_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                                         }
                                                         ?>
                                                     </div>
@@ -262,31 +264,32 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-info border-info m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $id; ?></span>
-                                                <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments) and $installments > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $wa_id; ?></span>
+                                                <?php echo ($adv_wa == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                <?php echo ((!empty($installments_wa) and $installments_wa > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
+                                                <?php echo ($proof_wa == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
                                             </div>
                                         </h5>
                                         <div class="card-body">
-                                            <h5 class="card-title" style='font-size: 15px;'><?php echo "Área: " . $area_waiting; ?></h5>
+                                            <h5 class="card-title" style='font-size: 15px;'><?php echo "Área: " . $area_wa; ?></h5>
                                             <ul class="list-unstyled" style='font-size: 12px;'>
-                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></li>
-                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment)); ?></li>
-                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_waiting; ?></li>
+                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date_wa)); ?></li>
+                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment_wa)); ?></li>
+                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_wa; ?></li>
+                                                <li class="card-text"><?php echo ($advance_amount_wa > 0 && date("Y-m-d", strtotime($date_payment_wa)) >= date('Y-m-d') ? "<strong>Adiantamento: </strong> R$ " : "<strong>Valor: </strong> R$ ") . ($advance_amount_wa > 0 && date("Y-m-d", strtotime($date_payment_wa)) >= date('Y-m-d') ? number_format($advance_amount_wa, 2, ',', '.') : number_format($diff_payment_advance_wa, 2, ',', '.')); ?></li>
                                             </ul>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
 
                                                     <?php
                                                     if ($this->Dados['botao']['view_payment']) {
-                                                        echo "<a href='" . URLADM . "view-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
+                                                        echo "<a href='" . URLADM . "view-order-payments/order-payment/$wa_id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['edit_payment']) {
-                                                        echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
+                                                        echo "<a href='" . URLADM . "edit-order-payments/order-payment/$wa_id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['del_payment']) {
-                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$wa_id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                                                     }
                                                     ?>
                                                 </span>
@@ -297,13 +300,13 @@ if (!defined('URLADM')) {
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                                         <?php
                                                         if ($this->Dados['botao']['view_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "view-order-payments/order-payment/$id'>Visualizar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "view-order-payments/order-payment/$wa_id'>Visualizar</a>";
                                                         }
                                                         if ($this->Dados['botao']['edit_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-order-payments/order-payment/$id'>Editar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-order-payments/order-payment/$wa_id'>Editar</a>";
                                                         }
                                                         if ($this->Dados['botao']['del_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-order-payments/order-payment/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-order-payments/order-payment/$wa_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                                         }
                                                         ?>
                                                     </div>
@@ -326,31 +329,32 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-success m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $id; ?></span>
-                                                <?php echo ($advance == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments) and $installments > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $don_id; ?></span>
+                                                <?php echo ($adv_don == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                <?php echo ((!empty($installments_don) and $installments_don > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
+                                                <?php echo ($proof_don == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
                                             </div>
                                         </h5>
                                         <div class="card-body">
-                                            <h5 class="card-title" style='font-size: 15px;'><?php echo "Área: " . $area_done; ?></h5>
+                                            <h5 class="card-title" style='font-size: 15px;'><?php echo "Área: " . $area_don; ?></h5>
                                             <ul class="list-unstyled" style='font-size: 12px;'>
-                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date)); ?></li>
-                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment)); ?></li>
-                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_done; ?></li>
+                                                <li class="card-text"><?php echo "<strong>Cadastro:</strong> " . date('d/m/Y', strtotime($created_date_don)); ?></li>
+                                                <li><?php echo "<strong>Pagar:</strong> " . date('d/m/Y', strtotime($date_payment_don)); ?></li>
+                                                <li class="card-text"><?php echo "<strong>Fornecedor:</strong> " . $fornecedor_don; ?></li>
+                                                <li class="card-text"><?php echo ($advance_amount_don > 0 && date("Y-m-d", strtotime($date_payment_don)) >= date('Y-m-d') ? "<strong>Adiantamento: </strong> R$ " : "<strong>Valor: </strong> R$ ") . ($advance_amount_don > 0 && date("Y-m-d", strtotime($date_payment_don)) >= date('Y-m-d') ? number_format($advance_amount_don, 2, ',', '.') : number_format($diff_payment_advance_don, 2, ',', '.')); ?></li>
                                             </ul>
                                             <div class="text-right">
                                                 <span class="d-none d-md-block">
 
                                                     <?php
                                                     if ($this->Dados['botao']['view_payment']) {
-                                                        echo "<a href='" . URLADM . "view-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
+                                                        echo "<a href='" . URLADM . "view-order-payments/order-payment/$don_id' class='btn btn-dark btn-sm'><i class='fas fa-eye'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['edit_payment']) {
-                                                        echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
+                                                        echo "<a href='" . URLADM . "edit-order-payments/order-payment/$don_id' class='btn btn-dark btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                                                     }
                                                     if ($this->Dados['botao']['del_payment']) {
-                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                                                        echo "<a href='" . URLADM . "delete-order-payments/order-payment/$don_id' class='btn btn-dark btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                                                     }
                                                     ?>
                                                 </span>
@@ -361,13 +365,13 @@ if (!defined('URLADM')) {
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                                         <?php
                                                         if ($this->Dados['botao']['view_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "view-order-payments/order-payment/$id'>Visualizar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "view-order-payments/order-payment/$don_id'>Visualizar</a>";
                                                         }
                                                         if ($this->Dados['botao']['edit_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-order-payments/order-payment/$id'>Editar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-order-payments/order-payment/$don_id'>Editar</a>";
                                                         }
                                                         if ($this->Dados['botao']['del_payment']) {
-                                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-order-payments/order-payment/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-order-payments/order-payment/$don_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                                         }
                                                         ?>
                                                     </div>

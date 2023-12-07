@@ -58,9 +58,9 @@ class AdmsEditOrderPayment {
         $this->titular = (!empty($this->Dados['name_supplier']) ? $this->Dados['name_supplier'] : null);
         $this->launchNumber = (!empty($this->Dados['launch_number']) ? $this->Dados['launch_number'] : null);
         $this->installmentId = (!empty($this->Dados['i_id']) ? $this->Dados['i_id'] : null);
-        $this->installments['installment_values'] = $this->Dados['installment_values'];
-        $this->installments['date_payments'] = $this->Dados['date_payments'];
-        $this->installments['i_id'] = $this->Dados['i_id'];
+        $this->installments['installment_values'] = !empty($this->Dados['installment_values']) ? $this->Dados['installment_values'] : null;
+        $this->installments['date_payments'] = !empty($this->Dados['date_payments']) ? $this->Dados['date_payments'] : null;
+        $this->installments['i_id'] = !empty($this->Dados['i_id']) ? $this->Dados['i_id'] : $_SESSION['id'];
         $this->obs = (!empty($this->Dados['obs']) ? $this->Dados['obs'] : null);
 
         $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));

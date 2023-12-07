@@ -10,7 +10,7 @@ if (!empty($this->Dados['dados_order'][0])) {
         <div class="list-group-item">
             <div class="d-flex">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4 titulo">Ordem de Pagamento</h2>
+                    <h2 class="display-4 titulo">Ordem de Pagamento - ID: <?php echo $id;?></h2>
                 </div>
                 <div class="p-2">
                     <span class="d-none d-md-block">
@@ -68,7 +68,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condenced">
                                 <div class="my-2">
                                     <h6 class="my-2">Adiantamento:</h6>
-                                    <small class="lead"><?php echo $advance = 1 ? "Sim" : "Não"; ?></small>
+                                    <small class="lead"><?php echo $advance == 1 ? "Sim" : "Não"; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -93,6 +93,18 @@ if (!empty($this->Dados['dados_order'][0])) {
                                 <div>
                                     <h6 class="my-2">Lançamento Fiscal:</h6>
                                     <small class="text-muted lead" ><?php echo !empty($launch_number) ? $launch_number : ""; ?></small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-2">Cadastrado Por:</h6>
+                                    <small class="text-muted lead" ><?php echo !empty($user_name_cad) ? $user_name_cad : ""; ?></small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-2">Atualizado Por:</h6>
+                                    <small class="text-muted lead" ><?php echo !empty($user_name_up) ? $user_name_up : ""; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -231,7 +243,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                                             <h6 class="my-0"><p>Arquivos:</p></h6>
                                             <small class="text-muted">
                                                 <?php
-                                                $types = array('png', 'jpg', 'jpeg', 'doc', 'pdf', 'docx');
+                                                $types = array('png', 'jpg', 'jpeg', 'doc', 'pdf', 'docx', 'xlsx', 'rar', 'xls');
                                                 $path = 'assets/files/orderPayments/' . $id . '/';
                                                 $dir = new DirectoryIterator($path);
                                                 foreach ($dir as $fileInfo) {

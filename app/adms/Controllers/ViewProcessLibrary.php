@@ -28,12 +28,16 @@ class ViewProcessLibrary {
 
             $botao = ['list_process' => ['menu_controller' => 'process-library', 'menu_metodo' => 'list'],
                 'edit_process' => ['menu_controller' => 'edit-process-library', 'menu_metodo' => 'process-library'],
+                'edit_files' => ['menu_controller' => 'edit-process-library-files', 'menu_metodo' => 'edit-files'],
                 'del_process' => ['menu_controller' => 'delete-process-library', 'menu_metodo' => 'process-library']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
             $listarMenu = new \App\adms\Models\AdmsMenu();
             $this->Dados['menu'] = $listarMenu->itemMenu();
+            
+            $listFiles = new \App\adms\Models\AdmsViewProcessLibrary();
+            $this->Dados['listFiles'] = $listFiles->listFiles($this->DadosId);
 
             $carregarView = new \Core\ConfigView("adms/Views/biblioteca/viewProcessLibrary", $this->Dados);
             $carregarView->renderizar();

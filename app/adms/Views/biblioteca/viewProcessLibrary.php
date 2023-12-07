@@ -19,10 +19,13 @@ if (!empty($this->Dados['dados_process'][0])) {
                             echo "<a href='" . URLADM . "process-library/list' class='btn btn-outline-info btn-sm' title='Listar'><i class='fa-solid fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_process']) {
-                            echo "<a href='" . URLADM . "edit-process-library/process-library/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-fancy'></i></a> ";
+                            echo "<a href='" . URLADM . "edit-process-library/process-library/$p_id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-fancy'></i></a> ";
+                        }
+                        if ($this->Dados['botao']['edit_files']) {
+                            echo "<a href='" . URLADM . "edit-process-library-files/edit-files/$p_id' class='btn btn-outline-dark btn-sm' title='Editar Arquivos'><i class='fa-solid fa-file-pen'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_process']) {
-                            echo "<a href='" . URLADM . "delete-process-library/process-library/$id' class='btn btn-outline-danger btn-sm' title='Apagar' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                            echo "<a href='" . URLADM . "delete-process-library/process-library/$p_id' class='btn btn-outline-danger btn-sm' title='Apagar' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>
@@ -32,14 +35,17 @@ if (!empty($this->Dados['dados_process'][0])) {
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
                             <?php
-                            if ($this->Dados['botao']['dados_process']) {
+                            if ($this->Dados['botao']['list_process']) {
                                 echo "<a class='dropdown-item' href='" . URLADM . "process-library/list'>Listar</a>";
                             }
                             if ($this->Dados['botao']['edit_process']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "edit-process-library/process-library/$id'>Editar</a>";
+                                echo "<a class='dropdown-item' href='" . URLADM . "edit-process-library/process-library/$p_id'>Editar</a>";
+                            }
+                            if ($this->Dados['botao']['edit_files']) {
+                                echo "<a class='dropdown-item' href='" . URLADM . "edit-process-library-files/edit-files/$p_id'>Editar Arquivos</a>";
                             }
                             if ($this->Dados['botao']['del_process']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "delete-process-library/process-library/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                echo "<a class='dropdown-item' href='" . URLADM . "delete-process-library/process-library/$p_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                             }
                             ?>
                         </div>
@@ -57,7 +63,7 @@ if (!empty($this->Dados['dados_process'][0])) {
                 <dt class="col-sm-3">ID</dt>
                 <dd class="col-sm-9"><?php echo $p_id; ?></dd>
 
-                <dt class="col-sm-3">Categoria</dt>
+                <dt class="col-sm-3">Título</dt>
                 <dd class="col-sm-9"><?php echo $title; ?></dd>
 
                 <dt class="col-sm-3">Categoria</dt>
@@ -69,14 +75,23 @@ if (!empty($this->Dados['dados_process'][0])) {
                 <dt class="col-sm-3">Área</dt>
                 <dd class="col-sm-9"><?php echo $area; ?></dd>
 
-                <dt class="col-sm-3">Gestor da Área</dt>
+                <dt class="col-sm-3">Gestor(a) da Área</dt>
                 <dd class="col-sm-9"><?php echo $manager_area; ?></dd>
 
                 <dt class="col-sm-3">Setor</dt>
                 <dd class="col-sm-9"><?php echo $sector_name; ?></dd>
 
-                <dt class="col-sm-3">Gestor do Setor</dt>
+                <dt class="col-sm-3">Gestor(a) do Setor</dt>
                 <dd class="col-sm-9"><?php echo $manager_sector; ?></dd>
+
+                <dt class="col-sm-3">Arquivos</dt>
+                <dd class="col-sm-9"><?php
+                    foreach ($this->Dados['listFiles'] as $file) {
+                        extract($file);
+                        echo $exibition_name . "<a href='".URLADM."assets/files/processLibrary/$adms_process_library_id/$file_name_slug' class='text-decoration-none ml-1' download><i class='fa-solid fa-download btn btn-dark'></i></a><br>";
+                    }
+                    ?>
+                </dd>
 
                 <dt class="col-sm-3">Data Inicial</dt>
                 <dd class="col-sm-9"><?php echo date("d/m/Y", strtotime($date_validation_start)); ?></dd>
@@ -102,7 +117,7 @@ if (!empty($this->Dados['dados_process'][0])) {
     </div>
     <?php
 } else {
-    $_SESSION['msg'] = "<div class='alert alert-danger'>Cargo não encontrado!</div>";
+    $_SESSION['msg'] = "<div class='alert alert-danger'>Processo/Política não encontrado!</div>";
     $UrlDestino = URLADM . 'process-library/list';
     header("Location: $UrlDestino");
 }

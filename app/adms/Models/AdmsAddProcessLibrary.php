@@ -34,7 +34,6 @@ class AdmsAddProcessLibrary {
 
         if ($valCampoVazio->getResultado()) {
             $this->insertProcess();
-            $this->insertFiles();
         } else {
             $this->Resultado = false;
         }
@@ -42,8 +41,6 @@ class AdmsAddProcessLibrary {
 
     private function insertProcess() {
 
-        $slugFile = new \App\adms\Models\helper\AdmsSlug();
-        $this->Dados['file_name_process'] = $slugFile->nomeSlug($this->File['name'][0]);
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
         $addProcess = new \App\adms\Models\helper\AdmsCreate();
@@ -89,11 +86,12 @@ class AdmsAddProcessLibrary {
             $this->File['name'][0] = $newName->nomeSlug($this->File['name'][0]);
 
             $uploadFile = new \App\adms\Models\helper\AdmsUpload();
-            $uploadFile->upload($arquivosParaUpload[0], $uploadPath, $this->File);
+            $uploadFile->upload($arquivosParaUpload[0], $uploadPath, $this->File['name'][0]);
         }
 
         if ($uploadFile->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Processo/Política:</strong> Cadastrada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->insertFiles();
             $this->Resultado = true;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Processo/Política cadastrada. Erro ao realizar o upload do(s) arquivo(s)!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -118,6 +116,7 @@ class AdmsAddProcessLibrary {
                 'created' => date("Y-m-d H:i:s")
             ];
         }
+        var_dump($insertData);
 
         // Insere os dados no banco de dados
         $installment = new \App\adms\Models\helper\AdmsCreate();

@@ -22,7 +22,11 @@ class AdmsUploadMultFiles {
         'application/msword',
         'application/pdf',
         'image/jpeg',
-        'image/png'
+        'image/png',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/x-compressed'
     ];
 
     public function getResultado() {

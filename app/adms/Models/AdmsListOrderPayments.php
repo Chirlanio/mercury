@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of AdmsListarEstorno
+ * Description of AdmsListOrderPayments
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
@@ -16,7 +16,7 @@ class AdmsListOrderPayments {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = LIMIT;
+    private $LimiteResultado = 100;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -33,7 +33,10 @@ class AdmsListOrderPayments {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listBacklog = new \App\adms\Models\helper\AdmsRead();
-        $listBacklog->fullRead("SELECT op.*, a.name area_backlog, s.corporate_social fornecedor_backlog FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listBacklog->fullRead("SELECT op.id bk_id, op.total_value total_bk, op.advance adv_bk, op.proof proof_bk,
+                op.created_date created_date_bk, op.date_payment date_payment_bk, op.installments installments_bk, op.advance_amount advance_amount_bk, op.diff_payment_advance diff_payment_advance_bk,
+                a.name area_bk, s.corporate_social fornecedor_bk
+                FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.date_payment ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
         $this->Resultado = $listBacklog->getResultado();
         return $this->Resultado;
@@ -49,7 +52,10 @@ class AdmsListOrderPayments {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listDoing = new \App\adms\Models\helper\AdmsRead();
-        $listDoing->fullRead("SELECT op.*, a.name area_doing, s.corporate_social fornecedor_doing FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=2&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listDoing->fullRead("SELECT op.id do_id, op.total_value total_do, op.advance adv_do, op.proof proof_do,
+                op.created_date created_date_do, op.date_payment date_payment_do, op.installments installments_do, op.advance_amount advance_amount_do, op.diff_payment_advance diff_payment_advance_do,
+                a.name area_doing, s.corporate_social fornecedor_doing
+                FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=2&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
         $this->Resultado = $listDoing->getResultado();
         return $this->Resultado;
@@ -65,7 +71,9 @@ class AdmsListOrderPayments {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listWaiting = new \App\adms\Models\helper\AdmsRead();
-        $listWaiting->fullRead("SELECT op.*, a.name area_waiting, s.corporate_social fornecedor_waiting FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=3&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listWaiting->fullRead("SELECT op.id wa_id, op.total_value total_wa, op.advance adv_wa, op.proof proof_wa,
+                op.created_date created_date_wa, op.date_payment date_payment_wa, op.installments installments_wa, op.advance_amount advance_amount_wa, op.diff_payment_advance diff_payment_advance_wa,
+                a.name area_wa, s.corporate_social fornecedor_wa FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=3&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
         $this->Resultado = $listWaiting->getResultado();
         return $this->Resultado;
@@ -81,7 +89,10 @@ class AdmsListOrderPayments {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listDone = new \App\adms\Models\helper\AdmsRead();
-        $listDone->fullRead("SELECT op.*, a.name area_done, s.corporate_social fornecedor_done FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=4&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listDone->fullRead("SELECT op.id don_id, op.total_value total_don, op.advance adv_don, op.proof proof_don,
+                op.created_date created_date_don, op.date_payment date_payment_don, op.installments installments_don, op.advance_amount advance_amount_don, op.diff_payment_advance diff_payment_advance_don,
+                a.name area_don, s.corporate_social fornecedor_don
+                FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=4&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
         $this->Resultado = $listDone->getResultado();
         return $this->Resultado;

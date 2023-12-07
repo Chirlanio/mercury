@@ -21,7 +21,7 @@ class CreateSpreadsheetOrderPayments {
 
         $this->PageId = (int) $PageId;
         
-        $this->Dados['search'] = filter_input(INPUT_POST, FILTER_DEFAULT);
+        $this->Dados['search'] = filter_input(INPUT_GET, 'search', FILTER_DEFAULT);
         
         $botao = ['create' => ['menu_controller' => 'create-spreadsheet-order-payments', 'menu_metodo' => 'create'],
             'listOrder' => ['menu_controller' => 'create-spreadsheet-order-payments', 'menu_metodo' => 'create']];

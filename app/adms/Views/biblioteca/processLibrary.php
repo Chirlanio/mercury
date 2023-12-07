@@ -94,10 +94,10 @@ if (!defined('URLADM')) {
                                                                 echo "<a href='" . URLADM . "view-process-library/process-library/$id' class='btn btn-outline-primary btn-sm'><i class='fas fa-eye'></i></a> ";
                                                             }
                                                             if ($this->Dados['botao']['edit_process']) {
-                                                                echo "<a href='" . URLADM . "edit-process-library/edit-process/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
+                                                                echo "<a href='" . URLADM . "edit-process-library/process-library/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                                                             }
                                                             if ($this->Dados['botao']['del_process']) {
-                                                                echo "<a href='" . URLADM . "delete-process-library/delete-process/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                                                                echo "<a href='" . URLADM . "delete-process-library/process-library/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                                                             }
                                                             ?>
                                                         </span>
@@ -138,7 +138,7 @@ if (!defined('URLADM')) {
         </div>
 
         <?php
-        echo $this->Dados['paginacao'];
+        //echo $this->Dados['paginacao'];
         ?>
     </div>
 </div>

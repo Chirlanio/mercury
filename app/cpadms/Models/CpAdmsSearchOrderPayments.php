@@ -17,7 +17,7 @@ class CpAdmsSearchOrderPayments {
     private $Dados;
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultado() {
@@ -43,11 +43,13 @@ class CpAdmsSearchOrderPayments {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'search-order-payments/list', '?search=' . $this->Dados['search']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(op.id) / COUNT(DISTINCT(op.adms_sits_order_pay_id)) AS num_result FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=1");
+        $paginacao->paginacao("SELECT COUNT(op.id) / COUNT(DISTINCT(op.adms_sits_order_pay_id)) AS num_result FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (op.total_value =:total_value OR sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id", "total_value={$this->Dados['search']}&fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=1");
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrder = new \App\adms\Models\helper\AdmsRead();
-        $listOrder->fullRead("SELECT op.*, sp.fantasy_name fornecedor_backlog, a.name area_backlog FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listOrder->fullRead("SELECT op.id bk_id, op.total_value total_bk, op.advance adv_bk, op.proof proof_bk,
+                op.created_date created_date_bk, op.date_payment date_payment_bk, op.installments installments_bk, op.advance_amount advance_amount_bk, op.diff_payment_advance diff_payment_advance_bk,
+                sp.fantasy_name fornecedor_bk, a.name area_bk FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (op.total_value =:total_value OR sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "total_value={$this->Dados['search']}&fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
         $this->Resultado = $listOrder->getResultado();
     }
@@ -75,7 +77,9 @@ class CpAdmsSearchOrderPayments {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrder = new \App\adms\Models\helper\AdmsRead();
-        $listOrder->fullRead("SELECT op.*, sp.fantasy_name fornecedor_doing, a.name area_doing FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=2&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listOrder->fullRead("SELECT op.id do_id, op.total_value total_do, op.advance adv_do, op.proof proof_do,
+                op.created_date created_date_do, op.date_payment date_payment_do, op.installments installments_do, op.advance_amount advance_amount_do, op.diff_payment_advance diff_payment_advance_do,
+                sp.fantasy_name fornecedor_do, a.name area_do FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=2&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
         $this->Resultado = $listOrder->getResultado();
     }
@@ -103,7 +107,9 @@ class CpAdmsSearchOrderPayments {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrder = new \App\adms\Models\helper\AdmsRead();
-        $listOrder->fullRead("SELECT op.*, sp.fantasy_name fornecedor_waiting, a.name area_waiting FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=3&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listOrder->fullRead("SELECT op.id wa_id, op.total_value total_wa, op.advance adv_wa, op.proof proof_wa,
+                op.created_date created_date_wa, op.date_payment date_payment_wa, op.installments installments_wa, op.advance_amount advance_amount_wa, op.diff_payment_advance diff_payment_advance_wa,
+                sp.fantasy_name fornecedor_wa, a.name area_wa FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=3&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
         $this->Resultado = $listOrder->getResultado();
     }
@@ -131,7 +137,9 @@ class CpAdmsSearchOrderPayments {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrder = new \App\adms\Models\helper\AdmsRead();
-        $listOrder->fullRead("SELECT op.*, sp.fantasy_name fornecedor_done, a.name area_done FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=4&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listOrder->fullRead("SELECT op.id don_id, op.total_value total_don, op.advance adv_don, op.proof proof_don,
+                op.created_date created_date_don, op.date_payment date_payment_don, op.installments installments_don, op.advance_amount advance_amount_don, op.diff_payment_advance diff_payment_advance_don,
+                sp.fantasy_name fornecedor_don, a.name area_don FROM adms_order_payments op LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id WHERE (sp.fantasy_name LIKE '%' :fantasy_name '%' OR sp.corporate_social LIKE '%' :corporate_social '%' OR op.id =:id OR a.name LIKE '%' :area '%' OR cc.name LIKE '%' :costCenter '%') AND op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "fantasy_name={$this->Dados['search']}&corporate_social={$this->Dados['search']}&id={$this->Dados['search']}&area={$this->Dados['search']}&costCenter={$this->Dados['search']}&adms_sits_order_pay_id=4&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
         $this->Resultado = $listOrder->getResultado();
     }
