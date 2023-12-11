@@ -56,7 +56,7 @@ if (isset($this->Dados['form'][0])) {
                         if ($_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                             foreach ($this->Dados['select']['cost'] as $cc) {
                                 extract($cc);
-                                if (isset($valorForm['adms_cost_center_id']) == $c_id) {
+                                if (isset($valorForm['adms_cost_center_id']) and ($valorForm['adms_cost_center_id'] == $c_id)) {
                                     echo "<option value='$c_id' selected>$costCenter - $cost_center_id</option>";
                                 } else {
                                     echo "<option value='$c_id'>$costCenter - $cost_center_id</option>";
@@ -65,7 +65,7 @@ if (isset($this->Dados['form'][0])) {
                         } else {
                             foreach ($this->Dados['select']['cost'] as $cc) {
                                 extract($cc);
-                                if (isset($valorForm['adms_cost_center_id']) == $c_id) {
+                                if (isset($valorForm['adms_cost_center_id']) and ($valorForm['adms_cost_center_id'] == $c_id)) {
                                     echo "<option value='$c_id' selected>$costCenter</option>";
                                 } else {
                                     echo "<option value='$c_id'>$costCenter</option>";
@@ -83,7 +83,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['brand'] as $brand) {
                             extract($brand);
-                            if (isset($valorForm['adms_brand_id']) == $b_id) {
+                            if (isset($valorForm['adms_brand_id']) and ($valorForm['adms_brand_id'] == $b_id)) {
                                 echo "<option value='$b_id' selected>$brand</option>";
                             } else {
                                 echo "<option value='$b_id'>$brand</option>";
@@ -110,7 +110,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['manager'] as $m) {
                             extract($m);
-                            if (isset($valorForm['manager_id']) == $m_id) {
+                            if (isset($valorForm['manager_id']) and ($valorForm['manager_id'] == $m_id)) {
                                 echo "<option value='$m_id' selected>$manager</option>";
                             } else {
                                 echo "<option value='$m_id'>$manager</option>";
@@ -139,7 +139,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['supplier'] as $supplier) {
                             extract($supplier);
-                            if (isset($valorForm['adms_supplier_id']) == $sup_id) {
+                            if (isset($valorForm['adms_supplier_id']) and ($valorForm['adms_supplier_id'] == $sup_id)) {
                                 echo "<option value='$sup_id' selected>$fantasy_name - $cnpj_cpf</option>";
                             } else {
                                 echo "<option value='$sup_id'>$fantasy_name - $cnpj_cpf</option>";
@@ -172,14 +172,14 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
 
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="adms_type_payment_id"><span class="text-danger">*</span> Forma de Pagamento</label>
                     <select name="adms_type_payment_id" id="adms_type_payment_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['type_payment'] as $type) {
                             extract($type);
-                            if (isset($valorForm['adms_type_payment_id']) == $t_id) {
+                            if (isset($valorForm['adms_type_payment_id']) and ($valorForm['adms_supplier_id'] == $t_id)) {
                                 echo "<option value='$t_id' selected>$type_payment</option>";
                             } else {
                                 echo "<option value='$t_id'>$type_payment</option>";
@@ -189,7 +189,7 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
 
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="advance"><span class="text-danger">*</span> Adiantamento</label>
                     <select name="advance" id="advance" class="form-control is-invalid" required>
                         <?php
@@ -217,6 +217,27 @@ if (isset($this->Dados['form'][0])) {
                         echo $valorForm['advance_amount'];
                     }
                     ?>">
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="advance_amount_sit"><span class="text-danger">*</span> Adiantamento Pago?</label>
+                    <select name="advance_amount_sit" id="advance_amount_sit" class="form-control is-invalid" required>
+                        <?php
+                        if (isset($valorForm['advance_amount_sit']) == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Sim</option>";
+                            echo "<option value='2'>Não</option>";
+                        } elseif ($valorForm['advance_amount_sit'] == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2' selected>Não</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2'>Não</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="form-group col-md-2">
@@ -250,6 +271,11 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
 
+            <div class="form-row">
+
+
+            </div>
+
             <div class="form-row d-none" id="parc">
 
                 <div class="form-group col-md-3">
@@ -261,14 +287,14 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <!-- Dados para pagamento -->
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="bank_id">Banco</label>
                     <select name="bank_id" id="bank_id" class="form-control is-valid">
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['bank'] as $bank) {
                             extract($bank);
-                            if (isset($valorForm['bank_id']) == $b_id) {
+                            if (isset($valorForm['bank_id']) and ($valorForm['bank_id'] == $b_id)) {
                                 echo "<option value='$b_id' selected>$bank_name</option>";
                             } else {
                                 echo "<option value='$b_id'>$bank_name</option>";
@@ -278,13 +304,34 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
 
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-1">
                     <label for="agency">Agência</label>
                     <input name="agency" id="agency" type="number" class="form-control" value="<?php
                     if (isset($valorForm['agency'])) {
                         echo $valorForm['agency'];
                     }
                     ?>">
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="type_account">Tipo de Conta</label>
+                    <select name="type_account" id="type_account" class="form-control is-valid">
+                        <?php
+                        if (isset($valorForm['type_account']) == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Conta Corrente</option>";
+                            echo "<option value='2'>Poupança</option>";
+                        } elseif ($valorForm['type_account'] == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Conta Corrente</option>";
+                            echo "<option value='2' selected>Poupança</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Conta Corrente</option>";
+                            echo "<option value='2'>Poupança</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="form-group col-md-2">
@@ -296,7 +343,16 @@ if (isset($this->Dados['form'][0])) {
                     ?>">
                 </div>
 
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-2">
+                    <label for="document_number_supplier">CPF</label>
+                    <input name="document_number_supplier" id="document_number_supplier" type="text" class="form-control" value="<?php
+                    if (isset($valorForm['document_number_supplier'])) {
+                        echo $valorForm['document_number_supplier'];
+                    }
+                    ?>">
+                </div>
+
+                <div class="form-group col-md-3">
                     <label for="name_supplier">Títular</label>
                     <input name="name_supplier" id="name_supplier" type="text" class="form-control is-valid" value="<?php
                     if (isset($valorForm['name_supplier'])) {
@@ -320,7 +376,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['key_pix'] as $pix) {
                             extract($pix);
-                            if (isset($valorForm['adms_type_key_pix_id']) == $p_id) {
+                            if (isset($valorForm['adms_type_key_pix_id']) and ($valorForm['adms_type_key_pix_id'] == $p_id)) {
                                 echo "<option value='$p_id' selected>$key_name</option>";
                             } else {
                                 echo "<option value='$p_id'>$key_name</option>";

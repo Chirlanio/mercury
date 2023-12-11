@@ -210,6 +210,7 @@ $(document).ready(function () {
     $('#clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
     $('#placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
     $('#cnpj_cpf').mask("00.000.000/0000-00", {placeholder: "00.000.000/0000-00"});
+    $('#document_number_supplier').mask("000.000.000-00", {placeholder: "000.000.000-00"});
     $('#contact').mask("(00) 00000-0000", {placeholder: "(00) 00000-0000"});
     $('#fallback').mask("00r00r0000", {
         translation: {

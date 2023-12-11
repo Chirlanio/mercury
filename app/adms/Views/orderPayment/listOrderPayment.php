@@ -57,8 +57,35 @@ if (!defined('URLADM')) {
                     </div>
                 </div>
             </div>
+
+            <div class="form-row">
+                <div class="col col-sm-2 mb-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="font-weight: bold" for="searchDateInitial">Data Inicial</label>
+                        </div>
+                        <input name="searchDateInitial" type="date" id="searchDateInitial" class="form-control" aria-describedby="searchDateInitial" value="<?php
+                        if (isset($_SESSION['searchDateInitial'])) {
+                            echo $_SESSION['searchDateInitial'];
+                        }
+                        ?>">
+                    </div>
+                </div>
+                <div class="col col-sm-2 mb-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="font-weight: bold" for="searchDateFinal">Data Final</label>
+                        </div>
+                        <input name="searchDateFinal" type="date" id="searchDateFinal" class="form-control" aria-describedby="searchDateFinal" value="<?php
+                        if (isset($_SESSION['searchDateFinal'])) {
+                            echo $_SESSION['searchDateFinal'];
+                        }
+                        ?>">
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="form-group ml-sm-2 ml-md-2 ml-lg-2 ml-3">
+                <div class="form-group ml-sm-2 ml-md-2 ml-lg-2 ml-2">
                     <input name="SearchOrder" type="submit" class="btn btn-outline-primary mx-sm-2" value="Pesquisar">
                 </div>
             </div>

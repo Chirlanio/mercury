@@ -10,19 +10,19 @@ if (!empty($this->Dados['dados_order'][0])) {
         <div class="list-group-item">
             <div class="d-flex">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4 titulo">Ordem de Pagamento - ID: <?php echo $id;?></h2>
+                    <h2 class="display-4 titulo">Ordem de Pagamento - <strong>ID:</strong> <?php echo $id; ?></h2>
                 </div>
                 <div class="p-2">
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_order']) {
-                            echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
+                            echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm m-1' title='Listar'><i class='fas fa-list'></i></a>";
                         }
                         if ($this->Dados['botao']['edit_order']) {
-                            echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i> Editar</a> ";
+                            echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-outline-warning btn-sm m-1' title='Editar'><i class='fas fa-pen-fancy'></i></a>";
                         }
                         if ($this->Dados['botao']['del_order']) {
-                            echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i> Apagar</a> ";
+                            echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-outline-danger btn-sm m-1' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>
@@ -70,17 +70,35 @@ if (!empty($this->Dados['dados_order'][0])) {
                                     <h6 class="my-2">Adiantamento:</h6>
                                     <small class="lead"><?php echo $advance == 1 ? "Sim" : "Não"; ?></small>
                                 </div>
+                                <div class="my-2">
+                                    <h6 class="my-2">Adiantamento Pago?</h6>
+                                    <small class="lead"><?php echo $advance_amount_sit == 1 ? "Sim" : "Não"; ?></small>
+                                </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
+                                <div class="my-2">
                                     <h6 class="my-2">Valor - Adiantamento:</h6>
                                     <small class="text-muted lead"><?php echo!empty($advance_amount) ? "R$ " . number_format($advance_amount, 2, ',', '.') : "R$ 0,00"; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
+                                <div class="my-2">
                                     <h6 class="my-2">Valor Total:</h6>
                                     <small class="text-muted lead" ><?php echo "R$ " . number_format($total_value, 2, ',', '.'); ?></small>
+                                </div>
+                                <div class="my-2">
+                                    <h6 class="my-2">Ordem de Pagamento - Pago?</h6>
+                                    <small class="lead"><?php echo ($diff_payment_advance_sit == 1 && $advance_amount_sit == 1) || ($adms_sits_order_pay_id == 4 || $diff_payment_advance_sit == 1)? "Sim" : "Não"; ?></small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div class="my-2">
+                                    <h6 class="my-2">Diferença:</h6>
+                                    <small class="text-muted lead"><?php echo!empty($diff_payment_advance) ? "R$ " . number_format($diff_payment_advance, 2, ',', '.') : "R$ 0,00"; ?></small>
+                                </div>
+                                <div class="my-2">
+                                    <h6 class="my-2">Diferença - Pago?</h6>
+                                    <small class="lead"><?php echo $diff_payment_advance_sit == 1 ? "Sim" : "Não"; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -92,19 +110,19 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Lançamento Fiscal:</h6>
-                                    <small class="text-muted lead" ><?php echo !empty($launch_number) ? $launch_number : ""; ?></small>
+                                    <small class="text-muted lead" ><?php echo!empty($launch_number) ? $launch_number : ""; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Cadastrado Por:</h6>
-                                    <small class="text-muted lead" ><?php echo !empty($user_name_cad) ? $user_name_cad : ""; ?></small>
+                                    <small class="text-muted lead" ><?php echo!empty($user_name_cad) ? $user_name_cad : ""; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Atualizado Por:</h6>
-                                    <small class="text-muted lead" ><?php echo !empty($user_name_up) ? $user_name_up : ""; ?></small>
+                                    <small class="text-muted lead" ><?php echo!empty($user_name_up) ? $user_name_up : ""; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -166,22 +184,30 @@ if (!empty($this->Dados['dados_order'][0])) {
                                     <label for="adms_type_payment_id">Tipo de Pagamento</label>
                                     <input type="text" class="form-control bg-white" id="adms_type_payment_id" value="<?php echo $typePayment; ?>" readonly>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="bank_name">Banco</label>
                                     <input type="text" class="form-control bg-white" id="bank_name" value="<?php echo $bank; ?>" readonly>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="agency">Agência</label>
                                     <input type="text" class="form-control bg-white" id="agency" value="<?php echo $agency; ?>" readonly>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="checking_account">Conta</label>
+                                    <input type="text" class="form-control bg-white" id="checking_account" value="<?php echo $checking_account; ?>" readonly>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="checking_account">Conta</label>
-                                    <input type="text" class="form-control bg-white" id="checking_account" value="<?php echo $checking_account; ?>" readonly>
+                                <div class="col-md-3 mb-3">
+                                    <label for="agency">Tipo de Conta</label>
+                                    <input type="text" class="form-control bg-white" id="agency" value="<?php echo (!empty($type_account) ? ($type_account == 1 ? "Conta Corrente" : "Poupança") : ""); ?>" readonly>
                                 </div>
-                                <div class="col-md-8 mb-3">
+                                <div class="col-md-3 mb-3">
+                                    <label for="document_number_supplier">CPF</label>
+                                    <input type="text" class="form-control bg-white" id="document_number_supplier" value="<?php echo $document_number_supplier; ?>" readonly>
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="name_supplier">Títular</label>
                                     <input type="text" class="form-control bg-white" id="name_supplier" value="<?php echo $name_supplier; ?>" readonly>
                                 </div>

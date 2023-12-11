@@ -30,6 +30,8 @@ class AdmsEditOrderPayment {
     private $launchNumber;
     private $installmentId;
     private $installments;
+    private $typeAccount;
+    private $documentNumberSupplier;
 
     function getResultado() {
         return $this->Resultado;
@@ -57,6 +59,8 @@ class AdmsEditOrderPayment {
         $this->KeyPix = $this->Dados['key_pix'];
         $this->titular = (!empty($this->Dados['name_supplier']) ? $this->Dados['name_supplier'] : null);
         $this->launchNumber = (!empty($this->Dados['launch_number']) ? $this->Dados['launch_number'] : null);
+        $this->typeAccount = (!empty($this->Dados['type_account']) ? $this->Dados['type_account'] : null);
+        $this->documentNumberSupplier = (!empty($this->Dados['document_number_supplier']) ? $this->Dados['document_number_supplier'] : null);
         $this->installmentId = (!empty($this->Dados['i_id']) ? $this->Dados['i_id'] : null);
         $this->installments['installment_values'] = !empty($this->Dados['installment_values']) ? $this->Dados['installment_values'] : null;
         $this->installments['date_payments'] = !empty($this->Dados['date_payments']) ? $this->Dados['date_payments'] : null;
@@ -67,7 +71,7 @@ class AdmsEditOrderPayment {
         if ((!empty($this->Dados['total_value'])) and (!empty($this->Dados['advance_amount']))) {
             $this->AdvanceAmount = (!empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
         }
-        unset($this->Dados['id'], $this->Dados['delete'], $this->Dados['i_id'], $this->Dados['launch_number'], $this->Dados['name_supplier'], $this->Dados['new_files'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
+        unset($this->Dados['document_number_supplier'], $this->Dados['type_account'], $this->Dados['id'], $this->Dados['delete'], $this->Dados['i_id'], $this->Dados['launch_number'], $this->Dados['name_supplier'], $this->Dados['new_files'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -124,6 +128,8 @@ class AdmsEditOrderPayment {
         $this->Dados['launch_number'] = $this->launchNumber;
         $this->Dados['installment_value'] = !empty($this->installments['installment_values'][0]) ? $this->installments['installment_values'][0] : null;
         $this->Dados['update_user_id'] = $_SESSION['usuario_id'];
+        $this->Dados['type_account'] = $this->typeAccount;
+        $this->Dados['document_number_supplier'] = $this->documentNumberSupplier;
 
         if (!empty($this->File['name'][0])) {
             $slugImg = new \App\adms\Models\helper\AdmsSlug();

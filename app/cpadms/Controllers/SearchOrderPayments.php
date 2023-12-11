@@ -39,6 +39,8 @@ class SearchOrderPayments {
         } else {
             $this->PageId = (int) $PageId ? $PageId : 1;
             $this->DadosForm['search'] = filter_input(INPUT_GET, 'search', FILTER_DEFAULT);
+            $this->DadosForm['searchDateInitial'] = filter_input(INPUT_GET, 'searchDateInitial', FILTER_DEFAULT);
+            $this->DadosForm['searchDateFinal'] = filter_input(INPUT_GET, 'searchDateFinal', FILTER_DEFAULT);
         }
 
         $listBacklog = new \App\cpadms\Models\CpAdmsSearchOrderPayments();

@@ -30,6 +30,8 @@ class AdmsAddOrderPayment {
     private $titular;
     private $launchNumebr;
     private $DadosUsuario;
+    private $typeAccount;
+    private $documentNumberSupplier;
 
     function getResultado() {
         return $this->Resultado;
@@ -51,8 +53,11 @@ class AdmsAddOrderPayment {
         $this->datePayments = !empty($this->Dados['date_payments']) ? $this->Dados['date_payments'] : null;
         $this->titular = !empty($this->Dados['name_supplier']) ? $this->Dados['name_supplier'] : null;
         $this->launchNumebr = !empty($this->Dados['launch_numebr']) ? $this->Dados['launch_numebr'] : null;
-        unset($this->Dados['launch_number'], $this->Dados['name_supplier'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
+        $this->typeAccount = !empty($this->Dados['type_account']) ? $this->Dados['type_account'] : null;
+        $this->documentNumberSupplier = !empty($this->Dados['document_number_supplier']) ? $this->Dados['document_number_supplier'] : null;
+        unset($this->Dados['document_number_supplier'], $this->Dados['type_account'], $this->Dados['launch_number'], $this->Dados['name_supplier'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['bank_id'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['advance_amount'], $this->Dados['number_nf'], $this->Dados['file_name'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
 
+        //var_dump($this->Dados);
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
 
@@ -79,6 +84,8 @@ class AdmsAddOrderPayment {
         $this->Dados['adms_user_id'] = $_SESSION['usuario_id'];
         $this->Dados['name_supplier'] = $this->titular;
         $this->Dados['launch_number'] = $this->launchNumebr;
+        $this->Dados['type_account'] = $this->typeAccount;
+        $this->Dados['document_number_supplier'] = (!empty($this->documentNumberSupplier) ? str_replace('.', '', str_replace('-', '', $this->documentNumberSupplier)) : null);
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
         if (!empty($this->Filename['name'][0])) {
@@ -88,7 +95,7 @@ class AdmsAddOrderPayment {
 
         $addOrder = new \App\adms\Models\helper\AdmsCreate();
         $addOrder->exeCreate("adms_order_payments", $this->Dados);
-        
+
         if ($addOrder->getResultado()) {
             if (empty($this->Filename['name'][0])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";

@@ -3,6 +3,7 @@ if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
+//var_dump($_SESSION['terms']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -14,7 +15,7 @@ if (!defined('URLADM')) {
                 <span class="d-none d-md-block">
                     <?php
                     if ($this->Dados['botao']['listOrder']) {
-                        echo "<a href='" . URLADM . "create-spreadsheet-order-payments/create?search=".$_SESSION['search']."' class='btn btn-success btn-sm'><i class='fas fa-table'></i></a> ";
+                        echo "<a href='" . URLADM . "create-spreadsheet-order-payments/create" . $_SESSION['terms'] . "' class='btn btn-success btn-sm'><i class='fas fa-table'></i> Planilha</a> ";
                     }
                     if ($this->Dados['botao']['list_payment']) {
                         echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
@@ -51,6 +52,33 @@ if (!defined('URLADM')) {
                         <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Pesquise por cliente, loja, situação ou ID" value="<?php
                         if ((isset($_SESSION['search'])) AND (!empty($_SESSION['search']))) {
                             echo $_SESSION['search'];
+                        }
+                        ?>">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col col-sm-2 mb-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="font-weight: bold" for="searchDateInitial">Data Inicial</label>
+                        </div>
+                        <input name="searchDateInitial" type="date" id="searchDateInitial" class="form-control" aria-describedby="searchDateInitial" value="<?php
+                        if (isset($_SESSION['searchDateInitial'])) {
+                            echo $_SESSION['searchDateInitial'];
+                        }
+                        ?>">
+                    </div>
+                </div>
+                <div class="col col-sm-2 mb-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="font-weight: bold" for="searchDateFinal">Data Final</label>
+                        </div>
+                        <input name="searchDateFinal" type="date" id="searchDateFinal" class="form-control" aria-describedby="searchDateFinal" value="<?php
+                        if (isset($_SESSION['searchDateFinal'])) {
+                            echo $_SESSION['searchDateFinal'];
                         }
                         ?>">
                     </div>
