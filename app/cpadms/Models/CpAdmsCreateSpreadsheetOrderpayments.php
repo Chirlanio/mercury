@@ -37,7 +37,7 @@ class CpAdmsCreateSpreadsheetOrderpayments {
         if ((!empty($this->Dados['search'])) and (!empty($this->Dados['searchDateInitial'])) and (!empty($this->Dados['searchDateFinal']))) {
             $this->Terms = "?search={$this->Dados['search']}&searchDateInitial={$this->Dados['searchDateInitial']}&searchDateFinal={$this->Dados['searchDateFinal']}";
         } else if ((empty($this->Dados['search'])) and (!empty($this->Dados['searchDateInitial'])) and (!empty($this->Dados['searchDateFinal']))) {
-            $this->Terms = "?searchDateInitial='{$this->Dados['searchDateInitial']}'&searchDateFinal='{$this->Dados['searchDateFinal']}'";
+            $this->Terms = "?searchDateInit={$this->Dados['searchDateInitial']}&searchDateFinal={$this->Dados['searchDateFinal']}";
         } else if ((!empty($this->Dados['search'])) and (empty($this->Dados['searchDateInitial'])) and (empty($this->Dados['searchDateFinal']))) {
             $this->Terms = "?search={$this->Dados['search']}";
         } else {

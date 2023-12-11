@@ -14,7 +14,7 @@ if (!defined('URLADM')) {
             <div class="p-2">
                 <span class="d-none d-md-block">
                     <?php
-                    if ($this->Dados['botao']['listOrder']) {
+                    if ($this->Dados['botao']['list_order']) {
                         echo "<a href='" . URLADM . "create-spreadsheet-order-payments/create" . $_SESSION['terms'] . "' class='btn btn-success btn-sm'><i class='fas fa-table'></i> Planilha</a> ";
                     }
                     if ($this->Dados['botao']['list_payment']) {
