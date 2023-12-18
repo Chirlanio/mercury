@@ -59,10 +59,10 @@ if (!defined('URLADM')) {
             </div>
 
             <div class="form-row">
-                <div class="col col-sm-2 mb-2">
+                <div class="col col-sm-6 col-md-6 col-lg-3 mb-2">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="searchDateInitial">Data Inicial</label>
+                            <label class="input-group-text" style="font-weight: bold" for="searchDateInitial">Inicio</label>
                         </div>
                         <input name="searchDateInitial" type="date" id="searchDateInitial" class="form-control" aria-describedby="searchDateInitial" value="<?php
                         if (isset($_SESSION['searchDateInitial'])) {
@@ -71,10 +71,10 @@ if (!defined('URLADM')) {
                         ?>">
                     </div>
                 </div>
-                <div class="col col-sm-2 mb-2">
+                <div class="col col-sm-6 col-md-6 col-lg-3 mb-2">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="searchDateFinal">Data Final</label>
+                            <label class="input-group-text" style="font-weight: bold" for="searchDateFinal">Fim</label>
                         </div>
                         <input name="searchDateFinal" type="date" id="searchDateFinal" class="form-control" aria-describedby="searchDateFinal" value="<?php
                         if (isset($_SESSION['searchDateFinal'])) {
@@ -162,10 +162,12 @@ if (!defined('URLADM')) {
                                     <div class="card bg-light m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $bk_id; ?></span>
-                                                <?php echo ($adv_bk == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments_bk) and $installments_bk > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof_bk == 1 ? "<i class='fa-solid fa-file-invoice text-dark' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $bk_id; ?> <?php echo $payment_prepared_bk == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>
+                                                    <?php echo ($adv_bk == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                    <?php echo ((!empty($installments_bk) and $installments_bk > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
+                                                    <?php echo ($proof_bk == 1 ? "<i class='fa-solid fa-file-invoice text-dark' title='Comprovante'></i>" : ''); ?>
+                                                </span>
                                             </div>
                                         </h5>
                                         <div class="card-body">
@@ -226,10 +228,12 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-secondary m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $do_id; ?></span>
-                                                <?php echo ($adv_do == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments_do) and $installments_do > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof_do == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $do_id; ?> <?php echo $payment_prepared_do == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>
+                                                    <?php echo ($adv_do == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                    <?php echo ((!empty($installments_do) and $installments_do > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
+                                                    <?php echo ($proof_do == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                </span>
                                             </div>
                                         </h5>
                                         <div class="card-body">
@@ -291,10 +295,12 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-info border-info m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $wa_id; ?></span>
-                                                <?php echo ($adv_wa == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments_wa) and $installments_wa > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof_wa == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $wa_id; ?><?php echo $payment_prepared_wa == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>
+                                                    <?php echo ($adv_wa == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                    <?php echo ((!empty($installments_wa) and $installments_wa > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
+                                                    <?php echo ($proof_wa == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                </span>
                                             </div>
                                         </h5>
                                         <div class="card-body">
@@ -356,10 +362,12 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-success m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $don_id; ?></span>
-                                                <?php echo ($adv_don == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments_don) and $installments_don > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof_don == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $don_id; ?> <?php echo $payment_prepared_don == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>
+                                                    <?php echo ($adv_don == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                    <?php echo ((!empty($installments_don) and $installments_don > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
+                                                    <?php echo ($proof_don == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                </span>
                                             </div>
                                         </h5>
                                         <div class="card-body">

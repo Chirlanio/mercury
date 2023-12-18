@@ -59,10 +59,10 @@ if (!defined('URLADM')) {
             </div>
 
             <div class="form-row">
-                <div class="col col-sm-2 mb-2">
+                <div class="col col-sm-6 col-md-6 col-lg-3 mb-2">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="searchDateInitial">Data Inicial</label>
+                            <label class="input-group-text" style="font-weight: bold" for="searchDateInitial">Inicio</label>
                         </div>
                         <input name="searchDateInitial" type="date" id="searchDateInitial" class="form-control" aria-describedby="searchDateInitial" value="<?php
                         if (isset($_SESSION['searchDateInitial'])) {
@@ -71,10 +71,10 @@ if (!defined('URLADM')) {
                         ?>">
                     </div>
                 </div>
-                <div class="col col-sm-2 mb-2">
+                <div class="col col-sm-6 col-md-6 col-lg-3 mb-2">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="searchDateFinal">Data Final</label>
+                            <label class="input-group-text" style="font-weight: bold" for="searchDateFinal">Fim</label>
                         </div>
                         <input name="searchDateFinal" type="date" id="searchDateFinal" class="form-control" aria-describedby="searchDateFinal" value="<?php
                         if (isset($_SESSION['searchDateFinal'])) {

@@ -102,9 +102,17 @@ class AdmsEditOrderPayment {
                 'type' => $this->File['type'][$key]
             ];
         }
+        
+        if (count($arquivosParaUpload) > 1) {
+            $uploadFile = new \App\adms\Models\helper\AdmsUploadMultFiles();
+            $uploadFile->upload($uploadPath, $arquivosParaUpload);
+        } else {
+            $newName = new \App\adms\Models\helper\AdmsSlug();
+            $this->File['name'][0] = $newName->nomeSlug($this->File['name'][0]);
 
-        $uploadFile = new \App\adms\Models\helper\AdmsUploadMultFiles();
-        $uploadFile->upload($uploadPath, $arquivosParaUpload);
+            $uploadFile = new \App\adms\Models\helper\AdmsUpload();
+            $uploadFile->upload($arquivosParaUpload[0], $uploadPath, $this->File['name'][0]);
+        }
 
         if ($uploadFile->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";

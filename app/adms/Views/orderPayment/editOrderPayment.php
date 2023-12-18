@@ -5,24 +5,23 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['select']['install']);
+//var_dump($valorForm);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Ordem de Pagamento - <strong>ID: </strong><?php echo $valorForm['id']; ?></h2>
-                <input type="hidden">
             </div>
 
             <div class="p-2 d-print-none">
                 <span class="d-none d-md-block">
                     <?php
                     if ($this->Dados['botao']['list_order']) {
-                        echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
+                        echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm ml-2'><i class='fas fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['view_order']) {
-                        echo "<a href='" . URLADM . "view-order-payments/order-payment/" . $valorForm['id'] . "' class='btn btn-outline-primary btn-sm'><i class='fas fa-eye'></i> Visualizar</a> ";
+                        echo "<a href='" . URLADM . "view-order-payments/order-payment/" . $valorForm['id'] . "' class='btn btn-outline-primary btn-sm'><i class='fas fa-eye'></i></a> ";
                     }
                     ?>
                 </span>
@@ -173,7 +172,7 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['manager'] as $man) {
                             extract($man);
-                            if ($valorForm['manager_id'] == $ma_id) {
+                            if ((isset($valorForm['manager_id'])) && ($valorForm['manager_id'] == $ma_id)) {
                                 echo "<option value='$ma_id' selected>$manager</option>";
                             } else {
                                 echo "<option value='$ma_id'>$manager</option>";
@@ -185,7 +184,7 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['brand'] as $man) {
                             extract($bn);
-                            if ($valorForm['manager_id'] == $ma_id) {
+                            if ((isset($valorForm['manager_id'])) && ($valorForm['manager_id'] == $ma_id)) {
                                 echo "<option value='$ma_id' selected>$manager</option>";
                             } else {
                                 echo "<option value='$ma_id'>$manager</option>";
@@ -226,7 +225,7 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['supp'] as $sp) {
                             extract($sp);
-                            if ($valorForm['adms_supplier_id'] == $s_id) {
+                            if ((isset($valorForm['adms_supplier_id'])) && ($valorForm['adms_supplier_id'] == $s_id)) {
                                 echo "<option value='$s_id' selected>$supplier - $cnpj_cpf</option>";
                             } else {
                                 echo "<option value='$s_id'>$supplier - $cnpj_cpf</option>";
@@ -238,7 +237,7 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['supp'] as $sp) {
                             extract($sp);
-                            if ($valorForm['adms_supplier_id'] == $s_id) {
+                            if ((isset($valorForm['adms_supplier_id'])) && ($valorForm['adms_supplier_id'] == $s_id)) {
                                 echo "<option value='$s_id' selected>$supplier - $cnpj_cpf</option>";
                             } else {
                                 echo "<option value='$s_id'>$supplier - $cnpj_cpf</option>";
@@ -254,12 +253,12 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                         echo '<input name="total_value" id="money" type="text" class="form-control is-invalid" value="';
-                        if (isset($valorForm['total_value'])) {
+                        if (isset($valorForm['total_value']) && !empty($valorForm['total_value'])) {
                             echo $valorForm['total_value'];
                         }
                     } else {
                         echo '<input name="total_value" id="total_value" type="text" class="form-control is-valid" aria-label="Disabled input" disabled value ="';
-                        if (isset($valorForm['total_value'])) {
+                        if (isset($valorForm['total_value']) && !empty($valorForm['total_value'])) {
                             echo $valorForm['total_value'];
                         }
                     }
@@ -275,12 +274,12 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                         echo '<input name="description" id="description" type="text" class="form-control is-invalid" value="';
-                        if (isset($valorForm['description'])) {
+                        if (isset($valorForm['description']) && (!empty($valorForm['description']))) {
                             echo $valorForm['description'];
                         }
                     } else {
                         echo '<input name="description" id="description" type="text" class="form-control is-valid" aria-label="Disabled input" disabled value ="';
-                        if (isset($valorForm['description'])) {
+                        if (isset($valorForm['description']) && (!empty($valorForm['description']))) {
                             echo $valorForm['description'];
                         }
                     }
@@ -299,7 +298,7 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['typePayment'] as $type) {
                             extract($type);
-                            if ($valorForm['adms_type_payment_id'] == $t_id) {
+                            if (isset($valorForm['adms_type_payment_id']) && $valorForm['adms_type_payment_id'] == $t_id) {
                                 echo "<option value='$t_id' selected>$typePayment</option>";
                             } else {
                                 echo "<option value='$t_id'>$typePayment</option>";
@@ -311,7 +310,7 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['typePayment'] as $type) {
                             extract($type);
-                            if ($valorForm['tb_forma_pag_id'] == $t_id) {
+                            if (isset($valorForm['adms_type_payment_id']) && $valorForm['adms_type_payment_id'] == $t_id) {
                                 echo "<option value='$t_id' selected>$typePayment</option>";
                             } else {
                                 echo "<option value='$t_id'>$typePayment</option>";
@@ -381,10 +380,10 @@ if (isset($this->Dados['form'][0])) {
 
 
                 <div class="form-group col-md-2">
-                    
+
                     <?php
-                    if ($valorForm['advance_amount_sit'] == 2) {
-                        echo "<label for='advance'><span class='text-danger'>*</span> Adiantamento Pago?</label>";
+                    if ($valorForm['advance_amount_sit'] == 2 || $valorForm['advance_amount_sit'] == null) {
+                        echo "<label for='advance_amount_sit'><span class='text-danger'>*</span> Adiantamento Pago?</label>";
                         if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                             echo '<select name="advance_amount_sit" id="advance_amount_sit" class="form-control is-valid" required>';
                             if ($valorForm['advance_amount_sit'] == 1) {
@@ -419,14 +418,14 @@ if (isset($this->Dados['form'][0])) {
                             echo '</select>';
                         }
                     } else {
-                        echo "<label for='advance'><span class='text-danger'>*</span> Diferença - Pago?</label>";
+                        echo "<label for='diff_payment_advance_sit'><span class='text-danger'>*</span> Diferença - Pago?</label>";
                         if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
-                            echo '<select name="diff_payment_advance_sit" id="diff_payment_advance_sit" class="form-control is-valid" required>';
-                            if ($valorForm['diff_payment_advance_sit'] == 1) {
+                            echo '<select name="diff_payment_advance_sit" id="diff_payment_advance_sit" class="form-control is-invalid" required>';
+                            if (isset($valorForm['diff_payment_advance_sit']) && $valorForm['diff_payment_advance_sit'] == 1) {
                                 echo "<option value=''>Selecione</option>";
                                 echo "<option value='1' selected>Sim</option>";
                                 echo "<option value='2'>Não</option>";
-                            } elseif ($valorForm['diff_payment_advance_sit'] == 2) {
+                            } elseif (isset($valorForm['diff_payment_advance_sit']) && $valorForm['diff_payment_advance_sit'] == 2) {
                                 echo "<option value=''>Selecione</option>";
                                 echo "<option value='1'>Sim</option>";
                                 echo "<option value='2' selected>Não</option>";
@@ -438,11 +437,11 @@ if (isset($this->Dados['form'][0])) {
                             echo '</select>';
                         } else {
                             echo '<select name="diff_payment_advance_sit" id="diff_payment_advance_sit" class="form-control is-valid" aria-label="Disabled input" required disabled>';
-                            if ($valorForm['diff_payment_advance_sit'] == 1) {
+                            if (isset($valorForm['diff_payment_advance_sit']) && $valorForm['diff_payment_advance_sit'] == 1) {
                                 echo "<option value=''>Selecione</option>";
                                 echo "<option value='1' selected>Sim</option>";
                                 echo "<option value='2'>Não</option>";
-                            } elseif ($valorForm['diff_payment_advance_sit'] == 2) {
+                            } elseif (isset($valorForm['diff_payment_advance_sit']) && $valorForm['diff_payment_advance_sit'] == 2) {
                                 echo "<option value=''>Selecione</option>";
                                 echo "<option value='1'>Sim</option>";
                                 echo "<option value='2' selected>Não</option>";
@@ -541,7 +540,7 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['bank'] as $bank) {
                             extract($bank);
-                            if (isset($valorForm['bank_id']) == $bank_id) {
+                            if (isset($valorForm['bank_id']) && $valorForm['bank_id'] == $bank_id) {
                                 echo "<option value='$bank_id' selected>$bank_name</option>";
                             } else {
                                 echo "<option value='$bank_id'>$bank_name</option>";
@@ -553,7 +552,7 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['bank'] as $bank) {
                             extract($bank);
-                            if (isset($valorForm['bank_id']) == $bank_id) {
+                            if (isset($valorForm['bank_id']) && $valorForm['bank_id'] == $bank_id) {
                                 echo "<option value='$bank_id' selected>$bank_name</option>";
                             } else {
                                 echo "<option value='$bank_id'>$bank_name</option>";
@@ -569,12 +568,12 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                         echo '<input name="agency" id="agency" type="number" class="form-control" value="';
-                        if (isset($valorForm['agency'])) {
+                        if (isset($valorForm['agency']) && !empty($valorForm['agency'])) {
                             echo $valorForm['agency'];
                         }
                     } else {
                         echo '<input name="agency" id="agency" type="number" class="form-control" aria-label="Disabled input" disabled value ="';
-                        if (isset($valorForm['agency'])) {
+                        if (isset($valorForm['agency']) && !empty($valorForm['agency'])) {
                             echo $valorForm['agency'];
                         }
                     }
@@ -586,18 +585,18 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                         echo '<input name="checking_account" id="checking_account" type="number" class="form-control" value="';
-                        if (isset($valorForm['checking_account'])) {
+                        if (isset($valorForm['checking_account']) && !empty($valorForm['checking_account'])) {
                             echo $valorForm['checking_account'];
                         }
                     } else {
                         echo '<input name="checking_account" id="checking_account" type="number" class="form-control" aria-label="Disabled input" disabled value ="';
-                        if (isset($valorForm['checking_account'])) {
+                        if (isset($valorForm['checking_account']) && !empty($valorForm['checking_account'])) {
                             echo $valorForm['checking_account'];
                         }
                     }
                     ?>">
                 </div>
-                
+
                 <div class="form-group col-md-2">
                     <label for="type_account">Tipo de Conta</label>                    
                     <?php
@@ -641,12 +640,12 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                         echo '<input name="document_number_supplier" id="document_number_supplier" type="text" class="form-control is-valid" value="';
-                        if (isset($valorForm['document_number_supplier'])) {
+                        if (isset($valorForm['document_number_supplier']) && !empty($valorForm['document_number_supplier'])) {
                             echo $valorForm['document_number_supplier'];
                         }
                     } else {
                         echo '<input name="document_number_supplier" id="document_number_supplier" type="text" class="form-control" aria-label="Disabled input" disabled value ="';
-                        if (isset($valorForm['document_number_supplier'])) {
+                        if (isset($valorForm['document_number_supplier']) && !empty($valorForm['document_number_supplier'])) {
                             echo $valorForm['document_number_supplier'];
                         }
                     }
@@ -659,12 +658,12 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                         echo '<input name="name_supplier" id="name_supplier" type="text" class="form-control is-valid" value="';
-                        if (isset($valorForm['name_supplier'])) {
+                        if (isset($valorForm['name_supplier']) && !empty($valorForm['name_supplier'])) {
                             echo $valorForm['name_supplier'];
                         }
                     } else {
                         echo '<input name="name_supplier" id="name_supplier" type="text" class="form-control" aria-label="Disabled input" disabled value ="';
-                        if (isset($valorForm['name_supplier'])) {
+                        if (isset($valorForm['name_supplier']) && !empty($valorForm['name_supplier'])) {
                             echo $valorForm['name_supplier'];
                         }
                     }
@@ -683,7 +682,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="adms_type_key_pix_id"><span class="text-danger">*</span> Tipo de Chave</label>
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
@@ -714,21 +713,59 @@ if (isset($this->Dados['form'][0])) {
                     ?>
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-5">
                     <label for="key_pix">Chave PIX</label>
                     <?php
                     if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
                         echo '<input name="key_pix" id="key_pix" type="text" class="form-control is-valid" value="';
-                        if (isset($valorForm['key_pix'])) {
+                        if (isset($valorForm['key_pix']) && !empty($valorForm['key_pix'])) {
                             echo $valorForm['key_pix'];
                         }
                     } else {
                         echo '<input name="key_pix" id="key_pix" type="text" class="form-control" aria-label="Disabled input" disabled value ="';
-                        if (isset($valorForm['key_pix'])) {
+                        if (isset($valorForm['key_pix']) && !empty($valorForm['key_pix'])) {
                             echo $valorForm['key_pix'];
                         }
                     }
                     echo '">';
+                    ?>
+                </div>
+                
+                <div class="form-group col-md-2">
+                    <label for="payment_prepared"><span class="text-danger">*</span> Preparado?</label>                    
+                    <?php
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                        echo '<select name="payment_prepared" id="payment_prepared" class="form-control is-valid" required>';
+                        if ($valorForm['payment_prepared'] == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Sim</option>";
+                            echo "<option value='2'>Não</option>";
+                        } elseif ($valorForm['payment_prepared'] == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2' selected>Não</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2'>Não</option>";
+                        }
+                    } else {
+                        echo '<select name="payment_prepared" id="payment_prepared" class="form-control is-valid" aria-label="Disabled input" required disabled>';
+                        if ($valorForm['payment_prepared'] == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Sim</option>";
+                            echo "<option value='2'>Não</option>";
+                        } elseif ($valorForm['payment_prepared'] == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2' selected>Não</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2'>Não</option>";
+                        }
+                    }
+                    echo '</select>';
                     ?>
                 </div>
 
@@ -769,7 +806,7 @@ if (isset($this->Dados['form'][0])) {
                     <label for="obs">Observações</label>
                     <textarea name="obs" id="obs" class="form-control editorCK is-invalid" rows="4">
                         <?php
-                        if (isset($valorForm['obs'])) {
+                        if (isset($valorForm['obs']) && !empty($valorForm['obs'])) {
                             echo $valorForm['obs'];
                         }
                         ?>
@@ -786,7 +823,7 @@ if (isset($this->Dados['form'][0])) {
                                     <h6 class="my-0">Arquivos</h6>
                                     <small class="text-muted">
                                         <?php
-                                        $types = array('png', 'jpg', 'jpeg', 'doc', 'pdf', 'docx');
+                                        $types = array('png', 'jpg', 'jpeg', 'doc', 'pdf', 'docx', 'xlsx', 'xls');
                                         $path = 'assets/files/orderPayments/' . $valorForm['id'] . '/';
                                         $dir = new DirectoryIterator($path);
                                         foreach ($dir as $fileInfo) {
@@ -806,12 +843,12 @@ if (isset($this->Dados['form'][0])) {
                         </ul>
                     </div>
                     <input name="file_name[]" type="hidden" value="<?php
-                                        if (isset($valorForm['file_name'])) {
-                                            echo $valorForm['file_name'];
-                                        } elseif (isset($valorForm['new_files'])) {
-                                            echo $valorForm['new_files'];
-                                        }
-                                        ?>" multiple>
+                    if (isset($valorForm['file_name'])) {
+                        echo $valorForm['file_name'];
+                    } elseif (isset($valorForm['new_files'])) {
+                        echo $valorForm['new_files'];
+                    }
+                    ?>" multiple>
 
                     <label for="new_files"><span class="text-danger">*</span> Novo Arquivo</label>
                     <input name="new_files[]" id="new_files" type="file" class="custom-file" multiple>
