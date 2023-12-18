@@ -21,7 +21,7 @@ class SearchOrderPayments {
     public function list($PageId = null) {
 
         $botao = ['list_payment' => ['menu_controller' => 'order-payments', 'menu_metodo' => 'list'],
-            'list_order' => ['menu_controller' => 'create-spreadsheet-order-payments', 'menu_metodo' => 'create'],
+            'create_sheet' => ['menu_controller' => 'create-spreadsheet-order-payments', 'menu_metodo' => 'create'],
             'add_payment' => ['menu_controller' => 'add-order-payments', 'menu_metodo' => 'order-payment'],
             'view_payment' => ['menu_controller' => 'view-order-payments', 'menu_metodo' => 'order-payment'],
             'edit_payment' => ['menu_controller' => 'edit-order-payments', 'menu_metodo' => 'order-payment'],

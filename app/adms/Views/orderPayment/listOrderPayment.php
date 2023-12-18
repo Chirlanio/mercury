@@ -295,7 +295,7 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-info border-info m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $wa_id; ?><?php echo $payment_prepared_wa == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>ID: <?php echo $wa_id; ?> <?php echo $payment_prepared_wa == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
                                                 <span>
                                                     <?php echo ($adv_wa == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
                                                     <?php echo ((!empty($installments_wa) and $installments_wa > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>

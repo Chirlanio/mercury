@@ -59,6 +59,12 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <span class="text-muted">Dados do Pagamento</span>
                         </h4>
                         <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed</table>">
+                                <div class="my-2">
+                                    <h6 class="my-2">Pagamento Preparado?</h6>
+                                    <small class="lead"><?php echo $payment_prepared == 1 ? "Sim" : "Não"; ?></small>
+                                </div>
+                            </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Data de Pagamento:</h6>

@@ -18,7 +18,7 @@ if (!defined('URLADM')) {
         $html = '';
         $html .= '<table border="1" class="table table-striped table-hover table-bordered">';
         $html .= '<tr>';
-        $html .= '<th colspan="26">Ordens de Pagamentos</th>';
+        $html .= '<th colspan="27">Ordens de Pagamentos</th>';
         $html .= '</tr>';
 
         $html .= "<tr>";
@@ -27,6 +27,7 @@ if (!defined('URLADM')) {
         $html .= "<th class='d-none d-sm-table-cell'>Centro de Custo</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Marca</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Data Pagamento</th>";
+        $html .= "<th class='d-none d-sm-table-cell'>Pagamento Preparado</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Gerência</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Fornecedor</th>";
         $html .= "<th class='d-none d-sm-table-cell'>Descrição</th>";
@@ -59,6 +60,7 @@ if (!defined('URLADM')) {
             $html .= "<td class='d-none d-sm-table-cell'>" . $costCenter . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $brand . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . date("d/m/Y", strtotime($date_payment)) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($payment_prepared == 1 ? "Sim" : "Não") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $manager . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $supplier . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $description . "</td>";

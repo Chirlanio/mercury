@@ -14,7 +14,7 @@ if (!defined('URLADM')) {
             <div class="p-2">
                 <span class="d-none d-md-block">
                     <?php
-                    if ($this->Dados['botao']['list_order']) {
+                    if ($this->Dados['botao']['create_sheet']) {
                         echo "<a href='" . URLADM . "create-spreadsheet-order-payments/create" . $_SESSION['terms'] . "' class='btn btn-success btn-sm'><i class='fas fa-table'></i> Planilha</a> ";
                     }
                     if ($this->Dados['botao']['list_payment']) {
@@ -166,10 +166,12 @@ if (!defined('URLADM')) {
                                     <div class="card bg-light m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $bk_id; ?></span>
-                                                <?php echo ($adv_bk == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments_bk) and $installments_bk > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof_bk == 1 ? "<i class='fa-solid fa-file-invoice text-dark' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $bk_id; ?> <?php echo $payment_prepared_bk == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>
+                                                    <?php echo ($adv_bk == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                    <?php echo ((!empty($installments_bk) and $installments_bk > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
+                                                    <?php echo ($proof_bk == 1 ? "<i class='fa-solid fa-file-invoice text-dark' title='Comprovante'></i>" : ''); ?>
+                                                </span>
                                             </div>
                                         </h5>
                                         <div class="card-body">
@@ -230,10 +232,12 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-secondary m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $do_id; ?></span>
-                                                <?php echo ($adv_do == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments_do) and $installments_do > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof_do == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $do_id; ?> <?php echo $payment_prepared_do == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>
+                                                    <?php echo ($adv_do == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                    <?php echo ((!empty($installments_do) and $installments_do > 1) ? "<i class='fa-solid fa-calendar-days text-info' title='Boleto Parcelado'></i>" : ''); ?>
+                                                    <?php echo ($proof_do == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                </span>
                                             </div>
                                         </h5>
                                         <div class="card-body">
@@ -295,10 +299,12 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-info border-info m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $wa_id; ?></span>
-                                                <?php echo ($adv_wa == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments_wa) and $installments_wa > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof_wa == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $wa_id; ?> <?php echo $payment_prepared_wa == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>
+                                                    <?php echo ($adv_wa == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                    <?php echo ((!empty($installments_wa) and $installments_wa > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
+                                                    <?php echo ($proof_wa == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                </span>
                                             </div>
                                         </h5>
                                         <div class="card-body">
@@ -360,10 +366,12 @@ if (!defined('URLADM')) {
                                     <div class="card text-white bg-success m-1 w-auto">
                                         <h5 class="card-header">
                                             <div class="d-flex align-content-between justify-content-between" style='font-size: 16px;'>
-                                                <span>ID: <?php echo $don_id; ?></span>
-                                                <?php echo ($adv_don == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
-                                                <?php echo ((!empty($installments_don) and $installments_don > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
-                                                <?php echo ($proof_don == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                <span>ID: <?php echo $don_id; ?> <?php echo $payment_prepared_don == 1 ? '<i class="fa-regular fa-square-check"></i>' : ''; ?></span>
+                                                <span>
+                                                    <?php echo ($adv_don == 1 ? "<i class='fa-solid fa-bookmark text-warning' title='Adiantamento'></i>" : ''); ?>
+                                                    <?php echo ((!empty($installments_don) and $installments_don > 1) ? "<i class='fa-solid fa-calendar-days text-danger' title='Boleto Parcelado'></i>" : ''); ?>
+                                                    <?php echo ($proof_don == 1 ? "<i class='fa-solid fa-file-invoice text-white' title='Comprovante'></i>" : ''); ?>
+                                                </span>
                                             </div>
                                         </h5>
                                         <div class="card-body">

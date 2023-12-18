@@ -734,8 +734,8 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="payment_prepared"><span class="text-danger">*</span> Preparado?</label>                    
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
-                        echo '<select name="payment_prepared" id="payment_prepared" class="form-control is-valid" required>';
+                    if (($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) && $valorForm['payment_prepared'] == 2) {
+                        echo '<select name="payment_prepared" id="payment_prepared" class="form-control is-valid" required >';
                         if ($valorForm['payment_prepared'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
