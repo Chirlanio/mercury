@@ -185,7 +185,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
 
             <div class="form-row">
-                
+
                 <ul class="list-unstyled d-flex justify-content-between">
                     <li class="media col-6 col-md-6 col-lg-6">
                         <?php
@@ -197,7 +197,7 @@ if (isset($this->Dados['form'][0])) {
                             <input class="mr-3" name="image_one" type="file" onchange="previewImageOne();">
                         </div>
                     </li>
-                    
+
                     <li class="media col-6 col-md-6 col-lg-6">
                         <?php
                         $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
@@ -208,11 +208,11 @@ if (isset($this->Dados['form'][0])) {
                             <input class="mr-3" name="image_two" type="file" onchange="previewImageTwo();">
                         </div>
                     </li>
-                    
+
                 </ul>
-                
+
                 <ul class="list-unstyled d-flex justify-content-between">
-                    
+
                     <li class="media col-6 col-md-6 col-lg-6">
                         <?php
                         $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
@@ -223,7 +223,7 @@ if (isset($this->Dados['form'][0])) {
                             <input class="mr-3" name="image_three" type="file" onchange="previewImageThree();">
                         </div>
                     </li>
-                    
+
                     <li class="media col-6 col-md-6 col-lg-6">
                         <?php
                         $image_antiga = URLADM . 'assets/imagens/naodisp.jpg';
@@ -234,9 +234,9 @@ if (isset($this->Dados['form'][0])) {
                             <input class="mr-3" name="cupom_fiscal" type="file" onchange="previewCupom();">
                         </div>
                     </li>
-                    
+
                 </ul>
-                
+
             </div>
 
             <div class="form-row">
@@ -313,6 +313,26 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                 }
                 ?>
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Troca Realizada?</label>
+                    <select name="customer_credit_withdrawn" id="customer_credit_withdrawn" class="form-control" required>
+                        <?php
+                        if ($valorForm['customer_credit_withdrawn'] == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Não</option>";
+                            echo "<option value='2'>Sim</option>";
+                        } elseif ($valorForm['customer_credit_withdrawn'] == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Não</option>";
+                            echo "<option value='2' selected>Sim</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Não</option>";
+                            echo "<option value='2'>Sim</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
 
             </div>
 

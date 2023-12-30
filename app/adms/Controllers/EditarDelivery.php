@@ -39,7 +39,6 @@ class EditarDelivery {
 
             $editarDelivery = new \App\adms\Models\AdmsEditarDelivery();
             $editarDelivery->altDelivery($this->Dados);
-            var_dump($this->Dados);
 
             if ($editarDelivery->getResultado()) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizado com sucesso!</div>";

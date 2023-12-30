@@ -26,6 +26,7 @@ class PesqDelivery {
             'vis_delivery' => ['menu_controller' => 'ver-delivery', 'menu_metodo' => 'ver-delivery'],
             'edit_delivery' => ['menu_controller' => 'editar-delivery', 'menu_metodo' => 'edit-delivery'],
             'del_delivery' => ['menu_controller' => 'apagar-delivery', 'menu_metodo' => 'apagar-delivery']];
+        
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

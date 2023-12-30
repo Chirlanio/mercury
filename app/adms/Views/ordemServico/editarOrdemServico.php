@@ -260,9 +260,9 @@ if (isset($this->Dados['form'][0])) {
                             <input class="mr-3" name="image_two_new" type="file" onchange="previewImageTwoNew();">
                         </div>
                     </li>
-                    
+
                 </ul>
-                
+
                 <ul class="list-unstyled d-flex justify-content-between">
 
                     <li class="media">
@@ -390,6 +390,27 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                 }
                 ?>
+
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Troca Realizada?</label>
+                    <select name="customer_credit_withdrawn" id="customer_credit_withdrawn" class="form-control" required>
+                        <?php
+                        if ($valorForm['customer_credit_withdrawn'] == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Não</option>";
+                            echo "<option value='2'>Sim</option>";
+                        } elseif ($valorForm['customer_credit_withdrawn'] == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Não</option>";
+                            echo "<option value='2' selected>Sim</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Não</option>";
+                            echo "<option value='2'>Sim</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
 
             </div>
 
@@ -552,7 +573,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label>Observações - Qualidade</label>
-                        <textarea name="obs_qualidade" id="obs_qualidade" class="form-control editorCKQl is-invalid" rows="4" required>
+                        <textarea name="obs_qualidade" id="editorCKQl" class="form-control editorCKQl is-invalid" rows="4" required>
                             <?php
                             if (isset($valorForm['obs_qualidade'])) {
                                 echo $valorForm['obs_qualidade'];

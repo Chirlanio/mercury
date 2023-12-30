@@ -94,7 +94,7 @@ if (!empty($this->Dados['dados_ped'][0])) {
                     </tr>
                     <tr>
                         <th scope="row">Valor da Venda:</th>
-                        <td colspan="2" class="text-center<?php echo ($presente == 1 ? ' d-print-none' : ''); ?>"><?php echo 'R$ ' . $valor_venda; ?></td>
+                        <td colspan="2" class="text-center<?php echo ($presente == 1 ? ' d-print-none' : ''); ?>"><?php echo 'R$ ' . number_format($valor_venda,2, ',', '.'); ?></td>
                         <th colspan="1" scope="row">Troca: </th>
                         <td colspan="4"><?php
                             if ($troca == 1) {

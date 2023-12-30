@@ -33,7 +33,7 @@ class OrdemServico {
         $this->Dados['menu'] = $listarMenu->itemMenu();
         
         $listarSelect = new \App\adms\Models\AdmsListarOrdemServico();
-        $this->Dados['select'] = $listarSelect->listarCadastrar();
+        $this->Dados['select'] = $listarSelect->listCad();
 
         $listarOrdemSevico = new \App\adms\Models\AdmsListarOrdemServico();
         $this->Dados['list_ordem_servico'] = $listarOrdemSevico->listar($this->PageId);

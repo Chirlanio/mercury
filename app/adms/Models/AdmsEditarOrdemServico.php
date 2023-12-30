@@ -70,10 +70,10 @@ class AdmsEditarOrdemServico {
         $this->obs_loja = !empty($this->Dados['obs_loja']) ? $this->Dados['obs_loja'] : null;
         $this->obs_qualidade = !empty($this->Dados['obs_qualidade']) ? $this->Dados['obs_qualidade'] : null;
         $this->imageOne = $this->Dados['image_one'];
-        $this->imageTwo = $this->Dados['image_two'];
-        $this->imageThree = $this->Dados['image_three'];
         $this->imageOneNew = $this->Dados['image_one_new'];
+        $this->imageTwo = $this->Dados['image_two'];
         $this->imageTwoNew = $this->Dados['image_two_new'];
+        $this->imageThree = $this->Dados['image_three'];
         $this->imageThreeNew = $this->Dados['image_three_new'];
         $this->cupomFiscal = $this->Dados['cupom_fiscal'];
         $this->cupomFiscalNew = $this->Dados['cupom_fiscal_new'];
@@ -134,8 +134,9 @@ class AdmsEditarOrdemServico {
             $uploadImg->getResultado();
         }
 
-        if ((!empty($this->imageOneNew['name'])) or (!empty($this->imageTwoNew['name'])) or (!empty($this->imageThreeNew['name'])) or (!empty($this->cupomFiscalNew['name']))) {
-
+        if (empty($this->imageOneNew['name']) and empty($this->imageTwoNew['name']) and empty($this->imageThreeNew['name']) and empty($this->cupomFiscalNew['name'])) {
+            $this->Resultado = true;
+        } else {
             //var_dump($this->imageOne);
             $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
             if ((isset($this->imageOneNew['name'])) and (!empty($this->imageOneNew['name']))) {
@@ -154,8 +155,6 @@ class AdmsEditarOrdemServico {
                 $apagarImg->apagarImg('assets/imagens/order_service/' . $this->Dados['id'] . '/' . $this->cupomFiscal);
             }
             $this->updateEditOrdemServico();
-        } else {
-            $this->Resultado = false;
         }
     }
 
@@ -190,7 +189,7 @@ class AdmsEditarOrdemServico {
         $upAltOrderService = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrderService->exeUpdate("adms_qualidade_ordem_servico", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltOrderService->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de serviço</strong>  atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de serviço</strong> atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A ordem de serviço não foi atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";

@@ -88,11 +88,11 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-4">
                     <label>Cupom Site</label>
-                    <input name="cupom_site" type="text" id="cupom_site" class="form-control is-invalid" placeholder="Digite o cupom" value="<?php
+                    <input name="cupom_site" type="text" id="cupom_site" class="form-control is-valid" placeholder="Digite o cupom" value="<?php
                     if (isset($valorForm['cupom_site'])) {
                         echo $valorForm['cupom_site'];
                     }
-                    ?>" required>
+                    ?>">
                 </div>
             </div>
             <div class="form-row">

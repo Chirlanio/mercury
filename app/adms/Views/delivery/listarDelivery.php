@@ -205,7 +205,8 @@ if (!defined('URLADM')) {
                     <input name="PesqDelivery" type="submit" class="btn btn-outline-primary" value="Pesquisar">
                 </div>
             </div>
-        </form><hr>
+        </form>
+        <hr>
         <div class="table-responsive my-n1 d-print-none">
             <table class="table table-striped table-bordered">
                 <thead>
@@ -249,7 +250,8 @@ if (!defined('URLADM')) {
                     ?>
                 </tbody>
             </table>
-        </div><hr class="d-print-none">
+        </div>
+        <hr class="d-print-none">
         <?php
         if (empty($this->Dados['listDelivery'])) {
             ?>

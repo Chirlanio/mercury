@@ -161,7 +161,7 @@ var div = document.getElementById('parc');
 var firstChild = div.children[0];
 
 selectType.addEventListener('change', function () {
-    const value = 2;
+    const value = 5;
     if (parseInt(selectType.value) === value) {
         div.classList.remove('d-none');
         div.classList.add('d-flex');
@@ -195,6 +195,7 @@ firstChild.children[1].addEventListener('change', function () {
             input.setAttribute('type', 'text');
             input.setAttribute('id', 'text'+i);
             input.classList.add('form-control');
+            input.classList.add('mb-1');
 
             var dateInput = document.createElement('input');
             dateInput.setAttribute('name', 'date_payments[]');

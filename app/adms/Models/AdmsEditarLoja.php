@@ -86,10 +86,10 @@ class AdmsEditarLoja {
         $listar->fullRead("SELECT id id_rede, nome rede FROM tb_redes ORDER BY nome ASC");
         $registro['rede'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id func_id, nome func FROM tb_funcionarios WHERE cargo_id =:cargo_id AND status_id =:status_id ORDER BY nome ASC", "cargo_id=2&status_id=1");
+        $listar->fullRead("SELECT f.id func_id, f.nome func FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome ASC", "adms_niv_cargo_id=1&status_id=1");
         $registro['func_id'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id super_id, nome super FROM adms_usuarios WHERE adms_niveis_acesso_id IN (1, 2, 8, 9) ORDER BY nome ASC");
+        $listar->fullRead("SELECT f.id super_id, f.nome super FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome ASC", "adms_niv_cargo_id=1&status_id=1");
         $registro['super_id'] = $listar->getResultado();
 
         $this->Resultado = ['sit' => $registro['sit'], 'rede' => $registro['rede'], 'func_id' => $registro['func_id'], 'super_id' => $registro['super_id']];

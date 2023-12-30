@@ -198,10 +198,10 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['managerSectors'] as $sector) {
                             extract($sector);
-                            if ($valorForm['adms_manager_sector_id'] == $sm_id) {
-                                echo "<option value='$sm_id' selected>$manager_sector</option>";
+                            if ($valorForm['adms_manager_sector_id'] == $f_id) {
+                                echo "<option value='$f_id' selected>$manager_sector</option>";
                             } else {
-                                echo "<option value='$sm_id'>$manager_sector</option>";
+                                echo "<option value='$f_id'>$manager_sector</option>";
                             }
                         }
                         echo '</select>';
@@ -210,10 +210,10 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['managerSectors'] as $sector) {
                             extract($sector);
-                            if ($valorForm['adms_manager_sector_id'] == $sm_id) {
-                                echo "<option value='$sm_id' selected>$manager_sector</option>";
+                            if ($valorForm['adms_manager_sector_id'] == $f_id) {
+                                echo "<option value='$f_id' selected>$manager_sector</option>";
                             } else {
-                                echo "<option value='$sm_id'>$manager_sector</option>";
+                                echo "<option value='$f_id'>$manager_sector</option>";
                             }
                         }
                         echo '</select>';
@@ -302,8 +302,8 @@ if (isset($this->Dados['form'][0])) {
                                     <h6 class="my-0">Arquivos</h6>
                                     <small class="text-muted">
                                         <?php
-                                        $types = array('png', 'jpg', 'jpeg', 'doc', 'pdf', 'docx');
-                                        $path = 'assets/files/orderPayments/' . $valorForm['pl_id'] . '/';
+                                        $types = array('png', 'jpg', 'jpeg', 'doc', 'pdf', 'docx', 'docx', 'xlsx', 'xls');
+                                        $path = 'assets/files/processLibrary/' . $valorForm['pl_id'] . '/';
                                         $dir = new DirectoryIterator($path);
                                         foreach ($dir as $fileInfo) {
                                             $ext = strtolower($fileInfo->getExtension());

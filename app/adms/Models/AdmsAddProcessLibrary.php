@@ -144,7 +144,7 @@ class AdmsAddProcessLibrary {
         $listar->fullRead("SELECT id m_id, name manager FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC ", "status_id=1");
         $registro['manager'] = $listar->getResultado();
 
-        $listar->fullRead("SELECT id f_id, nome manager_sector FROM tb_funcionarios WHERE cargo_id =:cargo_id AND status_id =:status_id ORDER BY nome", "cargo_id=2&status_id=1");
+        $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");
         $registro['manager_sector'] = $listar->getResultado();
 
         $this->Resultado = ['sit' => $registro['sit'], 'cats' => $registro['cats'], 'area' => $registro['area'], 'sector' => $registro['sector'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector']];

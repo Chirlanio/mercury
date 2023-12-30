@@ -33,6 +33,7 @@ class AdmsEditProcessLibrary {
 
     public function altProcess(array $Dados) {
         $this->Dados = $Dados;
+        var_dump($this->Dados);
 
         unset($this->Dados['id'], $this->Dados['delete']);
 
@@ -76,8 +77,8 @@ class AdmsEditProcessLibrary {
 
         $listar->fullRead("SELECT id s_id, sector_name  FROM adms_sectors WHERE adms_sit_id =:adms_sit_id", "adms_sit_id=1");
         $registro['sectors'] = $listar->getResultado();
-
-        $listar->fullRead("SELECT id sm_id, nome manager_sector FROM tb_funcionarios WHERE status_id =:status_id and cargo_id =:cargo_id", "status_id=1&cargo_id=2");
+        
+        $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");
         $registro['managerSectors'] = $listar->getResultado();
 
         $listar->fullRead("SELECT id sit_id, nome status FROM adms_sits ORDER BY id ASC");

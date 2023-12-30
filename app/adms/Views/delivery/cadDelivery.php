@@ -38,7 +38,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['loja'] as $id_loja) {
                             extract($id_loja);
-                            if (isset($valorForm['id_loja']) == $id_loja) {
+                            if (isset($valorForm['loja_id']) && $valorForm['loja_id'] == $id_loja) {
                                 echo "<option value='$id_loja' selected>$loja</option>";
                             } else {
                                 echo "<option value='$id_loja'>$loja</option>";
@@ -54,7 +54,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['func'] as $id_func) {
                             extract($id_func);
-                            if (isset($valorForm['id_func']) == $id_func) {
+                            if (isset($valorForm['func_id']) && $valorForm['func_id'] == $id_func) {
                                 echo "<option value='$id_func' selected>$func</option>";
                             } else {
                                 echo "<option value='$id_func'>$func</option>";
@@ -88,7 +88,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['bairro'] as $id_bairro) {
                             extract($id_bairro);
-                            if (isset($valorForm['id_bairro']) == $id_bairro) {
+                            if (isset($valorForm['bairro_id']) && $valorForm['bairro_id'] == $id_bairro) {
                                 echo "<option value='$id_bairro' selected>$bairro</option>";
                             } else {
                                 echo "<option value='$id_bairro'>$bairro</option>";
@@ -100,7 +100,7 @@ if (isset($this->Dados['form'][0])) {
                 <input name="rota_id" type="hidden" value="5">
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Contato</label>
-                    <input name="contato" id="contato" type="tel" class="form-control is-invalid" placeholder="85 99999-8888" value="<?php
+                    <input name="contato" id="contact" type="tel" class="form-control is-invalid" placeholder="85 99999-8888" value="<?php
                     if (isset($valorForm['contato'])) {
                         echo $valorForm['contato'];
                     }
@@ -143,7 +143,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['forma'] as $id_pag) {
                             extract($id_pag);
-                            if (isset($valorForm['id_pag']) == $id_pag) {
+                            if (isset($valorForm['forma_pag_id']) == $id_pag) {
                                 echo "<option value='$id_pag' selected>$forma</option>";
                             } else {
                                 echo "<option value='$id_pag'>$forma</option>";
@@ -213,24 +213,28 @@ if (isset($this->Dados['form'][0])) {
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label>Pedido - Prateleira</label>
-                    <select name="ped_id" id="ped_id" class="form-control">
-                        <option value="">Selecione</option>
+                    <label><span class="text-danger">*</span> Presente</label>
+                    <select name="presente" id="presente" class="form-control is-invalid" required>
                         <?php
-                        foreach ($this->Dados['select']['ped'] as $pag) {
-                            extract($pag);
-                            if (isset($valorForm['ped_id']) == $ped_id) {
-                                echo "<option value='$ped_id' selected>" . $ped_id . " - " . $loja_id . "</option>";
-                            } else {
-                                echo "<option value='$ped_id'>" . $ped_id . " - " . $loja_id . "</option>";
-                            }
+                        if (isset($valorForm['presente']) == 1) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1' selected>Sim</option>";
+                            echo "<option value='2'>Não</option>";
+                        } elseif (isset($valorForm['presente']) == 2) {
+                            echo "<option value=''>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2' selected>Não</option>";
+                        } else {
+                            echo "<option value='' selected>Selecione</option>";
+                            echo "<option value='1'>Sim</option>";
+                            echo "<option value='2'>Não</option>";
                         }
                         ?>
                     </select>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-5">
                     <label>Observação</label>
                     <input name="obs" class="form-control" value="<?php
                     if (isset($valorForm['obs'])) {
@@ -248,7 +252,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-2">
                     <label>Total de Produtos</label>
-                    <input name="qtde_produto" class="form-control" value="<?php
+                    <input name="qtde_produto" type="number" class="form-control" value="<?php
                     if (isset($valorForm['qtde_produto'])) {
                         echo $valorForm['qtde_produto'];
                     }
@@ -274,28 +278,7 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-2">
-                    <label><span class="text-danger">*</span> Presente</label>
-                    <select name="presente" id="presente" class="form-control is-invalid" required>
-                        <?php
-                        if (isset($valorForm['presente']) == 1) {
-                            echo "<option value=''>Selecione</option>";
-                            echo "<option value='1' selected>Sim</option>";
-                            echo "<option value='2'>Não</option>";
-                        } elseif (isset($valorForm['presente']) == 2) {
-                            echo "<option value=''>Selecione</option>";
-                            echo "<option value='1'>Sim</option>";
-                            echo "<option value='2' selected>Não</option>";
-                        } else {
-                            echo "<option value='' selected>Selecione</option>";
-                            echo "<option value='1'>Sim</option>";
-                            echo "<option value='2'>Não</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
             </div>
-            <input name="status_id" type="hidden" value="1">
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>

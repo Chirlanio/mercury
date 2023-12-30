@@ -18,7 +18,7 @@ if (!defined('URLADM')) {
         $html = '';
         $html .= '<table border="1" class="table table-striped table-hover table-bordered">';
         $html .= '<tr>';
-        $html .= '<th colspan="18">Entregas de produtos</th>';
+        $html .= '<th colspan="17">Entregas de produtos</th>';
         $html .= '</tr>';
 
         $html .= "<tr>";
