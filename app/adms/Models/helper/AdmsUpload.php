@@ -51,6 +51,8 @@ class AdmsUpload {
             case 'application/zip';
             case 'image/jpeg';
             case 'image/png';
+            case 'application/x-compressed';
+            case 'application/octet-stream';
                 $this->Arquivo = true;
                 break;
         endswitch;

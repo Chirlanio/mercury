@@ -17,7 +17,7 @@ class CpAdmsPesqOrderService {
     private $Dados;
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = LIMIT;
+    private $LimiteResultado = 2;
     private $ResultadoPg;
 
     function getResultadoAj() {
@@ -44,12 +44,31 @@ class CpAdmsPesqOrderService {
         }
 
         if ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['marca_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
-            $this->pesqComp();
-            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&marca=" . $_SESSION['marca_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+            $this->pesqComp(); //Com todos os filtros
+            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&marca_id=" . $_SESSION['marca_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
         } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['marca_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
-            $this->pesqLojaMinIdMaxIdSitBrand();
-            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&marca=" . $_SESSION['marca_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqLojaMinIdMaxIdSitBrand(); //Sem o filtro de clientes
+            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&marca_id=" . $_SESSION['marca_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['marca_id'])) AND (empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqLojaMinIdMaxIdBrandClient(); //Sem o filtro de situação
+            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&marca_id=" . $_SESSION['marca_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['marca_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqLojaMinIdSitBrandClient(); //Sem o filtro de MaxId
+            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "&marca_id=" . $_SESSION['marca_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['marca_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqLojaMaxIdSitBrandClient(); //Sem o filtro de MinId
+            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&marca_id=" . $_SESSION['marca_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['marca_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqMinIdMaxIdSitBrandClient(); //Sem o filtro de loja
+            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&marca_id=" . $_SESSION['marca_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['marca_id'])) AND (empty($this->Dados['cliente']))) {
+            $this->pesqLojaMinIdMaxIdSit(); //Sem o filtro de situação e cliente
+            $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+        } 
+        
+        
+        
+        elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqLojaMinIdSitCli();
             $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
         } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
@@ -117,7 +136,7 @@ class CpAdmsPesqOrderService {
             $_SESSION['search'] = 23;
         } elseif (!empty($this->Dados['loja_id'])) {
             $this->pesqLoja();
-            $_SESSION['search'] = 24;
+            $_SESSION['search'] = $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
         } elseif (!empty($this->Dados['min_id'])) {
             $this->pesqMinId();
             $_SESSION['search'] = 25;
@@ -127,6 +146,9 @@ class CpAdmsPesqOrderService {
         } elseif (!empty($this->Dados['sit_id'])) {
             $this->pesqStatus();
             $_SESSION['search'] = 27;
+        } elseif (!empty($this->Dados['marca_id'])) {
+            $this->pesqBrand();
+            $_SESSION['search'] = $_SESSION['terms'] = "<a href='" . URLADM . "gerar-planilha-order-service/gerar?marca=" . $_SESSION['marca_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
         } elseif (!empty($this->Dados['cliente'])) {
             $this->pesqCliente();
             $_SESSION['search'] = 28;
@@ -141,45 +163,17 @@ class CpAdmsPesqOrderService {
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?loja=' . $this->Dados['loja_id'] . '&min_id=' . $this->Dados['min_id'] . '&max_id=' . $this->Dados['max_id'] . '&situacao=' . $this->Dados['sit_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND id BETWEEN :min_id AND :max_id AND status_id =:status_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND status_id =:status_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}");
         } else {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND id BETWEEN :min_id AND :max_id AND status_id =:status_id AND client_name LIKE '%' :client_name '%'", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND status_id =:status_id AND client_name LIKE '%' :client_name '%'", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}");
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
-                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
-                    FROM adms_qualidade_ordem_servico d
-                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
-                    INNER JOIN adms_cors c ON c.id=s.cor_id
-                    INNER JOIN tb_tam t ON t.id = d.tam_id
-                    WHERE d.loja_id =:loja_id
-                    AND d.order_service BETWEEN :min_id AND :max_id
-                    AND d.status_id =:status_id
-                    AND d.marca_id =:marca_id
-                    AND d.client_name LIKE '%' :client_name '%'
-                    ORDER BY d.id DESC
-                    LIMIT :limit
-                    OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.status_id =:status_id AND d.marca_id =:marca_id AND d.client_name LIKE '%' :client_name '%' ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
-                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
-                    FROM adms_qualidade_ordem_servico d
-                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
-                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
-                    INNER JOIN adms_cors c ON c.id=s.cor_id
-                    INNER JOIN tb_tam t ON t.id = d.tam_id
-                    WHERE d.loja_id =:loja_id
-                    AND d.order_service BETWEEN :min_id AND :max_id
-                    AND d.status_id =:status_id
-                    AND d.marca_id =:marca_id
-                    AND d.client_name LIKE '%' :client_name '%'
-                    ORDER BY d.id DESC
-                    LIMIT :limit
-                    OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.status_id =:status_id AND d.marca_id =:marca_id  AND d.client_name LIKE '%' :client_name '%' ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -188,9 +182,85 @@ class CpAdmsPesqOrderService {
         $paginate = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?loja=' . $this->Dados['loja_id'] . '&min_id=' . $this->Dados['min_id'] . '&max_id=' . $this->Dados['max_id'] . '&situacao=' . $this->Dados['sit_id'] . '&marca_id=' . $this->Dados['marca_id']);
         $paginate->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND id BETWEEN :min_id AND :max_id AND status_id =:status_id AND marca_id =:marca_id", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}");
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND status_id =:status_id AND marca_id =:marca_id", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}");
         } else {
-            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND id BETWEEN :min_id AND :max_id AND status_id =:status_id AND marca_id =:marca_id", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}");
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND status_id =:status_id AND marca_id =:marca_id", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}");
+        }
+        $this->ResultadoPg = $paginate->getResultado();
+
+        $listOrderService = new \App\adms\Models\helper\AdmsRead();
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.status_id =:status_id AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        } else {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.status_id =:status_id AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        }
+        $this->Resultado = $listOrderService->getResultado();
+    }
+
+    private function pesqLojaMinIdMaxIdBrandClient() {
+        $paginate = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?loja=' . $this->Dados['loja_id'] . '&min_id=' . $this->Dados['min_id'] . '&max_id=' . $this->Dados['max_id'] . '&marca_id=' . $this->Dados['marca_id'] . '&cliente=' . $this->Dados['cliente']);
+        $paginate->condicao($this->PageId, $this->LimiteResultado);
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND marca_id =:marca_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}");
+        } else {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND marca_id =:marca_id AND client_name LIKE '%' :client_name '%'", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}");
+        }
+        $this->ResultadoPg = $paginate->getResultado();
+
+        $listOrderService = new \App\adms\Models\helper\AdmsRead();
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.client_name LIKE '%' :client_name '%' AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        } else {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.client_name LIKE '%' :client_name '%' AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        }
+        $this->Resultado = $listOrderService->getResultado();
+    }
+
+    private function pesqLojaMinIdSitBrandClient() {
+        $paginate = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?loja=' . $this->Dados['loja_id'] . '&min_id=' . $this->Dados['min_id'] . '&situacao=' . $this->Dados['sit_id'] . '&marca_id=' . $this->Dados['marca_id'] . '&cliente=' . $this->Dados['cliente']);
+        $paginate->condicao($this->PageId, $this->LimiteResultado);
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service >=:min_id AND status_id =:status_id AND marca_id =:marca_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}");
+        } else {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service >=:min_id AND status_id =:status_id AND marca_id =:marca_id AND client_name LIKE '%' :client_name '%'", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}");
+        }
+        $this->ResultadoPg = $paginate->getResultado();
+
+        $listOrderService = new \App\adms\Models\helper\AdmsRead();
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service >=:min_id AND d.status_id =:status_id AND d.client_name LIKE '%' :client_name '%' AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&status_id={$this->Dados['status_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        } else {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service >=:min_id AND d.status_id =:status_id AND d.marca_id =:marca_id AND d.client_name LIKE '%' :client_name '%' ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        }
+        $this->Resultado = $listOrderService->getResultado();
+    }
+
+    private function pesqLojaMaxIdSitBrandClient() {
+        $paginate = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?loja=' . $this->Dados['loja_id'] . '&max_id=' . $this->Dados['max_id'] . '&situacao=' . $this->Dados['sit_id'] . '&marca_id=' . $this->Dados['marca_id'] . '&cliente=' . $this->Dados['cliente']);
+        $paginate->condicao($this->PageId, $this->LimiteResultado);
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service <=:max_id AND status_id =:status_id AND marca_id =:marca_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}");
+        } else {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service <=:max_id AND status_id =:status_id AND marca_id =:marca_id AND client_name LIKE '%' :client_name '%'", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}");
+        }
+        $this->ResultadoPg = $paginate->getResultado();
+
+        $listOrderService = new \App\adms\Models\helper\AdmsRead();
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service <=:max_id AND d.status_id =:status_id AND d.client_name LIKE '%' :client_name '%' AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&status_id={$this->Dados['status_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        } else {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service >=:min_id AND d.status_id =:status_id AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        }
+        $this->Resultado = $listOrderService->getResultado();
+    }
+
+    private function pesqMinIdMaxIdSitBrandClient() {
+        $paginate = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?min_id=' . $this->Dados['min_id'] . '&max_id=' . $this->Dados['max_id'] . '&situacao=' . $this->Dados['sit_id'] . '&marca_id=' . $this->Dados['marca_id'] . '&cliente=' . $this->Dados['cliente']);
+        $paginate->condicao($this->PageId, $this->LimiteResultado);
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND status_id =:status_id AND marca_id =:marca_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "min_id={$this->Dados['min_id']}&&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}");
+        } else {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE order_service BETWEEN :min_id AND :max_id AND status_id =:status_id AND marca_id =:marca_id AND client_name LIKE '%' :client_name '%'", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}");
         }
         $this->ResultadoPg = $paginate->getResultado();
 
@@ -206,10 +276,55 @@ class CpAdmsPesqOrderService {
                     WHERE d.loja_id =:loja_id
                     AND d.order_service BETWEEN :min_id AND :max_id
                     AND d.status_id =:status_id
+                    AND d.client_name LIKE '%' :client_name '%'
                     AND d.marca_id =:marca_id
                     ORDER BY d.id DESC
                     LIMIT :limit
-                    OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+                    OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['status_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        } else {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.order_service BETWEEN :min_id AND :max_id
+                    AND d.status_id =:status_id
+                    AND d.marca_id =:marca_id
+                    AND d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC
+                    LIMIT :limit
+                    OFFSET :offset", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+        }
+        $this->Resultado = $listOrderService->getResultado();
+    }
+
+    private function pesqLojaMinIdMaxIdSit() {
+        $paginate = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?loja_id=' . $this->Dados['loja_id'] . '&min_id=' . $this->Dados['min_id'] . '&max_id=' . $this->Dados['max_id'] . '&situacao=' . $this->Dados['sit_id']);
+        $paginate->condicao($this->PageId, $this->LimiteResultado);
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND status_id =:status_id", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}");
+        } else {
+            $paginate->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND order_service BETWEEN :min_id AND :max_id AND status_id =:status_id", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}");
+        }
+        $this->ResultadoPg = $paginate->getResultado();
+
+        $listOrderService = new \App\adms\Models\helper\AdmsRead();
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.order_service BETWEEN :min_id AND :max_id
+                    AND d.status_id =:status_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit
+                    OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
         } else {
             $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
                     d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
@@ -221,10 +336,9 @@ class CpAdmsPesqOrderService {
                     WHERE d.loja_id =:loja_id
                     AND d.order_service BETWEEN :min_id AND :max_id
                     AND d.status_id =:status_id
-                    AND d.marca_id =:marca_id
                     ORDER BY d.id DESC
                     LIMIT :limit
-                    OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
+                    OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -788,17 +902,38 @@ class CpAdmsPesqOrderService {
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?min_id=' . $this->Dados['min_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND id >=:min_id AND cliente LIKE '%' :cliente '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND id >=:min_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&client_name={$this->Dados['cliente']}");
         } else {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE id >=:min_id AND cliente LIKE '%' :cliente '%'", "min_id={$this->Dados['min_id']}&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE id >=:min_id AND client_name LIKE '%' :client_name '%'", "min_id={$this->Dados['min_id']}&client_name={$this->Dados['cliente']}");
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id >=:min_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.id >=:min_id
+                    AND d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id >=:min_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.id >=:min_id
+                    AND d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -808,17 +943,37 @@ class CpAdmsPesqOrderService {
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?max_id=' . $this->Dados['max_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND id <=:max_id AND cliente LIKE '%' :cliente '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND id <=:max_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&client_name={$this->Dados['cliente']}");
         } else {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE id <=:max_id AND cliente LIKE '%' :cliente '%'", "max_id={$this->Dados['max_id']}&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE id <=:max_id AND client_name LIKE '%' :client_name '%'", "max_id={$this->Dados['max_id']}&client_name={$this->Dados['cliente']}");
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE loja_id =:loja_id AND d.id <=:max_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE loja_id =:loja_id
+                    AND d.id <=:max_id
+                    AND d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id <=:max_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.id <=:max_id
+                    AND d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -828,17 +983,38 @@ class CpAdmsPesqOrderService {
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?situacao=' . $this->Dados['sit_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND status_id =:status_id AND cliente LIKE '%' :cliente '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE loja_id =:loja_id AND status_id =:status_id AND client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
         } else {
-            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND cliente LIKE '%' :cliente '%'", "status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND client_name LIKE '%' :client_name '%'", "status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}");
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE loja_id =:loja_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE loja_id =:loja_id
+                    AND d.status_id =:status_id
+                    AND d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.status_id =:status_id
+                    AND d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -856,9 +1032,30 @@ class CpAdmsPesqOrderService {
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id >=:min_id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.id >=:min_id
+                    AND d.status_id =:status_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id >=:min_id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.id >=:min_id
+                    AND d.status_id =:status_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -876,9 +1073,30 @@ class CpAdmsPesqOrderService {
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id <=:max_id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.id <=:max_id
+                    AND d.status_id =:status_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id <=:max_id AND d.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.id <=:max_id
+                    AND d.status_id =:status_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -891,7 +1109,16 @@ class CpAdmsPesqOrderService {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
-        $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listOrderService->getResultado();
     }
 
@@ -908,9 +1135,28 @@ class CpAdmsPesqOrderService {
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id >=:min_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.id >=:min_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&min_id={$this->Dados['min_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id >=:min_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.id >=:min_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -928,9 +1174,28 @@ class CpAdmsPesqOrderService {
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id <=:max_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.id <=:max_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id <=:max_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.id <=:max_id
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -948,9 +1213,63 @@ class CpAdmsPesqOrderService {
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.status_id =:status_id
+                    ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.status_id =:status_id
+                    ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        }
+        $this->Resultado = $listOrderService->getResultado();
+    }
+
+    private function pesqBrand() {
+
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?marca=' . $this->Dados['marca_id']);
+        $paginacao->condicao($this->PageId, $this->LimiteResultado);
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM adms_qualidade_ordem_servico d WHERE d.loja_id =:loja_id AND d.marca_id =:marca_id", "loja_id=" . $_SESSION['usuario_loja'] . "&marca_id={$this->Dados['marca_id']}");
+        } else {
+            $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM adms_qualidade_ordem_servico d WHERE d.marca_id =:marca_id", "marca_id={$this->Dados['marca_id']}");
+        }
+        $this->ResultadoPg = $paginacao->getResultado();
+
+        $listOrderService = new \App\adms\Models\helper\AdmsRead();
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.marca_id =:marca_id
+                    ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&marca_id={$this->Dados['marca_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        } else {
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.marca_id =:marca_id
+                    ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "marca_id={$this->Dados['marca_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }
@@ -960,17 +1279,36 @@ class CpAdmsPesqOrderService {
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-order-service/listar', '?cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM adms_qualidade_ordem_servico d WHERE d.loja_id =:loja_id AND d.cliente LIKE '%' :cliente '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM adms_qualidade_ordem_servico d WHERE d.loja_id =:loja_id AND d.client_name LIKE '%' :client_name '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&client_name={$this->Dados['cliente']}");
         } else {
-            $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM adms_qualidade_ordem_servico d WHERE d.cliente LIKE '%' :cliente '%'", "cliente={$this->Dados['cliente']}");
+            $paginacao->paginacao("SELECT COUNT(d.id) AS num_result FROM adms_qualidade_ordem_servico d WHERE d.client_name LIKE '%' :client_name '%'", "client_name={$this->Dados['cliente']}");
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listOrderService = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.loja_id =:loja_id
+                    AND d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.cliente LIKE '%' :cliente '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia,
+                    d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam
+                    FROM adms_qualidade_ordem_servico d
+                    INNER JOIN tb_lojas lj ON lj.id=d.loja_id
+                    INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id
+                    INNER JOIN adms_cors c ON c.id=s.cor_id
+                    INNER JOIN tb_tam t ON t.id = d.tam_id
+                    WHERE d.client_name LIKE '%' :client_name '%'
+                    ORDER BY d.id DESC
+                    LIMIT :limit OFFSET :offset", "client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listOrderService->getResultado();
     }

@@ -16,7 +16,7 @@ class AdmsListarEstorno {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 2;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -37,7 +37,7 @@ class AdmsListarEstorno {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarEstorno = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['adms_niveis_acesso_id'] == 5) {
+        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
             $listarEstorno->fullRead("SELECT a.*, lj.nome loja, est.nome tipo, c.cor cor_cr FROM adms_estornos a INNER JOIN tb_lojas lj ON lj.id=a.loja_id INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id INNER JOIN adms_cors c on c.id=est.adms_cor_id WHERE a.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$_SESSION['usuario_loja']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarEstorno->fullRead("SELECT a.*, lj.nome loja, est.nome tipo, c.cor cor_cr FROM adms_estornos a INNER JOIN tb_lojas lj ON lj.id=a.loja_id INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id INNER JOIN adms_cors c on c.id=est.adms_cor_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");

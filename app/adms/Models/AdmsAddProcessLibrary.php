@@ -27,6 +27,7 @@ class AdmsAddProcessLibrary {
         $this->Dados = $Dados;
 
         $this->File = $this->Dados['file_name_process'];
+        var_dump($this->File);
         unset($this->Dados['file_name_process']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;

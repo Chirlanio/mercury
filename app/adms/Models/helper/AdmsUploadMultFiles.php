@@ -26,7 +26,11 @@ class AdmsUploadMultFiles {
         'application/vnd.openxmlformats-officedocument.spreadsheetml',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/x-compressed'
+        'application/x-compressed',
+        'application/x-rar-compressed',
+        'application/zip',
+        'application/vnd.ms-excel',
+        'application/octet-stream'
     ];
 
     public function getResultado() {

@@ -46,6 +46,7 @@ class PesqOrderService {
             $this->DadosForm['min_id'] = filter_input(INPUT_GET, 'min_id', FILTER_DEFAULT);
             $this->DadosForm['max_id'] = filter_input(INPUT_GET, 'max_id', FILTER_DEFAULT);
             $this->DadosForm['sit_id'] = filter_input(INPUT_GET, 'situacao', FILTER_DEFAULT);
+            $this->DadosForm['marca_id'] = filter_input(INPUT_GET, 'marca_id', FILTER_DEFAULT);
             $this->DadosForm['cliente'] = filter_input(INPUT_GET, 'cliente', FILTER_DEFAULT);
         }
 
