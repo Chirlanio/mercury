@@ -92,13 +92,13 @@ if (!defined('URLADM')) {
                         <span class="d-none d-md-block">
                             <?php
                             if ($this->Dados['botao']['view_moviment']) {
-                                echo "<a href='" . URLADM . "view-personnel-movements/view-moviment/$id' class='btn btn-outline-primary btn-sm mr-1'><i class='fas fa-eye'></i></a>";
+                                echo "<a href='" . URLADM . "view-personnel-moviments/view-moviment/$m_id' class='btn btn-outline-primary btn-sm mr-1'><i class='fas fa-eye'></i></a>";
                             }
                             if ($this->Dados['botao']['edit_moviment']) {
-                                echo "<a href='" . URLADM . "edit-personnel-movements/edit-moviment/$id' class='btn btn-outline-warning btn-sm mr-1'><i class='fas fa-pen-fancy'></i></a>";
+                                echo "<a href='" . URLADM . "edit-personnel-moviments/edit-moviment/$m_id' class='btn btn-outline-warning btn-sm mr-1'><i class='fas fa-pen-fancy'></i></a>";
                             }
                             if ($this->Dados['botao']['del_moviment']) {
-                                echo "<a href='" . URLADM . "delete-personnel-movements/delete-moviment/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                                echo "<a href='" . URLADM . "delete-personnel-moviments/delete-moviment/$m_id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                             }
                             ?>
                         </span>
@@ -109,13 +109,13 @@ if (!defined('URLADM')) {
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                 <?php
                                 if ($this->Dados['botao']['view_moviment']) {
-                                    echo "<a class='dropdown-item' href='" . URLADM . "view-personnel-movements/view-moviment/$id'>Visualizar</a>";
+                                    echo "<a class='dropdown-item' href='" . URLADM . "view-personnel-moviments/view-moviment/$m_id'>Visualizar</a>";
                                 }
                                 if ($this->Dados['botao']['edit_moviment']) {
-                                    echo "<a class='dropdown-item' href='" . URLADM . "edit-personnel-movements/edit-moviment/$id'>Editar</a>";
+                                    echo "<a class='dropdown-item' href='" . URLADM . "edit-personnel-moviments/edit-moviment/$m_id'>Editar</a>";
                                 }
                                 if ($this->Dados['botao']['del_moviment']) {
-                                    echo "<a class='dropdown-item' href='" . URLADM . "delete-personnel-movements/delete-moviment/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                    echo "<a class='dropdown-item' href='" . URLADM . "delete-personnel-moviments/delete-moviment/$m_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                 }
                                 ?>
                             </div>

@@ -22,9 +22,9 @@ class PersonnelMoviments {
         $this->PageId = (int) $PageId ? $PageId : 1;
 
         $botao = ['add_moviment' => ['menu_controller' => 'add-personnel-moviments', 'menu_metodo' => 'add-moviment'],
-            'view_moviment' => ['menu_controller' => 'view-personnel-movements', 'menu_metodo' => 'view-moviment'],
-            'edit_moviment' => ['menu_controller' => 'edit-personnel-movements', 'menu_metodo' => 'edit-moviment'],
-            'del_moviment' => ['menu_controller' => 'delete-personnel-movements', 'menu_metodo' => 'delete-moviment']];
+            'view_moviment' => ['menu_controller' => 'view-personnel-moviments', 'menu_metodo' => 'view-moviment'],
+            'edit_moviment' => ['menu_controller' => 'edit-personnel-moviments', 'menu_metodo' => 'edit-moviment'],
+            'del_moviment' => ['menu_controller' => 'delete-personnel-moviments', 'menu_metodo' => 'delete-moviment']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
