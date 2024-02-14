@@ -26,7 +26,7 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                         }
                         ?>
                     </span>
-                    <div class="dropdown d-block d-md-none">
+                    <div class="dropdown d-block d-md-none d-print-none">
                         <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Ações
                         </button>
@@ -56,85 +56,78 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                 <div class="row">
                     <div class="col-md-4 order-md-2 mb-4">
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="text-muted">Dados da Solicitação</span>
+                            <span class="text-muted">Acompanhamento</span>
                         </h4>
-                        <ul class="list-group mb-3">
+                        <ul class="list-group border border-dark mb-3">
                             <li class="list-group-item d-flex justify-content-between lh-condensed</table>">
                                 <div class="my-2">
-                                    <h6 class="my-2">Pagamento Preparado?</h6>
-                                    <small class="lead"><?php echo $payment_prepared == 1 ? "Sim" : "Não"; ?></small>
+                                    <h6 class="my-2">Cargo Atual</h6>
+                                    <small class="lead">Caixa</small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
-                                    <h6 class="my-2">Data de Cadastro:</h6>
-                                    <small class="text-muted lead"><?php echo date("d/m/Y", strtotime($date_payment)); ?></small>
+                                    <h6 class="my-2">Data do Desligamento:</h6>
+                                    <small class="text-muted lead"><?php echo date("d/m/Y", strtotime($last_day_worked)); ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condenced">
                                 <div class="my-2">
-                                    <h6 class="my-2">Adiantamento:</h6>
-                                    <small class="lead"><?php echo $advance == 1 ? "Sim" : "Não"; ?></small>
+                                    <h6 class="my-2">O que precisa ser devolvido?</h6>
+                                    <small style="font-size: 15px;">
+                                        <div class="form-group d-block mr-2">
+                                            <div class="form-group form-check">
+                                                <input name="uniform" type="checkbox" class="form-check-input" id="uniform" value="1" <?php echo (isset($access_power_bi) and $access_power_bi == 1) ? "checked" : ""; ?> disabled />
+                                                <label class="form-check-label" for="uniform">Farda</label>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <input name="chip_phone" type="checkbox" class="form-check-input" id="chip_phone" value="1" <?php echo (isset($access_zznet) and $access_zznet == 1) ? "checked" : ""; ?> disabled />
+                                                <label class="form-check-label" for="chip_phone">Chip</label>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <input name="original_card" type="checkbox" class="form-check-input" id="original_card" value="1" <?php echo (isset($access_cigam) and $access_cigam == 1) ? "checked" : ""; ?> disabled />
+                                                <label class="form-check-label" for="original_card">Carta Original</label>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <input name="aso" type="checkbox" class="form-check-input" id="aso" value="1" <?php echo (isset($access_camera) and $access_camera == 1) ? "checked" : ""; ?> disabled />
+                                                <label class="form-check-label" for="aso">ASO</label>
+                                            </div>
+                                        </div>
+                                    </small>
                                 </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="my-2">
-                                    <h6 class="my-2">Adiantamento Pago?</h6>
-                                    <small class="lead"><?php echo $advance_amount_sit == 1 ? "Sim" : "Não"; ?></small>
+                                    <h6 class="my-2">Data assinatura TRCT</h6>
+                                    <small class="text-muted lead"><?php echo date("d/m/Y", strtotime($last_day_worked)); ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="my-2">
-                                    <h6 class="my-2">Valor - Adiantamento:</h6>
-                                    <small class="text-muted lead"><?php echo!empty($advance_amount) ? "R$ " . number_format($advance_amount, 2, ',', '.') : "R$ 0,00"; ?></small>
+                                    <h6 class="my-2">ASO Demissional</h6>
+                                    <small class="text-muted lead" >Não</small>
+                                </div>
+                                <div class="my-2">
+                                    <h6 class="my-2">Guia ASO Demissional</h6>
+                                    <small class="lead">Sim</small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="my-2">
-                                    <h6 class="my-2">Valor Total:</h6>
-                                    <small class="text-muted lead" ><?php echo "R$ " . number_format($total_value, 2, ',', '.'); ?></small>
-                                </div>
-                                <div class="my-2">
-                                    <h6 class="my-2">Ordem de Pagamento - Pago?</h6>
-                                    <small class="lead"><?php echo ($diff_payment_advance_sit == 1 && $advance_amount_sit == 1) || ($adms_sits_order_pay_id == 4 || $diff_payment_advance_sit == 1) ? "Sim" : "Não"; ?></small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div class="my-2">
-                                    <h6 class="my-2">Diferença:</h6>
-                                    <small class="text-muted lead"><?php echo!empty($diff_payment_advance) ? "R$ " . number_format($diff_payment_advance, 2, ',', '.') : "R$ 0,00"; ?></small>
-                                </div>
-                                <div class="my-2">
-                                    <h6 class="my-2">Diferença - Pago?</h6>
-                                    <small class="lead"><?php echo $diff_payment_advance_sit == 1 ? "Sim" : "Não"; ?></small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-2">Nota Fiscal:</h6>
-                                    <small class="text-muted lead" ><?php echo $number_nf; ?></small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-2">Lançamento Fiscal:</h6>
-                                    <small class="text-muted lead" ><?php echo!empty($launch_number) ? $launch_number : ""; ?></small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-2">Cadastrado Por:</h6>
-                                    <small class="text-muted lead" ><?php echo!empty($user_name_cad) ? $user_name_cad : ""; ?></small>
+                                    <h6 class="my-2">Histórico</h6>
+                                    <small class="text-muted lead">Bla bla bla bla, bla bla, bla bla ble.</small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Atualizado Por:</h6>
-                                    <small class="text-muted lead" ><?php echo!empty($user_name_up) ? $user_name_up : ""; ?></small>
+                                    <small class="text-muted lead" ><?php echo !empty($updated_by) ? $updated_by : ""; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Situação:</h6>
-                                    <small class="badge badge-info badge-pill lead"><?php echo $exibition_name; ?></small>
+                                    <small class="badge badge-<?php echo $cor; ?> badge-pill lead"><?php echo $status; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -152,6 +145,7 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                             </li>
                         </ul>
                     </div>
+                    
                     <div class="col-md-8 order-md-1">
                         <h4 class="mb-3">Dados da Movimentação</h4>
                         <form class="needs-validation" novalidate>
@@ -305,86 +299,38 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                                             <label class="form-check-label" for="access_power_bi">Acesso Power BI</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $access_zznet = "";
-                                                            if (isset($valorForm['access_zznet']) and $valorForm['access_zznet'] == 1) {
-                                                                $access_zznet = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="access_zznet" type="checkbox" class="form-check-input" id="access_zznet" value="1" <?php echo $access_zznet == 2 ? "checked" : ""; ?>>
+                                                            <input name="access_zznet" type="checkbox" class="form-check-input" id="access_zznet" value="1" <?php echo (isset($access_zznet) and $access_zznet == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="access_zznet">Acesso ZZnet</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $access_cigam = "";
-                                                            if (isset($valorForm['access_cigam']) and $valorForm['access_cigam'] == 1) {
-                                                                $access_cigam = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="access_cigam" type="checkbox" class="form-check-input" id="access_cigam" value="1" <?php echo $access_cigam == 2 ? "checked" : ""; ?>>
+                                                            <input name="access_cigam" type="checkbox" class="form-check-input" id="access_cigam" value="1" <?php echo (isset($access_cigam) and $access_cigam == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="access_cigam">Acesso CIGAM</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $access_camera = "";
-                                                            if (isset($valorForm['access_camera']) and $valorForm['access_camera'] == 1) {
-                                                                $access_camera = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="access_camera" type="checkbox" class="form-check-input" id="access_camera" value="1" <?php echo $access_camera == 2 ? "checked" : ""; ?>>
+                                                            <input name="access_camera" type="checkbox" class="form-check-input" id="access_camera" value="1" <?php echo (isset($access_camera) and $access_camera == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="access_camera">Acesso Câmeras</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $access_deskfy = "";
-                                                            if (isset($valorForm['access_deskfy']) and $valorForm['access_deskfy'] == 1) {
-                                                                $access_deskfy = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="access_deskfy" type="checkbox" class="form-check-input" id="access_deskfy" value="1" <?php echo $access_deskfy == 2 ? "checked" : ""; ?>>
+                                                            <input name="access_deskfy" type="checkbox" class="form-check-input" id="access_deskfy" value="1" <?php echo (isset($access_deskfy) and $access_deskfy == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="access_deskfy">Acesso Deskfy</label>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group d-block">
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $notebook = "";
-                                                            if (isset($valorForm['notebook']) and $valorForm['notebook'] == 1) {
-                                                                $notebook = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="notebook" type="checkbox" class="form-check-input" id="notebook" value="1" <?php echo $notebook == 2 ? "checked" : ""; ?>>
+                                                            <input name="notebook" type="checkbox" class="form-check-input" id="notebook" value="1" <?php echo (isset($notebook) and $notebook == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="notebook">Notebook</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $email_corporate = "";
-                                                            if (isset($valorForm['email_corporate']) and $valorForm['email_corporate'] == 1) {
-                                                                $email_corporate = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="email_corporate" type="checkbox" class="form-check-input" id="email_corporate" value="1" <?php echo $email_corporate == 2 ? "checked" : ""; ?>>
+                                                            <input name="email_corporate" type="checkbox" class="form-check-input" id="email_corporate" value="1" <?php echo (isset($email_corporate) and $email_corporate == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="email_corporate">E-mail Corporativo</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $access_meu_atendimento = "";
-                                                            if (isset($valorForm['access_meu_atendimento']) and $valorForm['access_meu_atendimento'] == 1) {
-                                                                $access_meu_atendimento = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="access_meu_atendimento" type="checkbox" class="form-check-input" id="access_meu_atendimento" value="1" <?php echo $access_meu_atendimento == 2 ? "checked" : ""; ?>>
+                                                            <input name="access_meu_atendimento" type="checkbox" class="form-check-input" id="access_meu_atendimento" value="1" <?php echo (isset($access_meu_atendimento) and $access_meu_atendimento == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="access_meu_atendimento">Acesso Meu Atendimento</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $access_dito = "";
-                                                            if (isset($valorForm['access_dito']) and $valorForm['access_dito'] == 1) {
-                                                                $access_dito = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="access_dito" type="checkbox" class="form-check-input" id="access_dito" value="1" <?php echo $access_dito == 2 ? "checked" : ""; ?>>
+                                                            <input name="access_dito" type="checkbox" class="form-check-input" id="access_dito" value="1" <?php echo (isset($access_dito) and $access_dito == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="access_dito">Dito</label>
                                                         </div>
                                                     </div>
@@ -396,43 +342,19 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                                 <div class="border rounded d-flex p-2">
                                                     <div class="form-group d-block">
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $office_parking_card = "";
-                                                            if (isset($valorForm['office_parking_card']) and $valorForm['office_parking_card'] == 1) {
-                                                                $office_parking_card = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="office_parking_card" type="checkbox" class="form-check-input" id="office_parking_card" value="1" <?php echo $office_parking_card == 2 ? "checked" : ""; ?>>
+                                                            <input name="office_parking_card" type="checkbox" class="form-check-input" id="office_parking_card" value="1" <?php echo (isset($office_parking_card) and $office_parking_card == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="office_parking_card">Cartão Estacionamento Escritório</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $office_parking_shopping = "";
-                                                            if (isset($valorForm['office_parking_shopping']) and $valorForm['office_parking_shopping'] == 1) {
-                                                                $office_parking_shopping = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="office_parking_shopping" type="checkbox" class="form-check-input" id="office_parking_shopping" value="1" <?php echo $office_parking_shopping == 2 ? "checked" : ""; ?>>
+                                                            <input name="office_parking_shopping" type="checkbox" class="form-check-input" id="office_parking_shopping" value="1" <?php echo (isset($office_parking_shopping) and $office_parking_shopping == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="office_parking_shopping">Cartão Estacionamento Shopping</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $key_office = "";
-                                                            if (isset($valorForm['key_office']) and $valorForm['key_office'] == 1) {
-                                                                $key_office = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="key_office" type="checkbox" class="form-check-input" id="key_office" value="1" <?php echo $key_office == 2 ? "checked" : ""; ?>>
+                                                            <input name="key_office" type="checkbox" class="form-check-input" id="key_office" value="1" <?php echo (isset($key_office) and $key_office == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="key_office">Chave Escritório</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $key_store = "";
-                                                            if (isset($valorForm['key_store']) and $valorForm['key_store'] == 1) {
-                                                                $key_store = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="key_store" type="checkbox" class="form-check-input" id="key_store" value="1" <?php echo $key_store == 2 ? "checked" : ""; ?>>
+                                                            <input name="key_store" type="checkbox" class="form-check-input" id="key_store" value="1" <?php echo (isset($key_store) and $key_store == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="key_store">Chave Loja</label>
                                                         </div>
                                                     </div>
@@ -445,23 +367,11 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                                 <div class="border rounded d-flex p-2">
                                                     <div class="form-group d-block">
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $instagram_corporate = "";
-                                                            if (isset($valorForm['instagram_corporate']) and $valorForm['instagram_corporate'] == 1) {
-                                                                $instagram_corporate = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="instagram_corporate" type="checkbox" class="form-check-input" id="instagram_corporate" value="1" <?php echo $instagram_corporate == 2 ? "checked" : ""; ?>>
+                                                            <input name="instagram_corporate" type="checkbox" class="form-check-input" id="instagram_corporate" value="1" <?php echo (isset($instagram_corporate) and $instagram_corporate == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="instagram_corporate">Instagram Corporativo</label>
                                                         </div>
                                                         <div class="form-group form-check">
-                                                            <?php
-                                                            $deactivate_instagram_account = "";
-                                                            if (isset($valorForm['deactivate_instagram_account']) and $valorForm['deactivate_instagram_account'] == 1) {
-                                                                $deactivate_instagram_account = 2;
-                                                            }
-                                                            ?>
-                                                            <input name="deactivate_instagram_account" type="checkbox" class="form-check-input" id="deactivate_instagram_account" value="1" <?php echo $deactivate_instagram_account == 2 ? "checked" : ""; ?>>
+                                                            <input name="deactivate_instagram_account" type="checkbox" class="form-check-input" id="deactivate_instagram_account" value="1" <?php echo (isset($deactivate_instagram_account) and $deactivate_instagram_account == 1) ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="deactivate_instagram_account">Desativar conta do instagram profissional</label>
                                                         </div>
                                                     </div>
@@ -470,6 +380,38 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                             </div>
 
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group col-md-2">
+                                    <label><span class="text-danger">*</span> Área</label>
+                                    <input name="request_area_id" type="text" class="form-control" id="request_area_id" value="<?php echo $area ?>" readonly />
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label for="requester_id"><span class="text-danger">*</span> Solicitante</label>
+                                    <input name="requester_id" type="text" class="form-control" id="requester_id" value="<?php echo $manager_sector ?>" readonly />
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label for="board_id"><span class="text-danger">*</span> Diretoria</label>
+                                    <input name="board_id" type="text" class="form-control" id="board_id" value="<?php echo $manager ?>" readonly />
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="observation"><span class="text-danger">*</span> Observações</label>
+                                    <div name="observation" id="observation" class="form-control">
+                                        <?php
+                                        if (isset($observation)) {
+                                            echo $observation;
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
