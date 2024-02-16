@@ -182,8 +182,8 @@ if (isset($this->Dados['form'][0])) {
                     } else {
                         echo '<select name="manager_id" id="manager_id" class="form-control is-valid" aria-label="Disabled input" required disabled>';
                         echo '<option value="">Selecione</option>';
-                        foreach ($this->Dados['select']['brand'] as $man) {
-                            extract($bn);
+                        foreach ($this->Dados['select']['manager'] as $man) {
+                            extract($man);
                             if (isset($valorForm['manager_id']) and $valorForm['manager_id'] == $ma_id) {
                                 echo "<option value='$ma_id' selected>$manager</option>";
                             } else {
@@ -257,12 +257,12 @@ if (isset($this->Dados['form'][0])) {
                             echo $valorForm['total_value'];
                         }
                     } else {
-                        echo '<input name="total_value" id="total_value" type="text" class="form-control is-valid" aria-label="Disabled input" disabled value ="';
+                        echo '<input name="total_value" id="money" type="text" class="form-control is-valid" aria-label="Disabled input" value ="';
                         if (isset($valorForm['total_value']) and !empty($valorForm['total_value'])) {
                             echo $valorForm['total_value'];
                         }
                     }
-                    echo '" required>';
+                    echo '" required readonly>';
                     ?>
                 </div>
             </div>

@@ -50,13 +50,13 @@ class AdmsEditOrderPayment {
         $this->Dados = $Dados;
 
         $this->File = (!empty($this->Dados['new_files']['name'])) ? $this->Dados['new_files'] : $this->Dados['file_name'];
-        $this->Bank = $this->Dados['bank_id'];
-        $this->NumberNf = $this->Dados['number_nf'];
-        $this->Agency = $this->Dados['agency'];
-        $this->AdvanceAmount = $this->Dados['advance_amount'];
-        $this->Checking = $this->Dados['checking_account'];
-        $this->TypeKey = $this->Dados['adms_type_key_pix_id'];
-        $this->KeyPix = $this->Dados['key_pix'];
+        $this->Bank = isset($this->Dados['bank_id']) and !empty($this->Dados['bank_id']) ? $this->Dados['bank_id'] : null;
+        $this->NumberNf = isset($this->Dados['number_nf']) and !empty($this->Dados['number_nf']) ? $this->Dados['number_nf'] : null;
+        $this->Agency = isset($this->Dados['agency']) and !empty($this->Dados['agency']) ? $this->Dados['agency'] : null;
+        $this->AdvanceAmount = isset($this->Dados['advance_amount']) and !empty($this->Dados['advance_amount']) ? $this->Dados['advance_amount'] : null;
+        $this->Checking = isset($this->Dados['checking_account']) and !empty($this->Dados['checking_account']) ? $this->Dados['checking_account'] : null;
+        $this->TypeKey = isset($this->Dados['adms_type_key_pix_id']) and !empty($this->Dados['adms_type_key_pix_id']) ? $this->Dados['adms_type_key_pix_id'] : null;
+        $this->KeyPix = isset($this->Dados['key_pix']) and !empty($this->Dados['key_pix']) ? $this->Dados['key_pix'] : null;
         $this->titular = (!empty($this->Dados['name_supplier']) ? $this->Dados['name_supplier'] : null);
         $this->launchNumber = (!empty($this->Dados['launch_number']) ? $this->Dados['launch_number'] : null);
         $this->typeAccount = (!empty($this->Dados['type_account']) ? $this->Dados['type_account'] : null);
@@ -65,16 +65,16 @@ class AdmsEditOrderPayment {
         $this->installments['installment_values'] = !empty($this->Dados['installment_values']) ? $this->Dados['installment_values'] : null;
         $this->installments['date_payments'] = !empty($this->Dados['date_payments']) ? $this->Dados['date_payments'] : null;
         $this->installments['i_id'] = !empty($this->Dados['i_id']) ? $this->Dados['i_id'] : $_SESSION['id'];
-        $this->obs = (!empty($this->Dados['obs']) ? $this->Dados['obs'] : null);
+        $this->obs = (isset($this->Dados['obs']) and !empty($this->Dados['obs']) ? $this->Dados['obs'] : null);
 
-        $this->Dados['total_value'] = str_replace(',', '.', str_replace('.', '', $this->Dados['total_value']));
+        $this->Dados['total_value'] = (isset($this->Dados['total_value']) and !empty($this->Dados['total_value'])) ? str_replace(',', '.', str_replace('.', '', $this->Dados['total_value'])) : null;
         if ((!empty($this->Dados['total_value'])) and (!empty($this->Dados['advance_amount']))) {
-            $this->AdvanceAmount = (!empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
+            $this->AdvanceAmount = (isset($this->Dados['advance_amount_sit']) and !empty($this->AdvanceAmount) ? str_replace(',', '.', str_replace('.', '', $this->AdvanceAmount)) : 0);
         }
         unset($this->Dados['document_number_supplier'], $this->Dados['type_account'], $this->Dados['id'], $this->Dados['delete'], $this->Dados['i_id'], $this->Dados['launch_number'], $this->Dados['name_supplier'], $this->Dados['new_files'], $this->Dados['file_name'], $this->Dados['number_nf'], $this->Dados['agency'], $this->Dados['checking_account'], $this->Dados['adms_type_key_pix_id'], $this->Dados['key_pix'], $this->Dados['bank_id'], $this->Dados['advance_amount'], $this->Dados['obs'], $this->Dados['installment_values'], $this->Dados['date_payments']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
-        $valCampoVazio->validarDados($this->Dados);
+        $valCampoVazio->validarDados($this->Dados); 
 
         if ($valCampoVazio->getResultado()) {
             if (!empty($this->File['name'][0])) {
@@ -99,7 +99,9 @@ class AdmsEditOrderPayment {
             $arquivosParaUpload[] = [
                 'tmp_name' => $this->File['tmp_name'][$key],
                 'name' => $filename,
-                'type' => $this->File['type'][$key]
+                'type' => $this->File['type'][$key],
+                'error' => $this->File['error'][$key],
+                'size' => $this->File['size'][$key]
             ];
         }
         

@@ -27,7 +27,7 @@ class ViewPersonnelMoviments {
             $this->Dados['dados_moviment'] = $viewMoviment->viewMoviment($this->DadosId);
 
             $botao = ['list_moviment' => ['menu_controller' => 'personnel-moviments', 'menu_metodo' => 'list'],
-                'edit_moviment' => ['menu_controller' => 'edit-personnel-movimenst', 'menu_metodo' => 'edit-moviment'],
+                'edit_moviment' => ['menu_controller' => 'edit-personnel-moviments', 'menu_metodo' => 'edit-moviment'],
                 'del_moviment' => ['menu_controller' => 'delete-personnel-moviments', 'menu_metodo' => 'delete-moviment']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);

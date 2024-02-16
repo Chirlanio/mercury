@@ -24,7 +24,7 @@ class AdmsViewPersonnelMoviments {
     public function viewMoviment($DadosId) {
         $this->DadosId = (int) $DadosId;
         $viewMoviment = new \App\adms\Models\helper\AdmsRead();
-        $viewMoviment->fullRead("SELECT pm.*, l.nome store, fc.nome colaborador, ar.id a_id, ar.name area, fm.nome manager_sector, mg.name manager, sm.name status, cr.cor
+        $viewMoviment->fullRead("SELECT pm.*, l.nome store, fc.nome colaborador, ar.id a_id, ar.name area, fm.nome manager_sector, mg.name manager, sm.name status, cr.cor, user.nome updated_by
                 FROM adms_personnel_moviments pm
                 LEFT JOIN tb_lojas l ON l.id = pm.adms_loja_id
                 LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id
@@ -33,6 +33,7 @@ class AdmsViewPersonnelMoviments {
                 LEFT JOIN adms_managers mg ON mg.id = pm.board_id
                 LEFT JOIN adms_sits_personnel_moviments sm ON sm.id = pm.adms_sits_personnel_mov_id
                 LEFT JOIN adms_cors cr ON cr.id = sm.adms_cor_id
+                LEFT JOIN adms_usuarios user ON user.id = pm.updated_by
                 WHERE pm.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $viewMoviment->getResultado();
         return $this->Resultado;

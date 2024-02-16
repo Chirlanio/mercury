@@ -25,7 +25,6 @@ class AdmsAddPersonnelMoviments {
     public function addMoviment(array $Dados) {
 
         $this->Dados = $Dados;
-        var_dump($this->Dados);
         if(empty($this->Dados['observation'])){
             unset($this->Dados['observation']);
         }
@@ -82,7 +81,6 @@ class AdmsAddPersonnelMoviments {
 
         $this->treatData['adms_sits_personnel_mov_id'] = 1;
         $this->treatData['created'] = date("Y-m-d H:i:s");
-        var_dump($this->treatData);
 
         $addProcess = new \App\adms\Models\helper\AdmsCreate();
         $addProcess->exeCreate("adms_personnel_moviments", $this->treatData);
