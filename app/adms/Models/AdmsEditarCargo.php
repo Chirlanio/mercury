@@ -25,8 +25,7 @@ class AdmsEditarCargo {
     public function verCargo($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verCargo = new \App\adms\Models\helper\AdmsRead();
-        $verCargo->fullRead("SELECT * FROM tb_cargos
-                WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $verCargo->fullRead("SELECT * FROM tb_cargos WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verCargo->getResultado();
         return $this->Resultado;
     }
@@ -45,6 +44,7 @@ class AdmsEditarCargo {
     }
 
     private function updateEditCargo() {
+        
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltCargo = new \App\adms\Models\helper\AdmsUpdate();
         $upAltCargo->exeUpdate("tb_cargos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);

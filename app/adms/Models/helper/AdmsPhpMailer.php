@@ -40,28 +40,35 @@ class AdmsPhpMailer {
     }
 
     private function confEmail() {
-        $mail = new PHPMailer(true);                                    // Passing `true` enables exceptions
+        $phpmailer = new PHPMailer(true);                                    // Passing `true` enables exceptions
         try {
             //Server settings
             //$mail->SMTPDebug = 2;                                     // Enable verbose debug output
-            $mail->isSMTP();                                            // Set mailer to use SMTP
-            $mail->Host = $this->DadosCredEmail[0]['host'];             // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                                     // Enable SMTP authentication
-            $mail->Username = $this->DadosCredEmail[0]['usuario'];      // SMTP username
-            $mail->Password = $this->DadosCredEmail[0]['senha'];        // SMTP password
-            $mail->SMTPSecure = $this->DadosCredEmail[0]['smtpsecure']; // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = $this->DadosCredEmail[0]['porta'];            // TCP port to connect to
+            $phpmailer->isSMTP();                                           // Set mailer to use SMTP
+            /* $mail->Host = $this->DadosCredEmail[0]['host'];             // Specify main and backup SMTP servers
+              $mail->SMTPAuth = true;                                     // Enable SMTP authentication
+              $mail->Username = $this->DadosCredEmail[0]['usuario'];      // SMTP username
+              $mail->Password = $this->DadosCredEmail[0]['senha'];        // SMTP password
+              $mail->SMTPSecure = $this->DadosCredEmail[0]['smtpsecure']; // Enable TLS encryption, `ssl` also accepted
+              $mail->Port = $this->DadosCredEmail[0]['porta']; */            // TCP port to connect to
+            
+            
+            $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Port = 2525;
+            $phpmailer->Username = '987f768ae51cbd';
+            $phpmailer->Password = 'ed060abe6c72d9';
             //Recipients
-            $mail->setFrom($this->DadosCredEmail[0]['email'], $this->DadosCredEmail[0]['nome']);
-            $mail->addAddress($this->Dados['dest_email'], $this->Dados['dest_nome']);     // Add a recipient
+            $phpmailer->setFrom($this->DadosCredEmail[0]['email'], $this->DadosCredEmail[0]['nome']);
+            $phpmailer->addAddress($this->Dados['dest_email'], $this->Dados['dest_nome']);     // Add a recipient
             //
             //Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = $this->Dados['titulo_email'];
-            $mail->Body = $this->Dados['cont_email'];
-            $mail->AltBody = $this->Dados['cont_text_email'];
+            $phpmailer->isHTML(true);                                  // Set email format to HTML
+            $phpmailer->Subject = $this->Dados['titulo_email'];
+            $phpmailer->Body = $this->Dados['cont_email'];
+            $phpmailer->AltBody = $this->Dados['cont_text_email'];
 
-            if ($mail->send()) {
+            if ($phpmailer->send()) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>E-mail enviado com sucesso!</div>";
                 $this->Resultado = true;
             } else {
@@ -72,5 +79,4 @@ class AdmsPhpMailer {
             $this->Resultado = false;
         }
     }
-
 }

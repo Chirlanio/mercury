@@ -18,7 +18,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['vis_func']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-func/ver-func/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm"><i class='fas fa-eye'></i> Visualizar</a>
+                    <a href="<?php echo URLADM . 'ver-func/ver-func/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm"><i class='fas fa-eye'></i></a>
                 </div>
                 <?php
             }
@@ -41,7 +41,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Nome Completo</label>
                     <?php
-                    if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
+                    if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {
                         echo '<input name="nome" type="text" class="form-control is-invalid" aria-label="Disabled input" disabled placeholder="Nome completo do Usuário" value="';
                         if (isset($valorForm['nome'])) {
                             echo $valorForm['nome'];
@@ -61,7 +61,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Usuário</label>
                     <?php
-                    if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
+                    if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {
                         echo '<input name="usuario" type="text" class="form-control is-invalid" aria-label="Disabled input" disabled placeholder="Nome do Usuário" value="';
                         if (isset($valorForm['usuario'])) {
                             echo $valorForm['usuario'];
@@ -99,7 +99,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Loja</label>
                     <?php
-                    if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
+                    if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {
                         echo '<select name="loja_id" id="loja_id" class="form-control is-invalid" aria-label="Disabled input" disabled required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['loja_id'] as $l) {
@@ -128,7 +128,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Função</label>
                     <?php
-                    if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
+                    if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {
                         echo '<select name="cargo_id" id="cargo_id" class="form-control is-invalid" aria-label="Disabled input" disabled required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['cargo_id'] as $c) {
@@ -157,7 +157,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span>Situação</label>
                     <?php
-                    if ($_SESSION['adms_niveis_acesso_id'] >= 4) {
+                    if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {
                         echo '<select name="status_id" id="status_id" class="form-control is-invalid" aria-label="Disabled input" disabled required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['sit_id'] as $sit) {

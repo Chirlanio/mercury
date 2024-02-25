@@ -16,13 +16,13 @@ if (!empty($this->Dados['dados_cargo'][0])) {
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_cargo']) {
-                            echo "<a href='" . URLADM . "cargo/listarCargo' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                            echo "<a href='" . URLADM . "cargo/listar-cargo' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_cargo']) {
-                            echo "<a href='" . URLADM . "editar-cargo/edit-cargo/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                            echo "<a href='" . URLADM . "editar-cargo/edit-cargo/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_cargo']) {
-                            echo "<a href='" . URLADM . "apagar-cargo/apagar-cargo/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-cargo/apagar-cargo/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>
@@ -59,6 +59,9 @@ if (!empty($this->Dados['dados_cargo'][0])) {
 
                 <dt class="col-sm-3">Nome</dt>
                 <dd class="col-sm-9"><?php echo $nome; ?></dd>
+
+                <dt class="col-sm-3">Nível do Cargo</dt>
+                <dd class="col-sm-9"><?php echo $adms_niv_cargo_id == 1 ? "Gerencial" : "Operacional"; ?></dd>
 
                 <dt class="col-sm-3">Cadastrado</dt>
                 <dd class="col-sm-9"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></dd>

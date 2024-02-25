@@ -16,13 +16,13 @@ if (!empty($this->Dados['dados_func'][0])) {
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_func']) {
-                            echo "<a href='" . URLADM . "funcionarios/listar-func' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
+                            echo "<a href='" . URLADM . "funcionarios/listar-func' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_func']) {
-                            echo "<a href='" . URLADM . "editar-func/edit-func/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-nib'></i> Editar</a> ";
+                            echo "<a href='" . URLADM . "editar-func/edit-func/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-nib'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_func']) {
-                            echo "<a href='" . URLADM . "apagar-func/apagar-func/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i> Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-func/apagar-func/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>

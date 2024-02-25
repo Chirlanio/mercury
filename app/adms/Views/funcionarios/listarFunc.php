@@ -3,6 +3,7 @@ if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
+//var_dump($this->Dados['select']['loja']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -39,7 +40,7 @@ if (!defined('URLADM')) {
                     </div>
                 </div>
                 <?php
-                if ($_SESSION['adms_niveis_acesso_id'] != 5) {
+                if ($_SESSION['adms_niveis_acesso_id'] != STOREPERMITION) {
 
                     echo "<div class='col-sm-12 col-lg-6 mb-3'>";
                     echo "<div class='input-group'>";
@@ -49,12 +50,12 @@ if (!defined('URLADM')) {
 
                     echo "<select name='loja_id' id='loja_id' class='custom-select'>";
                     echo "<option value = ''>Selecione</option>";
-                    foreach ($this->Dados['select']['loja_id'] as $ld) {
+                    foreach ($this->Dados['select']['loja'] as $ld) {
                         extract($ld);
-                        if ($this->Dados['select']['loja_id'] == $loja_id) {
-                            echo "<option value='$loja_id' selected>$loja</option>";
+                        if ($this->Dados['select']['loja']['l_id'] == $l_id) {
+                            echo "<option value='$l_id' selected>$loja</option>";
                         } else {
-                            echo "<option value='$loja_id'>$loja</option>";
+                            echo "<option value='$l_id'>$loja</option>";
                         }
                     }
                     echo "</select>";

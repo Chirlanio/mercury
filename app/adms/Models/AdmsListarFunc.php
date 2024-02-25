@@ -27,19 +27,27 @@ class AdmsListarFunc {
         $this->PageId = (int) $PageId;
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'funcionarios/listarFunc');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= ADMPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_funcionarios");
+        } else if ($_SESSION['ordem_nivac'] == FINANCIALPERMITION) {
+            $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_funcionarios WHERE status_id =:status_id", "status_id=1");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_funcionarios WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
         }
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarFunc = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['usuario_id'] <= 2) {
+        if ($_SESSION['ordem_nivac'] <= ADMPERMITION) {
             $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit
                     FROM tb_funcionarios f
                     INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id
-                    ORDER BY id ASC LIMIT :limit OFFSET :offset", "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+                    ORDER BY id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        } else if ($_SESSION['adms_niveis_acesso_id'] == FINANCIALPERMITION) {
+            $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit
+                    FROM tb_funcionarios f
+                    INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id
+                    WHERE f.status_id =:status_id
+                    ORDER BY id ASC LIMIT :limit OFFSET :offset", "status_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit
                     FROM tb_funcionarios f
@@ -54,12 +62,14 @@ class AdmsListarFunc {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas ORDER BY id ASC");
+        $registro['loja'] = $listar->getResultado();
 
-        $this->Resultado = ['loja_id' => $registro['loja_id']];
+        $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
+        $registro['sits'] = $listar->getResultado();
+
+        $this->Resultado = ['loja' => $registro['loja'], 'sits' => $registro['sits']];
 
         return $this->Resultado;
     }
-
 }

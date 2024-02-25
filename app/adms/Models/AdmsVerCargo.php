@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -20,8 +20,7 @@ class AdmsVerCargo {
     public function verCargo($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verCargo = new \App\adms\Models\helper\AdmsRead();
-        $verCargo->fullRead("SELECT * FROM tb_cargos 
-                WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $verCargo->fullRead("SELECT c.* FROM tb_cargos c WHERE c.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verCargo->getResultado();
         return $this->Resultado;
     }
