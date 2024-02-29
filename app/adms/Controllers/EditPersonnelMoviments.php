@@ -19,6 +19,13 @@ class EditPersonnelMoviments {
 
     public function editMoviment($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        $this->Dados['id'] = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
+        $this->Dados['delete'] = filter_input(INPUT_GET, 'file', FILTER_DEFAULT);
+
+        if (!empty($this->Dados['delete'])) {
+            $this->delFiles();
+        }
+
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $this->editPersonnelMovimentPriv();
@@ -32,7 +39,8 @@ class EditPersonnelMoviments {
     private function editPersonnelMovimentPriv() {
         if (!empty($this->Dados['EditMoviment'])) {
             unset($this->Dados['EditMoviment']);
-
+            $this->Dados['file_name'] = (isset($_FILES['file_name']) ? $_FILES['file_name'] : null);
+            
             $editMoviment = new \App\adms\Models\AdmsEditPersonnelMoviments();
             $editMoviment->altOrder($this->Dados);
 
@@ -70,5 +78,10 @@ class EditPersonnelMoviments {
             $UrlDestino = URLADM . 'personnel-moviments/list';
             header("Location: $UrlDestino");
         }
+    }
+
+    private function delFiles() {
+        $delFilename = new \App\adms\Models\helper\AdmsApagarArq();
+        $delFilename->apagarArq($this->Dados['delete'], 'assets/files/mp/' . $this->Dados['id'] . '/');
     }
 }

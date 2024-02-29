@@ -54,7 +54,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-5">
                     <label><span class="text-danger">*</span> Colaborador</label>
-                    <select name="func_id" id="func_id" class="form-control is-invalid" <?php echo $_SESSION['adms_niveis_acesso_id'] == STOREPERMITION ? "disabled" : "required"; ?>>
+                    <select name="func_id" id="func_id" class="form-control is-invalid" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['employee'] as $fc) {
@@ -75,16 +75,16 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['date_order'])) {
                         echo $valorForm['date_order'];
                     }
-                    ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] == STOREPERMITION ? "disabled" : "required"; ?>>
+                    ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
                 </div>
 
                 <div class="form-group col-md-2">
                     <label for="number_order"><span class="text-danger">*</span> Número do Pedido</label>
-                    <input name="number_order" type="number" id="number_order" class="form-control is-invalid" value="<?php
+                    <input name="number_order" type="text" id="number_order" class="form-control is-invalid" value="<?php
                     if (isset($valorForm['number_order'])) {
                         echo $valorForm['number_order'];
                     }
-                    ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] == STOREPERMITION ? "disabled" : "required"; ?>>
+                    ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
                 </div>
             </div>
 
@@ -96,12 +96,12 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['number_nf'])) {
                         echo $valorForm['number_nf'];
                     }
-                    ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] == STOREPERMITION ? "disabled" : "required"; ?>>
+                    ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
                 </div>
 
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Só Faturar?</label>
-                    <select name="just_invoice" id="just_invoice" class="form-control is-invalid" required>
+                    <select name="just_invoice" id="just_invoice" class="form-control is-invalid" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
                         <?php
                         if (isset($valorForm['just_invoice']) == 1) {
                             echo "<option value=''>Selecione</option>";
@@ -122,7 +122,7 @@ if (isset($this->Dados['form'][0])) {
 
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Cadastrado Por</label>
-                    <select name="created_by" id="created_by" class="form-control is-invalid" <?php echo $_SESSION['adms_niveis_acesso_id'] == STOREPERMITION ? "disabled" : "required"; ?>>
+                    <select name="created_by" id="created_by" class="form-control is-invalid" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['users'] as $fc) {
@@ -138,12 +138,12 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label for="number_invoice_nf">Nota de Venda</label>
-                    <input name="number_invoice_nf" type="number" id="number_invoice_nf" class="form-control is-valid" value="<?php
+                    <label for="number_invoice_nf">Ratreio</label>
+                    <input name="number_invoice_nf" type="text" id="number_invoice_nf" class="form-control is-valid" value="<?php
                     if (isset($valorForm['number_invoice_nf'])) {
                         echo $valorForm['number_invoice_nf'];
                     }
-                    ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] == STOREPERMITION ? "disabled" : ""; ?>>
+                    ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : ""; ?> minlength="10" maxlength="44">
                 </div>
 
                 <?php if ($_SESSION['adms_niveis_acesso_id'] != STOREPERMITION) { ?>
@@ -164,7 +164,15 @@ if (isset($this->Dados['form'][0])) {
                         </select>
                     </div>
                 <?php } ?>
-
+                <div class="form-group col-md-12">
+                    <label><span class="text-danger">*</span> Observação</label>
+                    <textarea name="obsarvations" id="editor" class="form-control editorCK" rows="3"><?php
+                        if (isset($valorForm['obsarvations'])) {
+                            echo $valorForm['obsarvations'];
+                        }
+                        ?>
+                    </textarea>
+                </div>
             </div>
             <p>
                 <span class="text-danger">* </span>Campo obrigatório

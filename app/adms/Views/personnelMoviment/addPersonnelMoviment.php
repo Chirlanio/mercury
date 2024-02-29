@@ -472,6 +472,13 @@ if (isset($this->Dados['form'][0])) {
                     </textarea>
                 </div>
             </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="file_name">Arquivo</label>
+                    <input class="form-control-file is-valid" name="file_name[]" id="file_name" type="file" multiple/>
+                </div>
+            </div>
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>
@@ -479,4 +486,3 @@ if (isset($this->Dados['form'][0])) {
         </form>
     </div>
 </div>
-

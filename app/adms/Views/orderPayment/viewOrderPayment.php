@@ -94,13 +94,13 @@ if (!empty($this->Dados['dados_order'][0])) {
                                 </div>
                                 <div class="my-2">
                                     <h6 class="my-2">Ordem de Pagamento - Pago?</h6>
-                                    <small class="lead"><?php echo ($diff_payment_advance_sit == 1 && $advance_amount_sit == 1) || ($adms_sits_order_pay_id == 4 || $diff_payment_advance_sit == 1)? "Sim" : "Não"; ?></small>
+                                    <small class="lead"><?php echo ($diff_payment_advance_sit == 1 && $advance_amount_sit == 1) || ($adms_sits_order_pay_id == 4 || $diff_payment_advance_sit == 1) ? "Sim" : "Não"; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="my-2">
                                     <h6 class="my-2">Diferença:</h6>
-                                    <small class="text-muted lead"><?php echo!empty($diff_payment_advance) ? "R$ " . number_format($diff_payment_advance, 2, ',', '.') : "R$ 0,00"; ?></small>
+                                    <small class="text-muted lead"><?php echo (!empty($diff_payment_advance) ? "R$ " . number_format($diff_payment_advance, 2, ',', '.') : "R$ 0,00"); ?></small>
                                 </div>
                                 <div class="my-2">
                                     <h6 class="my-2">Diferença - Pago?</h6>
@@ -128,7 +128,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Atualizado Por:</h6>
-                                    <small class="text-muted lead" ><?php echo!empty($user_name_up) ? $user_name_up : ""; ?></small>
+                                    <small class="text-muted lead" ><?php echo (!empty($user_name_up) ? $user_name_up : ""); ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">

@@ -193,15 +193,15 @@ class AdmsAddOrderPayment {
         $this->DadosEmail['dest_nome'] = $prim_nome;
         $this->DadosEmail['dest_email'] = $this->DadosUsuario[0]['email'];
         $this->DadosEmail['titulo_email'] = "Ordem de Pagaqmento";
-        $this->DadosEmail['cont_email'] = "Ola " . $prim_nome . "<br><br>";
+        $this->DadosEmail['cont_email'] = "Olá " . $prim_nome . ",<br><br>";
         $this->DadosEmail['cont_email'] .= "Foi cadastrada uma nova ordem de pagamento.<br>";
-        $this->DadosEmail['cont_email'] .= "<p>Segue informacoes sobre o cadastro.</p>";
+        $this->DadosEmail['cont_email'] .= "<p>Segue informações sobre o cadastro.</p>";
         $this->DadosEmail['cont_email'] .= "<p>ID: " . $this->Dados['id'] . ".<br>";
         $this->DadosEmail['cont_email'] .= "Valor: " . number_format($this->Dados['total_value'], 2, ',', '.') . ".<br>";
         $this->DadosEmail['cont_email'] .= "Data Pagamento: " . date("d/m/Y", strtotime($this->Dados['date_payment'])) . ".</p>";
-        $this->DadosEmail['cont_email'] .= "Se voce nao reconhece a solicitacao entre em contado com o setor Financeiro.<br>";
+        $this->DadosEmail['cont_email'] .= "Se você não reconhece a solicitação entre em contado com o setor Financeiro.<br>";
 
-        $this->DadosEmail['cont_text_email'] = "Ola " . $prim_nome . " Foi cadastrada uma nova ordem de pagamento. Segue informacoes sobre o cadastro. ID: " . $this->Dados['id'] . " Valor: " . number_format($this->Dados['total_value'], 2, ',', '.') . " Data Pagamento: " . date("d/m/Y", strtotime($this->Dados['date_payment'])) . ". Se você não reconhece a solicitação entre em contado com o setor Financeiro.";
+        $this->DadosEmail['cont_text_email'] = "Olá " . $prim_nome . ",\n\n Foi cadastrada uma nova ordem de pagamento.\n\n Segue informações sobre o cadastro.\n\n ID: " . $this->Dados['id'] . "\n Valor: " . number_format($this->Dados['total_value'], 2, ',', '.') . "\n Data Pagamento: " . date("d/m/Y", strtotime($this->Dados['date_payment'])) . ".\n\n Se você não reconhece a solicitação entre em contado com o setor Financeiro.";
 
         $emailPHPMailer = new \App\adms\Models\helper\AdmsPhpMailer();
         $emailPHPMailer->emailPhpMailer($this->DadosEmail);

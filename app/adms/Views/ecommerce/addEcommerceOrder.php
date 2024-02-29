@@ -77,7 +77,7 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['number_order'])) {
                         echo $valorForm['number_order'];
                     }
-                    ?>" required>
+                    ?>" minlength="6" maxlength="16" required>
                 </div>
             </div>
             <div class="form-row">
@@ -109,6 +109,15 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="obsarvations"><span class="text-danger">*</span> Observação</label>
+                <textarea name="obsarvations" id="editor" class="form-control is-invalid editorCK" rows="3"><?php
+                    if (isset($valorForm['obsarvations'])) {
+                        echo $valorForm['obsarvations'];
+                    }
+                    ?>
+                </textarea>
             </div>
             
             <p>

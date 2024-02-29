@@ -104,7 +104,7 @@ if (isset($this->Dados['form'][0])) {
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <div class="border border-dark rounded p-3">
+                    <div class="border border-dark rounded h-100 p-3">
                         <label class="mb-2"><span class="text-danger">*</span> Motivo</label>
                         <div class="form-group d-flex">
                             <div class="custom-control custom-radio mr-2">
@@ -504,6 +504,46 @@ if (isset($this->Dados['form'][0])) {
                         }
                         ?>
                     </textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <div class="mb-3">
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Arquivos</h6>
+                                    <small class="text-muted">
+                                        <?php
+                                        $types = array('png', 'jpg', 'jpeg', 'doc', 'pdf', 'docx', 'xlsx', 'xls');
+                                        $path = 'assets/files/mp/' . $valorForm['id'] . '/';
+                                        try {
+                                            $dir = new DirectoryIterator($path);
+                                            if ($dir) {
+                                                foreach ($dir as $fileInfo) {
+                                                    $ext = strtolower($fileInfo->getExtension());
+                                                    if (in_array($ext, $types)) {
+                                                        $arquivo = $fileInfo->getFilename();
+                                                        echo "<span class='m-auto lead'>";
+                                                        echo $arquivo . " - <a href='" . URLADM . "assets/files/mp/" . $valorForm['id'] . "/$arquivo' class='btn btn-dark btn-sm mr-1' download><i class='fas fa-download'></i> Baixar</a>";
+                                                        echo "<a href='" . URLADM . "edit-personnel-moviments/edit-moviment/" . $valorForm['id'] . "?id=" . $valorForm['id'] . "&file=$arquivo' class='btn btn-dark btn-sm'><i class='fa-solid fa-trash'></i></a><br>";
+                                                        echo "</span>";
+                                                    }
+                                                }
+                                            }
+                                        } catch (Exception $exc) {
+                                            echo 'Nenhum arquivo encontrado';
+                                        }
+                                        ?>
+                                    </small>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <label for="file_name">Arquivo</label>
+                    <input name="file_name[]" id="file_name" type="file" class="custom-file" multiple>
                 </div>
             </div>
             <p>

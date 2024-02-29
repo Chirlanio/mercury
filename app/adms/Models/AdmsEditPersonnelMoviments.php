@@ -17,6 +17,7 @@ class AdmsEditPersonnelMoviments {
     private $Resultado;
     private $Dados;
     private $DadosId;
+    private $File;
     private $Optional;
 
     function getResultado() {
@@ -25,6 +26,7 @@ class AdmsEditPersonnelMoviments {
 
     public function viewMoviment($DadosId) {
         $this->DadosId = (int) $DadosId;
+        $_SESSION['id'] = $this->DadosId;
         $viewMoviment = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == SUPADMPERMITION) {
             $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id WHERE pm.id =:id LIMIT :limit", "id={$this->DadosId}&limit=1");
@@ -37,6 +39,10 @@ class AdmsEditPersonnelMoviments {
 
     public function altOrder(array $Dados) {
         $this->Dados = $Dados;
+        $this->Dados['id'] = $_SESSION['id'];
+        $this->File = $this->Dados['file_name'];
+
+        unset($this->Dados['delete'], $this->Dados['file_name']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -60,7 +66,49 @@ class AdmsEditPersonnelMoviments {
 
         unset($this->Dados['totalFouls'], $this->Dados['totalDaysOff'], $this->Dados['totalFolds'], $this->Dados['totalFund']);
 
-        $this->updateEditPersonnelMoviments();
+        if (!empty($this->File['name'][0])) {
+            $this->valArquivo();
+        } else {
+            $this->updateEditPersonnelMoviments();
+        }
+    }
+
+    private function valArquivo() {
+        if (!isset($this->File['name'][0]) || empty($this->File['name'][0])) {
+            $this->updateEditPersonnelMoviments();
+        }
+
+        $uploadPath = 'assets/files/mp/' . $_SESSION['id'] . '/';
+        $arquivosParaUpload = [];
+
+        foreach ($this->File['name'] as $key => $filename) {
+            $arquivosParaUpload[] = [
+                'tmp_name' => $this->File['tmp_name'][$key],
+                'name' => $filename,
+                'type' => $this->File['type'][$key],
+                'error' => $this->File['error'][$key],
+                'size' => $this->File['size'][$key]
+            ];
+        }
+
+        if (count($arquivosParaUpload) > 1) {
+            $uploadFile = new \App\adms\Models\helper\AdmsUploadMultFiles();
+            $uploadFile->upload($uploadPath, $arquivosParaUpload);
+        } else {
+            $newName = new \App\adms\Models\helper\AdmsSlug();
+            $this->File['name'][0] = $newName->nomeSlug($this->File['name'][0]);
+
+            $uploadFile = new \App\adms\Models\helper\AdmsUpload();
+            $uploadFile->upload($arquivosParaUpload[0], $uploadPath, $this->File['name'][0]);
+        }
+
+        if ($uploadFile->getResultado()) {
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>MP</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = true;
+        } else {
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>MP:</strong> Satualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = false;
+        }
     }
 
     private function updateEditPersonnelMoviments() {
@@ -75,10 +123,10 @@ class AdmsEditPersonnelMoviments {
         $upAltOrder = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrder->exeUpdate("adms_personnel_moviments", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltOrder->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>MP</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A ordem de pagamento não foi atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A MP não foi atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }

@@ -23,7 +23,7 @@ class AddOrderPayments {
         if (!empty($this->Dados['AddOrder'])) {
             unset($this->Dados['AddOrder']);
             
-            $this->Dados['file_name'] = ($_FILES['file_name'] ? $_FILES['file_name'] : null);
+            $this->Dados['file_name'] = (isset($_FILES['file_name']) ? $_FILES['file_name'] : null);
             $addOrder = new \App\adms\Models\AdmsAddOrderPayment();
             $addOrder->addOrder($this->Dados);
             
@@ -55,9 +55,6 @@ class AddOrderPayments {
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
-
-        if (!empty($this->Dados['AddOrder'])) {
-        }
 
         $carregarView = new \Core\ConfigView("adms/Views/orderPayment/addOrderPayments", $this->Dados);
         $carregarView->renderizar();

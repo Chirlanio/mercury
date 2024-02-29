@@ -409,7 +409,7 @@ extract($this->Dados['select']);
                     </div>
                 </div>
             </div>
-            <hr>
+            <!--<hr>
             <div class="content mt-5 anima-bottom">
                 <div class="container-fluid">
                     <h2 class="display-4 text-center" style="margin-bottom: 40px;">Agosto Premiado</h2>
@@ -421,7 +421,7 @@ extract($this->Dados['select']);
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         <?php } else { ?>
 
             <div class="row mb-3">
@@ -717,7 +717,7 @@ extract($this->Dados['select']);
                     </div>
                 </div>
             </div>
-            <hr>
+            <!--<hr>
             <div class="content mt-5 anima-bottom">
                 <div class="container-fluid">
                     <h2 class="display-4 text-center" style="margin-bottom: 40px;">Agosto Premiado</h2>
@@ -729,7 +729,7 @@ extract($this->Dados['select']);
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     <?php }
     ?>

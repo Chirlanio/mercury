@@ -22,10 +22,11 @@ class AddPersonnelMoviments {
 
         if (!empty($this->Dados['AddMoviment'])) {
             unset($this->Dados['AddMoviment']);
-            
+
+            $this->Dados['file_name'] = (isset($_FILES['file_name']) ? $_FILES['file_name'] : null);
             $addMoviment = new \App\adms\Models\AdmsAddPersonnelMoviments();
             $addMoviment->addMoviment($this->Dados);
-            
+
             if ($addMoviment->getResultado()) {
                 $UrlDestino = URLADM . 'personnel-moviments/list';
                 header("Location: $UrlDestino");
@@ -54,9 +55,6 @@ class AddPersonnelMoviments {
 
         $listMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listMenu->itemMenu();
-
-        if (!empty($this->Dados['AddMoviment'])) {
-        }
 
         $carregarView = new \Core\ConfigView("adms/Views/personnelMoviment/addPersonnelMoviment", $this->Dados);
         $carregarView->renderizar();

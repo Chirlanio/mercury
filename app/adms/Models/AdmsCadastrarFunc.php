@@ -25,6 +25,8 @@ class AdmsCadastrarFunc {
     public function cadFunc(array $Dados) {
         
         $this->Dados = $Dados;
+        $this->Dados['nome'] = ucwords($this->Dados['nome'], " \t\r\n\f\v'");
+        $this->Dados['usuario'] = ucwords($this->Dados['nome'], " \t\r\n\f\v'");
         
         $this->Cupom = $this->Dados['cupom_site'];
         unset($this->Dados['cupom_site']);

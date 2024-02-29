@@ -78,7 +78,7 @@ if (!empty($this->Dados['dados_ecommerce'][0])) {
 
                             <div class="form-row">
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label for="number_nf"><span class="text-danger">*</span> Nota de Transferência Nº:</label>
                                     <input name="number_nf" type="text" class="form-control bg-white" id="number_nf" value="<?php echo $number_nf; ?>" readonly />
                                 </div>
@@ -93,11 +93,22 @@ if (!empty($this->Dados['dados_ecommerce'][0])) {
                                     <input name="created_by" type="text" class="form-control bg-white" id="created_by" value="<?php echo $creator; ?>" readonly />
                                 </div>
 
-                                <div class="form-group col-md-2">
-                                    <label for="number_invoice_nf"><span class="text-danger">*</span> Nota de Venda:</label>
+                                <div class="form-group col-md-3">
+                                    <label for="number_invoice_nf">Rastreio:</label>
                                     <input name="number_invoice_nf" type="text" class="form-control bg-white" id="number_invoice_nf" value="<?php echo $number_invoice_nf; ?>" readonly />
                                 </div>
 
+                            </div>
+
+                            <div class="mb-3">
+                                <ul class="list-group mb-3">
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h6 class="my-0"><p>Observações:</p></h6>
+                                            <small class="text-muted lead"><?php echo $obsarvations; ?></small>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
 
                             <div class="form-row">
@@ -105,12 +116,20 @@ if (!empty($this->Dados['dados_ecommerce'][0])) {
                                     <label for="date_order">Data de Cadastro</label>
                                     <input type="text" class="form-control bg-white" id="date_order" value="<?php echo date("d/m/Y H:i:s", strtotime($created)); ?>" readonly>
                                 </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="date_order">Data de Atualização</label>
+                                    <input type="text" class="form-control bg-white" id="date_order" value="<?php echo (!empty($modified) ? date("d/m/Y H:i:s", strtotime($modified)) : ""); ?>" readonly>
+                                </div>
                                 <div class="form-group col-md-2">
                                     <label for="adms_sit_ecommerce_id"><span class="text-danger">*</span> Situação</label>
                                     <input name="adms_sit_ecommerce_id" type="text" class="form-control bg-white" id="adms_sit_ecommerce_id" value="<?php echo $status; ?>" readonly />
                                 </div>
-                            </div>
 
+                                <div class="form-group col-md-6">
+                                    <label for="update_by"><span class="text-danger">*</span> Atualizado Por:</label>
+                                    <input name="update_by" type="text" class="form-control bg-white" id="update_by" value="<?php echo $updated; ?>" readonly />
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

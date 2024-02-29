@@ -1,5 +1,5 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -52,30 +52,51 @@ if (!defined('URL')) {
                         ?>" autofocus>
                     </div>
                 </div>
-                <?php
-                if ($_SESSION['adms_niveis_acesso_id'] != 5) {
 
-                    echo "<div class='col-sm-12 col-lg-6 mb-3'>";
-                    echo "<div class='input-group'>";
-                    echo "<div class='input-group-prepend'>";
-                    echo "<label class='input-group-text' style='font-weight: bold;' for='loja_id'>Loja</label>";
-                    echo "</div>";
+                <div class='col-sm-12 col-lg-3 mb-3'>
+                    <div class='input-group'>
+                        <div class='input-group-prepend'>
+                            <label class='input-group-text' style='font-weight: bold;' for='loja_id'>Loja</label>
+                        </div>
 
-                    echo "<select name='loja_id' id='loja_id' class='custom-select'>";
-                    echo "<option value = ''>Selecione</option>";
-                    foreach ($this->Dados['select']['loja_id'] as $ld) {
-                        extract($ld);
-                        if ($this->Dados['select']['loja_id'] == $loja_id) {
-                            echo "<option value='$loja_id' selected>$loja</option>";
-                        } else {
-                            echo "<option value='$loja_id'>$loja</option>";
-                        }
-                    }
-                    echo "</select>";
-                    echo "</div>";
-                    echo "</div>";
-                }
-                ?>
+                        <select name='loja_id' id='loja_id' class='custom-select'>
+                            <option value = ''>Selecione</option>
+                            <?php
+                            foreach ($this->Dados['select']['stores'] as $ld) {
+                                extract($ld);
+                                if ($_SESSION['loja_id'] == $l_id) {
+                                    echo "<option value='$l_id' selected>$loja</option>";
+                                } else {
+                                    echo "<option value='$l_id'>$loja</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class='col-sm-12 col-lg-3 mb-3'>
+                    <div class='input-group'>
+                        <div class='input-group-prepend'>
+                            <label class='input-group-text' style='font-weight: bold;' for='loja_id'>Situação</label>
+                        </div>
+
+                        <select name='status_id' id='status_id' class='custom-select'>
+                            <option value = ''>Selecione</option>
+                            <?php
+                            foreach ($this->Dados['select']['sits'] as $sit) {
+                                extract($sit);
+                                if ($_SESSION['sits'] == $s_id) {
+                                    echo "<option value='$s_id' selected>$status</option>";
+                                } else {
+                                    echo "<option value='$s_id'>$status</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="form-group ml-sm-2 ml-md-2 ml-lg-2 ml-3">

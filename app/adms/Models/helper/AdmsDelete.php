@@ -2,16 +2,13 @@
 
 namespace App\adms\Models\helper;
 
-if (!defined('URL')) {
+use PDOException;
+
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
 
-/**
- * Description of AdmsDelete
- *
- * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
- */
 class AdmsDelete extends AdmsConn {
 
     private $Tabela;
@@ -21,7 +18,7 @@ class AdmsDelete extends AdmsConn {
     private $Query;
     private $Conn;
 
-    function getResultado() {
+    public function getResultado() {
         return $this->Resultado;
     }
 
@@ -30,23 +27,22 @@ class AdmsDelete extends AdmsConn {
         $this->Termos = (string) $Termos;
         parse_str($ParseString, $this->Values);
 
-        $this->executarIntrucao();
+        $this->executarInstrucao();
     }
 
-    private function executarIntrucao() {
+    private function executarInstrucao() {
         $this->Query = "DELETE FROM {$this->Tabela} {$this->Termos}";
         $this->conexao();
         try {
-            $this->Query->execute($this->Values);
-            $this->Resultado = true;
-        } catch (Exception $ex) {
+            $stmt = $this->Conn->prepare($this->Query);
+            $stmt->execute($this->Values);
+            $this->Resultado = ($stmt->rowCount() > 0) ? true : false;
+        } catch (PDOException $ex) {
             $this->Resultado = false;
         }
     }
 
     private function conexao() {
         $this->Conn = parent::getConn();
-        $this->Query = $this->Conn->prepare($this->Query);
     }
-
 }

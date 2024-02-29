@@ -71,8 +71,8 @@ class AdmsPaginacao {
         $this->Resultado = "<nav aria-label='paginacao'>";
         $this->Resultado .= "<ul class='pagination pagination-sm justify-content-center'>";
         $this->Resultado .= "<li class='page-item'>";
-        if ((isset($_SESSION['id'])) and (!empty($_SESSION['id']))) {
-            $this->Resultado .= "<a class='page-link' href='" . $this->Link . $this->Var . "/?id=" . $_SESSION['id'] . "' tabindex='-1'>Primeira</a>";
+        if ((isset($_SESSION['pgid'])) and (!empty($_SESSION['pgid']))) {
+            $this->Resultado .= "<a class='page-link' href='" . $this->Link . $this->Var . "/?id=" . $_SESSION['pgid'] . "' tabindex='-1'>Primeira</a>";
         } else {
             $this->Resultado .= "<a class='page-link' href='" . $this->Link . $this->Var . "' tabindex='-1'>Primeira</a>";
         }
@@ -88,14 +88,13 @@ class AdmsPaginacao {
         $this->Resultado .= "</li>";
         for ($dPag = $this->Pagina + 1; $dPag <= $this->Pagina + $this->MaxLinks; $dPag++) {
             if ($dPag <= $this->TotalPaginas) {
-                    $this->Resultado .= "<li class='page-item'><a class='page-link' href='" . $this->Link . "/" . $dPag . $this->Var . "'>$dPag</a></li>";
+                $this->Resultado .= "<li class='page-item'><a class='page-link' href='" . $this->Link . "/" . $dPag . $this->Var . "'>$dPag</a></li>";
             }
         }
         $this->Resultado .= "<li class='page-item'>";
-            $this->Resultado .= "<a class='page-link' href='" . $this->Link . "/" . $this->TotalPaginas . $this->Var . "'>Última</a>";
+        $this->Resultado .= "<a class='page-link' href='" . $this->Link . "/" . $this->TotalPaginas . $this->Var . "'>Última</a>";
         $this->Resultado .= "</li>";
         $this->Resultado .= "</ul>";
         $this->Resultado .= "</nav>";
     }
-
 }

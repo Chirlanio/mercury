@@ -42,6 +42,7 @@ class PesqFunc {
             $this->PageId = (int) $PageId ? $PageId : 1;
             $this->DadosForm['nome'] = filter_input(INPUT_GET, 'nome', FILTER_DEFAULT);
             $this->DadosForm['loja_id'] = filter_input(INPUT_GET, 'loja', FILTER_DEFAULT);
+            $this->DadosForm['status_id'] = filter_input(INPUT_GET, 'status', FILTER_DEFAULT);
         }
 
         $listarFunc = new \App\cpadms\Models\CpAdmsPesqFunc();
