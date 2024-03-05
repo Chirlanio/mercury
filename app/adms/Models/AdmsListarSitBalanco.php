@@ -16,7 +16,7 @@ class AdmsListarSitBalanco {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -31,10 +31,8 @@ class AdmsListarSitBalanco {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarSit = new \App\adms\Models\helper\AdmsRead();
-        $listarSit->fullRead("SELECT sit.*
-                FROM adms_status_balancos sit
-                ORDER BY sit.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarSit->getResultado();
+        $listarSit->fullRead("SELECT sit.* FROM adms_status_balancos sit ORDER BY sit.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarSit->getResult();
         return $this->Resultado;
     }
 

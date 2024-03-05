@@ -25,7 +25,7 @@ class AdmsApagarCfop {
         $this->DadosId = (int) $DadosId;
         $apagarCfop = new \App\adms\Models\helper\AdmsDelete();
         $apagarCfop->exeDelete("adms_cfops", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarCfop->getResultado()) {
+        if ($apagarCfop->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cfop apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

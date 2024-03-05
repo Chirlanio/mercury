@@ -26,12 +26,12 @@ class AdmsEditEcommerceOrder {
     public function viewOrder($DadosId) {
         $this->DadosId = (int) $DadosId;
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['adms_niveis_acesso_id'] <= ADMPERMITION) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $viewOrder->fullRead("SELECT e.*, l.nome store, f.nome colaborador, s.name status, u.nome creator FROM adms_ecommerce_orders e LEFT JOIN tb_lojas l ON l.id = e.loja_id LEFT JOIN tb_funcionarios f ON f.id = e.func_id LEFT JOIN adms_sits_ecommerce s ON s.id = e.adms_sit_ecommerce_id LEFT JOIN adms_usuarios u ON u.id = e.created_by WHERE e.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         } else {
             $viewOrder->fullRead("SELECT e.*, l.nome store, f.nome colaborador, s.name status, u.nome creator FROM adms_ecommerce_orders e LEFT JOIN tb_lojas l ON l.id = e.loja_id LEFT JOIN tb_funcionarios f ON f.id = e.func_id LEFT JOIN adms_sits_ecommerce s ON s.id = e.adms_sit_ecommerce_id LEFT JOIN adms_usuarios u ON u.id = e.created_by WHERE e.id =:id AND e.loja_id =:loja_id AND e.adms_sit_ecommerce_id =:adms_sit_ecommerce_id LIMIT :limit", "id={$this->DadosId}&loja_id=" . $_SESSION['usuario_loja'] . "&adms_sit_ecommerce_id=1&limit=1");
         }
-        $this->Resultado = $viewOrder->getResultado();
+        $this->Resultado = $viewOrder->getResult();
         return $this->Resultado;
     }
 
@@ -56,11 +56,11 @@ class AdmsEditEcommerceOrder {
         $this->Dados['number_invoice_nf'] = $this->NumberInvoiceNf;
         $this->Dados['update_by'] = $_SESSION['usuario_id'];
         $this->Dados['modified'] = date("Y-m-d H:i:s");
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
 
         $upAltOrder = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrder->exeUpdate("adms_ecommerce_orders", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltOrder->getResultado()) {
+        if ($upAltOrder->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Pedido de faturamento</strong> atualizado com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -71,29 +71,29 @@ class AdmsEditEcommerceOrder {
 
     public function listAdd() {
         $listar = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         }
-        $registro['store'] = $listar->getResultado();
+        $registro['store'] = $listar->getResult();
 
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {//$_SESSION['area_id']
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
         }
-        $registro['employee'] = $listar->getResultado();
+        $registro['employee'] = $listar->getResult();
 
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id u_id, nome creator FROM adms_usuarios WHERE loja_id =:loja_id AND adms_sits_usuario_id =:adms_sits_usuario_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&adms_sits_usuario_id=1");
         } else {//$_SESSION['area_id']
             $listar->fullRead("SELECT id u_id, nome creator FROM adms_usuarios WHERE adms_sits_usuario_id =:adms_sits_usuario_id ORDER BY nome ASC", "adms_sits_usuario_id=1");
         }
-        $registro['users'] = $listar->getResultado();
+        $registro['users'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, name status FROM adms_sits_ecommerce ORDER BY id ASC");
-        $registro['status'] = $listar->getResultado();
+        $registro['status'] = $listar->getResult();
 
         $this->Resultado = ['store' => $registro['store'], 'employee' => $registro['employee'], 'users' => $registro['users'], 'status' => $registro['status']];
 

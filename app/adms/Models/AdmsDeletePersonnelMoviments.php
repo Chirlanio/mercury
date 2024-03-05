@@ -28,7 +28,7 @@ class AdmsDeletePersonnelMoviments {
         if ($this->DadosArq) {
             $delMoviment = new \App\adms\Models\helper\AdmsDelete();
             $delMoviment->exeDelete("adms_personnel_moviments", "WHERE id =:id AND adms_sits_personnel_mov_id =:adms_sits_personnel_mov_id", "id={$this->DadosId}&adms_sits_personnel_mov_id=1");
-            if ($delMoviment->getResultado()) {
+            if ($delMoviment->getResult()) {
                 $apagarImg = new \App\adms\Models\helper\AdmsApagarArq();
                 $apagarImg->apagarArq('assets/files/mp/' . $this->DadosId . '/' . $this->DadosArq[0]['file_name'], 'assets/files/mp/' . $this->DadosId);
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Movimentação de Pessoal</strong> e arquivos apagados com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -46,6 +46,6 @@ class AdmsDeletePersonnelMoviments {
     public function viewMoviment() {
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
         $viewOrder->fullRead("SELECT * FROM adms_personnel_moviments WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosArq = $viewOrder->getResultado();
+        $this->DadosArq = $viewOrder->getResult();
     }
 }

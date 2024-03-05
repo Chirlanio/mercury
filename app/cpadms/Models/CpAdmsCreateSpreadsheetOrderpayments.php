@@ -73,6 +73,6 @@ class CpAdmsCreateSpreadsheetOrderpayments {
         } else {
             $listOrder->fullRead("SELECT op.id op_id, op.date_payment, op.description, op.total_value, op.name_supplier, op.agency, op.checking_account checking, op.key_pix, op.advance, op.advance_amount, op.number_nf, op.file_name, op.created, op.modified, op.diff_payment_advance, a.name area, cc.name costCenter, sp.fantasy_name supplier, bs.brand, m.name manager, tp.name typePayment, tk.name typeKey, so.exibition_name sit, user.nome create_user, func.nome update_user, payment_prepared FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id = op.adms_area_id LEFT JOIN adms_cost_centers cc ON cc.id = op.adms_cost_center_id LEFT JOIN adms_suppliers sp ON sp.id = op.adms_supplier_id LEFT JOIN adms_brands_suppliers bs ON bs.id = op.adms_brand_id LEFT JOIN adms_managers m ON m.id = op.manager_id LEFT JOIN adms_type_payments tp ON tp.id = op.adms_type_payment_id LEFT JOIN adms_type_key_pixs tk ON tk.id = op.adms_type_key_pix_id LEFT JOIN adms_sits_order_payments so ON so.id = op.adms_sits_order_pay_id LEFT JOIN adms_usuarios user ON user.id = op.adms_user_id LEFT JOIN tb_funcionarios func ON func.id = op.update_user_id ORDER BY op.date_payment ASC, op.id ASC, op.created ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrder->getResultado();
+        $this->Resultado = $listOrder->getResult();
     }
 }

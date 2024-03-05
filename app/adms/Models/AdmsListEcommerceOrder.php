@@ -29,7 +29,7 @@ class AdmsListEcommerceOrder {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'ecommerce/list');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_ecommerce_orders WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_ecommerce_orders");
@@ -37,7 +37,7 @@ class AdmsListEcommerceOrder {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listEcommerce = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listEcommerce->fullRead("SELECT e.*, l.nome store, se.name status, c.cor cor_cr
                 FROM adms_ecommerce_orders e
                 LEFT JOIN tb_lojas l ON l.id = e.loja_id
@@ -53,7 +53,7 @@ class AdmsListEcommerceOrder {
                 LEFT JOIN adms_cors c ON c.id = se.adms_cor_id
                 ORDER BY e.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listEcommerce->getResultado();
+        $this->Resultado = $listEcommerce->getResult();
         return $this->Resultado;
     }
 
@@ -66,22 +66,22 @@ class AdmsListEcommerceOrder {
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM adms_sits_estornos ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT SUM(total_value) AS total_backlog FROM adms_order_payments WHERE adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=1");
-        $registro['backlog'] = $listar->getResultado();
+        $registro['backlog'] = $listar->getResult();
 
         $listar->fullRead("SELECT SUM(total_value) AS total_doing FROM adms_order_payments WHERE adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=2");
-        $registro['doing'] = $listar->getResultado();
+        $registro['doing'] = $listar->getResult();
 
         $listar->fullRead("SELECT SUM(total_value) AS total_waiting FROM adms_order_payments WHERE adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=3");
-        $registro['waiting'] = $listar->getResultado();
+        $registro['waiting'] = $listar->getResult();
 
         $listar->fullRead("SELECT SUM(total_value) AS total_done FROM adms_order_payments WHERE adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=4");
-        $registro['done'] = $listar->getResultado();
+        $registro['done'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'backlog' => $registro['backlog'], 'doing' => $registro['doing'], 'waiting' => $registro['waiting'], 'done' => $registro['done']];
 

@@ -24,7 +24,7 @@ class AdmsVerDefeitoLocal {
                 FROM adms_def_local_ordem_servico d
                 INNER JOIN adms_sits s ON s.id=d.status_id
                 WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verDefeito->getResultado();
+        $this->Resultado = $verDefeito->getResult();
         return $this->Resultado;
     }
 

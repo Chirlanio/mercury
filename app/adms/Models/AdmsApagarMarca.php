@@ -25,7 +25,7 @@ class AdmsApagarMarca {
         $this->DadosId = (int) $DadosId;
         $apagarMarca = new \App\adms\Models\helper\AdmsDelete();
         $apagarMarca->exeDelete("adms_marcas", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarMarca->getResultado()) {
+        if ($apagarMarca->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Marca apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

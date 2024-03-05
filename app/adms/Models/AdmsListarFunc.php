@@ -36,17 +36,11 @@ class AdmsListarFunc {
 
         $listarFunc = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
-            $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit
-                    FROM tb_funcionarios f
-                    INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id
-                    ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit
-                    FROM tb_funcionarios f
-                    INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id
-                    WHERE f.loja_id =:loja_id ORDER BY f.id ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id WHERE f.loja_id =:loja_id ORDER BY f.id ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarFunc->getResultado();
+        $this->Resultado = $listarFunc->getResult();
         return $this->Resultado;
     }
 
@@ -59,10 +53,10 @@ class AdmsListarFunc {
         } else {
             $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         }
-        $registro['loja'] = $listar->getResultado();
+        $registro['loja'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sits'] = $listar->getResultado();
+        $registro['sits'] = $listar->getResult();
 
         $this->Resultado = ['loja' => $registro['loja'], 'sits' => $registro['sits']];
 

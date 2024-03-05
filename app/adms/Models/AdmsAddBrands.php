@@ -42,7 +42,7 @@ class AdmsAddBrands {
         $cadBrand = new \App\adms\Models\helper\AdmsCreate;
         $cadBrand->exeCreate("adms_brands_suppliers", $this->Dados);
 
-        if ($cadBrand->getResultado()) {
+        if ($cadBrand->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Marca - Fornecedor</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -56,10 +56,10 @@ class AdmsAddBrands {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sup_id, fantasy_name supplier FROM adms_suppliers ORDER BY id ASC");
-        $registro['supp'] = $listar->getResultado();
+        $registro['supp'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit'], 'supp' => $registro['supp']];
 

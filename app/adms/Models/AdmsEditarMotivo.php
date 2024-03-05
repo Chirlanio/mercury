@@ -30,7 +30,7 @@ class AdmsEditarMotivo {
         $verMotivo->fullRead("SELECT b.id, b.nome motivo
                 FROM adms_motivo_estorno b
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verMotivo->getResultado();
+        $this->Resultado = $verMotivo->getResult();
         return $this->Resultado;
     }
 
@@ -51,7 +51,7 @@ class AdmsEditarMotivo {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltMotivo = new \App\adms\Models\helper\AdmsUpdate();
         $upAltMotivo->exeUpdate("adms_motivo_estorno", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltMotivo->getResultado()) {
+        if ($upAltMotivo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Motivo de estorno atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

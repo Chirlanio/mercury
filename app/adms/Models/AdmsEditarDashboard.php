@@ -33,7 +33,7 @@ class AdmsEditarDashboard {
                 INNER JOIN adms_sits_pgs sit ON sit.id=d.status_id
                 INNER JOIN tb_areas a ON a.id=d.area_id
                 WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verAjuste->getResultado();
+        $this->Resultado = $verAjuste->getResult();
         return $this->Resultado;
     }
 
@@ -56,7 +56,7 @@ class AdmsEditarDashboard {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltDash = new \App\adms\Models\helper\AdmsUpdate();
         $upAltDash->exeUpdate("tb_dashboards", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltDash->getResultado()) {
+        if ($upAltDash->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Dashboard atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -69,13 +69,13 @@ class AdmsEditarDashboard {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM adms_sits_pgs ORDER BY id ASC");
-        $registro['sit_id'] = $listar->getResultado();
+        $registro['sit_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id area_id, nome area FROM tb_areas ORDER BY id ASC");
-        $registro['area_id'] = $listar->getResultado();
+        $registro['area_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit_id' => $registro['sit_id'], 'area_id' => $registro['area_id']];
 

@@ -31,7 +31,7 @@ class AdmsEditarBairro {
                 FROM tb_bairros b
                 INNER JOIN tb_rotas r ON r.id=b.rota_id
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBairro->getResultado();
+        $this->Resultado = $verBairro->getResult();
         return $this->Resultado;
     }
 
@@ -52,7 +52,7 @@ class AdmsEditarBairro {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltBairro = new \App\adms\Models\helper\AdmsUpdate();
         $upAltBairro->exeUpdate("tb_bairros", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltBairro->getResultado()) {
+        if ($upAltBairro->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Bairro atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -65,7 +65,7 @@ class AdmsEditarBairro {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id r_id, nome rota FROM tb_rotas ORDER BY id ASC");
-        $registro['rota_id'] = $listar->getResultado();
+        $registro['rota_id'] = $listar->getResult();
 
         $this->Resultado = ['rota_id' => $registro['rota_id']];
 

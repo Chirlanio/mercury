@@ -33,7 +33,7 @@ class AdmsVerBalancoProduto {
                 INNER JOIN adms_sits_balanco_produto sp ON sp.id = ba.situacao
                 INNER JOIN adms_status_balancos st ON st.id = ba.status_id
                 WHERE ba.id =:id AND ba.balanco_id =:balanco_id LIMIT :limit", "id={$this->DadosId}&balanco_id={$this->BalancoId}&limit=1");
-        $this->Resultado = $verBalanco->getResultado();
+        $this->Resultado = $verBalanco->getResult();
         return $this->Resultado;
     }
 

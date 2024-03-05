@@ -43,7 +43,7 @@ class AdmsAddCostCenter {
         $addCostCenter = new \App\adms\Models\helper\AdmsCreate;
         $addCostCenter->exeCreate("adms_cost_centers", $this->Dados);
 
-        if ($addCostCenter->getResultado()) {
+        if ($addCostCenter->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Centro de custo</strong>  cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -57,13 +57,13 @@ class AdmsAddCostCenter {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id r_id, name responsavel FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
-        $registro['resp'] = $listar->getResultado();
+        $registro['resp'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sits'] = $listar->getResultado();
+        $registro['sits'] = $listar->getResult();
 
         $listar->fullRead("SELECT id a_id, name name_area FROM adms_areas ORDER BY name ASC");
-        $registro['areas'] = $listar->getResultado();
+        $registro['areas'] = $listar->getResult();
 
         $this->Resultado = ['resp' => $registro['resp'], 'sits' => $registro['sits'], 'areas' => $registro['areas']];
 

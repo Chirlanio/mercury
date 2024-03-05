@@ -27,7 +27,7 @@ class AdmsCadastrarUsuarioTreinamento {
         $this->DadosId = (int) $DadosId;
         $verPerfil = new \App\adms\Models\helper\AdmsRead();
         $verPerfil->fullRead("SELECT * FROM adms_users_treinamentos WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verPerfil->getResultado();
+        $this->Resultado = $verPerfil->getResult();
         return $this->Resultado;
     }
 
@@ -78,12 +78,12 @@ class AdmsCadastrarUsuarioTreinamento {
 
         $cadUsuario = new \App\adms\Models\helper\AdmsCreate;
         $cadUsuario->exeCreate("adms_users_treinamentos", $this->Dados);
-        if ($cadUsuario->getResultado()) {
+        if ($cadUsuario->getResult()) {
             if (empty($this->Foto['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Usuário</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $cadUsuario->getResultado();
+                $this->Dados['id'] = $cadUsuario->getResult();
                 $this->valFoto();
             }
         } else {
@@ -108,10 +108,10 @@ class AdmsCadastrarUsuarioTreinamento {
         
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id id_nivac, nome nome_nivac FROM adms_niveis_acessos WHERE id =:id ORDER BY nome ASC", "id=11");
-        $registro['nivac'] = $listar->getResultado();
+        $registro['nivac'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits_usuarios ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['nivac' => $registro['nivac'], 'sit' => $registro['sit']];
 

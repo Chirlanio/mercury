@@ -16,7 +16,7 @@ class AdmsListarBandeira {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -36,7 +36,7 @@ class AdmsListarBandeira {
         $listarBandeira->fullRead("SELECT b.id id_bai, b.nome bairro, icone
                 FROM adms_bandeiras b
                 ORDER BY b.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarBandeira->getResultado();
+        $this->Resultado = $listarBandeira->getResult();
         return $this->Resultado;
     }
 

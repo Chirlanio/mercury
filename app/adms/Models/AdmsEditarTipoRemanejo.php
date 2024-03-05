@@ -30,7 +30,7 @@ class AdmsEditarTipoRemanejo {
         $verRemanejo->fullRead("SELECT b.id, b.nome 
                 FROM adms_tps_remanejos b
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verRemanejo->getResultado();
+        $this->Resultado = $verRemanejo->getResult();
         return $this->Resultado;
     }
 
@@ -51,7 +51,7 @@ class AdmsEditarTipoRemanejo {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltTipo = new \App\adms\Models\helper\AdmsUpdate();
         $upAltTipo->exeUpdate("adms_tps_remanejos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltTipo->getResultado()) {
+        if ($upAltTipo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de remanejo atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

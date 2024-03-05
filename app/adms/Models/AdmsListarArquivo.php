@@ -38,7 +38,7 @@ class AdmsListarArquivo {
         } else {
             $listarArq->fullRead("SELECT a.*, st.nome status, lj.nome loja FROM adms_up_down a INNER JOIN tb_status st ON st.id=a.status_id INNER JOIN tb_lojas lj ON lj.id=a.loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarArq->getResultado();
+        $this->Resultado = $listarArq->getResult();
         return $this->Resultado;
     }
 

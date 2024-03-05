@@ -25,7 +25,7 @@ class AdmsViewEcommerceOrder {
         $this->DadosId = (int) $DadosId;
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
         $viewOrder->fullRead("SELECT e.*, l.nome store, f.nome colaborador, s.name status, u.nome creator, us.nome updated FROM adms_ecommerce_orders e LEFT JOIN tb_lojas l ON l.id = e.loja_id LEFT JOIN tb_funcionarios f ON f.id = e.func_id LEFT JOIN adms_sits_ecommerce s ON s.id = e.adms_sit_ecommerce_id LEFT JOIN adms_usuarios u ON u.id = e.created_by LEFT JOIN adms_usuarios us ON us.id = e.update_by WHERE e.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $viewOrder->getResultado();
+        $this->Resultado = $viewOrder->getResult();
         return $this->Resultado;
     }
 }

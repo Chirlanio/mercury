@@ -42,7 +42,7 @@ class AdmsCadastrarMotivo {
         $cadBandeira = new \App\adms\Models\helper\AdmsCreate;
         $cadBandeira->exeCreate("adms_motivo_estorno", $this->Dados);
 
-        if ($cadBandeira->getResultado()) {
+        if ($cadBandeira->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Motivo de estorno cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {

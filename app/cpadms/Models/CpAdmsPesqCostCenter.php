@@ -17,7 +17,7 @@ class CpAdmsPesqCostCenter {
     private $Dados;
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResult() {
@@ -56,7 +56,7 @@ class CpAdmsPesqCostCenter {
         } else {
             $listCostCenter->fullRead("SELECT cc.*, f.name gerencia, a.name name_area, s.nome status FROM adms_cost_centers cc INNER JOIN adms_managers f ON f.id=cc.manager_id INNER JOIN adms_sits s ON s.id=cc.status_id LEFT JOIN adms_areas a ON a.id=cc.adms_area_id WHERE cc.name LIKE '%' :name '%' ORDER BY name ASC LIMIT :limit OFFSET :offset", "name={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listCostCenter->getResultado();
+        $this->Resultado = $listCostCenter->getResult();
     }
 
 }

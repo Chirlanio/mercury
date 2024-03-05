@@ -25,7 +25,7 @@ class AdmsApagarCor {
         $this->DadosId = (int) $DadosId;
         $apagarCor = new \App\adms\Models\helper\AdmsDelete();
         $apagarCor->exeDelete("adms_cors", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarCor->getResultado()) {
+        if ($apagarCor->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cor apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

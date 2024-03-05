@@ -27,7 +27,7 @@ class AdmsEditarGrupoPg {
         $verGrupoPg = new \App\adms\Models\helper\AdmsRead();
         $verGrupoPg->fullRead("SELECT * FROM adms_grps_pgs
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verGrupoPg->getResultado();
+        $this->Resultado = $verGrupoPg->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarGrupoPg {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltGrupoPg = new \App\adms\Models\helper\AdmsUpdate();
         $upAltGrupoPg->exeUpdate("adms_grps_pgs", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltGrupoPg->getResultado()) {
+        if ($upAltGrupoPg->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Grupo de página atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

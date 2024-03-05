@@ -38,7 +38,7 @@ class AdmsCadastrarSitAj {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadSit = new \App\adms\Models\helper\AdmsCreate;
         $cadSit->exeCreate("tb_status_aj", $this->Dados);
-        if ($cadSit->getResultado()) {
+        if ($cadSit->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Situação cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -54,7 +54,7 @@ class AdmsCadastrarSitAj {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_cor, nome nome_cor FROM adms_cors ORDER BY nome ASC");
-        $registro['cor'] = $listar->getResultado();
+        $registro['cor'] = $listar->getResult();
 
         $this->Resultado = ['cor' => $registro['cor']];
 

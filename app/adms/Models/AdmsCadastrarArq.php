@@ -27,7 +27,7 @@ class AdmsCadastrarArq {
         $this->DadosId = (int) $DadosId;
         $verPerfil = new \App\adms\Models\helper\AdmsRead();
         $verPerfil->fullRead("SELECT * FROM adms_artigos WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verPerfil->getResultado();
+        $this->Resultado = $verPerfil->getResult();
         return $this->Resultado;
     }
 
@@ -59,12 +59,12 @@ class AdmsCadastrarArq {
         $cadArq = new \App\adms\Models\helper\AdmsCreate;
         $cadArq->exeCreate("adms_up_down", $this->Dados);
 
-        if ($cadArq->getResultado()) {
+        if ($cadArq->getResult()) {
             if (empty($this->Arquivo['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Arquivo cadastrado com sucesso!</div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $cadArq->getResultado();
+                $this->Dados['id'] = $cadArq->getResult();
                 $this->valArq();
             }
         } else {
@@ -96,10 +96,10 @@ class AdmsCadastrarArq {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id id_art, titulo FROM adms_artigos WHERE adms_sit_id =:adms_sit_id ORDER BY id DESC", "adms_sit_id=1");
-        $registro['art'] = $listar->getResultado();
+        $registro['art'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['art' => $registro['art'], 'sit' => $registro['sit']];
 

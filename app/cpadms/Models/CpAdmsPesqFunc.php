@@ -62,7 +62,7 @@ class CpAdmsPesqFunc {
         } else {
             $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id WHERE f.nome LIKE '%' :nome '%' AND f.loja_id LIKE '%' :loja_id '%' ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "nome={$this->Dados['nome']}&loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarFunc->getResultado();
+        $this->Resultado = $listarFunc->getResult();
     }
 
     private function searchStoreStatus() {
@@ -74,7 +74,7 @@ class CpAdmsPesqFunc {
 
         $listarFunc = new \App\adms\Models\helper\AdmsRead();
         $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id WHERE f.loja_id =:loja_id AND f.status_id =:status_id ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarFunc->getResultado();
+        $this->Resultado = $listarFunc->getResult();
     }
 
     private function pesqFuncNome() {
@@ -94,7 +94,7 @@ class CpAdmsPesqFunc {
         } else {
             $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id WHERE f.nome LIKE '%' :nome '%' ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "nome={$this->Dados['nome']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarFunc->getResultado();
+        $this->Resultado = $listarFunc->getResult();
     }
 
     private function pesqFuncLoja() {
@@ -107,7 +107,7 @@ class CpAdmsPesqFunc {
         $listarFunc = new \App\adms\Models\helper\AdmsRead();
         $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id WHERE f.loja_id =:loja_id ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
-        $this->Resultado = $listarFunc->getResultado();
+        $this->Resultado = $listarFunc->getResult();
     }
 
     private function searchStatus() {
@@ -127,7 +127,7 @@ class CpAdmsPesqFunc {
         } else {
             $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id WHERE f.loja_id =:loja_id AND f.status_id =:status_id ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarFunc->getResultado();
+        $this->Resultado = $listarFunc->getResult();
     }
 
     public function listarCadastrar() {
@@ -139,10 +139,10 @@ class CpAdmsPesqFunc {
         } else {
             $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id={$_SESSION['usuario_loja']}");
         }
-        $registro['stores'] = $listar->getResultado();
+        $registro['stores'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sits'] = $listar->getResultado();
+        $registro['sits'] = $listar->getResult();
 
         $this->Resultado = ['stores' => $registro['stores'], 'sits' => $registro['sits']];
 

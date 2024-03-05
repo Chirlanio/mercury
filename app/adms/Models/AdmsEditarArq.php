@@ -31,7 +31,7 @@ class AdmsEditarArq {
         $verArq = new \App\adms\Models\helper\AdmsRead();
         $verArq->fullRead("SELECT id, nome, slug, adms_art_id, status_id, created, modified FROM adms_up_down
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verArq->getResultado();
+        $this->Resultado = $verArq->getResult();
         return $this->Resultado;
     }
 
@@ -78,7 +78,7 @@ class AdmsEditarArq {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltArq = new \App\adms\Models\helper\AdmsUpdate();
         $upAltArq->exeUpdate("adms_up_down", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltArq->getResultado()) {
+        if ($upAltArq->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro do arquivo atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -91,10 +91,10 @@ class AdmsEditarArq {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_art, titulo FROM adms_artigos ORDER BY titulo ASC");
-        $registro['art'] = $listar->getResultado();
+        $registro['art'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['art' => $registro['art'], 'sit' => $registro['sit']];
 

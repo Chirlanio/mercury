@@ -2,7 +2,7 @@
 
 namespace App\cpadms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -59,7 +59,7 @@ class CpAdmsPesqTroca {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-troca/pesq-troca', '?loja=' . $this->Dados['loja_id'] . '&situacao=' . $this->Dados['status_id'] . '&referencia=' . $this->Dados['referencia']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND status_id =:status_id AND referencia LIKE '%' :referencia '%'", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}&referencia={$this->Dados['referencia']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND status_id =:status_id AND referencia LIKE '%' :referencia '%'", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}&referencia={$this->Dados['referencia']}");
@@ -67,39 +67,39 @@ class CpAdmsPesqTroca {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTroca = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id AND t.status_id =:status_id AND t.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['status_id']}&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id AND t.status_id =:status_id AND t.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarTroca->getResultado();
+        $this->Resultado = $listarTroca->getResult();
     }
 
     private function pesqLojaSit() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-troca/pesq-troca', '?loja=' . $this->Dados['loja_id'] . '&situacao=' . $this->Dados['status_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND status_id =:status_id", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND status_id =:status_id", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}");
         }
-        $this->ResultadoPg = $paginacao->getResultado();
+        $this->ResultadoPg = $paginacao->getResult();
 
         $listarTroca = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarTroca->getResultado();
+        $this->Resultado = $listarTroca->getResult();
     }
 
     private function pesqLojaRef() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-troca/pesq-troca', '?loja=' . $this->Dados['loja_id'] . '&referencia=' . $this->Dados['referencia']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%'", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%'", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}");
@@ -112,14 +112,14 @@ class CpAdmsPesqTroca {
         } else {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id AND t.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarTroca->getResultado();
+        $this->Resultado = $listarTroca->getResult();
     }
 
     private function pesqSitRef() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-troca/pesq-troca', '?situacao=' . $this->Dados['status_id'] . '&referencia=' . $this->Dados['referencia']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND status_id =:status_id AND referencia LIKE '%' :referencia '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['status_id']}&referencia={$this->Dados['referencia']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE status_id =:status_id AND referencia LIKE '%' :referencia '%'", "status_id={$this->Dados['status_id']}&referencia={$this->Dados['referencia']}");
@@ -127,19 +127,19 @@ class CpAdmsPesqTroca {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTroca = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id AND t.status_id =:status_id AND t.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['status_id']}&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.status_id =:status_id AND t.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['status_id']}&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarTroca->getResultado();
+        $this->Resultado = $listarTroca->getResult();
     }
 
     private function pesqLoja() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-troca/pesq-troca', '?loja=' . $this->Dados['loja_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id", "loja_id={$this->Dados['loja_id']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id", "loja_id={$this->Dados['loja_id']}");
@@ -147,19 +147,19 @@ class CpAdmsPesqTroca {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTroca = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarTroca->getResultado();
+        $this->Resultado = $listarTroca->getResult();
     }
 
     private function pesqSit() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-troca/pesq-troca', '?situacao=' . $this->Dados['status_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND status_id =:status_id '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['status_id']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE status_id =:status_id", "status_id={$this->Dados['status_id']}");
@@ -167,19 +167,19 @@ class CpAdmsPesqTroca {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTroca = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarTroca->getResultado();
+        $this->Resultado = $listarTroca->getResult();
     }
 
     private function pesqRef() {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-troca/pesq-troca', '?referencia=' . $this->Dados['status_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_cad_produtos WHERE referencia LIKE '%' :referencia '%'", "referencia={$this->Dados['referencia']}");
@@ -187,12 +187,12 @@ class CpAdmsPesqTroca {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTroca = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.loja_id =:loja_id AND t.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id WHERE t.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarTroca->getResultado();
+        $this->Resultado = $listarTroca->getResult();
     }
 
     public function listarCadastrar() {
@@ -203,10 +203,10 @@ class CpAdmsPesqTroca {
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_troca ORDER BY id ASC");
-        $registro['status_id'] = $listar->getResultado();
+        $registro['status_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'status_id' => $registro['status_id']];
 

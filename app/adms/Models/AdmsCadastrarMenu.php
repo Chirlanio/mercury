@@ -41,7 +41,7 @@ class AdmsCadastrarMenu {
         $this->Dados['ordem'] = $this->UltimoMenu[0]['ordem'] + 1;
         $cadNivAc = new \App\adms\Models\helper\AdmsCreate;
         $cadNivAc->exeCreate("adms_menus", $this->Dados);
-        if ($cadNivAc->getResultado()) {
+        if ($cadNivAc->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Item de menu cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -53,7 +53,7 @@ class AdmsCadastrarMenu {
     private function verUltimoMenu() {
         $verMenu = new \App\adms\Models\helper\AdmsRead();
         $verMenu->fullRead("SELECT ordem FROM adms_menus ORDER BY ordem DESC LIMIT :limit", "limit=1");
-        $this->UltimoMenu = $verMenu->getResultado();
+        $this->UltimoMenu = $verMenu->getResult();
     }
 
     /**
@@ -63,7 +63,7 @@ class AdmsCadastrarMenu {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

@@ -36,7 +36,7 @@ class AdmsBotao {
                     AND nivpg.adms_niveis_acesso_id =:adms_niveis_acesso_id
                     AND nivpg.permissao= 1 LIMIT :limit", "menu_controller=$menu_controller&menu_metodo=$menu_metodo&adms_niveis_acesso_id=" . $_SESSION['adms_niveis_acesso_id'] . "&limit=1");
 
-            if ($verBotao->getResultado()) {
+            if ($verBotao->getResult()) {
                 $this->BotaoValido[$key] = true;
             } else {
                 $this->BotaoValido[$key] = false;

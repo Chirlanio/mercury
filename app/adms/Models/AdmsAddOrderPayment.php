@@ -96,12 +96,12 @@ class AdmsAddOrderPayment {
         $addOrder = new \App\adms\Models\helper\AdmsCreate();
         $addOrder->exeCreate("adms_order_payments", $this->Dados);
 
-        if ($addOrder->getResultado()) {
+        if ($addOrder->getResult()) {
             if (empty($this->Filename['name'][0])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $addOrder->getResultado();
+                $this->Dados['id'] = $addOrder->getResult();
                 $this->insertInstallment();
                 $this->valArquivo();
                 $this->viewManager();
@@ -180,7 +180,7 @@ class AdmsAddOrderPayment {
 
         $manager = new \App\adms\Models\helper\AdmsRead();
         $manager->fullRead("SELECT * FROM adms_managers WHERE id =:id LIMIT :limit", "id=" . $this->Dados['manager_id'] . "&limit=1");
-        $this->DadosUsuario = $manager->getResultado();
+        $this->DadosUsuario = $manager->getResult();
 
         if ($this->DadosUsuario) {
             $this->sendEmail();
@@ -219,32 +219,32 @@ class AdmsAddOrderPayment {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
-        $registro['area'] = $listar->getResultado();
+        $registro['area'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
             $listar->fullRead("SELECT id c_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         } else {
             $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area_id AND status_id =:status_id ORDER BY name ASC", "adms_area_id=" . $_SESSION['area_id'] . "&status_id=1");
         }
-        $registro['cost'] = $listar->getResultado();
+        $registro['cost'] = $listar->getResult();
 
         $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers WHERE status_id =:status_id ORDER BY brand ASC", "status_id=1");
-        $registro['brand'] = $listar->getResultado();
+        $registro['brand'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sup_id, fantasy_name, cnpj_cpf FROM adms_suppliers WHERE status_id =:status_id ORDER BY fantasy_name ASC", "status_id=1");
-        $registro['supplier'] = $listar->getResultado();
+        $registro['supplier'] = $listar->getResult();
 
         $listar->fullRead("SELECT id t_id, name type_payment FROM adms_type_payments WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
-        $registro['type_payment'] = $listar->getResultado();
+        $registro['type_payment'] = $listar->getResult();
 
         $listar->fullRead("SELECT id b_id, bank_name FROM adms_banks WHERE status_id =:status_id ORDER BY bank_name ASC", "status_id=1");
-        $registro['bank'] = $listar->getResultado();
+        $registro['bank'] = $listar->getResult();
 
         $listar->fullRead("SELECT id p_id, name key_name FROM adms_type_key_pixs WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
-        $registro['key_pix'] = $listar->getResultado();
+        $registro['key_pix'] = $listar->getResult();
 
         $listar->fullRead("SELECT id m_id, name manager FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
-        $registro['manager'] = $listar->getResultado();
+        $registro['manager'] = $listar->getResult();
 
         $this->Resultado = ['area' => $registro['area'], 'cost' => $registro['cost'], 'brand' => $registro['brand'], 'supplier' => $registro['supplier'],
             'type_payment' => $registro['type_payment'], 'bank' => $registro['bank'], 'key_pix' => $registro['key_pix'], 'manager' => $registro['manager']];

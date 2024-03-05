@@ -24,7 +24,7 @@ class AdmsEditFiles
         $this->DadosId = (int)$DadosId;
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
         $viewOrder->fullRead("SELECT op.* FROM adms_process_library_files op WHERE op.adms_process_library_id =:adms_process_library_id", "adms_process_library_id={$this->DadosId}");
-        $this->Resultado = $viewOrder->getResultado();
+        $this->Resultado = $viewOrder->getResult();
         return $this->Resultado;
     }
 
@@ -32,7 +32,7 @@ class AdmsEditFiles
     {
         $this->Dados = $Dados;
         $this->File = $_FILES['new_files'];
-        var_dump($this->File);
+        //var_dump($this->File);
 
         unset($this->Dados['id'], $this->Dados['delete']);
 
@@ -90,7 +90,7 @@ class AdmsEditFiles
 
         $delFile = new \App\adms\Models\helper\AdmsDelete();
         $delFile->exeDelete("adms_process_library_files", "WHERE id =:id", "id={$fileId['id']}");
-        $this->Resultado = $delFile->getResultado();
+        $this->Resultado = $delFile->getResult();
         return $this->Resultado;
     }
 
@@ -99,10 +99,10 @@ class AdmsEditFiles
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id pl_id, title processLibrary FROM adms_process_librarys ORDER BY title ASC");
-        $registro['process'] = $listar->getResultado();
+        $registro['process'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sits'] = $listar->getResultado();
+        $registro['sits'] = $listar->getResult();
 
         $this->Resultado = ['process' => $registro['process'], 'sits' => $registro['sits']];
 

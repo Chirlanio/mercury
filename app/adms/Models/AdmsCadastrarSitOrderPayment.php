@@ -38,7 +38,7 @@ class AdmsCadastrarSitOrderPayment {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadSit = new \App\adms\Models\helper\AdmsCreate;
         $cadSit->exeCreate("adms_sits_order_payments", $this->Dados);
-        if ($cadSit->getResultado()) {
+        if ($cadSit->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Situação cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -54,7 +54,7 @@ class AdmsCadastrarSitOrderPayment {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_sit, nome status FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

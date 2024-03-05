@@ -16,7 +16,7 @@ class AdmsListarNivAc {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -33,12 +33,8 @@ class AdmsListarNivAc {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarNivAc = new \App\adms\Models\helper\AdmsRead();
-        $listarNivAc->fullRead("SELECT nivac.id, nivac.nome, nivac.ordem, nivac.adms_cor_id, c.nome nome_cor, c.cor cor_cr
-                FROM adms_niveis_acessos nivac
-                INNER JOIN adms_cors c ON c.id=nivac.adms_cor_id
-                WHERE nivac.ordem >=:ordem
-                ORDER BY ordem ASC LIMIT :limit OFFSET :offset", "ordem=" . $_SESSION['ordem_nivac'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarNivAc->getResultado();
+        $listarNivAc->fullRead("SELECT nivac.id, nivac.nome, nivac.ordem, nivac.adms_cor_id, c.nome nome_cor, c.cor cor_cr FROM adms_niveis_acessos nivac INNER JOIN adms_cors c ON c.id=nivac.adms_cor_id WHERE nivac.ordem >=:ordem ORDER BY ordem ASC LIMIT :limit OFFSET :offset", "ordem=" . $_SESSION['ordem_nivac'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarNivAc->getResult();
         return $this->Resultado;
     }
 

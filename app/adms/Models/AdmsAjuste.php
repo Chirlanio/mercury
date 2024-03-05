@@ -38,7 +38,7 @@ class AdmsAjuste {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $listarAjuste = new \App\adms\Models\helper\AdmsCreate;
         $listarAjuste->exeCreate("tb_ajuste", $this->Dados);
-        if ($listarAjuste->getResultado()) {
+        if ($listarAjuste->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Solicitação enviada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

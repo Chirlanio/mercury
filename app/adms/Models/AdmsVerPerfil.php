@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -19,7 +19,7 @@ class AdmsVerPerfil {
     public function verPerfil() {
         $verPerfil = new \App\adms\Models\helper\AdmsRead();
         $verPerfil->fullRead("SELECT * FROM adms_usuarios WHERE id =:id LIMIT :limit", "id=" . $_SESSION['usuario_id'] . "&limit=1");
-        $this->Resultado = $verPerfil->getResultado();
+        $this->Resultado = $verPerfil->getResult();
         return $this->Resultado;
     }
 

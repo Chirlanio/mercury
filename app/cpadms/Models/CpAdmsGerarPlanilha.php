@@ -116,7 +116,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id BETWEEN :min_id AND :max_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaMinIdSitCli() {//Revisado
@@ -136,7 +136,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id >=:min_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaMaxIdSitCli() {//Revisado
@@ -156,7 +156,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id <=:max_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqMinMaxIdSit() {//Revisado
@@ -176,7 +176,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id BETWEEN :min_id AND :max_id AND d.status_id =:status_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqMinMaxIdCli() {//Revisado
@@ -196,7 +196,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id BETWEEN :min_id AND :max_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaMinMaxId() {//Revisado
@@ -216,7 +216,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id BETWEEN :min_id AND :max_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaMinIdSit() {//Revisado
@@ -236,7 +236,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id >=:min_id AND d.status_id =:status_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaMaxIdSit() {//Revisado
@@ -256,7 +256,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id <=:max_id AND d.status_id =:status_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaMinIdCliente() {//Revisado
@@ -276,7 +276,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id >=:min_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaMaxIdCliente() {//Revisado
@@ -296,7 +296,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id <=:max_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaSitCliente() {//Revisado
@@ -316,7 +316,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqMinIdSitCliente() {//Revisado
@@ -336,7 +336,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id >=:min_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqMaxIdSitCliente() {//Revisado
@@ -356,7 +356,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id <=:max_id AND d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLojaCliente() {//Revisado
@@ -376,7 +376,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
     
     private function pesqLojaMinId() {//Revisado
@@ -396,7 +396,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id >=:min_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
     
     private function pesqLojaMaxId() {//Revisado
@@ -416,7 +416,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.id <=:max_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
     
     private function pesqLojaStatus() {//Revisado
@@ -436,7 +436,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id AND d.status_id =:status_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
     
     private function pesqMinIdStatus() {//Revisado
@@ -456,7 +456,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id >=:min_id AND d.status_id =:status_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
     
     private function pesqMaxIdStatus() {//Revisado
@@ -476,7 +476,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id <=:max_id AND d.status_id =:status_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
     
     private function pesqMinIdCliente() {//Revisado
@@ -496,7 +496,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id >=:min_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
     
     private function pesqMaxIdCliente() {//Revisado
@@ -516,7 +516,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id <=:max_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
     
     private function pesqSitCliente() {//Revisado
@@ -536,7 +536,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.status_id =:status_id AND d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqMinMaxId() {//Revisado
@@ -556,7 +556,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id BETWEEN :min_id AND :max_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqLoja() {//Revisado
@@ -575,7 +575,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqMinId() {//Revisado
@@ -594,7 +594,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id >=:min_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqMaxId() {//Revisado
@@ -613,7 +613,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.id <=:max_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqStatus() {//Revisado
@@ -632,7 +632,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.status_id =:status_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function pesqCliente() {//Revisado
@@ -651,7 +651,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.cliente LIKE '%' :cliente '%' ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "cliente={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
     private function gerarPlanilha() {//Revisado
@@ -670,7 +670,7 @@ class CpAdmsGerarPlanilha {
         } else {
             $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, l.nome nome_loja, ls.nome saida, f.nome func, t.nome sit, b.nome bairro, r.nome rota, c.cor, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas l ON l.id=d.loja_id INNER JOIN tb_funcionarios f ON f.id=d.func_id INNER JOIN tb_status_delivery t ON t.id=d.status_id INNER JOIN tb_ponto_saida ls ON ls.id=d.ponto_saida INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=b.rota_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id ORDER BY d.id ASC LIMIT :limit OFFSET :offset", "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDelivery->getResultado();
+        $this->Resultado = $listarDelivery->getResult();
     }
 
 }

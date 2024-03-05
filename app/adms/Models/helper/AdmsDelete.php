@@ -18,7 +18,7 @@ class AdmsDelete extends AdmsConn {
     private $Query;
     private $Conn;
 
-    public function getResultado() {
+    public function getResult() {
         return $this->Resultado;
     }
 
@@ -43,6 +43,6 @@ class AdmsDelete extends AdmsConn {
     }
 
     private function conexao() {
-        $this->Conn = parent::getConn();
+        $this->Conn = parent::connectDb();
     }
 }

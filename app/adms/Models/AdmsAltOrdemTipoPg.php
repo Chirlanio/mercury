@@ -42,14 +42,14 @@ class AdmsAltOrdemTipoPg {
         $verTipoPg = new \App\adms\Models\helper\AdmsRead();
         $verTipoPg->fullRead("SELECT * FROM adms_tps_pgs
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosTipoPg = $verTipoPg->getResultado();
+        $this->DadosTipoPg = $verTipoPg->getResult();
     }
 
     private function verfTipoPgInferior() {
         $ordem_super = $this->DadosTipoPg[0]['ordem'] - 1;
         $verTipoPg = new \App\adms\Models\helper\AdmsRead();
         $verTipoPg->fullRead("SELECT id, ordem FROM adms_tps_pgs WHERE ordem =:ordem", "ordem={$ordem_super}");
-        $this->DadosTipoPgInferior = $verTipoPg->getResultado();
+        $this->DadosTipoPgInferior = $verTipoPg->getResult();
     }
 
     private function exeAltOrdemTipoPg() {
@@ -62,7 +62,7 @@ class AdmsAltOrdemTipoPg {
         $upMvCima = new \App\adms\Models\helper\AdmsUpdate();
         $upMvCima->exeUpdate("adms_tps_pgs", $this->Dados, "WHERE id =:id", "id={$this->DadosTipoPg[0]['id']}");
 
-        if ($upMvCima->getResultado()) {
+        if ($upMvCima->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Ordem do tipo de página editado com sucesso!</div>";
             $this->Resultado = true;
         } else {

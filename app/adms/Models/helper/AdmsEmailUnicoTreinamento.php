@@ -33,7 +33,7 @@ class AdmsEmailUnicoTreinamento {
         } else {
             $valEmailUnico->fullRead("SELECT id FROM adms_user_treinamentos WHERE email =:email LIMIT :limit", "email={$this->Email}&limit=1");
         }
-        $this->Resultado = $valEmailUnico->getResultado();
+        $this->Resultado = $valEmailUnico->getResult();
         if (!empty($this->Resultado)) {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Este e-mail já está cadastrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;

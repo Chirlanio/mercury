@@ -49,7 +49,7 @@ class AdmsEditarOrdemServico {
 
         $verOrderService = new \App\adms\Models\helper\AdmsRead();
         $verOrderService->fullRead("SELECT os.*, lj.nome loja, se.nome sit, tp.nome tipo, t.nome tam, m.nome marca, ljc.nome loja_conserto FROM adms_qualidade_ordem_servico os INNER JOIN tb_lojas lj ON lj.id=os.loja_id LEFT JOIN tb_lojas ljc ON ljc.id=os.loja_id_conserto INNER JOIN adms_sits_ordem_servico se ON se.id=os.status_id INNER JOIN adms_tips_ordem_servico tp ON tp.id=os.type_order_id INNER JOIN tb_tam t ON t.id=os.tam_id INNER JOIN adms_marcas m ON m.id=os.marca_id WHERE os.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verOrderService->getResultado();
+        $this->Resultado = $verOrderService->getResult();
         return $this->Resultado;
     }
 
@@ -188,7 +188,7 @@ class AdmsEditarOrdemServico {
 
         $upAltOrderService = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrderService->exeUpdate("adms_qualidade_ordem_servico", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltOrderService->getResultado()) {
+        if ($upAltOrderService->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de serviço</strong> atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -201,28 +201,28 @@ class AdmsEditarOrdemServico {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id t_id, nome tipo FROM adms_tips_ordem_servico ORDER BY id ASC");
-        $registro['tips'] = $listar->getResultado();
+        $registro['tips'] = $listar->getResult();
 
         $listar->fullRead("SELECT id ta_id, nome tam FROM tb_tam ORDER BY id ASC");
-        $registro['tam'] = $listar->getResultado();
+        $registro['tam'] = $listar->getResult();
 
         $listar->fullRead("SELECT id m_id, nome marca FROM adms_marcas ORDER BY id ASC");
-        $registro['marc'] = $listar->getResultado();
+        $registro['marc'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, nome sit FROM adms_sits_ordem_servico ORDER BY id ASC");
-        $registro['stis'] = $listar->getResultado();
+        $registro['stis'] = $listar->getResult();
 
         $listar->fullRead("SELECT id d_id, descricao defeito, status_id FROM adms_defeitos_ordem_servico WHERE status_id =:status_id ORDER BY descricao ASC", "status_id=1");
-        $registro['def'] = $listar->getResultado();
+        $registro['def'] = $listar->getResult();
 
         $listar->fullRead("SELECT id dt_id, descricao detalhe, status_id FROM adms_detalhes_ordem_servico WHERE status_id =:status_id ORDER BY descricao ASC", "status_id=1");
-        $registro['det'] = $listar->getResultado();
+        $registro['det'] = $listar->getResult();
 
         $listar->fullRead("SELECT id l_id, descricao local, status_id FROM adms_def_local_ordem_servico WHERE status_id =:status_id", "status_id=1");
-        $registro['loc'] = $listar->getResultado();
+        $registro['loc'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'tips' => $registro['tips'], 'tam' => $registro['tam'],
             'marc' => $registro['marc'], 'stis' => $registro['stis'], 'def' => $registro['def'], 'det' => $registro['det'], 'loc' => $registro['loc']];

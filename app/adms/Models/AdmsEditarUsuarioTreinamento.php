@@ -30,14 +30,14 @@ class AdmsEditarUsuarioTreinamento {
         $verPerfil->fullRead("SELECT user.* FROM adms_users_treinamentos user
                 INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
                 WHERE user.id =:id AND nivac.ordem >:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=" . $_SESSION['ordem_nivac'] . "&limit=1");
-        $this->Resultado = $verPerfil->getResultado();
+        $this->Resultado = $verPerfil->getResult();
         return $this->Resultado;
     }
 
     public function altUsuario(array $Dados) {
         $this->Dados = $Dados;
         $this->Dados['cpf'] = str_replace('.', '', str_replace('-', '', $this->Dados['cpf']));
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
         
         $this->Foto = $this->Dados['imagem_nova'];
         $this->ImgAntiga = $this->Dados['imagem_antiga'];
@@ -92,7 +92,7 @@ class AdmsEditarUsuarioTreinamento {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSenha = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSenha->exeUpdate("adms_users_treinamentos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSenha->getResultado()) {
+        if ($upAltSenha->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Usuário</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -105,10 +105,10 @@ class AdmsEditarUsuarioTreinamento {
         $listar = new \App\adms\Models\helper\AdmsRead();
         
         $listar->fullRead("SELECT id id_nivac, nome nome_nivac FROM adms_niveis_acessos WHERE id =:id ORDER BY nome ASC", "id=11");
-        $registro['nivac'] = $listar->getResultado();
+        $registro['nivac'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits_usuarios ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['nivac' => $registro['nivac'], 'sit' => $registro['sit']];
 

@@ -26,7 +26,7 @@ class AdmsApagarDashboard {
 
         $apagarDash = new \App\adms\Models\helper\AdmsDelete();
         $apagarDash->exeDelete("tb_dashboards", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarDash->getResultado()) {
+        if ($apagarDash->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Dashboard apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

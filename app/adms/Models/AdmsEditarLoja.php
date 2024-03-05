@@ -34,7 +34,7 @@ class AdmsEditarLoja {
         $this->DadosId = (int) $DadosId;
         $verLoja = new \App\adms\Models\helper\AdmsRead();
         $verLoja->fullRead("SELECT lj.*, r.nome rede, s.nome sit FROM tb_lojas lj INNER JOIN tb_redes r ON r.id=lj.rede_id INNER JOIN tb_status_loja s ON s.id=lj.status_id INNER JOIN tb_funcionarios f ON f.id=lj.func_id WHERE lj.id_loja =:id_loja LIMIT :limit", "id_loja=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verLoja->getResultado();
+        $this->Resultado = $verLoja->getResult();
         return $this->Resultado;
     }
 
@@ -66,7 +66,7 @@ class AdmsEditarLoja {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltLoja = new \App\adms\Models\helper\AdmsUpdate();
         $upAltLoja->exeUpdate("tb_lojas", $this->Dados, "WHERE id_loja =:id_loja", "id_loja=" . $this->Dados['id_loja']);
-        if ($upAltLoja->getResultado()) {
+        if ($upAltLoja->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro da Loja atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -81,16 +81,16 @@ class AdmsEditarLoja {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id id_sit, nome sit FROM tb_status_loja ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_rede, nome rede FROM tb_redes ORDER BY nome ASC");
-        $registro['rede'] = $listar->getResultado();
+        $registro['rede'] = $listar->getResult();
 
         $listar->fullRead("SELECT f.id func_id, f.nome func FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome ASC", "adms_niv_cargo_id=1&status_id=1");
-        $registro['func_id'] = $listar->getResultado();
+        $registro['func_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT f.id super_id, f.nome super FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome ASC", "adms_niv_cargo_id=1&status_id=1");
-        $registro['super_id'] = $listar->getResultado();
+        $registro['super_id'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit'], 'rede' => $registro['rede'], 'func_id' => $registro['func_id'], 'super_id' => $registro['super_id']];
 

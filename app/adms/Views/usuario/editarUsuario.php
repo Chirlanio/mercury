@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['form'][0]);
+var_dump($this->Dados['select']['areas']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -15,16 +15,24 @@ if (isset($this->Dados['form'][0])) {
             </div>
 
             <?php
-            if ($this->Dados['botao']['vis_usuario']) {
+            if ($this->Dados['botao']['list_usuario']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-usuario/ver-usuario/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
+                    <a href="<?php echo URLADM . 'usuarios/listar'; ?>" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-list"></i></a>
+                </div>
+                <?php
+            }
+            if ($this->Dados['botao']['vis_usuario']) {
+                ?>
+                <div class="pt-2">
+                    <a href="<?php echo URLADM . 'ver-usuario/ver-usuario/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
                 </div>
                 <?php
             }
             ?>
 
-        </div><hr>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
@@ -77,7 +85,7 @@ if (isset($this->Dados['form'][0])) {
                     <select name="loja_id" id="loja_id" class="form-control">
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['loja_id'] as $loja) {
+                        foreach ($this->Dados['select']['stores'] as $loja) {
                             extract($loja);
                             if ($valorForm['loja_id'] == $id_loja) {
                                 echo "<option value='$id_loja' selected>$loja</option>";
@@ -93,7 +101,7 @@ if (isset($this->Dados['form'][0])) {
                     <select name="adms_area_id" id="adms_area_id" class="form-control">
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['area'] as $a) {
+                        foreach ($this->Dados['select']['areas'] as $a) {
                             extract($a);
                             if ($valorForm['adms_area_id'] == $a_id) {
                                 echo "<option value='$a_id' selected>$name_area</option>";
@@ -127,7 +135,7 @@ if (isset($this->Dados['form'][0])) {
                     <select name="adms_sits_usuario_id" id="adms_sits_usuario_id" class="form-control">
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['sit'] as $sit) {
+                        foreach ($this->Dados['select']['sits'] as $sit) {
                             extract($sit);
                             if ($valorForm['adms_sits_usuario_id'] == $id_sit) {
                                 echo "<option value='$id_sit' selected>$nome_sit</option>";

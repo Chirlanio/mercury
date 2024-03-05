@@ -32,7 +32,7 @@ class AdmsDelProcessLibrary {
 
             $delProcess = new \App\adms\Models\helper\AdmsDelete();
             $delProcess->exeDelete("adms_process_librarys", "WHERE id =:id", "id={$this->DadosId}");
-            if ($delProcess->getResultado()) {
+            if ($delProcess->getResult()) {
                 $this->Resultado = true;
             } else {
                 $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> O Arquivo não foi apagado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -53,7 +53,7 @@ class AdmsDelProcessLibrary {
                 $delProcessFiles = new \App\adms\Models\helper\AdmsDelete();
                 $delProcessFiles->exeDelete("adms_process_library_files", "WHERE id =:id", "id={$filename['id']}");
 
-                if ($delProcessFiles->getResultado()) {
+                if ($delProcessFiles->getResult()) {
                     $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
                     $apagarImg->apagarImg('assets/files/processLibrary/' . $this->DadosId . '/' . $filename['file_name_slug'], 'assets/files/processLibrary/' . $filename['adms_process_library_id']);
                     $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Política ou Processo</strong> e arquivos apagados com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -72,13 +72,13 @@ class AdmsDelProcessLibrary {
     private function viewProcess() {
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
         $viewOrder->fullRead("SELECT * FROM adms_process_librarys WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosArq = $viewOrder->getResultado();
+        $this->DadosArq = $viewOrder->getResult();
     }
 
     private function viewProcessFile($FileId = null) {
         $this->DadosId = (int) $FileId;
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
         $viewOrder->fullRead("SELECT id, adms_process_library_id, file_name_slug FROM adms_process_library_files WHERE adms_process_library_id =:adms_process_library_id", "adms_process_library_id=" . $this->DadosId);
-        $this->DadosFile = $viewOrder->getResultado();
+        $this->DadosFile = $viewOrder->getResult();
     }
 }

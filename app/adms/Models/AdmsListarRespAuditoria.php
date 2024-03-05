@@ -16,7 +16,7 @@ class AdmsListarRespAuditoria {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -33,11 +33,8 @@ class AdmsListarRespAuditoria {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCargo = new \App\adms\Models\helper\AdmsRead();
-        $listarCargo->fullRead("SELECT r.id, r.nome resp, s.nome status
-                FROM adms_responsavel_auditoria r
-                INNER JOIN adms_sits s ON s.id=r.status_id
-                ORDER BY r.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCargo->getResultado();
+        $listarCargo->fullRead("SELECT r.id, r.nome resp, s.nome status FROM adms_responsavel_auditoria r INNER JOIN adms_sits s ON s.id=r.status_id ORDER BY r.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCargo->getResult();
         return $this->Resultado;
     }
 

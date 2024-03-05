@@ -27,7 +27,7 @@ class AdmsEditarSitTroca {
         $verSit = new \App\adms\Models\helper\AdmsRead();
         $verSit->fullRead("SELECT * FROM tb_status_troca
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verSit->getResultado();
+        $this->Resultado = $verSit->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarSitTroca {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSit = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSit->exeUpdate("tb_status_troca", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSit->getResultado()) {
+        if ($upAltSit->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Situação atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {

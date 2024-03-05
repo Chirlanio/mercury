@@ -42,7 +42,7 @@ class AdmsAltOrdemMenu {
                 FROM adms_nivacs_pgs nivpg
                 INNER JOIN adms_niveis_acessos nivac ON nivac.id=nivpg.adms_niveis_acesso_id
                 WHERE nivpg.id =:id AND nivac.ordem >=:ordem", "id={$this->DadosId}&ordem=" . $_SESSION['ordem_nivac']);
-        $this->DadosNivAcPg = $verNivAcPg->getResultado();
+        $this->DadosNivAcPg = $verNivAcPg->getResult();
     }
 
     private function verfNivAcPgInferior() {
@@ -51,7 +51,7 @@ class AdmsAltOrdemMenu {
         $verNivAcPg->fullRead("SELECT nivpg.id, nivpg.ordem, nivpg.adms_niveis_acesso_id
                 FROM adms_nivacs_pgs nivpg
                 WHERE nivpg.ordem =:ordem AND nivpg.adms_niveis_acesso_id =:adms_niveis_acesso_id", "ordem=" . $ordem_super . "&adms_niveis_acesso_id={$this->DadosNivAcPg[0]['adms_niveis_acesso_id']}");
-        $this->DadosNivAvPgInferior = $verNivAcPg->getResultado();
+        $this->DadosNivAvPgInferior = $verNivAcPg->getResult();
     }
 
     private function exeAltOrdemNivAc() {
@@ -64,7 +64,7 @@ class AdmsAltOrdemMenu {
         $upMvCima = new \App\adms\Models\helper\AdmsUpdate();
         $upMvCima->exeUpdate("adms_nivacs_pgs", $this->Dados, "WHERE id =:id", "id={$this->DadosNivAcPg[0]['id']}");
 
-        if ($upMvCima->getResultado()) {
+        if ($upMvCima->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Ordem do menu editado com sucesso!</div>";
             $this->Resultado = true;
         } else {

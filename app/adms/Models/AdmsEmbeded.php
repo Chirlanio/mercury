@@ -25,7 +25,7 @@ class AdmsEmbeded {
         } else {
             $dash->fullRead("SELECT * FROM tb_dashboards WHERE status_id =:status_id LIMIT :limit", "status_id=1&limit=1");
         }
-        $this->Resultado = $dash->getResultado();
+        $this->Resultado = $dash->getResult();
         return $this->Resultado;
     }
 }

@@ -10,7 +10,7 @@ if (!defined('URLADM')) {
 /**
  * Description of AdmsSeo
  *
- * @copyright (c) year, Cesar Szpak - Celke
+ * @copyright (c) year, Francisco Chirlanio - Grupo Meia Sola
  */
 class AdmsSeo {
 
@@ -48,7 +48,7 @@ class AdmsSeo {
                 WHERE pg.controller =:controller
                 ORDER BY pg.id ASC
                 LIMIT :limit', "controller={$this->UrlController}&limit=1");
-        $this->Resultado = $listar->getResultado();
+        $this->Resultado = $listar->getResult();
         return $this->Resultado;
     }
 
@@ -60,7 +60,7 @@ class AdmsSeo {
                 ORDER BY id ASC
                 LIMIT :limit", "valor={$this->UrlParamentro}&limit=1");
 
-        $this->Resultado = $listar->getResultado();
+        $this->Resultado = $listar->getResult();
         $this->Resultado[0]['endereco'] = $this->listarSeobasico[0]['endereco'] . '/' . $this->UrlParamentro;
         $this->Resultado[0]['dir_img'] = $this->listarSeobasico[0]['endereco'];
     }

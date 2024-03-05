@@ -28,7 +28,7 @@ class AdmsDeleteOrderPayments {
         if ($this->DadosArq) {
             $delOrder = new \App\adms\Models\helper\AdmsDelete();
             $delOrder->exeDelete("adms_order_payments", "WHERE id =:id", "id={$this->DadosId}");
-            if ($delOrder->getResultado()) {
+            if ($delOrder->getResult()) {
                 $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
                 $apagarImg->apagarImg('assets/files/orderPayments/' . $this->DadosId . '/' . $this->DadosArq[0]['file_name'], 'assets/files/orderPayments/' . $this->DadosId);
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento</strong> cadastro e arquivos apagados com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
@@ -47,7 +47,7 @@ class AdmsDeleteOrderPayments {
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
         $viewOrder->fullRead("SELECT * FROM adms_order_payments
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosArq = $viewOrder->getResultado();
+        $this->DadosArq = $viewOrder->getResult();
     }
 
 }

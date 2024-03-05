@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarPagina {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -33,14 +33,8 @@ class AdmsListarPagina {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarPagina = new \App\adms\Models\helper\AdmsRead();
-        $listarPagina->fullRead("SELECT pg.id, pg.nome_pagina,
-                tpg.tipo tipo_tpg, tpg.nome nome_tpg,
-                sit.nome nome_sit, sit.cor cor_sit
-                FROM adms_paginas pg
-                INNER JOIN adms_tps_pgs tpg ON tpg.id=pg.adms_tps_pg_id
-                INNER JOIN adms_sits_pgs sit ON sit.id=pg.adms_sits_pg_id
-                ORDER BY pg.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarPagina->getResultado();
+        $listarPagina->fullRead("SELECT pg.id, pg.nome_pagina, tpg.tipo tipo_tpg, tpg.nome nome_tpg, sit.nome nome_sit, sit.cor cor_sit FROM adms_paginas pg INNER JOIN adms_tps_pgs tpg ON tpg.id=pg.adms_tps_pg_id INNER JOIN adms_sits_pgs sit ON sit.id=pg.adms_sits_pg_id ORDER BY pg.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarPagina->getResult();
         return $this->Resultado;
     }
 

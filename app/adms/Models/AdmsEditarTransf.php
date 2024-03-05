@@ -30,8 +30,7 @@ class AdmsEditarTransf {
         } else {
             $verTransf->fullRead("SELECT t.id, t.loja_origem_id, t.loja_destino_id, t.nf, t.qtd_vol, t.qtd_prod, t.tipo_transf_id, t.status_id, t.recebido, t.confirma_receb, l.nome loja_ori, tt.id tipo_id, st.id sit_id FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf st ON st.id=t.status_id WHERE t.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         }
-
-        $this->Resultado = $verTransf->getResultado();
+        $this->Resultado = $verTransf->getResult();
         return $this->Resultado;
     }
 
@@ -53,7 +52,7 @@ class AdmsEditarTransf {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltTransf = new \App\adms\Models\helper\AdmsUpdate();
         $upAltTransf->exeUpdate("tb_transferencias", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltTransf->getResultado()) {
+        if ($upAltTransf->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>solicitação atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -70,20 +69,20 @@ class AdmsEditarTransf {
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_origem_id'] = $listar->getResultado();
+        $registro['loja_origem_id'] = $listar->getResult();
 
         if ($_SESSION['ordem_nivac'] >= 4) {
             $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas WHERE id !=:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_destino_id'] = $listar->getResultado();
+        $registro['loja_destino_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_tipo, nome tipo FROM tb_tipo_transf ORDER BY id ASC");
-        $registro['tipo_transf_id'] = $listar->getResultado();
+        $registro['tipo_transf_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome sit FROM tb_status_transf ORDER BY id ASC");
-        $registro['status_id'] = $listar->getResultado();
+        $registro['status_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_origem_id' => $registro['loja_origem_id'], 'loja_destino_id' => $registro['loja_destino_id'], 'tipo_transf_id' => $registro['tipo_transf_id'], 'status_id' => $registro['status_id']];
 

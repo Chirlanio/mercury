@@ -42,7 +42,7 @@ class AdmsCadastrarCat {
         $cadCat = new \App\adms\Models\helper\AdmsCreate;
         $cadCat->exeCreate("adms_cats_artigos", $this->Dados);
 
-        if ($cadCat->getResultado()) {
+        if ($cadCat->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Categoria cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {

@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarCor {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -34,7 +34,7 @@ class AdmsListarCor {
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
         $listarCor->fullRead("SELECT id, nome, cor FROM adms_cors ORDER BY id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $this->Resultado = $listarCor->getResult();
         return $this->Resultado;
     }
 

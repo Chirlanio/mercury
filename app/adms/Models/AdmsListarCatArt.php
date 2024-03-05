@@ -16,7 +16,7 @@ class AdmsListarCatArt {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -34,7 +34,7 @@ class AdmsListarCatArt {
 
         $listarArtigo = new \App\adms\Models\helper\AdmsRead();
         $listarArtigo->fullRead("SELECT a.* FROM adms_cats_artigos a ORDER BY a.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarArtigo->getResultado();
+        $this->Resultado = $listarArtigo->getResult();
         return $this->Resultado;
     }
 

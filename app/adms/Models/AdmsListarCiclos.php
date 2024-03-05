@@ -16,7 +16,7 @@ class AdmsListarCiclos {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -37,7 +37,7 @@ class AdmsListarCiclos {
                 FROM adms_ciclos b
                 INNER JOIN adms_sits s ON s.id=b.status_id
                 ORDER BY b.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listar->getResultado();
+        $this->Resultado = $listar->getResult();
         return $this->Resultado;
     }
 

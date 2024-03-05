@@ -58,8 +58,8 @@ class AdmsCadastrarPagina {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadNivAc = new \App\adms\Models\helper\AdmsCreate;
         $cadNivAc->exeCreate("adms_paginas", $this->Dados);
-        if ($cadNivAc->getResultado()) {
-            $this->UltimoIdInserido = $cadNivAc->getResultado();
+        if ($cadNivAc->getResult()) {
+            $this->UltimoIdInserido = $cadNivAc->getResult();
             $this->inserirPerNivAc();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A página não foi cadastrada!</div>";
@@ -74,13 +74,13 @@ class AdmsCadastrarPagina {
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id id_grpg, nome nome_grpg FROM adms_grps_pgs ORDER BY nome ASC");
 
-        $registro['grpg'] = $listar->getResultado();
+        $registro['grpg'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_tpg, tipo tipo_tpg, nome nome_tpg FROM adms_tps_pgs ORDER BY nome ASC");
-        $registro['tpg'] = $listar->getResultado();
+        $registro['tpg'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sitpg, nome nome_sitpg FROM adms_sits_pgs ORDER BY nome ASC");
-        $registro['sitpg'] = $listar->getResultado();
+        $registro['sitpg'] = $listar->getResult();
 
         $this->Resultado = ['grpg' => $registro['grpg'], 'tpg' => $registro['tpg'], 'sitpg' => $registro['sitpg']];
 
@@ -106,7 +106,7 @@ class AdmsCadastrarPagina {
             $cadNivAcPg = new \App\adms\Models\helper\AdmsCreate;
             $cadNivAcPg->exeCreate("adms_nivacs_pgs", $this->DadosNivAcPg);
 
-            if ($cadNivAcPg->getResultado()) {
+            if ($cadNivAcPg->getResult()) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Página cadastrada com sucesso!</div>";
                 $this->Resultado = true;
             } else {
@@ -122,7 +122,7 @@ class AdmsCadastrarPagina {
     private function listarNivAc() {
         $listarNivAc = new \App\adms\Models\helper\AdmsRead();
         $listarNivAc->fullRead("SELECT id FROM adms_niveis_acessos");
-        $this->ListaNivAc = $listarNivAc->getResultado();
+        $this->ListaNivAc = $listarNivAc->getResult();
     }
 
     /**
@@ -134,7 +134,7 @@ class AdmsCadastrarPagina {
         $listarNivAcPg->fullRead("SELECT ordem, adms_niveis_acesso_id
                 FROM adms_nivacs_pgs
                 WHERE adms_niveis_acesso_id =:adms_niveis_acesso_id ORDER BY ordem DESC LIMIT :limit", "adms_niveis_acesso_id={$this->NivAcId}&limit=1");
-        $this->ListaNivAcPg = $listarNivAcPg->getResultado();
+        $this->ListaNivAcPg = $listarNivAcPg->getResult();
         if (!$this->ListaNivAcPg) {
             $this->ListaNivAcPg[0]['ordem'] = 0;
         }

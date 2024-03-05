@@ -34,7 +34,7 @@ class AdmsVerDelivery {
                 INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id
                 INNER JOIN tb_status_delivery dl ON dl.id=d.status_id
                 WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verPed->getResultado();
+        $this->Resultado = $verPed->getResult();
         return $this->Resultado;
     }
 

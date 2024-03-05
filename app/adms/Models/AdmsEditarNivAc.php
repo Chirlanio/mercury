@@ -29,7 +29,7 @@ class AdmsEditarNivAc {
                 FROM adms_niveis_acessos n
                 INNER JOIN adms_cors c ON c.id=n.adms_cor_id
                 WHERE n.id =:id AND ordem >=:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=" . $_SESSION['ordem_nivac'] . "&limit=1");
-        $this->Resultado = $verPerfil->getResultado();
+        $this->Resultado = $verPerfil->getResult();
         return $this->Resultado;
     }
 
@@ -50,7 +50,7 @@ class AdmsEditarNivAc {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltNivAc = new \App\adms\Models\helper\AdmsUpdate();
         $upAltNivAc->exeUpdate("adms_niveis_acessos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltNivAc->getResultado()) {
+        if ($upAltNivAc->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Nível de acesso atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -62,7 +62,7 @@ class AdmsEditarNivAc {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id id_cor, nome nome_cor, cor FROM adms_cors ORDER BY nome ASC");
-        $registro['cor_id'] = $listar->getResultado();
+        $registro['cor_id'] = $listar->getResult();
 
         $this->Resultado = ['cor_id' => $registro['cor_id']];
 

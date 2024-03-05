@@ -25,7 +25,7 @@ class AdmsApagarSitTroca {
         $this->DadosId = (int) $DadosId;
         $apagarSit = new \App\adms\Models\helper\AdmsDelete();
         $apagarSit->exeDelete("tb_status_troca", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarSit->getResultado()) {
+        if ($apagarSit->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Situação apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

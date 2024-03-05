@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarBairro {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -37,7 +37,7 @@ class AdmsListarBairro {
                 FROM tb_bairros b
                 INNER JOIN tb_rotas r ON r.id=b.rota_id
                 ORDER BY b.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCargo->getResultado();
+        $this->Resultado = $listarCargo->getResult();
         return $this->Resultado;
     }
 

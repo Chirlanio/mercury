@@ -28,7 +28,7 @@ class AdmsEditBank {
 
         $viewBank = new \App\adms\Models\helper\AdmsRead();
         $viewBank->fullRead("SELECT b.id, b.bank_name, b.cod_bank, b.status_id FROM adms_banks b LEFT JOIN adms_sits st ON st.id = b.status_id WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $viewBank->getResultado();
+        $this->Resultado = $viewBank->getResult();
         return $this->Resultado;
     }
 
@@ -49,7 +49,7 @@ class AdmsEditBank {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltBank = new \App\adms\Models\helper\AdmsUpdate();
         $upAltBank->exeUpdate("adms_banks", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltBank->getResultado()) {
+        if ($upAltBank->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -62,7 +62,7 @@ class AdmsEditBank {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

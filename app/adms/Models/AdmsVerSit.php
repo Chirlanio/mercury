@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -20,12 +20,8 @@ class AdmsVerSit {
     public function verSit($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verSit = new \App\adms\Models\helper\AdmsRead();
-        $verSit->fullRead("SELECT sit.*,
-                cr.cor cor_cr
-                FROM adms_sits sit
-                INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id
-                WHERE sit.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verSit->getResultado();
+        $verSit->fullRead("SELECT sit.*, cr.cor cor_cr FROM adms_sits sit INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id WHERE sit.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $this->Resultado = $verSit->getResult();
         return $this->Resultado;
     }
 

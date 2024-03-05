@@ -42,14 +42,14 @@ class AdmsAltOrdemGrupoPg {
         $verGrupoPg = new \App\adms\Models\helper\AdmsRead();
         $verGrupoPg->fullRead("SELECT * FROM adms_grps_pgs
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosGrupoPg = $verGrupoPg->getResultado();
+        $this->DadosGrupoPg = $verGrupoPg->getResult();
     }
 
     private function verfGrupoPgInferior() {
         $ordem_super = $this->DadosGrupoPg[0]['ordem'] - 1;
         $verGrupoPg = new \App\adms\Models\helper\AdmsRead();
         $verGrupoPg->fullRead("SELECT id, ordem FROM adms_grps_pgs WHERE ordem =:ordem", "ordem={$ordem_super}");
-        $this->DadosGrupoPgInferior = $verGrupoPg->getResultado();
+        $this->DadosGrupoPgInferior = $verGrupoPg->getResult();
     }
 
     private function exeAltOrdemGrupoPg() {
@@ -62,7 +62,7 @@ class AdmsAltOrdemGrupoPg {
         $upMvCima = new \App\adms\Models\helper\AdmsUpdate();
         $upMvCima->exeUpdate("adms_grps_pgs", $this->Dados, "WHERE id =:id", "id={$this->DadosGrupoPg[0]['id']}");
 
-        if ($upMvCima->getResultado()) {
+        if ($upMvCima->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Ordem do grupo de página editado com sucesso!</div>";
             $this->Resultado = true;
         } else {

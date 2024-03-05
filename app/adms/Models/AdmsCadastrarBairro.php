@@ -42,7 +42,7 @@ class AdmsCadastrarBairro {
         $cadBairro = new \App\adms\Models\helper\AdmsCreate;
         $cadBairro->exeCreate("tb_bairros", $this->Dados);
 
-        if ($cadBairro->getResultado()) {
+        if ($cadBairro->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Bairro cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -56,7 +56,7 @@ class AdmsCadastrarBairro {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id r_id, nome rota FROM tb_rotas ORDER BY id ASC");
-        $registro['rota_id'] = $listar->getResultado();
+        $registro['rota_id'] = $listar->getResult();
 
         $this->Resultado = ['rota_id' => $registro['rota_id']];
 

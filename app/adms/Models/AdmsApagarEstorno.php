@@ -28,7 +28,7 @@ class AdmsApagarEstorno {
         if ($this->DadosArq) {
             $apagarEstorno = new \App\adms\Models\helper\AdmsDelete();
             $apagarEstorno->exeDelete("adms_estornos", "WHERE id =:id", "id={$this->DadosId}");
-            if ($apagarEstorno->getResultado()) {
+            if ($apagarEstorno->getResult()) {
                 $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
                 $apagarImg->apagarImg('assets/files/estorno/' . $this->DadosId . '/' . $this->DadosArq[0]['arquivo'], 'assets/files/estorno/' . $this->DadosId);
                 $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro e Arquivo apagados com sucesso!</div>";
@@ -47,7 +47,7 @@ class AdmsApagarEstorno {
         $verUsuario = new \App\adms\Models\helper\AdmsRead();
         $verUsuario->fullRead("SELECT * FROM adms_estornos
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosArq = $verUsuario->getResultado();
+        $this->DadosArq = $verUsuario->getResult();
     }
 
 }

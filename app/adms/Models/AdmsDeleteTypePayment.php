@@ -28,7 +28,7 @@ class AdmsDeleteTypePayment {
         $delType = new \App\adms\Models\helper\AdmsDelete();
         $delType->exeDelete("adms_type_payments", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($delType->getResultado()) {
+        if ($delType->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Tipo de pagamento</strong> apagado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

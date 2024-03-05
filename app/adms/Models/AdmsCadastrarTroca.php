@@ -40,7 +40,7 @@ class AdmsCadastrarTroca {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadTroca = new \App\adms\Models\helper\AdmsCreate;
         $cadTroca->exeCreate("tb_cad_produtos", $this->Dados);
-        if ($cadTroca->getResultado()) {
+        if ($cadTroca->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -57,17 +57,17 @@ class AdmsCadastrarTroca {
         } else {
             $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] >= 5) {
             $listar->fullRead("SELECT id id_consul, nome consul FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
             $listar->fullRead("SELECT id id_consul, nome consul FROM tb_funcionarios ORDER BY nome ASC");
         }
-        $registro['func_id'] = $listar->getResultado();
+        $registro['func_id'] = $listar->getResult();
         
         $listar->fullRead("SELECT id motivo_id, nome motivo FROM adms_motivos ORDER BY nome ASC");
-        $registro['motivo_id'] = $listar->getResultado();
+        $registro['motivo_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'func_id' => $registro['func_id'], 'motivo_id' => $registro['motivo_id']];
 

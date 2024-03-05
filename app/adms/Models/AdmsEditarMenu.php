@@ -27,7 +27,7 @@ class AdmsEditarMenu {
         $verMenu = new \App\adms\Models\helper\AdmsRead();
         $verMenu->fullRead("SELECT * FROM adms_menus
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verMenu->getResultado();
+        $this->Resultado = $verMenu->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarMenu {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltNivAc = new \App\adms\Models\helper\AdmsUpdate();
         $upAltNivAc->exeUpdate("adms_menus", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltNivAc->getResultado()) {
+        if ($upAltNivAc->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Item de menu atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -64,7 +64,7 @@ class AdmsEditarMenu {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

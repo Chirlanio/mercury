@@ -17,7 +17,7 @@ class AdmsListarBalancoProduto {
     private $Resultado;
     private $PageId;
     private $Dados;
-    private $LimiteResultado = 40;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -45,7 +45,7 @@ class AdmsListarBalancoProduto {
         } else {
             $listarBalanco->fullRead("SELECT ba.* FROM adms_balanco_produtos ba WHERE ba.balanco_id =:balanco_id AND ba.loja_id =:loja_id ORDER BY ba.id ASC LIMIT :limit OFFSET :offset", "balanco_id={$this->Dados['id']}&loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarBalanco->getResultado();
+        $this->Resultado = $listarBalanco->getResult();
         return $this->Resultado;
     }
 
@@ -58,13 +58,13 @@ class AdmsListarBalancoProduto {
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id t_id, nome tam from tb_tam");
-        $registro['tam'] = $listar->getResultado();
+        $registro['tam'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'tam' => $registro['tam']];
 

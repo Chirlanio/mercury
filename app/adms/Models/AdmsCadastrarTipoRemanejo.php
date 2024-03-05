@@ -42,7 +42,7 @@ class AdmsCadastrarTipoRemanejo {
         $cadTipoRemanejo = new \App\adms\Models\helper\AdmsCreate;
         $cadTipoRemanejo->exeCreate("adms_tps_remanejos", $this->Dados);
 
-        if ($cadTipoRemanejo->getResultado()) {
+        if ($cadTipoRemanejo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de Remanejo cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {

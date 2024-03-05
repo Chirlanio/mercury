@@ -104,12 +104,12 @@ class AdmsCadastrarEstorno {
         $cadEstorno = new \App\adms\Models\helper\AdmsCreate;
         $cadEstorno->exeCreate("adms_estornos", $this->Dados);
         
-        if ($cadEstorno->getResultado()) {
+        if ($cadEstorno->getResult()) {
             if (empty($this->File['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Estorno cadastrado com sucesso!</div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $cadEstorno->getResultado();
+                $this->Dados['id'] = $cadEstorno->getResult();
                 $this->valArquivo();
             }
         } else {
@@ -134,33 +134,33 @@ class AdmsCadastrarEstorno {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_band, nome bandeira, icone FROM adms_bandeiras ORDER BY nome ASC");
-        $registro['id_band'] = $listar->getResultado();
+        $registro['id_band'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_form, nome forma_pag FROM tb_forma_pag ORDER BY nome ASC");
-        $registro['id_form'] = $listar->getResultado();
+        $registro['id_form'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_resp, nome resp_aut FROM adms_resp_autorizacao ORDER BY nome ASC");
-        $registro['id_resp'] = $listar->getResultado();
+        $registro['id_resp'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome sit_est FROM adms_sits_estornos WHERE id <>:id ORDER BY id ASC", "id=3");
-        $registro['id_sit'] = $listar->getResultado();
+        $registro['id_sit'] = $listar->getResult();
         
         $listar->fullRead("SELECT id id_mot, nome motivo FROM adms_motivo_estorno ORDER BY nome ASC");
-        $registro['id_mot'] = $listar->getResultado();
+        $registro['id_mot'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] <= 3 || $_SESSION['adms_niveis_acesso_id'] == 9) {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id_loja ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] <= 3) {
             $listar->fullRead("SELECT id id_func, nome func FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
         } else {
             $listar->fullRead("SELECT id id_func, nome func FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
-        $registro['id_func'] = $listar->getResultado();
+        $registro['id_func'] = $listar->getResult();
 
         $this->Resultado = ['id_band' => $registro['id_band'], 'id_form' => $registro['id_form'],
             'id_resp' => $registro['id_resp'], 'id_sit' => $registro['id_sit'],

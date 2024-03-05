@@ -38,7 +38,7 @@ class AdmsListBrands {
                 LEFT JOIN adms_suppliers s ON s.id = b.adms_supplier_id
                 LEFT JOIN adms_sits st ON st.id = b.status_id
                 ORDER BY b.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listBrand->getResultado();
+        $this->Resultado = $listBrand->getResult();
         return $this->Resultado;
     }
 

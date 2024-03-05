@@ -25,7 +25,7 @@ class AdmsEditarConfEmail {
         $verConfEmail = new \App\adms\Models\helper\AdmsRead();
         $verConfEmail->fullRead("SELECT * FROM adms_confs_emails
                 WHERE id =:id LIMIT :limit", "id=1&limit=1");
-        $this->Resultado = $verConfEmail->getResultado();
+        $this->Resultado = $verConfEmail->getResult();
         return $this->Resultado;
     }
 
@@ -46,7 +46,7 @@ class AdmsEditarConfEmail {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upConfEmail = new \App\adms\Models\helper\AdmsUpdate();
         $upConfEmail->exeUpdate("adms_confs_emails", $this->Dados, "WHERE id =:id", "id=1");
-        if ($upConfEmail->getResultado()) {
+        if ($upConfEmail->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Formulário para editar os dados do servidor de e-mail atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

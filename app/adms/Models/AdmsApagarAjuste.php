@@ -26,7 +26,7 @@ class AdmsApagarAjuste {
 
         $apagarAjuste = new \App\adms\Models\helper\AdmsDelete();
         $apagarAjuste->exeDelete("tb_ajuste", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarAjuste->getResultado()) {
+        if ($apagarAjuste->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

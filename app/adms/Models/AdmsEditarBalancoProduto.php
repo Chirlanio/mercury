@@ -39,7 +39,7 @@ class AdmsEditarBalancoProduto {
         } else {
             $verAjuste->fullRead("SELECT aj.*, sit.id sit_id, sit.nome sit FROM adms_balanco_produtos aj INNER JOIN tb_status sit ON sit.id=aj.status_id WHERE aj.id =:id AND (aj.status_id =:status_id OR aj.status_id =:status_id2) LIMIT :limit", "id=" . $this->DadosId . "&status_id=2&status_id2=5&limit=1");
         }
-        $this->Resultado = $verAjuste->getResultado();
+        $this->Resultado = $verAjuste->getResult();
         return $this->Resultado;
     }
 
@@ -102,7 +102,7 @@ class AdmsEditarBalancoProduto {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltBalanco = new \App\adms\Models\helper\AdmsUpdate();
         $upAltBalanco->exeUpdate("adms_balanco_produtos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltBalanco->getResultado()) {
+        if ($upAltBalanco->getResult()) {
             if (empty($this->ImagemUm['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
@@ -181,19 +181,19 @@ class AdmsEditarBalancoProduto {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id b_id, loja_id, ciclo_id FROM adms_balancos ORDER BY id DESC");
-        $registro['balanco'] = $listar->getResultado();
+        $registro['balanco'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM adms_status_balancos ORDER BY id ASC");
-        $registro['sits'] = $listar->getResultado();
+        $registro['sits'] = $listar->getResult();
 
         $listar->fullRead("SELECT id tam_id, nome tam FROM tb_tam ORDER BY nome ASC");
-        $registro['tam_id'] = $listar->getResultado();
+        $registro['tam_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id situ_id, nome situacao FROM adms_sits_balanco_produto");
-        $registro['situ_id'] = $listar->getResultado();
+        $registro['situ_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id c_id, nome ciclo FROM adms_ciclos WHERE status_id <=:status_id ORDER BY id DESC", "status_id=4");
-        $registro['ciclo'] = $listar->getResultado();
+        $registro['ciclo'] = $listar->getResult();
 
         $this->Resultado = ['balanco' => $registro['balanco'], 'situ_id' => $registro['situ_id'], 'tam_id' => $registro['tam_id'], 'sits' => $registro['sits']];
 

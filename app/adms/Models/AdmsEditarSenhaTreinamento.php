@@ -17,6 +17,7 @@ class AdmsEditarSenhaTreinamento {
     private $DadosId;
     private $Dados;
     private $Resultado;
+    private $DadosUsuario;
 
     function getResultado() {
         return $this->Resultado;
@@ -28,7 +29,7 @@ class AdmsEditarSenhaTreinamento {
         $validaUsuario->fullRead("SELECT user.id FROM adms_users_treinamentos user
                 INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
                 WHERE user.id =:id AND nivac.ordem >:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=" . $_SESSION['ordem_nivac'] . "&limit=1");
-        $this->DadosUsuario = $validaUsuario->getResultado();
+        $this->DadosUsuario = $validaUsuario->getResult();
         if (!empty($this->DadosUsuario)) {
             $this->Resultado = true;
         } else {
@@ -61,7 +62,7 @@ class AdmsEditarSenhaTreinamento {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
             $upAtualSenha = new \App\adms\Models\helper\AdmsUpdate();
             $upAtualSenha->exeUpdate("adms_users_treinamentos", $this->Dados, "WHERE id =:id", "id={$this->Dados['id']}");
-            if ($upAtualSenha->getResultado()) {
+            if ($upAtualSenha->getResult()) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Senha</strong> atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {

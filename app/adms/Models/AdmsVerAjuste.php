@@ -32,7 +32,7 @@ class AdmsVerAjuste {
                 INNER JOIN tb_funcionarios fs ON fs.id=aj.solicitante
                 INNER JOIN tb_funcionarios f ON f.id=aj.func_id
                 WHERE aj.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verAjuste->getResultado();
+        $this->Resultado = $verAjuste->getResult();
         return $this->Resultado;
     }
 

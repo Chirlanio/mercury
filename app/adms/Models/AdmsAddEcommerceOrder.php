@@ -49,7 +49,7 @@ class AdmsAddEcommerceOrder {
         $addProcess = new \App\adms\Models\helper\AdmsCreate();
         $addProcess->exeCreate("adms_ecommerce_orders", $this->Dados);
 
-        if ($addProcess->getResultado()) {
+        if ($addProcess->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Pedido</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -66,14 +66,14 @@ class AdmsAddEcommerceOrder {
         } else {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         }
-        $registro['store'] = $listar->getResultado();
+        $registro['store'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC");
         }
-        $registro['employee'] = $listar->getResultado();
+        $registro['employee'] = $listar->getResult();
 
         $this->Resultado = ['store' => $registro['store'], 'employee' => $registro['employee']];
 

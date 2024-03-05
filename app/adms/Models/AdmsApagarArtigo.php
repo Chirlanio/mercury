@@ -28,7 +28,7 @@ class AdmsApagarArtigo {
         if ($this->DadosArtigo) {
             $apagarArtigo = new \App\adms\Models\helper\AdmsDelete();
             $apagarArtigo->exeDelete("adms_artigos", "WHERE id =:id", "id={$this->DadosId}");
-            if ($apagarArtigo->getResultado()) {
+            if ($apagarArtigo->getResult()) {
                 $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
                 $apagarImg->apagarImg('assets/imagens/artigos/' . $this->DadosId . '/' . $this->DadosArtigo[0]['imagem'], 'assets/imagens/artigos/' . $this->DadosId);
                 $_SESSION['msg'] = "<div class='alert alert-success'>Artigo apagado com sucesso!</div>";
@@ -46,7 +46,7 @@ class AdmsApagarArtigo {
     public function verArtigo() {
         $verArtigo = new \App\adms\Models\helper\AdmsRead();
         $verArtigo->fullRead("SELECT imagem FROM adms_artigos WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosArtigo = $verArtigo->getResultado();
+        $this->DadosArtigo = $verArtigo->getResult();
     }
 
 }

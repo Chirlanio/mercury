@@ -33,7 +33,7 @@ class AdmsEditPersonnelMoviments {
         } else {
             $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id WHERE pm.id =:id AND pm.adms_sits_personnel_mov_id <=:adms_sits_personnel_mov_id LIMIT :limit", "id={$this->DadosId}&adms_sits_personnel_mov_id=2&limit=1");
         }
-        $this->Resultado = $viewMoviment->getResultado();
+        $this->Resultado = $viewMoviment->getResult();
         return $this->Resultado;
     }
 
@@ -122,7 +122,7 @@ class AdmsEditPersonnelMoviments {
 
         $upAltOrder = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrder->exeUpdate("adms_personnel_moviments", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltOrder->getResultado()) {
+        if ($upAltOrder->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>MP</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -138,30 +138,30 @@ class AdmsEditPersonnelMoviments {
         } else {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         }
-        $registro['store'] = $listar->getResultado();
+        $registro['store'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {//$_SESSION['area_id']
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
         }
-        $registro['employee'] = $listar->getResultado();
+        $registro['employee'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
             $listar->fullRead("SELECT id a_id, name area_name FROM adms_areas WHERE id =:id AND status_id =:status_id ORDER BY name ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {//$_SESSION['area_id']
             $listar->fullRead("SELECT id a_id, name area_name FROM adms_areas WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         }
-        $registro['area'] = $listar->getResultado();
+        $registro['area'] = $listar->getResult();
 
         $listar->fullRead("SELECT id m_id, name manager FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC ", "status_id=1");
-        $registro['manager'] = $listar->getResultado();
+        $registro['manager'] = $listar->getResult();
 
         $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");
-        $registro['manager_sector'] = $listar->getResultado();
+        $registro['manager_sector'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, name status FROM adms_sits_personnel_moviments ORDER BY id ASC");
-        $registro['status'] = $listar->getResultado();
+        $registro['status'] = $listar->getResult();
 
         $this->Resultado = ['store' => $registro['store'], 'employee' => $registro['employee'], 'area' => $registro['area'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector'], 'status' => $registro['status']];
 

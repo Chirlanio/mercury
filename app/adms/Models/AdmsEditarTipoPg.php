@@ -27,7 +27,7 @@ class AdmsEditarTipoPg {
         $verTipoPg = new \App\adms\Models\helper\AdmsRead();
         $verTipoPg->fullRead("SELECT * FROM adms_tps_pgs
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verTipoPg->getResultado();
+        $this->Resultado = $verTipoPg->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarTipoPg {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltTipoPg = new \App\adms\Models\helper\AdmsUpdate();
         $upAltTipoPg->exeUpdate("adms_tps_pgs", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltTipoPg->getResultado()) {
+        if ($upAltTipoPg->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de página atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

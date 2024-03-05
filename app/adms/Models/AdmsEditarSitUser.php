@@ -27,7 +27,7 @@ class AdmsEditarSitUser {
         $verSitUser = new \App\adms\Models\helper\AdmsRead();
         $verSitUser->fullRead("SELECT * FROM adms_sits_usuarios
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verSitUser->getResultado();
+        $this->Resultado = $verSitUser->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarSitUser {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSitUser = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSitUser->exeUpdate("adms_sits_usuarios", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSitUser->getResultado()) {
+        if ($upAltSitUser->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Situação de usuário atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

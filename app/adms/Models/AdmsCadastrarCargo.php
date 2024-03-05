@@ -38,7 +38,7 @@ class AdmsCadastrarCargo {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadCargo = new \App\adms\Models\helper\AdmsCreate;
         $cadCargo->exeCreate("tb_cargos", $this->Dados);
-        if ($cadCargo->getResultado()) {
+        if ($cadCargo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cargo cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {

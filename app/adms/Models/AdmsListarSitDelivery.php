@@ -16,7 +16,7 @@ class AdmsListarSitDelivery {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -31,12 +31,8 @@ class AdmsListarSitDelivery {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarSit = new \App\adms\Models\helper\AdmsRead();
-        $listarSit->fullRead("SELECT sit.*,
-                cr.cor cor_cr
-                FROM tb_status_delivery sit 
-                INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id
-                ORDER BY sit.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarSit->getResultado();
+        $listarSit->fullRead("SELECT sit.*, cr.cor cor_cr FROM tb_status_delivery sit INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id ORDER BY sit.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarSit->getResult();
         return $this->Resultado;
     }
 

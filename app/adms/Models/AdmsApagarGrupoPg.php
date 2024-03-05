@@ -30,7 +30,7 @@ class AdmsApagarGrupoPg {
             $this->verfGrupoPgInferior();
             $apagarGrupoPg = new \App\adms\Models\helper\AdmsDelete();
             $apagarGrupoPg->exeDelete("adms_grps_pgs", "WHERE id =:id", "id={$this->DadosId}");
-            if ($apagarGrupoPg->getResultado()) {
+            if ($apagarGrupoPg->getResult()) {
                 $this->atualizarOrdem();
                 $_SESSION['msg'] = "<div class='alert alert-success'>Grupo de página apagado com sucesso!</div>";
                 $this->Resultado = true;
@@ -45,7 +45,7 @@ class AdmsApagarGrupoPg {
         $verMenu = new \App\adms\Models\helper\AdmsRead();
         $verMenu->fullRead("SELECT id FROM adms_paginas
                 WHERE adms_grps_pg_id =:adms_grps_pg_id LIMIT :limit", "adms_grps_pg_id=" . $this->DadosId . "&limit=2");
-        if ($verMenu->getResultado()) {
+        if ($verMenu->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O grupo de página não pode ser apagado, há páginas cadastradas neste grupo de página!</div>";
             $this->Resultado = false;
         } else {
@@ -56,7 +56,7 @@ class AdmsApagarGrupoPg {
     private function verfGrupoPgInferior() {
         $verGrupoPg = new \App\adms\Models\helper\AdmsRead();
         $verGrupoPg->fullRead("SELECT id, ordem AS ordem_result FROM adms_grps_pgs WHERE ordem > (SELECT ordem FROM adms_grps_pgs WHERE id =:id) ORDER BY ordem ASC", "id={$this->DadosId}");
-        $this->DadosGrupoPgInferior = $verGrupoPg->getResultado();
+        $this->DadosGrupoPgInferior = $verGrupoPg->getResult();
     }
 
     private function atualizarOrdem() {

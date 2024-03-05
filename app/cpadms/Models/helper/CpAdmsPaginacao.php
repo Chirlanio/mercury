@@ -10,7 +10,7 @@ if (!defined('URLADM')) {
 /**
  * Description of CpAdmsPaginacao
  *
- * @copyright (c) year, Cesar Szpak - Celke
+ * @copyright (c) year, Francisco Chirlanio - Grupo Meia Sola
  */
 class CpAdmsPaginacao {
 
@@ -50,7 +50,7 @@ class CpAdmsPaginacao {
         $this->ParseString = (string) $ParseString;
         $contar = new \App\adms\Models\helper\AdmsRead();
         $contar->fullRead($this->Query, $this->ParseString);
-        $this->ResultBd = $contar->getResultado();
+        $this->ResultBd = $contar->getResult();
         if ($this->ResultBd[0]['num_result'] > $this->LimiteResultado) {
             $this->instrucaoPaginacao();
         } else {

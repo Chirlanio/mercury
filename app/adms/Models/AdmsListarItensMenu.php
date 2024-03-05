@@ -16,7 +16,7 @@ class AdmsListarItensMenu {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -38,7 +38,7 @@ class AdmsListarItensMenu {
                 INNER JOIN adms_sits sit ON sit.id=men.adms_sit_id
                 INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id
                 ORDER BY ordem ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarMenu->getResultado();
+        $this->Resultado = $listarMenu->getResult();
         return $this->Resultado;
     }
 

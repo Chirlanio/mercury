@@ -30,7 +30,7 @@ class AdmsEditTypePayment {
         $viewType->fullRead("SELECT tp.id, tp.name, tp.status_id 
                 FROM adms_type_payments tp
                 WHERE tp.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $viewType->getResultado();
+        $this->Resultado = $viewType->getResult();
         return $this->Resultado;
     }
 
@@ -51,7 +51,7 @@ class AdmsEditTypePayment {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltTipo = new \App\adms\Models\helper\AdmsUpdate();
         $upAltTipo->exeUpdate("adms_type_payments", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltTipo->getResultado()) {
+        if ($upAltTipo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Tipo de pagamento</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -64,7 +64,7 @@ class AdmsEditTypePayment {
         $list = new \App\adms\Models\helper\AdmsRead();
         
         $list->fullRead("SELECT id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sits'] = $list->getResultado();
+        $registro['sits'] = $list->getResult();
         
         $this->Resultado = ['sits' => $registro['sits']];
         

@@ -57,7 +57,7 @@ class ConfigController {
         self::$Format = array();
         self::$Format['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_+={[}]?;:,\\\'<>°ºª^~';
         self::$Format['b'] = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr--------------------------------';
-        $this->Url = strtr(utf8_decode($this->Url), utf8_decode(self::$Format['a']), self::$Format['b']);
+        $this->Url = strtr(mb_convert_encoding($this->Url, 'ISO-8859-1', 'UTF-8'), mb_convert_encoding(self::$Format['a'], 'ISO-8859-1', 'UTF-8'), self::$Format['b']);
     }
 
     private function slugController($SlugController) {

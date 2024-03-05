@@ -32,7 +32,7 @@ class AdmsEditarFunc {
                 INNER JOIN tb_status s ON s.id=f.status_id
                 INNER JOIN tb_cargos c ON c.id=f.cargo_id
                 WHERE f.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verFunc->getResultado();
+        $this->Resultado = $verFunc->getResult();
         return $this->Resultado;
     }
 
@@ -60,7 +60,7 @@ class AdmsEditarFunc {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltFunc = new \App\adms\Models\helper\AdmsUpdate();
         $upAltFunc->exeUpdate("tb_funcionarios", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltFunc->getResultado()) {
+        if ($upAltFunc->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -73,13 +73,13 @@ class AdmsEditarFunc {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status ORDER BY id ASC");
-        $registro['sit_id'] = $listar->getResultado();
+        $registro['sit_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id cargo_id, nome cargo FROM tb_cargos ORDER BY nome ASC");
-        $registro['cargo_id'] = $listar->getResultado();
+        $registro['cargo_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit_id' => $registro['sit_id'], 'cargo_id' => $registro['cargo_id']];
 

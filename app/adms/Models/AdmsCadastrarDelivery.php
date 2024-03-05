@@ -50,7 +50,7 @@ class AdmsCadastrarDelivery {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadDelivery = new \App\adms\Models\helper\AdmsCreate;
         $cadDelivery->exeCreate("tb_delivery", $this->Dados);
-        if ($cadDelivery->getResultado()) {
+        if ($cadDelivery->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -65,19 +65,19 @@ class AdmsCadastrarDelivery {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja'] = $listar->getResultado();
+        $registro['loja'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_func, usuario func FROM tb_funcionarios WHERE (cargo_id =:cargo_id OR cargo_id =:cargo) AND status_id =:status_id ORDER BY usuario ASC", "cargo_id=23&cargo=27&status_id=1");
-        $registro['func'] = $listar->getResultado();
+        $registro['func'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_rota, nome rota FROM tb_rotas ORDER BY id ASC");
-        $registro['rota'] = $listar->getResultado();
+        $registro['rota'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_bairro, nome bairro, rota_id FROM tb_bairros ORDER BY nome ASC");
-        $registro['bairro'] = $listar->getResultado();
+        $registro['bairro'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_pag, nome forma FROM tb_forma_pag ORDER BY nome ASC");
-        $registro['forma'] = $listar->getResultado();
+        $registro['forma'] = $listar->getResult();
 
         $this->Resultado = ['loja' => $registro['loja'], 'func' => $registro['func'], 'rota' => $registro['rota'], 'bairro' => $registro['bairro'], 'forma' => $registro['forma']];
 

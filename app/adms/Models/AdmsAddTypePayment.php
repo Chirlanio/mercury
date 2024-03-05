@@ -42,7 +42,7 @@ class AdmsAddTypePayment {
         $addType = new \App\adms\Models\helper\AdmsCreate;
         $addType->exeCreate("adms_type_payments", $this->Dados);
 
-        if ($addType->getResultado()) {
+        if ($addType->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Tipo de pagamento</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -56,7 +56,7 @@ class AdmsAddTypePayment {
         $listar = new \App\adms\Models\helper\AdmsRead();
         
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sits'] = $listar->getResultado();
+        $registro['sits'] = $listar->getResult();
 
         $this->Resultado = ['sits' => $registro['sits']];
 

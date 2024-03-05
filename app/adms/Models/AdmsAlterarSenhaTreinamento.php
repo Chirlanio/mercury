@@ -39,7 +39,7 @@ class AdmsAlterarSenhaTreinamento {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSenha = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSenha->exeUpdate("adms_users_treinamentos", $this->Dados, "WHERE id =:id", "id=" . $_SESSION['usuario_id']);
-        if ($upAltSenha->getResultado()) {
+        if ($upAltSenha->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Senha</strong> atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

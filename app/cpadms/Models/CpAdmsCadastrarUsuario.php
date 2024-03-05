@@ -80,12 +80,12 @@ class CpAdmsCadastrarUsuario {
 
         $cadUsuario = new \App\adms\Models\helper\AdmsCreate;
         $cadUsuario->exeCreate("adms_usuarios", $this->Dados);
-        if ($cadUsuario->getResultado()) {
+        if ($cadUsuario->getResult()) {
             if (empty($this->Foto['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Usuário cadastrado com sucesso!</div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $cadUsuario->getResultado();
+                $this->Dados['id'] = $cadUsuario->getResult();
                 $this->uploadFoto();
             }
         } else {
@@ -110,13 +110,13 @@ class CpAdmsCadastrarUsuario {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_nivac, nome nome_nivac FROM adms_niveis_acessos WHERE ordem >=:ordem ORDER BY nome ASC", "ordem=" . $_SESSION['ordem_nivac']);
-        $registro['nivac'] = $listar->getResultado();
+        $registro['nivac'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits_usuarios ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY nome ASC");
-        $registro['loja'] = $listar->getResultado();
+        $registro['loja'] = $listar->getResult();
 
         $this->Resultado = ['nivac' => $registro['nivac'], 'sit' => $registro['sit'], 'loja' => $registro['loja']];
 

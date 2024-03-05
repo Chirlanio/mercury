@@ -24,7 +24,7 @@ class AdmsEditarFormCadUsuario {
     public function verFormCadUsuario() {
         $verFormCadUsuario = new \App\adms\Models\helper\AdmsRead();
         $verFormCadUsuario->fullRead("SELECT * FROM adms_cads_usuarios WHERE id =:id LIMIT :limit", "id=1&limit=1");
-        $this->Resultado = $verFormCadUsuario->getResultado();
+        $this->Resultado = $verFormCadUsuario->getResult();
         return $this->Resultado;
     }
 
@@ -45,7 +45,7 @@ class AdmsEditarFormCadUsuario {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upFormCadUsuario = new \App\adms\Models\helper\AdmsUpdate();
         $upFormCadUsuario->exeUpdate("adms_cads_usuarios", $this->Dados, "WHERE id =:id", "id=1");
-        if ($upFormCadUsuario->getResultado()) {
+        if ($upFormCadUsuario->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Formulário para editar o cadastro de usuário na página de login atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -60,10 +60,10 @@ class AdmsEditarFormCadUsuario {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits_usuarios ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_nivac, nome nome_nivac FROM adms_niveis_acessos ORDER BY nome ASC");
-        $registro['nivac'] = $listar->getResultado();
+        $registro['nivac'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit'], 'nivac' => $registro['nivac']];
 

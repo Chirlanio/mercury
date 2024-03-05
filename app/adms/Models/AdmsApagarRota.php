@@ -28,7 +28,7 @@ class AdmsApagarRota {
         $apagarRota = new \App\adms\Models\helper\AdmsDelete();
         $apagarRota->exeDelete("tb_rotas", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($apagarRota->getResultado()) {
+        if ($apagarRota->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Rota apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

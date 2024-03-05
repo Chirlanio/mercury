@@ -28,7 +28,7 @@ class AdmsApagarBandeira {
         $apagarBandeira = new \App\adms\Models\helper\AdmsDelete();
         $apagarBandeira->exeDelete("adms_bandeiras", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($apagarBandeira->getResultado()) {
+        if ($apagarBandeira->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Bandeira apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

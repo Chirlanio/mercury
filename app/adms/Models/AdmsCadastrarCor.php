@@ -38,7 +38,7 @@ class AdmsCadastrarCor {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadCor = new \App\adms\Models\helper\AdmsCreate;
         $cadCor->exeCreate("adms_cors", $this->Dados);
-        if ($cadCor->getResultado()) {
+        if ($cadCor->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cor cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {

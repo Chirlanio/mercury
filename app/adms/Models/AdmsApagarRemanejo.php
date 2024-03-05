@@ -28,7 +28,7 @@ class AdmsApagarRemanejo {
         if ($this->DadosRemanejo) {
             $apagarRemanejo = new \App\adms\Models\helper\AdmsDelete();
             $apagarRemanejo->exeDelete("adms_remanejos", "WHERE id =:id", "id={$this->DadosId}");
-            if ($apagarRemanejo->getResultado()) {
+            if ($apagarRemanejo->getResult()) {
                 $apagarArq = new \App\adms\Models\helper\AdmsApagarArq();
                 $apagarArq->apagarArq('assets/files/remanejo/' . $this->DadosId . '/' . $this->DadosRemanejo[0]['arquivo'], 'assets/files/remanejo/' . $this->DadosId);
                 $_SESSION['msg'] = "<div class='alert alert-success'>Remanejo apagado com sucesso!</div>";
@@ -47,7 +47,7 @@ class AdmsApagarRemanejo {
         $verRemanejo = new \App\adms\Models\helper\AdmsRead();
         $verRemanejo->fullRead("SELECT rem.arquivo FROM adms_remanejos rem
                 WHERE rem.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosRemanejo = $verRemanejo->getResultado();
+        $this->DadosRemanejo = $verRemanejo->getResult();
     }
 
 }

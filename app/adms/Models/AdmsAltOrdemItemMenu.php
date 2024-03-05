@@ -42,14 +42,14 @@ class AdmsAltOrdemItemMenu {
         $verMenu = new \App\adms\Models\helper\AdmsRead();
         $verMenu->fullRead("SELECT * FROM adms_menus
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosMenu = $verMenu->getResultado();
+        $this->DadosMenu = $verMenu->getResult();
     }
 
     private function verfMenuInferior() {
         $ordem_super = $this->DadosMenu[0]['ordem'] - 1;
         $verMenu = new \App\adms\Models\helper\AdmsRead();
         $verMenu->fullRead("SELECT id, ordem FROM adms_menus WHERE ordem =:ordem", "ordem={$ordem_super}");
-        $this->DadosMenuInferior = $verMenu->getResultado();
+        $this->DadosMenuInferior = $verMenu->getResult();
     }
 
     private function exeAltOrdemMenu() {
@@ -62,7 +62,7 @@ class AdmsAltOrdemItemMenu {
         $upMvCima = new \App\adms\Models\helper\AdmsUpdate();
         $upMvCima->exeUpdate("adms_menus", $this->Dados, "WHERE id =:id", "id={$this->DadosMenu[0]['id']}");
 
-        if ($upMvCima->getResultado()) {
+        if ($upMvCima->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Ordem do item de menu editado com sucesso!</div>";
             $this->Resultado = true;
         } else {

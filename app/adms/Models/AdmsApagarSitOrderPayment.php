@@ -25,7 +25,7 @@ class AdmsApagarSitOrderPayment {
         $this->DadosId = (int) $DadosId;
         $apagarSit = new \App\adms\Models\helper\AdmsDelete();
         $apagarSit->exeDelete("adms_sits_order_payments", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarSit->getResultado()) {
+        if ($apagarSit->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Situação</strong> apagada com sucesso. Upload da imagem realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

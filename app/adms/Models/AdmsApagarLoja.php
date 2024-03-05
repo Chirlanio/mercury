@@ -26,7 +26,7 @@ class AdmsApagarLoja {
 
         $apagarDash = new \App\adms\Models\helper\AdmsDelete();
         $apagarDash->exeDelete("tb_lojas", "WHERE id_loja =:id_loja", "id_loja={$this->DadosId}");
-        if ($apagarDash->getResultado()) {
+        if ($apagarDash->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Loja apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

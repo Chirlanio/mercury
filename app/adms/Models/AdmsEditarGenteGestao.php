@@ -26,7 +26,7 @@ class AdmsEditarGenteGestao {
     public function verGenteGestao() {
         $verGenteGestao = new \App\adms\Models\helper\AdmsRead();
         $verGenteGestao->fullRead("SELECT * FROM adms_gente_gestao WHERE id =:id LIMIT :limit", "id=1&limit=1");
-        $this->Resultado = $verGenteGestao->getResultado();
+        $this->Resultado = $verGenteGestao->getResult();
         return $this->Resultado;
     }
 
@@ -79,7 +79,7 @@ class AdmsEditarGenteGestao {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upGenteGestao = new \App\adms\Models\helper\AdmsUpdate();
         $upGenteGestao->exeUpdate("adms_gente_gestao", $this->Dados, "WHERE id =:id", "id=1");
-        if ($upGenteGestao->getResultado()) {
+        if ($upGenteGestao->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Dados atualizados com sucesso!</div>";
             $this->Resultado = true;
         } else {

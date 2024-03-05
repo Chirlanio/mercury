@@ -34,7 +34,7 @@ class AdmsListarCfop {
 
         $listarCfop = new \App\adms\Models\helper\AdmsRead();
         $listarCfop->fullRead("SELECT * FROM adms_cfops ORDER BY id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCfop->getResultado();
+        $this->Resultado = $listarCfop->getResult();
         return $this->Resultado;
     }
 

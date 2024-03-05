@@ -42,7 +42,7 @@ class AdmsCadastrarRota {
         $cadBairro = new \App\adms\Models\helper\AdmsCreate;
         $cadBairro->exeCreate("tb_rotas", $this->Dados);
 
-        if ($cadBairro->getResultado()) {
+        if ($cadBairro->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Rota cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -56,7 +56,7 @@ class AdmsCadastrarRota {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id c_id, nome cor FROM adms_cors ORDER BY nome ASC");
-        $registro['cor'] = $listar->getResultado();
+        $registro['cor'] = $listar->getResult();
 
         $this->Resultado = ['cor' => $registro['cor']];
 

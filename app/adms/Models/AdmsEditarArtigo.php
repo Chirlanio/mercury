@@ -29,7 +29,7 @@ class AdmsEditarArtigo {
         $verArtigo = new \App\adms\Models\helper\AdmsRead();
         $verArtigo->fullRead("SELECT * FROM adms_artigos
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verArtigo->getResultado();
+        $this->Resultado = $verArtigo->getResult();
         return $this->Resultado;
     }
 
@@ -75,7 +75,7 @@ class AdmsEditarArtigo {
 
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltArtigo = new \App\adms\Models\helper\AdmsUpdate();
-        $upAltArtigo->exeUpdate("adms_artigos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
+        $upAltArtigo->getResult("adms_artigos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltArtigo->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Artigo atualizado com sucesso!</div>";
             $this->Resultado = true;
@@ -89,13 +89,13 @@ class AdmsEditarArtigo {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_tpart, nome nome_tpart FROM adms_tps_artigos ORDER BY nome ASC");
-        $registro['tpart'] = $listar->getResultado();
+        $registro['tpart'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_catart, nome nome_catart FROM adms_cats_artigos ORDER BY nome ASC");
-        $registro['catart'] = $listar->getResultado();
+        $registro['catart'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit'], 'tpart' => $registro['tpart'], 'catart' => $registro['catart']];
 

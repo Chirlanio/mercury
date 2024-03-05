@@ -27,7 +27,7 @@ class AdmsConfirmarEmail {
         $this->DadosChave = (string) $Chave;
         $validaChave = new \App\adms\Models\helper\AdmsRead();
         $validaChave->fullRead("SELECT id FROM adms_usuarios WHERE conf_email =:conf_email LIMIT :limit", "conf_email={$this->DadosChave}&limit=1");
-        $this->DadosUsuario = $validaChave->getResultado();
+        $this->DadosUsuario = $validaChave->getResult();
         if (!empty($this->DadosUsuario)) {
             $this->updateConfEmail();
         } else {
@@ -42,7 +42,7 @@ class AdmsConfirmarEmail {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $updateConfEmail = new \App\adms\Models\helper\AdmsUpdate();
         $updateConfEmail->exeUpdate("adms_usuarios", $this->Dados, "WHERE id =:id", "id={$this->DadosUsuario[0]['id']}");
-        if ($updateConfEmail->getResultado()) {
+        if ($updateConfEmail->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>E-mail confirmado com sucesso!</div>";
             $this->Resultado = true;
         } else {

@@ -89,8 +89,8 @@ class AdmsAddPersonnelMoviments {
         $addProcess = new \App\adms\Models\helper\AdmsCreate();
         $addProcess->exeCreate("adms_personnel_moviments", $this->treatData);
 
-        if ($addProcess->getResultado()) {
-            $this->Dados['id'] = $addProcess->getResultado();
+        if ($addProcess->getResult()) {
+            $this->Dados['id'] = $addProcess->getResult();
             $this->valArquivo();
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Movimentação</strong> cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
@@ -148,23 +148,23 @@ class AdmsAddPersonnelMoviments {
         } else {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         }
-        $registro['store'] = $listar->getResultado();
+        $registro['store'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC");
         }
-        $registro['employee'] = $listar->getResultado();
+        $registro['employee'] = $listar->getResult();
 
         $listar->fullRead("SELECT id a_id, name area_name FROM adms_areas ORDER BY name ASC");
-        $registro['area_id'] = $listar->getResultado();
+        $registro['area_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id m_id, name manager FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC ", "status_id=1");
-        $registro['manager'] = $listar->getResultado();
+        $registro['manager'] = $listar->getResult();
 
         $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");
-        $registro['manager_sector'] = $listar->getResultado();
+        $registro['manager_sector'] = $listar->getResult();
 
         $this->Resultado = ['store' => $registro['store'], 'employee' => $registro['employee'], 'area_id' => $registro['area_id'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector']];
 

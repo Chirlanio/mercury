@@ -24,7 +24,7 @@ class AdmsVerDefeitos {
                 FROM adms_defeitos_ordem_servico d
                 INNER JOIN adms_sits s ON s.id=d.status_id
                 WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBandeira->getResultado();
+        $this->Resultado = $verBandeira->getResult();
         return $this->Resultado;
     }
 

@@ -40,7 +40,7 @@ class AdmsCadastrarLoja {
         $cadLoja = new \App\adms\Models\helper\AdmsCreate;
         $cadLoja->exeCreate("tb_lojas", $this->Dados);
         //var_dump($cadLoja->getResultado());
-        if ($cadLoja->getResultado()) {
+        if ($cadLoja->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Loja cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -54,13 +54,13 @@ class AdmsCadastrarLoja {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_loja ORDER BY id ASC");
-        $registro['status_id'] = $listar->getResultado();
+        $registro['status_id'] = $listar->getResult();
         
         $listar->fullRead("SELECT id rede_id, nome rede FROM tb_redes ORDER BY id ASC");
-        $registro['rede_id'] = $listar->getResultado();
+        $registro['rede_id'] = $listar->getResult();
         
         $listar->fullRead("SELECT id func_id, nome func FROM tb_funcionarios WHERE cargo_id =:cargo_id AND status_id =:status_id ORDER BY nome ASC", "cargo_id=2&status_id=1");
-        $registro['func_id'] = $listar->getResultado();
+        $registro['func_id'] = $listar->getResult();
 
         $this->Resultado = ['status_id' => $registro['status_id'], 'rede_id' => $registro['rede_id'], 'func_id' => $registro['func_id']];
 

@@ -27,7 +27,7 @@ class AdmsEditarNivAcPgMenu {
         $verNivAcPg = new \App\adms\Models\helper\AdmsRead();
         $verNivAcPg->fullRead("SELECT * FROM adms_nivacs_pgs
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verNivAcPg->getResultado();
+        $this->Resultado = $verNivAcPg->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarNivAcPgMenu {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltNivAc = new \App\adms\Models\helper\AdmsUpdate();
         $upAltNivAc->exeUpdate("adms_nivacs_pgs", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltNivAc->getResultado()) {
+        if ($upAltNivAc->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Item de menu da página atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -64,7 +64,7 @@ class AdmsEditarNivAcPgMenu {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_menu, nome nome_menu FROM adms_menus ORDER BY nome ASC");
-        $registro['menu'] = $listar->getResultado();
+        $registro['menu'] = $listar->getResult();
 
         $this->Resultado = ['menu' => $registro['menu']];
 

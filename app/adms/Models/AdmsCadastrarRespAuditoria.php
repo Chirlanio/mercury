@@ -42,7 +42,7 @@ class AdmsCadastrarRespAuditoria {
         $cadBairro = new \App\adms\Models\helper\AdmsCreate;
         $cadBairro->exeCreate("adms_responsavel_auditoria", $this->Dados);
 
-        if ($cadBairro->getResultado()) {
+        if ($cadBairro->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -56,7 +56,7 @@ class AdmsCadastrarRespAuditoria {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

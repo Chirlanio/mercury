@@ -51,12 +51,12 @@ class AdmsCadastrarArtigo {
 
         $cadArtigo = new \App\adms\Models\helper\AdmsCreate;
         $cadArtigo->exeCreate("adms_artigos", $this->Dados);
-        if ($cadArtigo->getResultado()) {
+        if ($cadArtigo->getResult()) {
             if (empty($this->Foto['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Artigo</strong>  cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $cadArtigo->getResultado();
+                $this->Dados['id'] = $cadArtigo->getResult();
                 $this->valFoto();
             }
         } else {
@@ -81,13 +81,13 @@ class AdmsCadastrarArtigo {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_tpart, nome nome_tpart FROM adms_tps_artigos ORDER BY nome ASC");
-        $registro['tpart'] = $listar->getResultado();
+        $registro['tpart'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_catart, nome nome_catart FROM adms_cats_artigos ORDER BY nome ASC");
-        $registro['catart'] = $listar->getResultado();
+        $registro['catart'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit'], 'tpart' => $registro['tpart'], 'catart' => $registro['catart']];
 

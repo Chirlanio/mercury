@@ -35,7 +35,7 @@ class AdmsEditarPagina {
         $verPagina = new \App\adms\Models\helper\AdmsRead();
         $verPagina->fullRead("SELECT * FROM adms_paginas
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verPagina->getResultado();
+        $this->Resultado = $verPagina->getResult();
         return $this->Resultado;
     }
 
@@ -67,7 +67,7 @@ class AdmsEditarPagina {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltPagina = new \App\adms\Models\helper\AdmsUpdate();
         $upAltPagina->exeUpdate("adms_paginas", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltPagina->getResultado()) {
+        if ($upAltPagina->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Página atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -83,13 +83,13 @@ class AdmsEditarPagina {
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id id_grpg, nome nome_grpg FROM adms_grps_pgs ORDER BY nome ASC");
 
-        $registro['grpg'] = $listar->getResultado();
+        $registro['grpg'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_tpg, tipo tipo_tpg, nome nome_tpg FROM adms_tps_pgs ORDER BY nome ASC");
-        $registro['tpg'] = $listar->getResultado();
+        $registro['tpg'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sitpg, nome nome_sitpg FROM adms_sits_pgs ORDER BY nome ASC");
-        $registro['sitpg'] = $listar->getResultado();
+        $registro['sitpg'] = $listar->getResult();
 
         $this->Resultado = ['grpg' => $registro['grpg'], 'tpg' => $registro['tpg'], 'sitpg' => $registro['sitpg']];
 

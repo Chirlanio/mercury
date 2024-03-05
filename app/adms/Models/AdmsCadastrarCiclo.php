@@ -42,7 +42,7 @@ class AdmsCadastrarCiclo {
         $cadCiclo = new \App\adms\Models\helper\AdmsCreate;
         $cadCiclo->exeCreate("adms_ciclos", $this->Dados);
 
-        if ($cadCiclo->getResultado()) {
+        if ($cadCiclo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

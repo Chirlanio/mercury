@@ -2,7 +2,7 @@
 
 namespace App\cpadms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -30,7 +30,7 @@ class CpAdmsEditarUsuario {
         $verPerfil->fullRead("SELECT user.* FROM adms_usuarios user
                 INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
                 WHERE user.id =:id AND nivac.ordem >:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=" . $_SESSION['ordem_nivac'] . "&limit=1");
-        $this->Resultado = $verPerfil->getResultado();
+        $this->Resultado = $verPerfil->getResult();
         return $this->Resultado;
     }
 
@@ -92,7 +92,7 @@ class CpAdmsEditarUsuario {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSenha = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSenha->exeUpdate("adms_usuarios", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSenha->getResultado()) {
+        if ($upAltSenha->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Usuário atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -105,13 +105,13 @@ class CpAdmsEditarUsuario {
         $listar = new \App\adms\Models\helper\AdmsRead();
         
         $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
         
         $listar->fullRead("SELECT id id_nivac, nome nome_nivac FROM adms_niveis_acessos WHERE ordem >=:ordem ORDER BY nome ASC", "ordem=" . $_SESSION['ordem_nivac']);
-        $registro['nivac'] = $listar->getResultado();
+        $registro['nivac'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits_usuarios ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'nivac' => $registro['nivac'], 'sit' => $registro['sit']];
 

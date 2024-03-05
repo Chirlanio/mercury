@@ -22,7 +22,7 @@ class AdmsUpdate extends AdmsConn {
     private $Termos;
     private $Values;
 
-    function getResultado() {
+    function getResult() {
         return $this->Resultado;
     }
 
@@ -55,7 +55,7 @@ class AdmsUpdate extends AdmsConn {
     }
 
     private function conexao() {
-        $this->Conn = parent::getConn();
+        $this->Conn = parent::connectDb();
         $this->Query = $this->Conn->prepare($this->Query);
     }
 

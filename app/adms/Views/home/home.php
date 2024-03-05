@@ -63,8 +63,8 @@ extract($this->Dados['select']);
                             <div class="card-body">
                                 <i class="fas fa-retweet fa-3x"></i>
                                 <?php
-                                foreach ($this->Dados['select']['ajuste'] as $aj) {
-                                    extract($aj);
+                                foreach ($this->Dados['select']['ajuste'] as $aju) {
+                                    extract($aju);
                                     ?>
                                     <h6 class="card-title blockquote">Ajustes de Estoque</h6>
                                     <figcaption class="blockquote-footer text-white">

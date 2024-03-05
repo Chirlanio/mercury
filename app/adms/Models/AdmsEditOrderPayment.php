@@ -42,7 +42,7 @@ class AdmsEditOrderPayment {
         $_SESSION['id'] = $this->DadosId;
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
         $viewOrder->fullRead("SELECT op.* FROM adms_order_payments op WHERE op.id =:id LIMIT :limit", "id={$this->DadosId}&limit=1");
-        $this->Resultado = $viewOrder->getResultado();
+        $this->Resultado = $viewOrder->getResult();
         return $this->Resultado;
     }
 
@@ -150,7 +150,7 @@ class AdmsEditOrderPayment {
 
         $upAltOrder = new \App\adms\Models\helper\AdmsUpdate();
         $upAltOrder->exeUpdate("adms_order_payments", $this->Dados, "WHERE id =:id", "id=" . $_SESSION['id']);
-        if ($upAltOrder->getResultado()) {
+        if ($upAltOrder->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->updateInstallment();
             $this->Resultado = true;
@@ -184,7 +184,7 @@ class AdmsEditOrderPayment {
 
         foreach ($insertData as $data) {
             $upAltInstallment->exeUpdate("adms_installments", $data, "WHERE id =:id", "id=" . $data['id']);
-            if ($upAltInstallment->getResultado()) {
+            if ($upAltInstallment->getResult()) {
                 $this->Resultado = true;
             } else {
                 $this->Resultado = false;
@@ -196,38 +196,38 @@ class AdmsEditOrderPayment {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas ORDER BY name ASC");
-        $registro['area'] = $listar->getResultado();
+        $registro['area'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] <= STOREPERMITION) {
             $listar->fullRead("SELECT id cc_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         } else {//$_SESSION['area_id']
             $listar->fullRead("SELECT id cc_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area_id AND status_id =:status_id ORDER BY name ASC", "adms_area_id=" . $_SESSION['area_id'] . "&status_id=1");
         }
-        $registro['costCenter'] = $listar->getResultado();
+        $registro['costCenter'] = $listar->getResult();
 
         $listar->fullRead("SELECT id b_id, brand FROM adms_brands_suppliers WHERE status_id =:status_id ORDER BY brand ASC", 'status_id=1');
-        $registro['brand'] = $listar->getResultado();
+        $registro['brand'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, fantasy_name supplier, cnpj_cpf FROM adms_suppliers WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
-        $registro['supp'] = $listar->getResultado();
+        $registro['supp'] = $listar->getResult();
 
         $listar->fullRead("SELECT id t_id, name typePayment FROM adms_type_payments ORDER BY name ASC");
-        $registro['typePayment'] = $listar->getResultado();
+        $registro['typePayment'] = $listar->getResult();
 
         $listar->fullRead("SELECT id bank_id, bank_name FROM adms_banks WHERE status_id =:status_id ORDER BY bank_name ASC", "status_id=1");
-        $registro['bank'] = $listar->getResultado();
+        $registro['bank'] = $listar->getResult();
 
         $listar->fullRead("SELECT id ma_id, name manager FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
-        $registro['manager'] = $listar->getResultado();
+        $registro['manager'] = $listar->getResult();
 
         $listar->fullRead("SELECT id tp_id, name typePix FROM adms_type_key_pixs WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
-        $registro['typeKey'] = $listar->getResultado();
+        $registro['typeKey'] = $listar->getResult();
 
         $listar->fullRead("SELECT id st_id, exibition_name sit FROM adms_sits_order_payments WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
-        $registro['sits'] = $listar->getResultado();
+        $registro['sits'] = $listar->getResult();
 
         $listar->fullRead("SELECT id i_id, adms_order_payment_id, installment qtdInstallments, installment_value installment_values, date_payment date_payments FROM adms_installments WHERE adms_order_payment_id =:adms_order_payment_id ORDER BY id ASC", "adms_order_payment_id=" . $_SESSION['id']);
-        $registro['install'] = $listar->getResultado();
+        $registro['install'] = $listar->getResult();
 
         $this->Resultado = ['area' => $registro['area'], 'costCenter' => $registro['costCenter'], 'brand' => $registro['brand'], 'supp' => $registro['supp'], 'typePayment' => $registro['typePayment'], 'bank' => $registro['bank'], 'manager' => $registro['manager'], 'typeKey' => $registro['typeKey'], 'sits' => $registro['sits'], 'install' => $registro['install']];
 

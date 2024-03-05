@@ -16,7 +16,7 @@ class AdmsListarProdutos {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 50;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {

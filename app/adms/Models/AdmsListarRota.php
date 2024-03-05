@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarRota {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -33,11 +33,8 @@ class AdmsListarRota {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
-        $listarCor->fullRead("SELECT r.id, r.nome, r.adms_cor_id, c.nome n_cor, c.cor
-                FROM tb_rotas r
-                INNER JOIN adms_cors c ON c.id=r.adms_cor_id
-                ORDER BY id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $listarCor->fullRead("SELECT r.id, r.nome, r.adms_cor_id, c.nome n_cor, c.cor FROM tb_rotas r INNER JOIN adms_cors c ON c.id=r.adms_cor_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCor->getResult();
         return $this->Resultado;
     }
 

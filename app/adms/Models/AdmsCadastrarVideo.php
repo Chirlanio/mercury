@@ -53,7 +53,7 @@ class AdmsCadastrarVideo {
         $cadVideo = new \App\adms\Models\helper\AdmsCreate;
         $cadVideo->exeCreate("adms_ed_videos", $this->Dados);
         
-        if ($cadVideo->getResultado()) {
+        if ($cadVideo->getResult()) {
             if ((empty($this->Video['name'])) and (empty($this->Image['name']))) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Treinamento cadastrado com sucesso!</div>";
                 $this->Resultado = true;

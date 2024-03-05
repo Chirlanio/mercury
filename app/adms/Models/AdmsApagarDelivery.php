@@ -26,7 +26,7 @@ class AdmsApagarDelivery {
 
         $apagarDelivery = new \App\adms\Models\helper\AdmsDelete();
         $apagarDelivery->exeDelete("tb_delivery", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarDelivery->getResultado()) {
+        if ($apagarDelivery->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Pedido apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

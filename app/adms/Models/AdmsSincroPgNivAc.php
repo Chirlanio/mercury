@@ -58,7 +58,7 @@ class AdmsSincroPgNivAc {
     private function listarNivAc() {
         $listarNivAc = new \App\adms\Models\helper\AdmsRead();
         $listarNivAc->fullRead("SELECT id FROM adms_niveis_acessos");
-        $this->ListaNivAc = $listarNivAc->getResultado();
+        $this->ListaNivAc = $listarNivAc->getResult();
     }
 
     /**
@@ -67,7 +67,7 @@ class AdmsSincroPgNivAc {
     private function listarPg() {
         $listarPg = new \App\adms\Models\helper\AdmsRead();
         $listarPg->fullRead("SELECT id, lib_pub FROM adms_paginas");
-        $this->ListarPg = $listarPg->getResultado();
+        $this->ListarPg = $listarPg->getResult();
     }
 
     /**
@@ -103,7 +103,7 @@ class AdmsSincroPgNivAc {
     private function pesqCadNivAcPer() {
         $listarNivAcPg = new \App\adms\Models\helper\AdmsRead();
         $listarNivAcPg->fullRead("SELECT id FROM adms_nivacs_pgs WHERE adms_niveis_acesso_id =:adms_niveis_acesso_id AND adms_pagina_id =:adms_pagina_id", "adms_niveis_acesso_id={$this->NivAcId}&adms_pagina_id={$this->PgId}");
-        $this->ListarNivAcPg = $listarNivAcPg->getResultado();
+        $this->ListarNivAcPg = $listarNivAcPg->getResult();
     }
 
     /**
@@ -121,7 +121,7 @@ class AdmsSincroPgNivAc {
         $cadNivAcPg = new \App\adms\Models\helper\AdmsCreate;
         $cadNivAcPg->exeCreate("adms_nivacs_pgs", $this->DadosNivAcPg);
 
-        if ($cadNivAcPg->getResultado()) {
+        if ($cadNivAcPg->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Permissão cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -138,7 +138,7 @@ class AdmsSincroPgNivAc {
         $listarNivAcPgOrd->fullRead("SELECT ordem, adms_niveis_acesso_id
                 FROM adms_nivacs_pgs 
                 WHERE adms_niveis_acesso_id =:adms_niveis_acesso_id ORDER BY ordem DESC LIMIT :limit", "adms_niveis_acesso_id={$this->NivAcId}&limit=1");
-        $this->ListaNivAcPgOrd = $listarNivAcPgOrd->getResultado();
+        $this->ListaNivAcPgOrd = $listarNivAcPgOrd->getResult();
         if (!$this->ListaNivAcPgOrd) {
             $this->ListaNivAcPgOrd[0]['ordem'] = 0;
         }

@@ -17,7 +17,7 @@ class CpAdmsPesqPed {
     private $Dados;
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -62,18 +62,8 @@ class CpAdmsPesqPed {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
-        $listarCor->fullRead("SELECT p.*,
-                t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor
-                FROM tb_prateleira_infinita p
-                INNER JOIN tb_tam t ON t.id=p.tam_id
-                INNER JOIN tb_lojas l ON l.id=p.loja_id
-                INNER JOIN tb_funcionarios f ON f.id=p.func_id
-                INNER JOIN tb_status_prat tr ON tr.id=p.status_id
-                INNER JOIN adms_cors c ON c.id=tr.cor_id
-                WHERE p.loja_id =:loja_id AND p.referencia LIKE '%' :referencia '%' AND p.status_id =:status_id
-                ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $listarCor->fullRead("SELECT p.*, t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor FROM tb_prateleira_infinita p INNER JOIN tb_tam t ON t.id=p.tam_id INNER JOIN tb_lojas l ON l.id=p.loja_id INNER JOIN tb_funcionarios f ON f.id=p.func_id INNER JOIN tb_status_prat tr ON tr.id=p.status_id INNER JOIN adms_cors c ON c.id=tr.cor_id WHERE p.loja_id =:loja_id AND p.referencia LIKE '%' :referencia '%' AND p.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCor->getResult();
     }
 
     private function pesqLojaRef() {
@@ -84,18 +74,8 @@ class CpAdmsPesqPed {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
-        $listarCor->fullRead("SELECT p.*,
-                t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor
-                FROM tb_prateleira_infinita p
-                INNER JOIN tb_tam t ON t.id=p.tam_id
-                INNER JOIN tb_lojas l ON l.id=p.loja_id
-                INNER JOIN tb_funcionarios f ON f.id=p.func_id
-                INNER JOIN tb_status_prat tr ON tr.id=p.status_id
-                INNER JOIN adms_cors c ON c.id=tr.cor_id
-                WHERE p.loja_id =:loja_id AND p.referencia LIKE '%' :referencia '%'
-                ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $listarCor->fullRead("SELECT p.*, t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor FROM tb_prateleira_infinita p INNER JOIN tb_tam t ON t.id=p.tam_id INNER JOIN tb_lojas l ON l.id=p.loja_id INNER JOIN tb_funcionarios f ON f.id=p.func_id INNER JOIN tb_status_prat tr ON tr.id=p.status_id INNER JOIN adms_cors c ON c.id=tr.cor_id WHERE p.loja_id =:loja_id AND p.referencia LIKE '%' :referencia '%' ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCor->getResult();
     }
 
     private function pesqLojaSit() {
@@ -106,18 +86,8 @@ class CpAdmsPesqPed {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
-        $listarCor->fullRead("SELECT p.*,
-                t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor
-                FROM tb_prateleira_infinita p
-                INNER JOIN tb_tam t ON t.id=p.tam_id
-                INNER JOIN tb_lojas l ON l.id=p.loja_id
-                INNER JOIN tb_funcionarios f ON f.id=p.func_id
-                INNER JOIN tb_status_prat tr ON tr.id=p.status_id
-                INNER JOIN adms_cors c ON c.id=tr.cor_id
-                WHERE p.loja_id =:loja_id AND p.status_id =:status_id
-                ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $listarCor->fullRead("SELECT p.*, t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor FROM tb_prateleira_infinita p INNER JOIN tb_tam t ON t.id=p.tam_id INNER JOIN tb_lojas l ON l.id=p.loja_id INNER JOIN tb_funcionarios f ON f.id=p.func_id INNER JOIN tb_status_prat tr ON tr.id=p.status_id INNER JOIN adms_cors c ON c.id=tr.cor_id WHERE p.loja_id =:loja_id AND p.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCor->getResult();
     }
 
     private function pesqRefSit() {
@@ -128,18 +98,8 @@ class CpAdmsPesqPed {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
-        $listarCor->fullRead("SELECT p.*,
-                t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor
-                FROM tb_prateleira_infinita p
-                INNER JOIN tb_tam t ON t.id=p.tam_id
-                INNER JOIN tb_lojas l ON l.id=p.loja_id
-                INNER JOIN tb_funcionarios f ON f.id=p.func_id
-                INNER JOIN tb_status_prat tr ON tr.id=p.status_id
-                INNER JOIN adms_cors c ON c.id=tr.cor_id
-                WHERE p.referencia LIKE '%' :referencia '%' AND p.status_id =:status_id
-                ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                "referencia={$this->Dados['referencia']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $listarCor->fullRead("SELECT p.*, t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor FROM tb_prateleira_infinita p INNER JOIN tb_tam t ON t.id=p.tam_id INNER JOIN tb_lojas l ON l.id=p.loja_id INNER JOIN tb_funcionarios f ON f.id=p.func_id INNER JOIN tb_status_prat tr ON tr.id=p.status_id INNER JOIN adms_cors c ON c.id=tr.cor_id WHERE p.referencia LIKE '%' :referencia '%' AND p.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "referencia={$this->Dados['referencia']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCor->getResult();
     }
 
     private function pesqLoja() {
@@ -150,18 +110,8 @@ class CpAdmsPesqPed {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
-        $listarCor->fullRead("SELECT p.*,
-                t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor
-                FROM tb_prateleira_infinita p
-                INNER JOIN tb_tam t ON t.id=p.tam_id
-                INNER JOIN tb_lojas l ON l.id=p.loja_id
-                INNER JOIN tb_funcionarios f ON f.id=p.func_id
-                INNER JOIN tb_status_prat tr ON tr.id=p.status_id
-                INNER JOIN adms_cors c ON c.id=tr.cor_id
-                WHERE p.loja_id =:loja_id
-                ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $listarCor->fullRead("SELECT p.*, t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor FROM tb_prateleira_infinita p INNER JOIN tb_tam t ON t.id=p.tam_id INNER JOIN tb_lojas l ON l.id=p.loja_id INNER JOIN tb_funcionarios f ON f.id=p.func_id INNER JOIN tb_status_prat tr ON tr.id=p.status_id INNER JOIN adms_cors c ON c.id=tr.cor_id WHERE p.loja_id =:loja_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCor->getResult();
     }
 
     private function pesqRef() {
@@ -172,18 +122,8 @@ class CpAdmsPesqPed {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
-        $listarCor->fullRead("SELECT p.*,
-                t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor
-                FROM tb_prateleira_infinita p
-                INNER JOIN tb_tam t ON t.id=p.tam_id
-                INNER JOIN tb_lojas l ON l.id=p.loja_id
-                INNER JOIN tb_funcionarios f ON f.id=p.func_id
-                INNER JOIN tb_status_prat tr ON tr.id=p.status_id
-                INNER JOIN adms_cors c ON c.id=tr.cor_id
-                WHERE p.referencia LIKE '%' :referencia '%'
-                ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                "referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $listarCor->fullRead("SELECT p.*, t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor FROM tb_prateleira_infinita p INNER JOIN tb_tam t ON t.id=p.tam_id INNER JOIN tb_lojas l ON l.id=p.loja_id INNER JOIN tb_funcionarios f ON f.id=p.func_id INNER JOIN tb_status_prat tr ON tr.id=p.status_id INNER JOIN adms_cors c ON c.id=tr.cor_id WHERE p.referencia LIKE '%' :referencia '%' ORDER BY id ASC LIMIT :limit OFFSET :offset", "referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCor->getResult();
     }
 
     private function pesqSit() {
@@ -194,28 +134,18 @@ class CpAdmsPesqPed {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
-        $listarCor->fullRead("SELECT p.*,
-                t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor
-                FROM tb_prateleira_infinita p
-                INNER JOIN tb_tam t ON t.id=p.tam_id
-                INNER JOIN tb_lojas l ON l.id=p.loja_id
-                INNER JOIN tb_funcionarios f ON f.id=p.func_id
-                INNER JOIN tb_status_prat tr ON tr.id=p.status_id
-                INNER JOIN adms_cors c ON c.id=tr.cor_id
-                WHERE p.status_id =:status_id
-                ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                "status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCor->getResultado();
+        $listarCor->fullRead("SELECT p.*, t.nome tam, l.nome loja, f.nome func, tr.nome sit, c.nome n_cor, c.cor FROM tb_prateleira_infinita p INNER JOIN tb_tam t ON t.id=p.tam_id INNER JOIN tb_lojas l ON l.id=p.loja_id INNER JOIN tb_funcionarios f ON f.id=p.func_id INNER JOIN tb_status_prat tr ON tr.id=p.status_id INNER JOIN adms_cors c ON c.id=tr.cor_id WHERE p.status_id =:status_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCor->getResult();
     }
 
     public function listarCadastrar() {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja'] = $listar->getResultado();
+        $registro['loja'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_prat ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['loja' => $registro['loja'], 'sit' => $registro['sit']];
         return $this->Resultado;

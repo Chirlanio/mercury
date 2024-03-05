@@ -38,7 +38,7 @@ class AdmsListOrderPayments {
                 a.name area_bk, s.corporate_social fornecedor_bk
                 FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.date_payment ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
-        $this->Resultado = $listBacklog->getResultado();
+        $this->Resultado = $listBacklog->getResult();
         return $this->Resultado;
     }
 
@@ -57,7 +57,7 @@ class AdmsListOrderPayments {
                 a.name area_doing, s.corporate_social fornecedor_doing
                 FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=2&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
-        $this->Resultado = $listDoing->getResultado();
+        $this->Resultado = $listDoing->getResult();
         return $this->Resultado;
     }
 
@@ -75,7 +75,7 @@ class AdmsListOrderPayments {
                 op.created_date created_date_wa, op.date_payment date_payment_wa, op.installments installments_wa, op.advance_amount advance_amount_wa, op.diff_payment_advance diff_payment_advance_wa,
                 a.name area_wa, s.corporate_social fornecedor_wa FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=3&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
-        $this->Resultado = $listWaiting->getResultado();
+        $this->Resultado = $listWaiting->getResult();
         return $this->Resultado;
     }
 
@@ -94,7 +94,7 @@ class AdmsListOrderPayments {
                 a.name area_don, s.corporate_social fornecedor_don
                 FROM adms_order_payments op LEFT JOIN adms_areas a ON a.id=op.adms_area_id LEFT JOIN adms_suppliers s ON s.id = op.adms_supplier_id WHERE op.adms_sits_order_pay_id =:adms_sits_order_pay_id ORDER BY op.id ASC LIMIT :limit OFFSET :offset", "adms_sits_order_pay_id=4&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
 
-        $this->Resultado = $listDone->getResultado();
+        $this->Resultado = $listDone->getResult();
         return $this->Resultado;
     }
 
@@ -107,22 +107,22 @@ class AdmsListOrderPayments {
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM adms_sits_estornos ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
         
         $listar->fullRead("SELECT SUM(total_value) AS total_backlog FROM adms_order_payments WHERE adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=1");
-        $registro['backlog'] = $listar->getResultado();
+        $registro['backlog'] = $listar->getResult();
         
         $listar->fullRead("SELECT SUM(total_value) AS total_doing FROM adms_order_payments WHERE adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=2");
-        $registro['doing'] = $listar->getResultado();
+        $registro['doing'] = $listar->getResult();
         
         $listar->fullRead("SELECT SUM(total_value) AS total_waiting FROM adms_order_payments WHERE adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=3");
-        $registro['waiting'] = $listar->getResultado();
+        $registro['waiting'] = $listar->getResult();
         
         $listar->fullRead("SELECT SUM(total_value) AS total_done FROM adms_order_payments WHERE adms_sits_order_pay_id =:adms_sits_order_pay_id", "adms_sits_order_pay_id=4");
-        $registro['done'] = $listar->getResultado();
+        $registro['done'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'backlog' => $registro['backlog'], 'doing' => $registro['doing'], 'waiting' => $registro['waiting'], 'done' =>$registro['done']];
 

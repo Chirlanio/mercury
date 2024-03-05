@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarTipoPagamento {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -33,10 +33,8 @@ class AdmsListarTipoPagamento {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCargo = new \App\adms\Models\helper\AdmsRead();
-        $listarCargo->fullRead("SELECT b.id, b.nome
-                FROM tb_forma_pag b
-                ORDER BY b.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCargo->getResultado();
+        $listarCargo->fullRead("SELECT b.id, b.nome FROM tb_forma_pag b ORDER BY b.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCargo->getResult();
         return $this->Resultado;
     }
 

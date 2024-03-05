@@ -23,7 +23,7 @@ class AdmsVerBandeira {
         $verBandeira->fullRead("SELECT b.id id_ban, b.nome bandeira, b.icone, b.created, b.modified
                 FROM adms_bandeiras b
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBandeira->getResultado();
+        $this->Resultado = $verBandeira->getResult();
         return $this->Resultado;
     }
 

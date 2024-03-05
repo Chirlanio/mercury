@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -20,10 +20,8 @@ class AdmsVerTipoPagamento {
     public function verTipo($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verTipo = new \App\adms\Models\helper\AdmsRead();
-        $verTipo->fullRead("SELECT b.id, b.nome, b.created, b.modified
-                FROM tb_forma_pag b
-                WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verTipo->getResultado();
+        $verTipo->fullRead("SELECT b.id, b.nome, b.created, b.modified FROM tb_forma_pag b WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $this->Resultado = $verTipo->getResult();
         return $this->Resultado;
     }
 

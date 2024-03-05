@@ -30,7 +30,7 @@ class AdmsEditarBalanco {
         } else {
             $verAjuste->fullRead("SELECT aj.*, lj.id loja_id, lj.nome, f.id resp_loja_id, f.nome, sit.id sit_id, sit.nome sit, r.nome resp FROM adms_aud_balancos aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_funcionarios f ON f.id=aj.resp_loja_id INNER JOIN adms_responsavel_auditoria r ON r.id=aj.responsavel_auditoria_id INNER JOIN tb_status sit ON sit.id=aj.status_id WHERE aj.id =:id AND (aj.status_id =:status_id OR aj.status_id =:status_id2) LIMIT :limit", "id=" . $this->DadosId . "&status_id=2&status_id2=5&limit=1");
         }
-        $this->Resultado = $verAjuste->getResultado();
+        $this->Resultado = $verAjuste->getResult();
         return $this->Resultado;
     }
 
@@ -52,7 +52,7 @@ class AdmsEditarBalanco {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltBalanco = new \App\adms\Models\helper\AdmsUpdate();
         $upAltBalanco->exeUpdate("adms_balancos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltBalanco->getResultado()) {
+        if ($upAltBalanco->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -65,23 +65,23 @@ class AdmsEditarBalanco {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id_loja, id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status ORDER BY id ASC");
-        $registro['sit_id'] = $listar->getResultado();
+        $registro['sit_id'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] <= 2) {
             $listar->fullRead("SELECT id resp_loja_id, nome resp_loja FROM tb_funcionarios ORDER BY nome ASC");
         } else {
             $listar->fullRead("SELECT id resp_loja_id, nome resp_loja FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
-        $registro['func_id'] = $listar->getResultado();
+        $registro['func_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id r_id, nome resp_aud FROM adms_responsavel_auditoria WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
-        $registro['resp'] = $listar->getResultado();
+        $registro['resp'] = $listar->getResult();
         
         $listar->fullRead("SELECT id c_id, nome ciclo FROM adms_ciclos WHERE status_id <=:status_id ORDER BY id DESC", "status_id=4");
-        $registro['ciclo'] = $listar->getResultado();
+        $registro['ciclo'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit_id' => $registro['sit_id'], 'func_id' => $registro['func_id'], 'resp' => $registro['resp'], 'ciclo' => $registro['ciclo']];
 

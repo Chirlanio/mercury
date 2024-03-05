@@ -25,7 +25,7 @@ class AdmsApagarOrdemServico {
         $this->DadosId = (int) $DadosId;
         $apagarOrdemServico = new \App\adms\Models\helper\AdmsDelete();
         $apagarOrdemServico->exeDelete("adms_qualidade_ordem_servico", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarOrdemServico->getResultado()) {
+        if ($apagarOrdemServico->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Ordem de serviço apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

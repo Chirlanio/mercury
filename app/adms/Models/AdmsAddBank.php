@@ -43,7 +43,7 @@ class AdmsAddBank {
         $cadBrand = new \App\adms\Models\helper\AdmsCreate;
         $cadBrand->exeCreate("adms_banks", $this->Dados);
 
-        if ($cadBrand->getResultado()) {
+        if ($cadBrand->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Banco</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -57,7 +57,7 @@ class AdmsAddBank {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

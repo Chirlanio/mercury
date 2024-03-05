@@ -43,7 +43,7 @@ class AdmsListarEstorno {
             $listarEstorno->fullRead("SELECT a.*, lj.nome loja, est.nome tipo, c.cor cor_cr FROM adms_estornos a INNER JOIN tb_lojas lj ON lj.id=a.loja_id INNER JOIN adms_sits_estornos est ON est.id=a.adms_sits_est_id INNER JOIN adms_cors c on c.id=est.adms_cor_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
 
-        $this->Resultado = $listarEstorno->getResultado();
+        $this->Resultado = $listarEstorno->getResult();
         return $this->Resultado;
     }
 
@@ -56,10 +56,10 @@ class AdmsListarEstorno {
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM adms_sits_estornos ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit']];
 

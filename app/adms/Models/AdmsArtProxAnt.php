@@ -27,7 +27,7 @@ class AdmsArtProxAnt {
                 ORDER BY id ASC
                 LIMIT :limit', "adms_sit_id=1&id={$this->IdArtigo}&limit=1");
 
-        $this->Resultado = $listar->getResultado();
+        $this->Resultado = $listar->getResult();
         return $this->Resultado;
     }
 
@@ -41,7 +41,7 @@ class AdmsArtProxAnt {
                 ORDER BY id DESC
                 LIMIT :limit', "adms_sit_id=1&id={$this->IdArtigo}&limit=1");
 
-        $this->Resultado = $listar->getResultado();
+        $this->Resultado = $listar->getResult();
         return $this->Resultado;
     }
 

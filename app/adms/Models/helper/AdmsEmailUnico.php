@@ -2,7 +2,7 @@
 
 namespace App\adms\Models\helper;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -33,7 +33,7 @@ class AdmsEmailUnico {
         } else {
             $valEmailUnico->fullRead("SELECT id FROM adms_usuarios WHERE email =:email LIMIT :limit", "email={$this->Email}&limit=1");
         }
-        $this->Resultado = $valEmailUnico->getResultado();
+        $this->Resultado = $valEmailUnico->getResult();
         if (!empty($this->Resultado)) {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Este e-mail já está cadastrado!</div>";
             $this->Resultado = false;

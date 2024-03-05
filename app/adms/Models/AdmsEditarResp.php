@@ -27,7 +27,7 @@ class AdmsEditarResp {
         $verResp = new \App\adms\Models\helper\AdmsRead();
         $verResp->fullRead("SELECT * FROM adms_resp_autorizacao
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verResp->getResultado();
+        $this->Resultado = $verResp->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarResp {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltResp = new \App\adms\Models\helper\AdmsUpdate();
         $upAltResp->exeUpdate("adms_resp_autorizacao", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltResp->getResultado()) {
+        if ($upAltResp->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -63,7 +63,7 @@ class AdmsEditarResp {
         $listar->fullRead("SELECT id id_resp, nome resp
                 from adms_usuarios
                 WHERE adms_sits_usuario_id =:adms_sits_usuario_id ORDER BY nome ASC", "adms_sits_usuario_id=1");
-        $registro['resp'] = $listar->getResultado();
+        $registro['resp'] = $listar->getResult();
         
         $this->Resultado = ['resp' => $registro['resp']];
         

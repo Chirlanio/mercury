@@ -30,7 +30,7 @@ class AdmsEditarTipoPagamento {
         $verBairro->fullRead("SELECT b.id, b.nome 
                 FROM tb_forma_pag b
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBairro->getResultado();
+        $this->Resultado = $verBairro->getResult();
         return $this->Resultado;
     }
 
@@ -51,7 +51,7 @@ class AdmsEditarTipoPagamento {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltTipo = new \App\adms\Models\helper\AdmsUpdate();
         $upAltTipo->exeUpdate("tb_forma_pag", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltTipo->getResultado()) {
+        if ($upAltTipo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de pagamento atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

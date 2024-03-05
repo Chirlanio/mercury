@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarSitPg {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -32,7 +32,7 @@ class AdmsListarSitPg {
 
         $listarSitPg = new \App\adms\Models\helper\AdmsRead();
         $listarSitPg->fullRead("SELECT * FROM adms_sits_pgs sit ORDER BY nome ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarSitPg->getResultado();
+        $this->Resultado = $listarSitPg->getResult();
         return $this->Resultado;
     }
 

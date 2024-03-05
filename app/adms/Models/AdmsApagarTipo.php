@@ -28,7 +28,7 @@ class AdmsApagarTipo {
         $apagarTipo = new \App\adms\Models\helper\AdmsDelete();
         $apagarTipo->exeDelete("adms_tps_artigos", "WHERE id =:id", "id={$this->DadosId}");
 
-        if ($apagarTipo->getResultado()) {
+        if ($apagarTipo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de artigo apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

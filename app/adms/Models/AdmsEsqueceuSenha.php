@@ -30,7 +30,7 @@ class AdmsEsqueceuSenha {
         if ($this->Resultado) {
             $esqSenha = new \App\adms\Models\helper\AdmsRead();
             $esqSenha->fullRead("SELECT id, nome, usuario, recuperar_senha FROM adms_usuarios WHERE email =:email LIMIT :limit", "email={$this->Dados['email']}&limit=1");
-            $this->DadosUsuario = $esqSenha->getResultado();
+            $this->DadosUsuario = $esqSenha->getResult();
             if (!empty($this->DadosUsuario)) {
                 $this->valChaveRecSenha();
             } else {
@@ -66,7 +66,7 @@ class AdmsEsqueceuSenha {
 
             $updateRecSenha = new \App\adms\Models\helper\AdmsUpdate();
             $updateRecSenha->exeUpdate("adms_usuarios", $this->DadosUpdate, "WHERE id =:id", "id={$this->DadosUsuario[0]['id']}");
-            if ($updateRecSenha->getResultado()) {
+            if ($updateRecSenha->getResult()) {
                 $this->DadosUsuario[0]['recuperar_senha'] = $this->DadosUpdate['recuperar_senha'];
                 $this->dadosEmail();
             } else {

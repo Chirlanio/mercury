@@ -28,7 +28,7 @@ class AdmsApagarCat {
         $apagarTipo = new \App\adms\Models\helper\AdmsDelete();
         $apagarTipo->exeDelete("adms_cats_artigos", "WHERE id =:id", "id={$this->DadosId}");
 
-        if ($apagarTipo->getResultado()) {
+        if ($apagarTipo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Categoria apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

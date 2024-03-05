@@ -38,7 +38,7 @@ class AdmsCadastrarResp {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadResp = new \App\adms\Models\helper\AdmsCreate;
         $cadResp->exeCreate("adms_resp_autorizacao", $this->Dados);
-        if ($cadResp->getResultado()) {
+        if ($cadResp->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {

@@ -37,7 +37,7 @@ class AdmsListTypePayment {
                 FROM adms_type_payments tp
                 LEFT JOIN adms_sits s ON s.id=tp.status_id
                 ORDER BY tp.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listTypes->getResultado();
+        $this->Resultado = $listTypes->getResult();
         return $this->Resultado;
     }
 

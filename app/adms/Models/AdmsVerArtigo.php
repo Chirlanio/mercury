@@ -33,7 +33,7 @@ class AdmsVerArtigo {
                 INNER JOIN adms_tps_artigos tpart ON tpart.id=art.adms_tps_artigo_id
                 INNER JOIN adms_cats_artigos catart ON catart.id=art.adms_cats_artigo_id
                 WHERE art.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verArtigo->getResultado();
+        $this->Resultado = $verArtigo->getResult();
         return $this->Resultado;
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarSitUser {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -31,12 +31,8 @@ class AdmsListarSitUser {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarSitUser = new \App\adms\Models\helper\AdmsRead();
-        $listarSitUser->fullRead("SELECT sit.*,
-                cr.cor cor_cr
-                FROM adms_sits_usuarios sit 
-                INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id
-                ORDER BY sit.nome ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarSitUser->getResultado();
+        $listarSitUser->fullRead("SELECT sit.*, cr.cor cor_cr FROM adms_sits_usuarios sit INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id ORDER BY sit.nome ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarSitUser->getResult();
         return $this->Resultado;
     }
 

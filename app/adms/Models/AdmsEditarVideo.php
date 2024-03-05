@@ -31,13 +31,13 @@ class AdmsEditarVideo {
         $this->DadosId = (int) $DadosId;
         $verVideo = new \App\adms\Models\helper\AdmsRead();
         $verVideo->fullRead("SELECT id, titulo, subtitulo, tema, facilitador, nome_video, image_thumb, description, status_id FROM adms_ed_videos WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verVideo->getResultado();
+        $this->Resultado = $verVideo->getResult();
         return $this->Resultado;
     }
 
     public function altVideo(array $Dados) {
         $this->Dados = $Dados;
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
         
         $this->Foto = $this->Dados['imagem_nova'];
         $this->ImgAntiga = $this->Dados['imagem_antiga'];
@@ -45,11 +45,11 @@ class AdmsEditarVideo {
         $this->VideoAntigo = $this->Dados['video_antigo'];
         $this->Subtitulo = $this->Dados['subtitulo'];
         unset($this->Dados['imagem_nova'], $this->Dados['imagem_antiga'], $this->Dados['video_novo'], $this->Dados['video_antigo'], $this->Dados['subtitulo']);
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
             $this->valFoto();
@@ -93,7 +93,7 @@ class AdmsEditarVideo {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSenha = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSenha->exeUpdate("adms_ed_videos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSenha->getResultado()) {
+        if ($upAltSenha->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Treinamento</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -106,7 +106,7 @@ class AdmsEditarVideo {
         $listar = new \App\adms\Models\helper\AdmsRead();
         
         $listar->fullRead("SELECT id sit_id, nome status FROM tb_status ORDER BY id ASC");
-        $registro['sit_id'] = $listar->getResultado();
+        $registro['sit_id'] = $listar->getResult();
 
         $this->Resultado = ['sit_id' => $registro['sit_id']];
 

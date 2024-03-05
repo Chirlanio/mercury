@@ -42,7 +42,7 @@ class AdmsCadastrarTipoPagamento {
         $cadTipo = new \App\adms\Models\helper\AdmsCreate;
         $cadTipo->exeCreate("tb_forma_pag", $this->Dados);
 
-        if ($cadTipo->getResultado()) {
+        if ($cadTipo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de Pagamento cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {

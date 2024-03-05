@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -39,7 +39,7 @@ class AdmsListarEstoque {
             WHERE e.saldo > 0
             ORDER BY e.loja, p.referencia, p.tamanho ASC
             LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarEstoque->getResultado();
+        $this->Resultado = $listarEstoque->getResult();
         return $this->Resultado;
     }
 
@@ -47,7 +47,7 @@ class AdmsListarEstoque {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id']];
 

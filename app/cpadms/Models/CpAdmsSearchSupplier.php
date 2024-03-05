@@ -48,6 +48,6 @@ class CpAdmsSearchSupplier {
 
         $listarOrderService = new \App\adms\Models\helper\AdmsRead();
         $listarOrderService->fullRead("SELECT supp.id id_supp, supp.corporate_social, supp.fantasy_name, supp.cnpj_cpf, s.nome status, c.cor FROM adms_suppliers supp LEFT JOIN adms_sits s ON s.id = supp.status_id LEFT JOIN adms_cors c ON c.id = s.adms_cor_id WHERE (supp.corporate_social LIKE '%' :corporate_social '%' OR supp.fantasy_name LIKE '%' :fantasy_name '%' OR supp.cnpj_cpf LIKE '%' :cnpj_cpf '%') AND supp.status_id =:status_id ORDER BY supp.id ASC LIMIT :limit OFFSET :offset", "corporate_social={$this->Dados['searchSupplier']}&fantasy_name={$this->Dados['searchSupplier']}&cnpj_cpf={$this->Dados['searchSupplier']}&status_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarOrderService->getResultado();
+        $this->Resultado = $listarOrderService->getResult();
     }
 }

@@ -106,12 +106,12 @@ class AdmsCadastrarOrdemServico {
         $cadOrdem->exeCreate("adms_qualidade_ordem_servico", $this->Dados);
         //var_dump($this->Dados);
 
-        if ($cadOrdem->getResultado()) {
+        if ($cadOrdem->getResult()) {
             if ((empty($this->imageOne['name'])) and (empty($this->imageTwo['name'])) and (empty($this->imageThree['name'])) and (empty($this->cupomFiscal['name']))) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de serviço</strong> cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $cadOrdem->getResultado();
+                $this->Dados['id'] = $cadOrdem->getResult();
                 $this->valFoto();
             }
         } else {
@@ -151,25 +151,25 @@ class AdmsCadastrarOrdemServico {
         } else {
             $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id_loja ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         }
-        $registro['loja'] = $listar->getResultado();
+        $registro['loja'] = $listar->getResult();
 
         $listar->fullRead("SELECT id tip_id, nome tipo FROM adms_tips_ordem_servico ORDER BY id ASC");
-        $registro['tips'] = $listar->getResultado();
+        $registro['tips'] = $listar->getResult();
 
         $listar->fullRead("SELECT id tam_id, nome tam FROM tb_tam ORDER BY id ASC");
-        $registro['tam'] = $listar->getResultado();
+        $registro['tam'] = $listar->getResult();
 
         $listar->fullRead("SELECT id m_id, nome marca FROM adms_marcas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
-        $registro['marc'] = $listar->getResultado();
+        $registro['marc'] = $listar->getResult();
 
         $listar->fullRead("SELECT id d_id, descricao defeito, status_id FROM adms_defeitos_ordem_servico WHERE status_id =:status_id ORDER BY descricao ASC", "status_id=1");
-        $registro['def'] = $listar->getResultado();
+        $registro['def'] = $listar->getResult();
 
         $listar->fullRead("SELECT id dt_id, descricao detalhe, status_id FROM adms_detalhes_ordem_servico WHERE status_id =:status_id ORDER BY descricao ASC", "status_id=1");
-        $registro['det'] = $listar->getResultado();
+        $registro['det'] = $listar->getResult();
 
         $listar->fullRead("SELECT id l_id, descricao local, status_id FROM adms_def_local_ordem_servico WHERE status_id =:status_id", "status_id=1");
-        $registro['loc'] = $listar->getResultado();
+        $registro['loc'] = $listar->getResult();
 
         $this->Resultado = ['loja' => $registro['loja'], 'tips' => $registro['tips'], 'tam' => $registro['tam'], 'marc' => $registro['marc'], 'def' => $registro['def'],
             'det' => $registro['det'], 'loc' => $registro['loc']];

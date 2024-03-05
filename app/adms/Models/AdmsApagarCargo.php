@@ -25,7 +25,7 @@ class AdmsApagarCargo {
         $this->DadosId = (int) $DadosId;
         $apagarCargo = new \App\adms\Models\helper\AdmsDelete();
         $apagarCargo->exeDelete("tb_cargos", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarCargo->getResultado()) {
+        if ($apagarCargo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cargo apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

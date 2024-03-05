@@ -16,7 +16,7 @@ class AdmsListarDetalhes {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -42,7 +42,7 @@ class AdmsListarDetalhes {
         } else {
             $listarDefeitos->fullRead("SELECT d.*, st.nome status FROM adms_detalhes_ordem_servico d INNER JOIN adms_sits st ON st.id=d.status_id WHERE aj.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarDefeitos->getResultado();
+        $this->Resultado = $listarDefeitos->getResult();
         return $this->Resultado;
     }
 

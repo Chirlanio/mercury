@@ -16,7 +16,7 @@ class AdmsListarMotivo {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -33,10 +33,8 @@ class AdmsListarMotivo {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCargo = new \App\adms\Models\helper\AdmsRead();
-        $listarCargo->fullRead("SELECT b.id, b.nome motivo
-                FROM adms_motivo_estorno b
-                ORDER BY b.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCargo->getResultado();
+        $listarCargo->fullRead("SELECT b.id, b.nome motivo FROM adms_motivo_estorno b ORDER BY b.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCargo->getResult();
         return $this->Resultado;
     }
 

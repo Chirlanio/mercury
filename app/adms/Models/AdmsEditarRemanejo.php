@@ -32,7 +32,7 @@ class AdmsEditarRemanejo {
                 adms_tipo_rem_id, adms_prdd_id, adms_sit_rem_id, nf, arquivo
                 FROM adms_remanejos
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verRemanejo->getResultado();
+        $this->Resultado = $verRemanejo->getResult();
         return $this->Resultado;
     }
 
@@ -77,7 +77,7 @@ class AdmsEditarRemanejo {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltArq = new \App\adms\Models\helper\AdmsUpdate();
         $upAltArq->exeUpdate("adms_remanejos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltArq->getResultado()) {
+        if ($upAltArq->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Remanejo atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -90,22 +90,22 @@ class AdmsEditarRemanejo {
         $listar = new \App\adms\Models\helper\AdmsRead();
         
         $listar->fullRead("SELECT id mar_id, nome marca FROM adms_marcas");
-        $registro['mar_id'] = $listar->getResultado();
+        $registro['mar_id'] = $listar->getResult();
         
         $listar->fullRead("SELECT id id_loja, nome loja_origem FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_ori'] = $listar->getResultado();
+        $registro['loja_ori'] = $listar->getResult();
         
         $listar->fullRead("SELECT id loja_des, nome loja_destino FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_des'] = $listar->getResultado();
+        $registro['loja_des'] = $listar->getResult();
         
         $listar->fullRead("SELECT id tip_id, nome tipo FROM adms_tps_remanejos ORDER BY nome ASC");
-        $registro['tip_id'] = $listar->getResultado();
+        $registro['tip_id'] = $listar->getResult();
         
         $listar->fullRead("SELECT id prdd_id, nome prioridade FROM adms_prioridades ORDER BY nome ASC");
-        $registro['prdd'] = $listar->getResultado();
+        $registro['prdd'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome situacao FROM adms_sits_remanejos ORDER BY nome ASC");
-        $registro['sit_id'] = $listar->getResultado();
+        $registro['sit_id'] = $listar->getResult();
 
         $this->Resultado = ['mar_id' => $registro['mar_id'], 'loja_ori' => $registro['loja_ori'],
                             'loja_des' => $registro['loja_des'], 'tip_id' => $registro['tip_id'],

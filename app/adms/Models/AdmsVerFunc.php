@@ -31,7 +31,7 @@ class AdmsVerFunc {
                 INNER JOIN tb_status s ON s.id=f.status_id
                 INNER JOIN tb_cargos c ON c.id=f.cargo_id
                 WHERE f.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verFunc->getResultado();
+        $this->Resultado = $verFunc->getResult();
         return $this->Resultado;
     }
 

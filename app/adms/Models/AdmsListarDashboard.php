@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarDashboard {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -36,18 +36,11 @@ class AdmsListarDashboard {
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= 5) {
-            $listarCor->fullRead("SELECT *
-                    FROM tb_dashboards
-                    ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                    "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarCor->fullRead("SELECT * FROM tb_dashboards ORDER BY id ASC LIMIT :limit OFFSET :offset", "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarCor->fullRead("SELECT *
-                    FROM tb_dashboards
-                    WHERE loja_id =:loja_id
-                    ORDER BY id ASC LIMIT :limit OFFSET :offset",
-                    "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarCor->fullRead("SELECT * FROM tb_dashboards WHERE loja_id =:loja_id ORDER BY id ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarCor->getResultado();
+        $this->Resultado = $listarCor->getResult();
         return $this->Resultado;
     }
 

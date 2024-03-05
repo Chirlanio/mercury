@@ -27,7 +27,7 @@ class AdmsEditarSitOrderPayment {
         $verSit = new \App\adms\Models\helper\AdmsRead();
         $verSit->fullRead("SELECT * FROM adms_sits_order_payments
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verSit->getResultado();
+        $this->Resultado = $verSit->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarSitOrderPayment {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSit = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSit->exeUpdate("adms_sits_order_payments", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSit->getResultado()) {
+        if ($upAltSit->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Situação</strong> atualizada com sucesso. Upload da imagem realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -64,7 +64,7 @@ class AdmsEditarSitOrderPayment {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id, nome status FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

@@ -27,7 +27,7 @@ class AdmsEditarCor {
         $verCor = new \App\adms\Models\helper\AdmsRead();
         $verCor->fullRead("SELECT * FROM adms_cors
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verCor->getResultado();
+        $this->Resultado = $verCor->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarCor {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltCor = new \App\adms\Models\helper\AdmsUpdate();
         $upAltCor->exeUpdate("adms_cors", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltCor->getResultado()) {
+        if ($upAltCor->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cor atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {

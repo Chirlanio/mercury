@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -31,7 +31,7 @@ class AdmsEditarRota {
                 FROM tb_rotas r
                 INNER JOIN adms_cors c ON c.id=r.adms_cor_id
                 WHERE r.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verRota->getResultado();
+        $this->Resultado = $verRota->getResult();
         return $this->Resultado;
     }
 
@@ -55,7 +55,7 @@ class AdmsEditarRota {
         
         $upAltRota = new \App\adms\Models\helper\AdmsUpdate();
         $upAltRota->exeUpdate("tb_rotas", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltRota->getResultado()) {
+        if ($upAltRota->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Rota atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -68,7 +68,7 @@ class AdmsEditarRota {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id cor_id, nome n_cor FROM adms_cors ORDER BY nome ASC");
-        $registro['cor'] = $listar->getResultado();
+        $registro['cor'] = $listar->getResult();
 
         $this->Resultado = ['cor' => $registro['cor']];
 

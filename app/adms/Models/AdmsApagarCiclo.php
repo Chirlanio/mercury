@@ -28,7 +28,7 @@ class AdmsApagarCiclo {
         $apagarCiclo = new \App\adms\Models\helper\AdmsDelete();
         $apagarCiclo->exeDelete("adms_ciclos", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($apagarCiclo->getResultado()) {
+        if ($apagarCiclo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> apagado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

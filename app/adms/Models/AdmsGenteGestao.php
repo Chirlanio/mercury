@@ -20,7 +20,7 @@ class AdmsGenteGestao {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT * FROM adms_gente_gestao");
-        $this->Resultado = $listar->getResultado();
+        $this->Resultado = $listar->getResult();
         return $this->Resultado;
     }
 

@@ -26,7 +26,7 @@ class AdmsApagarBalanco {
 
         $apagarBalanco = new \App\adms\Models\helper\AdmsDelete();
         $apagarBalanco->exeDelete("adms_balancos", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarBalanco->getResultado()) {
+        if ($apagarBalanco->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

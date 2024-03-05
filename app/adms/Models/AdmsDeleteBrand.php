@@ -28,7 +28,7 @@ class AdmsDeleteBrand {
         $delBrand = new \App\adms\Models\helper\AdmsDelete();
         $delBrand->exeDelete("adms_brands_suppliers", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($delBrand->getResultado()) {
+        if ($delBrand->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Marca</strong> apagada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

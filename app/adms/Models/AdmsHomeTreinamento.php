@@ -25,7 +25,7 @@ class AdmsHomeTreinamento {
         $contVideo = new \App\adms\Models\helper\AdmsRead();
         $contVideo->fullRead("SELECT COUNT(id) AS num_result FROM adms_ed_videos WHERE status_id =:status_id", "status_id=1");
 
-        $this->Resultado = $contVideo->getResultado();
+        $this->Resultado = $contVideo->getResult();
         return $this->Resultado;
     }
     
@@ -38,10 +38,10 @@ class AdmsHomeTreinamento {
         } else {
             $listar->fullRead("SELECT COUNT(id) AS video FROM adms_ed_videos");
         }
-        $registro['vid'] = $listar->getResultado();
+        $registro['vid'] = $listar->getResult();
 
         $listar->fullRead("SELECT COUNT(id) AS colab FROM adms_users_treinamentos WHERE adms_sits_usuario_id =:adms_sits_usuario_id", "adms_sits_usuario_id=1");
-        $registro['col'] = $listar->getResultado();
+        $registro['col'] = $listar->getResult();
 
         $this->Resultado = ['vid' => $registro['vid'], 'col' => $registro['col']];
 

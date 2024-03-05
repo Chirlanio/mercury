@@ -26,13 +26,8 @@ class AdmsLoginTreinamento {
         $this->validarDados();
         if ($this->Resultado) {
             $validaLogin = new \App\adms\Models\helper\AdmsRead();
-            $validaLogin->fullRead("SELECT user.id, user.nome, user.usuario, user.email, user.cpf, user.senha, user.image, user.adms_niveis_acesso_id, user.adms_sits_usuario_id,
-                    nivac.ordem	ordem_nivac, nivac.adms_cor_id, c.cor nivac_cor
-                    FROM adms_users_treinamentos user
-                    INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
-                    INNER JOIN adms_cors c ON c.id=nivac.adms_cor_id
-                    WHERE user.cpf =:cpf AND user.adms_sits_usuario_id =:adms_sits_usuario_id LIMIT :limit", "cpf={$this->Dados['cpf']}&adms_sits_usuario_id=1&limit=1");
-            $this->Resultado = $validaLogin->getResultado();
+            $validaLogin->fullRead("SELECT user.id, user.nome, user.usuario, user.email, user.cpf, user.senha, user.image, user.adms_niveis_acesso_id, user.adms_sits_usuario_id, nivac.ordem ordem_nivac, nivac.adms_cor_id, c.cor nivac_cor FROM adms_users_treinamentos user INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id INNER JOIN adms_cors c ON c.id=nivac.adms_cor_id WHERE user.cpf =:cpf AND user.adms_sits_usuario_id =:adms_sits_usuario_id LIMIT :limit", "cpf={$this->Dados['cpf']}&adms_sits_usuario_id=1&limit=1");
+            $this->Resultado = $validaLogin->getResult();
             if (!empty($this->Resultado)) {
                 $this->validarSenha();
             } else {

@@ -26,7 +26,7 @@ class AdmsApagarTransf {
 
         $apagarTransf = new \App\adms\Models\helper\AdmsDelete();
         $apagarTransf->exeDelete("tb_transferencias", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarTransf->getResultado()) {
+        if ($apagarTransf->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Transferência apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

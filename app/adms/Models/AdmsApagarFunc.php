@@ -26,7 +26,7 @@ class AdmsApagarFunc {
 
         $apagarFunc = new \App\adms\Models\helper\AdmsDelete();
         $apagarFunc->exeDelete("tb_funcionarios", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarFunc->getResultado()) {
+        if ($apagarFunc->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

@@ -25,7 +25,7 @@ class AdmsApagarSitBalanco {
         $this->DadosId = (int) $DadosId;
         $apagarSit = new \App\adms\Models\helper\AdmsDelete();
         $apagarSit->exeDelete("adms_status_balancos", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarSit->getResultado()) {
+        if ($apagarSit->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Registro</strong> apagado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

@@ -28,7 +28,7 @@ class AdmsDeleteEcommerceOrder {
         $delBrand = new \App\adms\Models\helper\AdmsDelete();
         $delBrand->exeDelete("adms_ecommerce_orders", "WHERE id =:id AND adms_sit_ecommerce_id =:adms_sit_ecommerce_id", "id={$this->DadosId}&adms_sit_ecommerce_id=1");
         
-        if ($delBrand->getResultado()) {
+        if ($delBrand->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Pedido de faturamento</strong> apagado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

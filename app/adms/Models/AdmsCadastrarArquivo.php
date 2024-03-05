@@ -27,7 +27,7 @@ class AdmsCadastrarArquivo {
         $this->DadosId = (int) $DadosId;
         $verArq = new \App\adms\Models\helper\AdmsRead();
         $verArq->fullRead("SELECT * FROM adms_up_down WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verArq->getResultado();
+        $this->Resultado = $verArq->getResult();
         return $this->Resultado;
     }
 
@@ -58,12 +58,12 @@ class AdmsCadastrarArquivo {
         $cadArq = new \App\adms\Models\helper\AdmsCreate;
         $cadArq->exeCreate("adms_up_down", $this->Dados);
 
-        if ($cadArq->getResultado()) {
+        if ($cadArq->getResult()) {
             if (empty($this->Arquivo['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Arquivo</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
-                $this->Dados['id'] = $cadArq->getResultado();
+                $this->Dados['id'] = $cadArq->getResult();
                 $this->valArquivo();
             }
         } else {
@@ -77,8 +77,8 @@ class AdmsCadastrarArquivo {
         $uploadArq = new \App\adms\Models\helper\AdmsUpload();
         $uploadArq->upload($this->Arquivo, 'assets/files/downloads/' . $this->Dados['id'] . '/', $this->Dados['slug']);
 
-        if ($uploadArq->getResultado()) {
-            if ($uploadArq->getResultado()) {
+        if ($uploadArq->getResult()) {
+            if ($uploadArq->getResult()) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Arquivos</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
@@ -96,10 +96,10 @@ class AdmsCadastrarArquivo {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
         
         $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
-        $registro['loja'] = $listar->getResultado();
+        $registro['loja'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit'], 'loja' => $registro['loja']];
 

@@ -22,7 +22,7 @@ class AdmsVerCor {
         $verCor = new \App\adms\Models\helper\AdmsRead();
         $verCor->fullRead("SELECT * FROM adms_cors 
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verCor->getResultado();
+        $this->Resultado = $verCor->getResult();
         return $this->Resultado;
     }
 

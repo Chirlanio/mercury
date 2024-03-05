@@ -31,7 +31,7 @@ class AdmsEditarMarca {
                 FROM adms_marcas m
                 INNER JOIN tb_status s ON s.id=m.status_id
                 WHERE m.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBairro->getResultado();
+        $this->Resultado = $verBairro->getResult();
         return $this->Resultado;
     }
 
@@ -52,7 +52,7 @@ class AdmsEditarMarca {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltMarca = new \App\adms\Models\helper\AdmsUpdate();
         $upAltMarca->exeUpdate("adms_marcas", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltMarca->getResultado()) {
+        if ($upAltMarca->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Marca atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -65,7 +65,7 @@ class AdmsEditarMarca {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id status_id, nome status FROM tb_status ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

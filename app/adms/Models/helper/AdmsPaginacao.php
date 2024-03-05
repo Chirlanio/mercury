@@ -2,7 +2,7 @@
 
 namespace App\adms\Models\helper;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -50,7 +50,7 @@ class AdmsPaginacao {
         $this->ParseString = (string) $ParseString;
         $contar = new \App\adms\Models\helper\AdmsRead();
         $contar->fullRead($this->Query, $this->ParseString);
-        $this->ResultBd = $contar->getResultado();
+        $this->ResultBd = $contar->getResult();
         if ($this->ResultBd[0]['num_result'] > $this->LimiteResultado) {
             $this->instrucaoPaginacao();
         } else {

@@ -23,7 +23,7 @@ class AdmsVerCiclo {
         $verCiclo->fullRead("SELECT c.*
                 FROM adms_ciclos c
                 WHERE c.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verCiclo->getResultado();
+        $this->Resultado = $verCiclo->getResult();
         return $this->Resultado;
     }
 

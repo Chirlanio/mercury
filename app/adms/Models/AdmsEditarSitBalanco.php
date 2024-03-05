@@ -27,7 +27,7 @@ class AdmsEditarSitBalanco {
         $verSit = new \App\adms\Models\helper\AdmsRead();
         $verSit->fullRead("SELECT * FROM adms_status_balancos
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verSit->getResultado();
+        $this->Resultado = $verSit->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarSitBalanco {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSit = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSit->exeUpdate("adms_status_balancos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSit->getResultado()) {
+        if ($upAltSit->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {

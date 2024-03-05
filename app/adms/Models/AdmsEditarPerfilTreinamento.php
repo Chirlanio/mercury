@@ -25,7 +25,7 @@ class AdmsEditarPerfilTreinamento {
 
     public function altPerfil(array $Dados) {
         $this->Dados = $Dados;
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
         $this->Foto = $this->Dados['imagem_nova'];
         $this->ImgAntiga = $this->Dados['image'];
         unset($this->Dados['imagem_nova'], $this->Dados['image']);
@@ -74,7 +74,7 @@ class AdmsEditarPerfilTreinamento {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSenha = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSenha->exeUpdate("adms_users_treinamentos", $this->Dados, "WHERE id =:id", "id=" . $_SESSION['usuario_id']);
-        if ($upAltSenha->getResultado()) {
+        if ($upAltSenha->getResult()) {
             $_SESSION['usuario_nome'] = $this->Dados['nome'];
             $_SESSION['usuario_email'] = $this->Dados['email'];
             $_SESSION['usuario_imagem'] = $this->Dados['image'];

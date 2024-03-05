@@ -2,7 +2,7 @@
 
 namespace App\adms\Models\helper;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }

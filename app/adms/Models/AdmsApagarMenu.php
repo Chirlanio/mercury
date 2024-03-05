@@ -30,7 +30,7 @@ class AdmsApagarMenu {
             $this->verfMenuInferior();
             $apagarMenu = new \App\adms\Models\helper\AdmsDelete();
             $apagarMenu->exeDelete("adms_menus", "WHERE id =:id", "id={$this->DadosId}");
-            if ($apagarMenu->getResultado()) {
+            if ($apagarMenu->getResult()) {
                 $this->atualizarOrdem();
                 $_SESSION['msg'] = "<div class='alert alert-success'>Item de menu apagado com sucesso!</div>";
                 $this->Resultado = true;
@@ -45,7 +45,7 @@ class AdmsApagarMenu {
         $verMenu = new \App\adms\Models\helper\AdmsRead();
         $verMenu->fullRead("SELECT id FROM adms_nivacs_pgs
                 WHERE adms_menu_id =:adms_menu_id LIMIT :limit", "adms_menu_id=" . $this->DadosId . "&limit=2");
-        if ($verMenu->getResultado()) {
+        if ($verMenu->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O item de menu não pode ser apagado, há permissões cadastradas neste item de menu!</div>";
             $this->Resultado = false;
         } else {
@@ -56,7 +56,7 @@ class AdmsApagarMenu {
     private function verfMenuInferior() {
         $verMenu = new \App\adms\Models\helper\AdmsRead();
         $verMenu->fullRead("SELECT id, ordem AS ordem_result FROM adms_menus WHERE ordem > (SELECT ordem FROM adms_menus WHERE id =:id) ORDER BY ordem ASC", "id={$this->DadosId}");
-        $this->DadosMenuInferior = $verMenu->getResultado();
+        $this->DadosMenuInferior = $verMenu->getResult();
     }
 
     private function atualizarOrdem() {

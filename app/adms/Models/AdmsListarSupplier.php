@@ -16,7 +16,7 @@ class AdmsListarSupplier {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -34,7 +34,7 @@ class AdmsListarSupplier {
 
         $listarSupplier = new \App\adms\Models\helper\AdmsRead();
         $listarSupplier->fullRead("SELECT S.id id_supp, s.corporate_social, s.fantasy_name, st.nome status FROM adms_suppliers s INNER JOIN adms_sits st ON st.id=s.status_id ORDER BY s.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarSupplier->getResultado();
+        $this->Resultado = $listarSupplier->getResult();
         return $this->Resultado;
     }
 

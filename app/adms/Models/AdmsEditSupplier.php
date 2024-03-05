@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -31,7 +31,7 @@ class AdmsEditSupplier {
                 FROM adms_suppliers s
                 INNER JOIN adms_sits st ON st.id=s.status_id
                 WHERE s.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $viewSupplier->getResultado();
+        $this->Resultado = $viewSupplier->getResult();
         return $this->Resultado;
     }
 
@@ -52,7 +52,7 @@ class AdmsEditSupplier {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSupplier = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSupplier->exeUpdate("adms_suppliers", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSupplier->getResultado()) {
+        if ($upAltSupplier->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Fornecedor</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -65,7 +65,7 @@ class AdmsEditSupplier {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

@@ -30,7 +30,7 @@ class AdmsEditarTroca {
         } else {
             $verTroca->fullRead("SELECT c.*, l.id loja_id, f.nome func, s.id sit_id FROM tb_cad_produtos c INNER JOIN tb_funcionarios f ON f.id=c.func_id INNER JOIN tb_lojas l ON l.id=c.loja_id INNER JOIN tb_status_troca s ON s.id=c.status_id WHERE c.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         }
-        $this->Resultado = $verTroca->getResultado();
+        $this->Resultado = $verTroca->getResult();
         return $this->Resultado;
     }
 
@@ -52,7 +52,7 @@ class AdmsEditarTroca {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltTroca = new \App\adms\Models\helper\AdmsUpdate();
         $upAltTroca->exeUpdate("tb_cad_produtos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltTroca->getResultado()) {
+        if ($upAltTroca->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -72,16 +72,16 @@ class AdmsEditarTroca {
         } else {
             $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_troca ORDER BY id ASC");
-        $registro['sit_id'] = $listar->getResultado();
+        $registro['sit_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id func_id, nome consul FROM tb_funcionarios ORDER BY nome ASC");
-        $registro['func_id'] = $listar->getResultado();
+        $registro['func_id'] = $listar->getResult();
         
         $listar->fullRead("SELECT id motivo_id, nome motivo FROM adms_motivos ORDER BY nome ASC");
-        $registro['motivo_id'] = $listar->getResultado();
+        $registro['motivo_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit_id' => $registro['sit_id'], 'func_id' => $registro['func_id'], 'motivo_id' => $registro['motivo_id']];
 

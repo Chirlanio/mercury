@@ -68,7 +68,7 @@ class AdmsNovoUsuario {
         $this->Dados['created'] = date('Y-m-d H:i:s');
         $cadUser = new \App\adms\Models\helper\AdmsCreate();
         $cadUser->exeCreate('adms_usuarios', $this->Dados);
-        if ($cadUser->getResultado()) {
+        if ($cadUser->getResult()) {
             if ($this->InfoCadUser[0]['env_email_conf'] == 1) {
                 $this->dadosEmail();
             } else {
@@ -84,7 +84,7 @@ class AdmsNovoUsuario {
     private function infoCadUser() {
         $infoCadUser = new \App\adms\Models\helper\AdmsRead();
         $infoCadUser->fullRead("SELECT env_email_conf, adms_niveis_acesso_id, adms_sits_usuario_id FROM adms_cads_usuarios WHERE id =:id LIMIT :limit", "id=1&limit=1");
-        $this->InfoCadUser = $infoCadUser->getResultado();
+        $this->InfoCadUser = $infoCadUser->getResult();
     }
 
     private function dadosEmail() {

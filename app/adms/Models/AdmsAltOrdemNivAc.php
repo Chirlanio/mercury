@@ -38,14 +38,14 @@ class AdmsAltOrdemNivAc {
         $verNivAc = new \App\adms\Models\helper\AdmsRead();
         $verNivAc->fullRead("SELECT * FROM adms_niveis_acessos
                 WHERE id =:id AND ordem >:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=" . $_SESSION['ordem_nivac'] . "&limit=1");
-        $this->DadosNivAc = $verNivAc->getResultado();
+        $this->DadosNivAc = $verNivAc->getResult();
     }
 
     private function verfNivAcInferior() {
         $ordem_super = $this->DadosNivAc[0]['ordem'] - 1;
         $verNivAc = new \App\adms\Models\helper\AdmsRead();
         $verNivAc->fullRead("SELECT id, ordem FROM adms_niveis_acessos WHERE ordem =:ordem", "ordem={$ordem_super}");
-        $this->DadosNivAvInferior = $verNivAc->getResultado();
+        $this->DadosNivAvInferior = $verNivAc->getResult();
     }
 
     private function exeAltOrdemNivAc() {
@@ -58,7 +58,7 @@ class AdmsAltOrdemNivAc {
         $upMvCima = new \App\adms\Models\helper\AdmsUpdate();
         $upMvCima->exeUpdate("adms_niveis_acessos", $this->Dados, "WHERE id =:id", "id={$this->DadosNivAc[0]['id']}");
 
-        if ($upMvCima->getResultado()) {
+        if ($upMvCima->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Ordem do nível de acesso editado com sucesso!</div>";
             $this->Resultado = true;
         } else {

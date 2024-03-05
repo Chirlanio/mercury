@@ -42,7 +42,7 @@ class AdmsCadastrarDetalhes {
         $cadDetalhes = new \App\adms\Models\helper\AdmsCreate;
         $cadDetalhes->exeCreate("adms_detalhes_ordem_servico", $this->Dados);
 
-        if ($cadDetalhes->getResultado()) {
+        if ($cadDetalhes->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Detalhe</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -55,7 +55,7 @@ class AdmsCadastrarDetalhes {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("select id s_id, nome sit from adms_sits");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

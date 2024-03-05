@@ -33,7 +33,7 @@ class AdmsValUsuarioTreinamento {
         } else {
             $valUsuario->fullRead("SELECT id FROM adms_users_treinamentos WHERE usuario =:usuario LIMIT :limit", "usuario={$this->Usuario}&limit=1");
         }
-        $this->Resultado = $valUsuario->getResultado();
+        $this->Resultado = $valUsuario->getResult();
         if (!empty($this->Resultado)) {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Este usuário já está cadastrado!</div>";
             $this->Resultado = false;

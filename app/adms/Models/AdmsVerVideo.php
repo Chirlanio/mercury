@@ -24,16 +24,12 @@ class AdmsVerVideo {
     public function verVideo($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verVideo = new \App\adms\Models\helper\AdmsRead();
-        if($_SESSION['adms_niveis_acesso_id'] >= 4){
-            $verVideo->fullRead("SELECT id, titulo, subtitulo, tema, facilitador, nome_video, image_thumb, description, status_id
-                FROM adms_ed_videos
-                WHERE id =:id AND status_id =:status_id LIMIT :limit", "id=" . $this->DadosId . "&status_id=1&limit=1");
+        if($_SESSION['ordem_nivac'] >= FINANCIALPERMITION){
+            $verVideo->fullRead("SELECT id, titulo, subtitulo, tema, facilitador, nome_video, image_thumb, description, status_id FROM adms_ed_videos WHERE id =:id AND status_id =:status_id LIMIT :limit", "id=" . $this->DadosId . "&status_id=1&limit=1");
         } else {
-            $verVideo->fullRead("SELECT id, titulo, subtitulo, tema, facilitador, nome_video, image_thumb, description, status_id
-                FROM adms_ed_videos
-                WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+            $verVideo->fullRead("SELECT id, titulo, subtitulo, tema, facilitador, nome_video, image_thumb, description, status_id FROM adms_ed_videos WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         }
-        $this->Resultado = $verVideo->getResultado();
+        $this->Resultado = $verVideo->getResult();
         return $this->Resultado;
     }
 

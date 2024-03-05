@@ -24,7 +24,7 @@ class AdmsVerBairro {
                 FROM tb_bairros b
                 INNER JOIN tb_rotas r ON r.id=b.rota_id
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBairro->getResultado();
+        $this->Resultado = $verBairro->getResult();
         return $this->Resultado;
     }
 

@@ -31,7 +31,7 @@ class AdmsVerBalanco {
                 INNER JOIN tb_funcionarios f ON f.id=ba.responsavel_loja_id
                 INNER JOIN adms_responsavel_auditoria r ON r.id=ba.responsavel_auditoria_id
                 WHERE ba.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBalanco->getResultado();
+        $this->Resultado = $verBalanco->getResult();
         return $this->Resultado;
     }
 

@@ -30,7 +30,7 @@ class AdmsEditarBandeira {
         $verBandeira->fullRead("SELECT b.id id_ban, b.nome bandeira, b.icone
                 FROM adms_bandeiras b
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBandeira->getResultado();
+        $this->Resultado = $verBandeira->getResult();
         return $this->Resultado;
     }
 
@@ -51,7 +51,7 @@ class AdmsEditarBandeira {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltBandeira = new \App\adms\Models\helper\AdmsUpdate();
         $upAltBandeira->exeUpdate("adms_bandeiras", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltBandeira->getResultado()) {
+        if ($upAltBandeira->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Bandeira atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {

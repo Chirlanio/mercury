@@ -42,7 +42,7 @@ class AdmsCadastrarDefeitoLocal {
         $cadDefLocal = new \App\adms\Models\helper\AdmsCreate;
         $cadDefLocal->exeCreate("adms_def_local_ordem_servico", $this->Dados);
 
-        if ($cadDefLocal->getResultado()) {
+        if ($cadDefLocal->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Local</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -55,7 +55,7 @@ class AdmsCadastrarDefeitoLocal {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("select id s_id, nome sit from adms_sits");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

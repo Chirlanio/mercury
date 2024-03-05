@@ -27,7 +27,7 @@ class AdmsAtualSenha {
         $this->Chave = (string) $Chave;
         $validaChave = new \App\adms\Models\helper\AdmsRead();
         $validaChave->fullRead("SELECT id FROM adms_usuarios WHERE recuperar_senha =:recuperar_senha", "recuperar_senha={$this->Chave}");
-        $this->DadosUsuario = $validaChave->getResultado();
+        $this->DadosUsuario = $validaChave->getResult();
         if (!empty($this->DadosUsuario)) {
             $this->Resultado = true;
         } else {
@@ -69,7 +69,7 @@ class AdmsAtualSenha {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
             $upAtualSenha = new \App\adms\Models\helper\AdmsUpdate();
             $upAtualSenha->exeUpdate("adms_usuarios", $this->Dados, "WHERE id =:id", "id={$this->DadosUsuario[0]['id']}");
-            if ($upAtualSenha->getResultado()) {
+            if ($upAtualSenha->getResult()) {
                 $_SESSION['msg'] = "<div class='alert alert-success'>Senha atualizada com sucesso!</div>";
                 $this->Resultado = true;
             } else {

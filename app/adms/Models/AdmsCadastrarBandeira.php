@@ -42,7 +42,7 @@ class AdmsCadastrarBandeira {
         $cadBandeira = new \App\adms\Models\helper\AdmsCreate;
         $cadBandeira->exeCreate("adms_bandeiras", $this->Dados);
 
-        if ($cadBandeira->getResultado()) {
+        if ($cadBandeira->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Bandeira cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {

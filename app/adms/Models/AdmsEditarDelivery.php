@@ -32,7 +32,7 @@ class AdmsEditarDelivery {
         $verDelivery->fullRead("SELECT aj.id, aj.loja_id, aj.func_id, aj.cliente, aj.endereco, aj.bairro_id, aj.rota_id, aj.contato, aj.valor_venda, aj.troca,
                 aj.forma_pag_id, aj.parcelas, aj.nf, aj.maq, aj.obs, aj.recebido, aj.qtde_produto, aj.ponto_saida, aj.presente, aj.status_id, aj.created
                 FROM tb_delivery aj WHERE aj.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verDelivery->getResultado();
+        $this->Resultado = $verDelivery->getResult();
         return $this->Resultado;
     }
 
@@ -65,7 +65,7 @@ class AdmsEditarDelivery {
         $upAltDelivery = new \App\adms\Models\helper\AdmsUpdate();
         $upAltDelivery->exeUpdate("tb_delivery", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
 
-        if ($upAltDelivery->getResultado()) {
+        if ($upAltDelivery->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success d-print-none'>Solicitação atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -79,22 +79,22 @@ class AdmsEditarDelivery {
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY nome ASC");
 
-        $registro['loja'] = $listar->getResultado();
+        $registro['loja'] = $listar->getResult();
 
         $listar->fullRead("SELECT id func_id, usuario func FROM tb_funcionarios WHERE (cargo_id =:cargo_id OR cargo_id =:cargo) AND status_id =:status_id ORDER BY nome ASC", "cargo_id=23&cargo=27&status_id=1");
-        $registro['func'] = $listar->getResultado();
+        $registro['func'] = $listar->getResult();
 
         $listar->fullRead("SELECT id b_id, nome bairro, rota_id FROM tb_bairros ORDER BY nome ASC");
-        $registro['bairros'] = $listar->getResultado();
+        $registro['bairros'] = $listar->getResult();
 
         $listar->fullRead("SELECT id f_id, nome forma FROM tb_forma_pag ORDER BY nome ASC");
-        $registro['pag'] = $listar->getResultado();
+        $registro['pag'] = $listar->getResult();
 
         $listar->fullRead("SELECT id s_id, nome sit FROM tb_status_delivery ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id rota_id, nome rota FROM tb_rotas ORDER BY id ASC");
-        $registro['rota'] = $listar->getResultado();
+        $registro['rota'] = $listar->getResult();
 
         $this->Resultado = ['loja' => $registro['loja'], 'func' => $registro['func'], 'pag' => $registro['pag'], 'bairros' => $registro['bairros'], 'pag' => $registro['pag'], 'sit' => $registro['sit'], 'rota' => $registro['rota']];
 

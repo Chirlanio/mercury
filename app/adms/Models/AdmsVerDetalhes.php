@@ -24,7 +24,7 @@ class AdmsVerDetalhes {
                 FROM adms_detalhes_ordem_servico d
                 INNER JOIN adms_sits s ON s.id=d.status_id
                 WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verDetalhes->getResultado();
+        $this->Resultado = $verDetalhes->getResult();
         return $this->Resultado;
     }
 

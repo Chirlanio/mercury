@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -28,7 +28,7 @@ class AdmsApagarBairro {
         $apagarBairro = new \App\adms\Models\helper\AdmsDelete();
         $apagarBairro->exeDelete("tb_bairros", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($apagarBairro->getResultado()) {
+        if ($apagarBairro->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Bairro apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

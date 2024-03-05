@@ -34,7 +34,7 @@ class AdmsListarArq {
 
         $listarArtigo = new \App\adms\Models\helper\AdmsRead();
         $listarArtigo->fullRead("SELECT a.*, st.nome status FROM adms_up_down a INNER JOIN tb_status st ON st.id=a.status_id WHERE a.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id=1&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarArtigo->getResultado();
+        $this->Resultado = $listarArtigo->getResult();
         return $this->Resultado;
     }
 

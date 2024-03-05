@@ -16,7 +16,7 @@ class AdmsListarTipoRemanejo {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -34,7 +34,7 @@ class AdmsListarTipoRemanejo {
 
         $listarTipoRemanejo = new \App\adms\Models\helper\AdmsRead();
         $listarTipoRemanejo->fullRead("SELECT * FROM adms_tps_remanejos ORDER BY id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarTipoRemanejo->getResultado();
+        $this->Resultado = $listarTipoRemanejo->getResult();
         return $this->Resultado;
     }
 

@@ -43,7 +43,7 @@ class AdmsCadastrarAjuste {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadAjuste = new \App\adms\Models\helper\AdmsCreate;
         $cadAjuste->exeCreate("tb_ajuste", $this->Dados);
-        if ($cadAjuste->getResultado()) {
+        if ($cadAjuste->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Solicitação enviada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -61,20 +61,20 @@ class AdmsCadastrarAjuste {
         } else {
             $listar->fullRead("SELECT id_loja, id lj_id, nome loja FROM tb_lojas ORDER BY nome ASC");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_aj ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_tam, nome tam FROM tb_tam ORDER BY nome ASC");
-        $registro['tam_id'] = $listar->getResultado();
+        $registro['tam_id'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] >= 5) {
             $listar->fullRead("SELECT id id_consul, nome consul FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
             $listar->fullRead("SELECT id id_consul, nome consul FROM tb_funcionarios ORDER BY nome ASC");
         }
-        $registro['func_id'] = $listar->getResultado();
+        $registro['func_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'tam_id' => $registro['tam_id'], 'func_id' => $registro['func_id']];
 

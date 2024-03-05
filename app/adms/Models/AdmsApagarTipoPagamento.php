@@ -28,7 +28,7 @@ class AdmsApagarTipoPagamento {
         $apagarBairro = new \App\adms\Models\helper\AdmsDelete();
         $apagarBairro->exeDelete("tb_forma_pag", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($apagarBairro->getResultado()) {
+        if ($apagarBairro->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de pagamento apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

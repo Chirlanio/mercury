@@ -29,7 +29,7 @@ class AdmsApagarVideo {
             var_dump($this->DadosArq);
             $apagarVideo = new \App\adms\Models\helper\AdmsDelete();
             $apagarVideo->exeDelete("adms_ed_videos", "WHERE id =:id", "id={$this->DadosId}");
-            if ($apagarVideo->getResultado()) {
+            if ($apagarVideo->getResult()) {
                 $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
                 $apagarImg->apagarImg('assets/imagens/treinamento/' . $this->DadosId . '/' . $this->DadosArq[0]['image_thumb'], 'assets/imagens/treinamento/' . $this->DadosId);
                 
@@ -51,7 +51,7 @@ class AdmsApagarVideo {
     public function verVideo() {
         $verVideo = new \App\adms\Models\helper\AdmsRead();
         $verVideo->fullRead("SELECT * FROM adms_ed_videos WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosArq = $verVideo->getResultado();
+        $this->DadosArq = $verVideo->getResult();
     }
 
 }

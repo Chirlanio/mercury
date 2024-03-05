@@ -20,7 +20,7 @@ class AdmsCreate extends AdmsConn {
     private $Conn;
     private $Resultado;
 
-    function getResultado() {
+    function getResult() {
         return $this->Resultado;
     }
 

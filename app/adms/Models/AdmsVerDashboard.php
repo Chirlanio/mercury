@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -33,7 +33,7 @@ class AdmsVerDashboard {
                 INNER JOIN adms_sits_pgs sit ON sit.id=dash.status_id
                 INNER JOIN tb_areas a ON a.id=dash.area_id
                 WHERE dash.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verDash->getResultado();
+        $this->Resultado = $verDash->getResult();
         return $this->Resultado;
     }
 

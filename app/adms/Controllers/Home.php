@@ -23,8 +23,8 @@ class Home {
 
         $contAjuste = new \App\adms\Models\AdmsHome();
         $this->Dados['select'] = $contAjuste->listarCadastrar();
+        //var_dump($this->Dados['select']);
         
-        //var_dump($this->Dados['contAjuste']);
         $carregarView = new \Core\ConfigView("adms/Views/home/home", $this->Dados);
         $carregarView->renderizar();
     }

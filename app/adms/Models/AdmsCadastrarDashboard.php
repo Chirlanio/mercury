@@ -38,7 +38,7 @@ class AdmsCadastrarDashboard {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadDash = new \App\adms\Models\helper\AdmsCreate;
         $cadDash->exeCreate("tb_dashboards", $this->Dados);
-        if ($cadDash->getResultado()) {
+        if ($cadDash->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Dashboard cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -51,16 +51,16 @@ class AdmsCadastrarDashboard {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id loja_id, nome loja_nome FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_niv, nome nivac FROM adms_niveis_acessos WHERE ordem >=:ordem ORDER BY nome ASC", "ordem=" . $_SESSION['ordem_nivac']);
-        $registro['niv_ac'] = $listar->getResultado();
+        $registro['niv_ac'] = $listar->getResult();
 
         $listar->fullRead("SELECT id area_id, nome area FROM tb_areas ORDER BY nome ASC");
-        $registro['area'] = $listar->getResultado();
+        $registro['area'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'niv_ac' => $registro['niv_ac'], 'area' => $registro['area']];
 

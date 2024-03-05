@@ -27,7 +27,7 @@ class AdmsEditarSitPg {
         $verSitPg = new \App\adms\Models\helper\AdmsRead();
         $verSitPg->fullRead("SELECT * FROM adms_sits_pgs
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verSitPg->getResultado();
+        $this->Resultado = $verSitPg->getResult();
         return $this->Resultado;
     }
 
@@ -48,7 +48,7 @@ class AdmsEditarSitPg {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltSitPg = new \App\adms\Models\helper\AdmsUpdate();
         $upAltSitPg->exeUpdate("adms_sits_pgs", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltSitPg->getResultado()) {
+        if ($upAltSitPg->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Situação de página atualizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

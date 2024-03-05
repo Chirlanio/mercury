@@ -2,7 +2,7 @@
 
 namespace App\cpadms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -17,7 +17,7 @@ class CpAdmsPesqEstoque {
     private $Dados;
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 50;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -104,7 +104,7 @@ class CpAdmsPesqEstoque {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id']];
 

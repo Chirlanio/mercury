@@ -17,7 +17,7 @@ class CpAdmsPesqOrderService {
     private $Dados;
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 2;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoAj() {
@@ -175,7 +175,7 @@ class CpAdmsPesqOrderService {
         } else {
             $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.status_id =:status_id AND d.marca_id =:marca_id  AND d.client_name LIKE '%' :client_name '%' ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinIdMaxIdSitBrand() {
@@ -194,7 +194,7 @@ class CpAdmsPesqOrderService {
         } else {
             $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.status_id =:status_id AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinIdMaxIdBrandClient() {
@@ -213,7 +213,7 @@ class CpAdmsPesqOrderService {
         } else {
             $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service BETWEEN :min_id AND :max_id AND d.client_name LIKE '%' :client_name '%' AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinIdSitBrandClient() {
@@ -232,7 +232,7 @@ class CpAdmsPesqOrderService {
         } else {
             $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service >=:min_id AND d.status_id =:status_id AND d.marca_id =:marca_id AND d.client_name LIKE '%' :client_name '%' ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMaxIdSitBrandClient() {
@@ -251,7 +251,7 @@ class CpAdmsPesqOrderService {
         } else {
             $listOrderService->fullRead("SELECT d.id os_id, d.loja_id, d.referencia, d.order_service, lj.nome loja, c.cor, s.nome status, t.nome tam FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN adms_sits_ordem_servico s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=s.cor_id INNER JOIN tb_tam t ON t.id = d.tam_id WHERE d.loja_id =:loja_id AND d.order_service >=:min_id AND d.status_id =:status_id AND d.marca_id =:marca_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMinIdMaxIdSitBrandClient() {
@@ -297,7 +297,7 @@ class CpAdmsPesqOrderService {
                     LIMIT :limit
                     OFFSET :offset", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&marca_id={$this->Dados['marca_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinIdMaxIdSit() {
@@ -340,7 +340,7 @@ class CpAdmsPesqOrderService {
                     LIMIT :limit
                     OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginate->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMinMaxIdSit() {
@@ -381,7 +381,7 @@ class CpAdmsPesqOrderService {
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMinMaxIdCli() {
@@ -422,7 +422,7 @@ class CpAdmsPesqOrderService {
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinIdSit() {
@@ -462,7 +462,7 @@ class CpAdmsPesqOrderService {
                     AND d.status_id =:status_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMaxIdSit() {
@@ -502,7 +502,7 @@ class CpAdmsPesqOrderService {
                     AND d.status_id =:status_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinIdSitCli() {
@@ -544,7 +544,7 @@ class CpAdmsPesqOrderService {
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMaxIdSitCli() {
@@ -586,7 +586,7 @@ class CpAdmsPesqOrderService {
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinIdCliente() {
@@ -626,7 +626,7 @@ class CpAdmsPesqOrderService {
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMaxIdCliente() {
@@ -648,7 +648,7 @@ class CpAdmsPesqOrderService {
                     AND d.id <=:max_id
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaSitCliente() {
@@ -670,7 +670,7 @@ class CpAdmsPesqOrderService {
                     AND d.status_id =:status_id
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMinIdSitCliente() {
@@ -711,7 +711,7 @@ class CpAdmsPesqOrderService {
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMaxIdSitCliente() {
@@ -752,7 +752,7 @@ class CpAdmsPesqOrderService {
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaCliente() {
@@ -773,7 +773,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.loja_id =:loja_id
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinMaxId() {
@@ -794,7 +794,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.loja_id =:loja_id
                     AND d.id BETWEEN :min_id AND :max_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMinMaxId() {
@@ -831,7 +831,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.id BETWEEN :min_id AND :max_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMinId() {
@@ -852,7 +852,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.loja_id =:loja_id
                     AND d.id >=:min_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&min_id={$this->Dados['min_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaMaxId() {
@@ -873,7 +873,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.loja_id =:loja_id
                     AND d.id <=:max_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLojaStatus() {
@@ -894,7 +894,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.loja_id =:loja_id
                     AND d.status_id =:status_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMinIdCliente() {
@@ -935,7 +935,7 @@ class CpAdmsPesqOrderService {
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMaxIdCliente() {
@@ -975,7 +975,7 @@ class CpAdmsPesqOrderService {
                     AND d.client_name LIKE '%' :client_name '%'
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqSitCliente() {
@@ -1016,7 +1016,7 @@ class CpAdmsPesqOrderService {
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMinIdStatus() {
@@ -1057,7 +1057,7 @@ class CpAdmsPesqOrderService {
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMaxIdStatus() {
@@ -1098,7 +1098,7 @@ class CpAdmsPesqOrderService {
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqLoja() {
@@ -1119,7 +1119,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.loja_id =:loja_id
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMinId() {
@@ -1158,7 +1158,7 @@ class CpAdmsPesqOrderService {
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "min_id={$this->Dados['min_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqMaxId() {
@@ -1197,7 +1197,7 @@ class CpAdmsPesqOrderService {
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "max_id={$this->Dados['max_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqStatus() {
@@ -1234,7 +1234,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.status_id =:status_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['sit_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqBrand() {
@@ -1271,7 +1271,7 @@ class CpAdmsPesqOrderService {
                     WHERE d.marca_id =:marca_id
                     ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "marca_id={$this->Dados['marca_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqCliente() {
@@ -1310,7 +1310,7 @@ class CpAdmsPesqOrderService {
                     ORDER BY d.id DESC
                     LIMIT :limit OFFSET :offset", "client_name={$this->Dados['cliente']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function gerarPlanilha() {//Revisado
@@ -1329,7 +1329,7 @@ class CpAdmsPesqOrderService {
         } else {
             $listOrderService->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM adms_qualidade_ordem_servico d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listOrderService->getResultado();
+        $this->Resultado = $listOrderService->getResult();
     }
 
     private function pesqSearch() {
@@ -1351,7 +1351,7 @@ class CpAdmsPesqOrderService {
             $listarOrderService->fullRead("SELECT os.*, lj.nome loja, se.nome status, tp.nome tipo, t.nome tam, m.nome marca, ljc.nome loja_conserto, c.cor
                 FROM adms_qualidade_ordem_servico os INNER JOIN tb_lojas lj ON lj.id=os.loja_id LEFT JOIN tb_lojas ljc ON ljc.id=os.loja_id_conserto INNER JOIN adms_sits_ordem_servico se ON se.id=os.status_id INNER JOIN adms_cors c ON c.id=se.cor_id INNER JOIN adms_tips_ordem_servico tp ON tp.id=os.type_order_id INNER JOIN tb_tam t ON t.id=os.tam_id INNER JOIN adms_marcas m ON m.id=os.marca_id WHERE os.client_name LIKE '%' :client_name '%' OR os.id =:id OR lj.nome LIKE '%' :loja '%' OR os.order_service =:ordem OR os.referencia LIKE '%' :referencia '%' ORDER BY os.id DESC LIMIT :limit OFFSET :offset", "client_name={$this->Dados['search']}&id={$this->Dados['search']}&loja={$this->Dados['search']}&ordem={$this->Dados['search']}&referencia={$this->Dados['search']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarOrderService->getResultado();
+        $this->Resultado = $listarOrderService->getResult();
     }
 
     public function listCad() {
@@ -1362,13 +1362,13 @@ class CpAdmsPesqOrderService {
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id m_id, nome brand FROM adms_marcas ORDER BY nome ASC");
-        $registro['marcas'] = $listar->getResultado();
+        $registro['marcas'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM adms_sits_ordem_servico ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         //Pedidos Delivery
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
@@ -1376,63 +1376,63 @@ class CpAdmsPesqOrderService {
         } else {
             $listar->fullRead("SELECT COUNT(id) AS total_order FROM adms_qualidade_ordem_servico");
         }
-        $registro['sitTotal'] = $listar->getResultado();
+        $registro['sitTotal'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
             $listar->fullRead("SELECT COUNT(id) AS sitPend FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND loja_id =:loja_id", "status_id=1&loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS sitPend FROM adms_qualidade_ordem_servico WHERE status_id =:status_id", "status_id=1");
         }
-        $registro['sitPend'] = $listar->getResultado();
+        $registro['sitPend'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
             $listar->fullRead("SELECT COUNT(id) AS sitAgCons FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND loja_id =:loja_id", "status_id=2&loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS sitAgCons FROM adms_qualidade_ordem_servico WHERE status_id =:status_id", "status_id=2");
         }
-        $registro['sitAgCons'] = $listar->getResultado();
+        $registro['sitAgCons'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
             $listar->fullRead("SELECT COUNT(id) AS sitEmConst FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND loja_id =:loja_id", "status_id=3&loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS sitEmConst FROM adms_qualidade_ordem_servico WHERE status_id =:status_id", "status_id=3");
         }
-        $registro['sitEmConst'] = $listar->getResultado();
+        $registro['sitEmConst'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
             $listar->fullRead("SELECT COUNT(id) AS sitConcl FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND loja_id =:loja_id", "status_id=4&loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS sitConcl FROM adms_qualidade_ordem_servico WHERE status_id =:status_id", "status_id=4");
         }
-        $registro['sitConcl'] = $listar->getResultado();
+        $registro['sitConcl'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
             $listar->fullRead("SELECT COUNT(id) AS sitAgRet FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND loja_id =:loja_id", "status_id=5&loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS sitAgRet FROM adms_qualidade_ordem_servico WHERE status_id =:status_id", "status_id=5");
         }
-        $registro['sitAgRet'] = $listar->getResultado();
+        $registro['sitAgRet'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
             $listar->fullRead("SELECT COUNT(id) AS sitEmProcess FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND loja_id =:loja_id", "status_id=6&loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS sitEmProcess FROM adms_qualidade_ordem_servico WHERE status_id =:status_id", "status_id=6");
         }
-        $registro['sitEmProcess'] = $listar->getResultado();
+        $registro['sitEmProcess'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
             $listar->fullRead("SELECT COUNT(id) AS sitFinal FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND loja_id =:loja_id", "status_id=7&loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS sitFinal FROM adms_qualidade_ordem_servico WHERE status_id =:status_id", "status_id=7");
         }
-        $registro['sitFinal'] = $listar->getResultado();
+        $registro['sitFinal'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION)) {
             $listar->fullRead("SELECT COUNT(id) AS sitCancel FROM adms_qualidade_ordem_servico WHERE status_id =:status_id AND loja_id =:loja_id", "status_id=8&loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT COUNT(id) AS sitCancel FROM adms_qualidade_ordem_servico WHERE status_id =:status_id", "status_id=8");
         }
-        $registro['sitCancel'] = $listar->getResultado();
+        $registro['sitCancel'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'marcas' => $registro['marcas'],
             'sitTotal' => $registro['sitTotal'], 'sitPend' => $registro['sitPend'], 'sitAgCons' => $registro['sitAgCons'],

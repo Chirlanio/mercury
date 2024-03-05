@@ -27,7 +27,6 @@ class AdmsAddProcessLibrary {
         $this->Dados = $Dados;
 
         $this->File = $this->Dados['file_name_process'];
-        var_dump($this->File);
         unset($this->Dados['file_name_process']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
@@ -47,7 +46,7 @@ class AdmsAddProcessLibrary {
         $addProcess = new \App\adms\Models\helper\AdmsCreate();
         $addProcess->exeCreate("adms_process_librarys", $this->Dados);
 
-        if ($addProcess->getResultado()) {
+        if ($addProcess->getResult()) {
             if (empty($this->File['name'][0])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Processo/Política</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
@@ -131,22 +130,22 @@ class AdmsAddProcessLibrary {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id cat_id, name_category category FROM adms_cats_process_librarys ORDER BY name_category ASC");
-        $registro['cats'] = $listar->getResultado();
+        $registro['cats'] = $listar->getResult();
 
         $listar->fullRead("SELECT id a_id, name area_name FROM adms_areas ORDER BY name ASC");
-        $registro['area'] = $listar->getResultado();
+        $registro['area'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sec_id, sector_name FROM adms_sectors ORDER BY sector_name ASC");
-        $registro['sector'] = $listar->getResultado();
+        $registro['sector'] = $listar->getResult();
 
         $listar->fullRead("SELECT id m_id, name manager FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC ", "status_id=1");
-        $registro['manager'] = $listar->getResultado();
+        $registro['manager'] = $listar->getResult();
 
         $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");
-        $registro['manager_sector'] = $listar->getResultado();
+        $registro['manager_sector'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit'], 'cats' => $registro['cats'], 'area' => $registro['area'], 'sector' => $registro['sector'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector']];
 

@@ -39,7 +39,7 @@ class AdmsLibResp {
         $verResp->fullRead("SELECT resp.id, resp.adms_sits_est_id 
                 FROM adms_estornos resp
                 WHERE resp.id =:id", "id={$this->DadosId}");
-        $this->DadosResp = $verResp->getResultado();
+        $this->DadosResp = $verResp->getResult();
     }
 
     private function altResp() {
@@ -52,7 +52,7 @@ class AdmsLibResp {
         $upPerm = new \App\adms\Models\helper\AdmsUpdate();
         $upPerm->exeUpdate("adms_estornos", $this->Dados, "WHERE id =:id", "id={$this->DadosId}");
 
-        if ($upPerm->getResultado()) {
+        if ($upPerm->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Estorno autorizado com sucesso!</div>";
             $this->Resultado = true;
         } else {

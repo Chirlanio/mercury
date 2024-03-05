@@ -22,7 +22,7 @@ class AdmsVerCfop {
         $verCfop = new \App\adms\Models\helper\AdmsRead();
         $verCfop->fullRead("SELECT * FROM adms_cfops 
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verCfop->getResultado();
+        $this->Resultado = $verCfop->getResult();
         return $this->Resultado;
     }
 

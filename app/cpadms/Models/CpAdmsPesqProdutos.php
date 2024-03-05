@@ -2,7 +2,7 @@
 
 namespace App\cpadms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -17,7 +17,7 @@ class CpAdmsPesqProdutos {
     private $Dados;
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 1;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {

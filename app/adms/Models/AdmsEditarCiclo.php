@@ -30,7 +30,7 @@ class AdmsEditarCiclo {
         $verCiclo->fullRead("SELECT c.* 
                 FROM adms_ciclos c
                 WHERE c.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verCiclo->getResultado();
+        $this->Resultado = $verCiclo->getResult();
         return $this->Resultado;
     }
 
@@ -51,7 +51,7 @@ class AdmsEditarCiclo {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltCiclo = new \App\adms\Models\helper\AdmsUpdate();
         $upAltCiclo->exeUpdate("adms_ciclos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltCiclo->getResultado()) {
+        if ($upAltCiclo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -64,7 +64,7 @@ class AdmsEditarCiclo {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id s_id, nome sit FROM adms_sits ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

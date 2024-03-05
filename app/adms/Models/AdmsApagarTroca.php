@@ -25,7 +25,7 @@ class AdmsApagarTroca {
         $this->DadosId = (int) $DadosId;
         $apagarTroca = new \App\adms\Models\helper\AdmsDelete();
         $apagarTroca->exeDelete("tb_cad_produtos", "WHERE id =:id", "id={$this->DadosId}");
-        if ($apagarTroca->getResultado()) {
+        if ($apagarTroca->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Solicitação apagada com sucesso!</div>";
             $this->Resultado = true;
         } else {

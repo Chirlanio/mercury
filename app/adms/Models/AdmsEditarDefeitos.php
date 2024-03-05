@@ -30,7 +30,7 @@ class AdmsEditarDefeitos {
         $verDefeitos->fullRead("SELECT d.id, d.descricao, d.status_id
                 FROM adms_defeitos_ordem_servico d
                 WHERE d.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verDefeitos->getResultado();
+        $this->Resultado = $verDefeitos->getResult();
         return $this->Resultado;
     }
 
@@ -55,7 +55,7 @@ class AdmsEditarDefeitos {
         $upAltDefeitos = new \App\adms\Models\helper\AdmsUpdate();
         $upAltDefeitos->exeUpdate("adms_defeitos_ordem_servico", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
 
-        if ($upAltDefeitos->getResultado()) {
+        if ($upAltDefeitos->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -69,7 +69,7 @@ class AdmsEditarDefeitos {
         $listar = new \App\adms\Models\helper\AdmsRead();
         $listar->fullRead("SELECT id s_id, nome sit FROM adms_sits ORDER BY nome ASC");
 
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

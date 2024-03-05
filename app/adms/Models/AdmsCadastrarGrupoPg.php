@@ -41,7 +41,7 @@ class AdmsCadastrarGrupoPg {
         $this->Dados['ordem'] = $this->UltimoGrupoPg[0]['ordem'] + 1;
         $cadGrupoPg = new \App\adms\Models\helper\AdmsCreate;
         $cadGrupoPg->exeCreate("adms_grps_pgs", $this->Dados);
-        if ($cadGrupoPg->getResultado()) {
+        if ($cadGrupoPg->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Grupo de página cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -53,7 +53,7 @@ class AdmsCadastrarGrupoPg {
     private function verUltimoGrupoPg() {
         $verGrupoPg = new \App\adms\Models\helper\AdmsRead();
         $verGrupoPg->fullRead("SELECT ordem FROM adms_grps_pgs ORDER BY ordem DESC LIMIT :limit", "limit=1");
-        $this->UltimoGrupoPg = $verGrupoPg->getResultado();
+        $this->UltimoGrupoPg = $verGrupoPg->getResult();
     }
 
 }

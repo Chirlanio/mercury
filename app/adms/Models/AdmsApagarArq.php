@@ -28,7 +28,7 @@ class AdmsApagarArq {
         if ($this->DadosArq) {
             $apagarArq = new \App\adms\Models\helper\AdmsDelete();
             $apagarArq->exeDelete("adms_up_down", "WHERE id =:id", "id={$this->DadosId}");
-            if ($apagarArq->getResultado()) {
+            if ($apagarArq->getResult()) {
                 $apagarImg = new \App\adms\Models\helper\AdmsApagarImg();
                 $apagarImg->apagarImg('assets/download/' . $this->DadosId . '/' . $this->DadosArq[0]['slug'], 'assets/download/' . $this->DadosId);
                 $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro e Arquivo apagado com sucesso!</div>";
@@ -47,7 +47,7 @@ class AdmsApagarArq {
         $verUsuario = new \App\adms\Models\helper\AdmsRead();
         $verUsuario->fullRead("SELECT * FROM adms_up_down
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->DadosArq = $verUsuario->getResultado();
+        $this->DadosArq = $verUsuario->getResult();
     }
 
 }

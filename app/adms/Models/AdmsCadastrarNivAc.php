@@ -41,7 +41,7 @@ class AdmsCadastrarNivAc {
         $this->Dados['ordem'] = $this->UltimoNivAc[0]['ordem'] + 1;
         $cadNivAc = new \App\adms\Models\helper\AdmsCreate;
         $cadNivAc->exeCreate("adms_niveis_acessos", $this->Dados);
-        if ($cadNivAc->getResultado()) {
+        if ($cadNivAc->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Nível de acesso cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -53,14 +53,14 @@ class AdmsCadastrarNivAc {
     private function verUltimoNivAc() {
         $verNivAc = new \App\adms\Models\helper\AdmsRead();
         $verNivAc->fullRead("SELECT ordem FROM adms_niveis_acessos ORDER BY ordem DESC LIMIT :limit", "limit=1");
-        $this->UltimoNivAc = $verNivAc->getResultado();
+        $this->UltimoNivAc = $verNivAc->getResult();
     }
 
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id cor_id, nome cor FROM adms_cors ORDER BY id ASC");
-        $registro['cor'] = $listar->getResultado();
+        $registro['cor'] = $listar->getResult();
 
         $this->Resultado = ['cor' => $registro['cor']];
 

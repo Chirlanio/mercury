@@ -28,7 +28,7 @@ class AdmsApagarMotivo {
         $apagarMotivo = new \App\adms\Models\helper\AdmsDelete();
         $apagarMotivo->exeDelete("adms_motivo_estorno", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($apagarMotivo->getResultado()) {
+        if ($apagarMotivo->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Motivo de estorno apagado com sucesso!</div>";
             $this->Resultado = true;
         } else {

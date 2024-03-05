@@ -30,7 +30,7 @@ class AdmsEditarRespAuditoria {
         $verBairro->fullRead("SELECT b.*
                 FROM adms_responsavel_auditoria b
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verBairro->getResultado();
+        $this->Resultado = $verBairro->getResult();
         return $this->Resultado;
     }
 
@@ -51,7 +51,7 @@ class AdmsEditarRespAuditoria {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltRespAuditoria = new \App\adms\Models\helper\AdmsUpdate();
         $upAltRespAuditoria->exeUpdate("adms_responsavel_auditoria", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltRespAuditoria->getResultado()) {
+        if ($upAltRespAuditoria->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -64,7 +64,7 @@ class AdmsEditarRespAuditoria {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

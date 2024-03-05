@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarTipoArt {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -33,10 +33,8 @@ class AdmsListarTipoArt {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCargo = new \App\adms\Models\helper\AdmsRead();
-        $listarCargo->fullRead("SELECT *
-                FROM adms_tps_artigos
-                ORDER BY id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarCargo->getResultado();
+        $listarCargo->fullRead("SELECT * FROM adms_tps_artigos ORDER BY id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarCargo->getResult();
         return $this->Resultado;
     }
 

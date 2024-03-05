@@ -38,7 +38,7 @@ class AdmsCadastrarSitPg {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadSitPg = new \App\adms\Models\helper\AdmsCreate;
         $cadSitPg->exeCreate("adms_sits_pgs", $this->Dados);
-        if ($cadSitPg->getResultado()) {
+        if ($cadSitPg->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Situação de página cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {

@@ -38,7 +38,7 @@ class AdmsCadastrarCfop {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadCfop = new \App\adms\Models\helper\AdmsCreate;
         $cadCfop->exeCreate("adms_cfops", $this->Dados);
-        if ($cadCfop->getResultado()) {
+        if ($cadCfop->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>CFOP cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {

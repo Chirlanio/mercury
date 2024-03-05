@@ -42,7 +42,7 @@ class AdmsCadastrarTipo {
         $cadBairro = new \App\adms\Models\helper\AdmsCreate;
         $cadBairro->exeCreate("adms_tps_artigos", $this->Dados);
 
-        if ($cadBairro->getResultado()) {
+        if ($cadBairro->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de artigo cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {

@@ -60,9 +60,9 @@ class EditarUsuario
     {
         if ($this->Dados['form']) {
             $listarSelect = new \App\adms\Models\AdmsEditarUsuario();
-            $this->Dados['select'] = $listarSelect->listarCadastrar();
+            $this->Dados['select'] = $listarSelect->listAdd();
             
-            $botao = ['vis_usuario' => ['menu_controller' => 'ver-usuario', 'menu_metodo' => 'ver-usuario']];
+            $botao = ['list_usuario' => ['menu_controller' => 'usuarios', 'menu_metodo' => 'listar'], 'vis_usuario' => ['menu_controller' => 'ver-usuario', 'menu_metodo' => 'ver-usuario']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -16,7 +16,7 @@ class AdmsListarTroca {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 20;
+    private $LimiteResultado = LIMIT;
     private $ResultadoPg;
 
     function getResultadoPg() {
@@ -42,7 +42,7 @@ class AdmsListarTroca {
         } else {
             $listarTroca->fullRead("SELECT t.*, lj.nome nome_loja, st.nome status, f.nome func, st.adms_cor_id, c.cor cor_cr FROM tb_cad_produtos t INNER JOIN tb_lojas lj ON lj.id=t.loja_id INNER JOIN tb_status_troca st ON st.id=t.status_id INNER JOIN tb_funcionarios f ON f.id=t.func_id INNER JOIN adms_cors c on c.id=st.adms_cor_id AND st.id=t.status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
-        $this->Resultado = $listarTroca->getResultado();
+        $this->Resultado = $listarTroca->getResult();
         return $this->Resultado;
     }
 
@@ -54,13 +54,13 @@ class AdmsListarTroca {
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_id'] = $listar->getResultado();
+        $registro['loja_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_troca ORDER BY id ASC");
-        $registro['status_id'] = $listar->getResultado();
+        $registro['status_id'] = $listar->getResult();
 
         $listar->fullRead("SELECT id ref_id, nome ref FROM tb_cad_produtos ORDER BY id ASC");
-        $registro['ref_id'] = $listar->getResultado();
+        $registro['ref_id'] = $listar->getResult();
 
         $this->Resultado = ['loja_id' => $registro['loja_id'], 'status_id' => $registro['status_id'], 'ref_id' => $registro['ref_id']];
 

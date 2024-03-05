@@ -38,7 +38,7 @@ class AdmsCadastrarMarca {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $cadAjuste = new \App\adms\Models\helper\AdmsCreate;
         $cadAjuste->exeCreate("adms_marcas", $this->Dados);
-        if ($cadAjuste->getResultado()) {
+        if ($cadAjuste->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Solicitação enviada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -52,7 +52,7 @@ class AdmsCadastrarMarca {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

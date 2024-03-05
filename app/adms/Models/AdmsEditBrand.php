@@ -32,13 +32,13 @@ class AdmsEditBrand {
                 LEFT JOIN adms_suppliers s ON s.id = b.adms_supplier_id
                 LEFT JOIN adms_sits st ON st.id = b.status_id
                 WHERE b.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $viewSupplier->getResultado();
+        $this->Resultado = $viewSupplier->getResult();
         return $this->Resultado;
     }
 
     public function altBrand(array $Dados) {
         $this->Dados = $Dados;
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
@@ -54,7 +54,7 @@ class AdmsEditBrand {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltBrand = new \App\adms\Models\helper\AdmsUpdate();
         $upAltBrand->exeUpdate("adms_brands_suppliers", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltBrand->getResultado()) {
+        if ($upAltBrand->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Marca</strong> atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -67,10 +67,10 @@ class AdmsEditBrand {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $listar->fullRead("SELECT id su_id, fantasy_name supplier FROM adms_suppliers ORDER BY id ASC");
-        $registro['supp'] = $listar->getResultado();
+        $registro['supp'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit'], 'supp' => $registro['supp']];
 

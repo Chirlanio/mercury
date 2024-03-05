@@ -30,7 +30,7 @@ class AdmsEditarCat {
         $verCat->fullRead("SELECT * 
                 FROM adms_cats_artigos
                 WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
-        $this->Resultado = $verCat->getResultado();
+        $this->Resultado = $verCat->getResult();
         return $this->Resultado;
     }
 
@@ -52,7 +52,7 @@ class AdmsEditarCat {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $upAltCat = new \App\adms\Models\helper\AdmsUpdate();
         $upAltCat->exeUpdate("adms_cats_artigos", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
-        if ($upAltCat->getResultado()) {
+        if ($upAltCat->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Categoria atualizada com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -65,7 +65,7 @@ class AdmsEditarCat {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits ORDER BY nome ASC");
-        $registro['sit'] = $listar->getResultado();
+        $registro['sit'] = $listar->getResult();
 
         $this->Resultado = ['sit' => $registro['sit']];
 

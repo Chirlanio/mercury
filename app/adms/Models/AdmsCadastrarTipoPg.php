@@ -41,7 +41,7 @@ class AdmsCadastrarTipoPg {
         $this->Dados['ordem'] = $this->UltimoTipoPg[0]['ordem'] + 1;
         $cadTipoPg = new \App\adms\Models\helper\AdmsCreate;
         $cadTipoPg->exeCreate("adms_tps_pgs", $this->Dados);
-        if ($cadTipoPg->getResultado()) {
+        if ($cadTipoPg->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success'>Tipo de página cadastrado com sucesso!</div>";
             $this->Resultado = true;
         } else {
@@ -53,7 +53,7 @@ class AdmsCadastrarTipoPg {
     private function verUltimoTipoPg() {
         $verTipoPg = new \App\adms\Models\helper\AdmsRead();
         $verTipoPg->fullRead("SELECT ordem FROM adms_tps_pgs ORDER BY ordem DESC LIMIT :limit", "limit=1");
-        $this->UltimoTipoPg = $verTipoPg->getResultado();
+        $this->UltimoTipoPg = $verTipoPg->getResult();
     }
 
 }

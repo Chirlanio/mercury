@@ -28,7 +28,7 @@ class AdmsDeleteSupplier {
         $apagarBairro = new \App\adms\Models\helper\AdmsDelete();
         $apagarBairro->exeDelete("adms_suppliers", "WHERE id =:id", "id={$this->DadosId}");
         
-        if ($apagarBairro->getResultado()) {
+        if ($apagarBairro->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Fornecedor</strong> apagado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
