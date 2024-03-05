@@ -19,6 +19,7 @@ class AdmsListarPermi {
     private $LimiteResultado = LIMIT;
     private $ResultadoPg;
     private $NivId;
+    private $DadosId;
 
     function getResultadoPg() {
         return $this->ResultadoPg;
@@ -46,5 +47,4 @@ class AdmsListarPermi {
         $this->Resultado = $verNivAc->getResult();
         return $this->Resultado;
     }
-
 }

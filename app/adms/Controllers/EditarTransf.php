@@ -24,13 +24,13 @@ class EditarTransf {
     public function editTransf($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        $this->Origem = filter_input(INPUT_GET, "origem", FILTER_SANITIZE_STRING);
+        $this->Origem = filter_input(INPUT_GET, "origem", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $this->Dados['origem'] = $this->Origem;
 
-        $this->Destino = filter_input(INPUT_GET, "destino", FILTER_SANITIZE_STRING);
+        $this->Destino = filter_input(INPUT_GET, "destino", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $this->Dados['destino'] = $this->Destino;
 
-        $this->Status = filter_input(INPUT_GET, "status", FILTER_SANITIZE_STRING);
+        $this->Status = filter_input(INPUT_GET, "status", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $this->Dados['status'] = $this->Status;
 
         $this->PageId = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);

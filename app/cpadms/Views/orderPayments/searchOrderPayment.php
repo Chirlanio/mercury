@@ -4,6 +4,7 @@ if (!defined('URLADM')) {
     exit();
 }
 //var_dump($_SESSION['terms']);
+//var_dump($this->Dados['select']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">

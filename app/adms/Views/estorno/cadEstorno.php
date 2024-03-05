@@ -204,10 +204,10 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['id_mot'] as $mot) {
                             extract($mot);
-                            if (isset($valorForm['adms_mot_est_id']) == $id_mot) {
-                                echo "<option value='$id_mot' selected>$motivo</option>";
+                            if (isset($valorForm['adms_mot_est_id']) == $m_id) {
+                                echo "<option value='$m_id' selected>$motivo</option>";
                             } else {
-                                echo "<option value='$id_mot'>$motivo</option>";
+                                echo "<option value='$m_id'>$motivo</option>";
                             }
                         }
                         ?>

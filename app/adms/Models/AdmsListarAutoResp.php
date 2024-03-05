@@ -19,6 +19,7 @@ class AdmsListarAutoResp {
     private $LimiteResultado = LIMIT;
     private $ResultadoPg;
     private $Resp;
+    private $DadosId;
 
     function getResultadoPg() {
         return $this->ResultadoPg;
@@ -49,8 +50,7 @@ class AdmsListarAutoResp {
     public function verResp($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verNivAc = new \App\adms\Models\helper\AdmsRead();
-        $verNivAc->fullRead("SELECT id, nome FROM adms_resp_autorizacao 
-                WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $verNivAc->fullRead("SELECT id, nome FROM adms_resp_autorizacao WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verNivAc->getResult();
         return $this->Resultado;
     }

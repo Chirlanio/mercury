@@ -384,10 +384,10 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['id_mot'] as $mot) {
                             extract($mot);
-                            if ($valorForm['adms_mot_est_id'] == $adms_mot_est_id) {
-                                echo "<option value='$adms_mot_est_id' selected>$motivo</option>";
+                            if ($valorForm['adms_mot_est_id'] == $m_id) {
+                                echo "<option value='$m_id' selected>$motivo</option>";
                             } else {
-                                echo "<option value='$adms_mot_est_id'>$motivo</option>";
+                                echo "<option value='$m_id'>$motivo</option>";
                             }
                         }
                         echo '</select>';
@@ -396,10 +396,10 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['id_mot'] as $mot) {
                             extract($mot);
-                            if ($valorForm['adms_mot_est_id'] == $adms_mot_est_id) {
-                                echo "<option value='$adms_mot_est_id' selected>$motivo</option>";
+                            if ($valorForm['adms_mot_est_id'] == $m_id) {
+                                echo "<option value='$m_id' selected>$motivo</option>";
                             } else {
-                                echo "<option value='$adms_mot_est_id'>$motivo</option>";
+                                echo "<option value='$m_id'>$motivo</option>";
                             }
                         }
                         echo '</select>';

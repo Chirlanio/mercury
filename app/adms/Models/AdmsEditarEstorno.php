@@ -121,6 +121,9 @@ class AdmsEditarEstorno {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
+        $listar->fullRead("SELECT id m_id, nome motivo FROM adms_motivo_estorno ORDER BY nome ASC");
+        $registro['id_mot'] = $listar->getResult();
+
         $listar->fullRead("SELECT id adms_bandeira_id, nome bandeira FROM adms_bandeiras ORDER BY nome ASC");
         $registro['adms_bandeira_id'] = $listar->getResult();
 
@@ -132,9 +135,6 @@ class AdmsEditarEstorno {
 
         $listar->fullRead("SELECT id adms_sits_est_id, nome sit_est FROM adms_sits_estornos WHERE id <>:id ORDER BY id ASC", "id=3");
         $registro['adms_sits_est_id'] = $listar->getResult();
-
-        $listar->fullRead("SELECT id adms_mot_est_id, nome motivo FROM adms_motivo_estorno ORDER BY nome ASC");
-        $registro['id_mot'] = $listar->getResult();
 
         if ($_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 10) {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");

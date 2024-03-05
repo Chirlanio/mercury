@@ -198,6 +198,9 @@ class AdmsEditOrderPayment {
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas ORDER BY name ASC");
         $registro['area'] = $listar->getResult();
 
+        $listar->fullRead("SELECT id t_id, name typePayment FROM adms_type_payments ORDER BY name ASC");
+        $registro['typePayment'] = $listar->getResult();
+
         if ($_SESSION['adms_niveis_acesso_id'] <= STOREPERMITION) {
             $listar->fullRead("SELECT id cc_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         } else {//$_SESSION['area_id']
@@ -210,9 +213,6 @@ class AdmsEditOrderPayment {
 
         $listar->fullRead("SELECT id s_id, fantasy_name supplier, cnpj_cpf FROM adms_suppliers WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['supp'] = $listar->getResult();
-
-        $listar->fullRead("SELECT id t_id, name typePayment FROM adms_type_payments ORDER BY name ASC");
-        $registro['typePayment'] = $listar->getResult();
 
         $listar->fullRead("SELECT id bank_id, bank_name FROM adms_banks WHERE status_id =:status_id ORDER BY bank_name ASC", "status_id=1");
         $registro['bank'] = $listar->getResult();
