@@ -7,7 +7,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Ordens de Serviços</h2>
             </div>
@@ -20,14 +20,14 @@ if (!defined('URLADM')) {
                             echo $_SESSION['terms'];
                             //var_dump($_SESSION['terms']);
                         } else {
-                            echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                            echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                         }
                     }
                     if ($this->Dados['botao']['list_order_service']) {
-                        echo "<a href='" . URLADM . "ordem-servico/listar' class='btn btn-outline-info btn-sm'> <i class='fa-solid fa-list mr-1'></i>Listar</a> ";
+                        echo "<a href='" . URLADM . "ordem-servico/listar' class='btn btn-outline-info btn-sm'> <i class='fa-solid fa-list mr-1'></i></a> ";
                     }
                     if ($this->Dados['botao']['cad_order_service']) {
-                        echo "<a href='" . URLADM . "cadastrar-ordem-servico/cad-ordem-servico' class='btn btn-outline-success btn-sm'><i class='fa-regular fa-square-plus mr-1'></i>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "cadastrar-ordem-servico/cad-ordem-servico' class='btn btn-outline-success btn-sm'><i class='fa-regular fa-square-plus mr-1'></i> Novo</a>";
                     }
                     ?>
                 </span>
@@ -38,7 +38,7 @@ if (!defined('URLADM')) {
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
                         <?php
                         if ($this->Dados['botao']['gerar']) {
-                            echo "<a class='dropdown-item' href='" . URLADM . "gerar-planilha-order-service/gerar'>Exportar</a>";
+                            echo "<a class='dropdown-item' href='" . URLADM . "gerar-planilha-order-service/gerar'>Gerar Excel</a>";
                         }
                         if ($this->Dados['botao']['list_order_service']) {
                             echo "<a class='dropdown-item' href='" . URLADM . "ordem-servico/listar'>Listar</a>";

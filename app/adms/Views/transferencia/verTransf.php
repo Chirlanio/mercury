@@ -8,7 +8,7 @@ if (!empty($this->Dados['dados_transf'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
                     <h2 class="display-4 titulo">Transferência - Origem: <?php echo $loja_ori; ?> - Destino: <?php echo $loja_des; ?></h2>
                 </div>
@@ -20,13 +20,13 @@ if (!empty($this->Dados['dados_transf'][0])) {
                         }
                         if ($this->Dados['botao']['edit_transf']) {
                             if (!empty($_SESSION['pesqOrigem'])) {
-                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm d-print-none' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm d-print-none' title='Editar'><i class='fa-solid fa-pen-to-square'></i></a> ";
                             } elseif (!empty($_SESSION['pesqDestino'])) {
-                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?destivo={$_SESSION['pesqDestino']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm d-print-none' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?destino={$_SESSION['pesqDestino']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm d-print-none' title='Editar'><i class='fa-solid fa-pen-to-square'></i></a> ";
                             } elseif (!empty($_SESSION['pesqStatus'])) {
-                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?status={$_SESSION['pesqStatus']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm d-print-none' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?status={$_SESSION['pesqStatus']}&pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm d-print-none' title='Editar'><i class='fa-solid fa-pen-to-square'></i></a> ";
                             } else {
-                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm d-print-none' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                echo "<a href='" . URLADM . "editar-transf/edit-transf/$id?pg={$this->Dados['pg']}' class='btn btn-outline-warning btn-sm d-print-none' title='Editar'><i class='fa-solid fa-pen-to-square'></i></a> ";
                             }
                         }
                         if ($this->Dados['botao']['del_transf']) {

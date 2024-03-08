@@ -2,7 +2,7 @@
 
 namespace App\adms\Controllers;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -54,7 +54,7 @@ class EditarFunc {
             $listarSelect = new \App\adms\Models\AdmsEditarFunc();
             $this->Dados['select'] = $listarSelect->listarFunc();
 
-            $botao = ['vis_func' => ['menu_controller' => 'ver-func', 'menu_metodo' => 'ver-func']];
+            $botao = ['list_func' => ['menu_controller' => 'funcionarios', 'menu_metodo' => 'listar-func'],'vis_func' => ['menu_controller' => 'ver-func', 'menu_metodo' => 'ver-func']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

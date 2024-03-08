@@ -9,7 +9,7 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Cadastrar CFOP</h2>
             </div>
@@ -17,7 +17,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['list_cfop']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'cfop/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'cfop/listar'; ?>" class="btn btn-outline-info btn-sm"><i class='fa-solid fa-list'></i></a>
                 </div>
                 <?php
             }
@@ -69,7 +69,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> CST ICMS</label>
-                    <input name="cst_icms" type="text" class="form-control is-invalid" placeholder="3 Digitos" value="<?php
+                    <input name="cst_icms" type="text" class="form-control is-invalid" placeholder="3 Digitos" maxlength="3" value="<?php
                     if (isset($valorForm['cst_icms'])) {
                         echo $valorForm['cst_icms'];
                     }

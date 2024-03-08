@@ -58,7 +58,7 @@ class EditarUsuarioTreinamento {
             $listarSelect = new \App\adms\Models\AdmsEditarUsuarioTreinamento();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_usuario' => ['menu_controller' => 'ver-usuario-treinamento', 'menu_metodo' => 'ver-usuario']];
+            $botao = ['list_usuario' => ['menu_controller' => 'usuarios-treinamento', 'menu_metodo' => 'listar'],'vis_usuario' => ['menu_controller' => 'ver-usuario-treinamento', 'menu_metodo' => 'ver-usuario']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

@@ -29,7 +29,7 @@ class CpAdmsPesqFunc {
         $this->PageId = (int) $PageId;
         $this->Dados = $Dados;
 
-        $this->Dados['nome'] = trim($this->Dados['nome']);
+        $this->Dados['nome'] = !empty($this->Dados['nome']) ? trim($this->Dados['nome']) : null;
 
         $_SESSION['nome'] = $this->Dados['nome'];
         $_SESSION['loja_id'] = $this->Dados['loja_id'];
@@ -67,7 +67,7 @@ class CpAdmsPesqFunc {
 
     private function searchStoreStatus() {
 
-        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-func/listar', '?loja_id=' . $this->Dados['loja_id'] . '&status=' . $this->Dados['status_id']);
+        $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-func/listar', '?loja=' . $this->Dados['loja_id'] . '&status=' . $this->Dados['status_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id", "loja_id={$this->Dados['loja_id']}&status_id={$this->Dados['status_id']}");
         $this->ResultadoPg = $paginacao->getResultado();

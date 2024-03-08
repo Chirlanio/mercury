@@ -54,7 +54,7 @@ class EditarDefeitoLocal {
             $listarSelect = new \App\adms\Models\AdmsEditarDefeitoLocal();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_def_local' => ['menu_controller' => 'ver-defeito-local', 'menu_metodo' => 'ver-defeito-local']];
+            $botao = ['list_def_local' => ['menu_controller' => 'defeito-local', 'menu_metodo' => 'listar'], 'vis_def_local' => ['menu_controller' => 'ver-defeito-local', 'menu_metodo' => 'ver-defeito-local']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -68,5 +68,4 @@ class EditarDefeitoLocal {
             header("Location: $UrlDestino");
         }
     }
-
 }

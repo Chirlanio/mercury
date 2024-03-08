@@ -7,21 +7,13 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Listar Funcionários</h2>
             </div>
             <?php
             if ($this->Dados['botao']['listFunc']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-func/cad-func'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            Cadastrar
-                        </button>
-                    </div>
-                </a>
-                <?php
+                echo "<a href='" . URLADM . "cadastrar-func/cad-func' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
             }
             ?>
         </div>
@@ -111,7 +103,7 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center">#ID</th>
                         <th>Nome</th>
                         <th>Cupom Site</th>
                         <th class="d-none d-sm-table-cell">Função</th>

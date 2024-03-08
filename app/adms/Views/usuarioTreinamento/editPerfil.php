@@ -1,11 +1,11 @@
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Perfil</h2>
             </div>
             <div class="p-2">
-                <a href="<?php echo URLADM . 'ver-perfil-treinamento/perfil'; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
+                <a href="<?php echo URLADM . 'ver-perfil-treinamento/perfil'; ?>" class="btn btn-outline-primary btn-sm"><i class='fa-solid fa-eye'></i></a>
             </div>
         </div><hr>
         <?php

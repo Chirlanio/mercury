@@ -9,20 +9,20 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Marca - Fornecedor</h2>
+                <h2 class="display-4 titulo">Editar Marca - Fornecedor</h2>
             </div>
-
-            <?php
-            if ($this->Dados['botao']['list_brand']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'brands/list'; ?>" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-list"></i> Listar</a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
+                if ($this->Dados['botao']['list_brand']) {
+                    echo "<a href='" . URLADM . "brands/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['view_brand']) {
+                    echo "<a href='" . URLADM . "view-brands/view-brand/{$valorForm['id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
 
         </div>
         <hr>
@@ -32,7 +32,7 @@ if (isset($this->Dados['form'][0])) {
             unset($_SESSION['msg']);
         }
         ?>
-        <form method="POST" action="" enctype="multipart/form-data"> 
+        <form method="POST" action="" class="was-validated" enctype="multipart/form-data"> 
             <input name="id" type="hidden" value="<?php
             if (isset($valorForm['id'])) {
                 echo $valorForm['id'];
@@ -45,7 +45,7 @@ if (isset($this->Dados['form'][0])) {
                     if (isset($valorForm['brand'])) {
                         echo $valorForm['brand'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Fornecedor</label>
@@ -61,8 +61,9 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$su_id'>$supplier</option>";
                             }
                         }
+                        echo "</select>";
                     } else {
-                        echo '<select name="adms_supplier_id" id="adms_supplier_id" class="form-control">';
+                        echo '<select name="adms_supplier_id" id="adms_supplier_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['supp'] as $sup) {
                             extract($sup);
@@ -72,8 +73,8 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$su_id'>$supplier</option>";
                             }
                         }
+                        echo "</select>";
                     }
-                    echo "</select>";
                     ?>
                 </div>
                 <div class="form-group col-md-4">
@@ -91,7 +92,7 @@ if (isset($this->Dados['form'][0])) {
                             }
                         }
                     } else {
-                        echo '<select name="status_id" id="status_id" class="form-control">';
+                        echo '<select name="status_id" id="status_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['sit'] as $sit) {
                             extract($sit);

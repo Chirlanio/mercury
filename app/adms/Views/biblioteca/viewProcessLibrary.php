@@ -8,7 +8,7 @@ if (!empty($this->Dados['dados_process'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
                     <h2 class="display-4 titulo">Detalhes do Processo/Política</h2>
                 </div>
@@ -19,7 +19,7 @@ if (!empty($this->Dados['dados_process'][0])) {
                             echo "<a href='" . URLADM . "process-library/list' class='btn btn-outline-info btn-sm' title='Listar'><i class='fa-solid fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_process']) {
-                            echo "<a href='" . URLADM . "edit-process-library/process-library/$p_id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-fancy'></i></a> ";
+                            echo "<a href='" . URLADM . "edit-process-library/process-library/$p_id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fa-solid fa-pen-to-square'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_files']) {
                             echo "<a href='" . URLADM . "edit-process-library-files/edit-files/$p_id' class='btn btn-outline-dark btn-sm' title='Editar Arquivos'><i class='fa-solid fa-file-pen'></i></a> ";

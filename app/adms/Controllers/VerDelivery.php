@@ -27,8 +27,8 @@ class VerDelivery {
             $this->Dados['dados_ped'] = $verPed->verDelivery($this->DadosId);
 
             $botao = ['list_ped' => ['menu_controller' => 'delivery', 'menu_metodo' => 'listar'],
-                'edit_ped' => ['menu_controller' => 'editar-ped', 'menu_metodo' => 'edit-ped'],
-                'del_ped' => ['menu_controller' => 'apagar-ped', 'menu_metodo' => 'apagar-ped']];
+                'edit_ped' => ['menu_controller' => 'editar-delivery', 'menu_metodo' => 'edit-delivery'],
+                'del_ped' => ['menu_controller' => 'apagar-delivery', 'menu_metodo' => 'apagar-delivery']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

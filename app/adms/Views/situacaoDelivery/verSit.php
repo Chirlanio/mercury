@@ -8,21 +8,21 @@ if (!empty($this->Dados['dados_sit'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4 titulo">Ver Situação de Entregas</h2>
+                    <h2 class="display-4 titulo">Situação de Entregas</h2>
                 </div>
                 <div class="p-2">
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_sit']) {
-                            echo "<a href='" . URLADM . "situacao-delivery/listar' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                            echo "<a href='" . URLADM . "situacao-delivery/listar' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_sit']) {
-                            echo "<a href='" . URLADM . "editar-sit-delivery/edit-sit/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                            echo "<a href='" . URLADM . "editar-sit-delivery/edit-sit/$id' class='btn btn-outline-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_sit']) {
-                            echo "<a href='" . URLADM . "apagar-sit-delivery/apagar-sit/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-sit-delivery/apagar-sit/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fa-solid fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>

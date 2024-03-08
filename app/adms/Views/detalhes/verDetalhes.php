@@ -8,7 +8,7 @@ if (!empty($this->Dados['dados_detalhes'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
                     <h2 class="display-4 titulo">Detalhe</h2>
                 </div>
@@ -19,10 +19,10 @@ if (!empty($this->Dados['dados_detalhes'][0])) {
                             echo "<a href='" . URLADM . "detalhes/listar' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_detalhes']) {
-                            echo "<a href='" . URLADM . "editar-detalhes/edit-detalhes/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-nib'></i></a> ";
+                            echo "<a href='" . URLADM . "editar-detalhes/edit-detalhes/$id' class='btn btn-outline-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_detalhes']) {
-                            echo "<a href='" . URLADM . "apagar-detalhes/apagar-detalhes/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-detalhes/apagar-detalhes/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fa-solid fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>

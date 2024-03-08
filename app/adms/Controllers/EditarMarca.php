@@ -18,11 +18,11 @@ class EditarMarca {
     private $DadosId;
 
     public function editMarca($DadosId = null) {
-        
+
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        
+
         $this->DadosId = (int) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
             $this->editMarcaPriv();
         } else {
@@ -54,11 +54,11 @@ class EditarMarca {
 
     private function editMarcaViewPriv() {
         if ($this->Dados['form']) {
-            
+
             $listarSelect = new \App\adms\Models\AdmsEditarMarca();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
-            
-            $botao = ['vis_marca' => ['menu_controller' => 'ver-marca', 'menu_metodo' => 'ver-marca']];
+
+            $botao = ['list_marca' => ['menu_controller' => 'marcas', 'menu_metodo' => 'listar'], 'vis_marca' => ['menu_controller' => 'ver-marca', 'menu_metodo' => 'ver-marca']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -73,5 +73,4 @@ class EditarMarca {
             header("Location: $UrlDestino");
         }
     }
-
 }

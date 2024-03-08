@@ -9,21 +9,22 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Transferências</h2>
             </div>
-            <?php
-            if ($this->Dados['botao']['list_transf']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'transferencia/listar-transf/'; ?>" class="btn btn-outline-info btn-sm" title="Listar"><i class='fas fa-list'></i></a>
-                    <a href="<?php echo URLADM . "ver-transf/ver-transf/" . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm" title="Visualizar"><i class='fas fa-eye'></i></a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
-        </div><hr>
+                if ($this->Dados['botao']['list_transf']) {
+                    echo "<a href='" . URLADM . "transferencia/listar-transf' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['vis_transf']) {
+                    echo "<a href='" . URLADM . "ver-transf/ver-transf/{$valorForm['id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
@@ -335,9 +336,9 @@ if (isset($this->Dados['form'][0])) {
                     ?>
                     <div class="form-group col-md-4">
                         <?php
-                        if ($_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 5) {
+                        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['ordem_nivac'] == STOREPERMITION) {
                             echo "<label><span class='text-danger'>*</span> Confirma recebimento?</label>";
-                            if ($valorForm['confirma_receb'] != 1) {
+                            if ($valorForm['confirma_receb'] != 1 || $_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                                 echo "<select name='confirma_receb' id='confirma_receb' class='custom-select'>";
                                 if ($valorForm['confirma_receb'] == 1) {
                                     echo "<option value=''>Selecione</option>";

@@ -23,7 +23,7 @@ class CadastrarAjuste {
             $cadAjuste = new \App\adms\Models\AdmsCadastrarAjuste();
             $cadAjuste->cadAjuste($this->Dados);
             if ($cadAjuste->getResultado()) {
-                $UrlDestino = URLADM . 'ajuste/listarAjuste';
+                $UrlDestino = URLADM . 'ajuste/listar-ajuste';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
@@ -38,7 +38,7 @@ class CadastrarAjuste {
         $listarSelect = new \App\adms\Models\AdmsCadastrarAjuste();
         $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-        $botao = ['list_ajuste' => ['menu_controller' => 'ajuste', 'menu_metodo' => 'listar']];
+        $botao = ['list_ajuste' => ['menu_controller' => 'ajuste', 'menu_metodo' => 'listar-ajuste']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

@@ -53,7 +53,7 @@ class EditarSitOrderPayment {
             $listarSelect = new \App\adms\Models\AdmsEditarSitOrderPayment();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_sit' => ['menu_controller' => 'ver-sit-aj', 'menu_metodo' => 'ver-sit']];
+            $botao = ['list_sit' => ['menu_controller' => 'situacao-order-payment', 'menu_metodo' => 'listar']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

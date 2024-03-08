@@ -9,7 +9,7 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Cadastrar Situação - Cadastro para Troca</h2>
             </div>
@@ -17,12 +17,13 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['list_sit']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'situacao-troca/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'situacao-troca/listar'; ?>" class="btn btn-outline-info btn-sm"><i class='fa-solid fa-list'></i></a>
                 </div>
                 <?php
             }
             ?>
-        </div><hr>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];

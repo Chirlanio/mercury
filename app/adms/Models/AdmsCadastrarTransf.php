@@ -2,7 +2,7 @@
 
 namespace App\adms\Models;
 
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -50,14 +50,14 @@ class AdmsCadastrarTransf {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");
         }
         $registro['loja_origem_id'] = $listar->getResult();
 
-        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas WHERE id !=:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas ORDER BY id ASC");

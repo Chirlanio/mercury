@@ -38,7 +38,7 @@ class CadastrarLoja {
         $listarSelect = new \App\adms\Models\AdmsCadastrarLoja();
         $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-        $botao = ['list_loja' => ['menu_controller' => 'loja', 'menu_metodo' => 'listar-lojas']];
+        $botao = ['list_loja' => ['menu_controller' => 'lojas', 'menu_metodo' => 'listar-lojas']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

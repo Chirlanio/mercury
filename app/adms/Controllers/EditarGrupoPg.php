@@ -51,7 +51,7 @@ class EditarGrupoPg {
     private function editGrupoPgViewPriv() {
         if ($this->Dados['form']) {
 
-            $botao = ['vis_grpg' => ['menu_controller' => 'ver-grupo-pg', 'menu_metodo' => 'ver-grupo-pg']];
+            $botao = ['list_grpg' => ['menu_controller' => 'grupo-pg', 'menu_metodo' => 'listar'],'vis_grpg' => ['menu_controller' => 'ver-grupo-pg', 'menu_metodo' => 'ver-grupo-pg']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

@@ -51,7 +51,7 @@ class EditarSitPg {
     private function editSitPgViewPriv() {
         if ($this->Dados['form']) {
 
-            $botao = ['vis_sit' => ['menu_controller' => 'ver-sit-pg', 'menu_metodo' => 'ver-sit-pg']];
+            $botao = ['list_sit' => ['menu_controller' => 'situacao-pg', 'menu_metodo' => 'listar'], 'vis_sit' => ['menu_controller' => 'ver-sit-pg', 'menu_metodo' => 'ver-sit-pg']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -65,5 +65,4 @@ class EditarSitPg {
             header("Location: $UrlDestino");
         }
     }
-
 }

@@ -6,21 +6,13 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Prateleira Infinita</h2>
             </div>
             <?php
             if ($this->Dados['botao']['list_ped']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-ped/cad-ped'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm d-print-none">
-                            Cadastrar
-                        </button>
-                    </div>
-                </a>
-                <?php
+                echo "<a href='" . URLADM . "cadastrar-ped/cad-ped' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
             }
             ?>
         </div>

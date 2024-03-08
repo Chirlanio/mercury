@@ -51,7 +51,7 @@ class EditarCfop {
 
     private function editCfopViewPriv() {
         if ($this->Dados['form']) {
-            $botao = ['vis_cfop' => ['menu_controller' => 'ver-cfop', 'menu_metodo' => 'ver-cfop']];
+            $botao = ['list_cfop' => ['menu_controller' => 'cfop', 'menu_metodo' => 'listar'], 'vis_cfop' => ['menu_controller' => 'ver-cfop', 'menu_metodo' => 'ver-cfop']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -66,5 +66,4 @@ class EditarCfop {
             header("Location: $UrlDestino");
         }
     }
-
 }

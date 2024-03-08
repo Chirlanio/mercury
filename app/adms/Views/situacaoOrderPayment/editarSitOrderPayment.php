@@ -8,27 +8,26 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Situação</h2>
             </div>
-            <?php
-            if ($this->Dados['botao']['vis_sit']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'situacao-order-payment/listar'; ?>" class="btn btn-outline-primary btn-sm">Listar</a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
-        </div><hr>
+                if ($this->Dados['botao']['list_sit']) {
+                    echo "<a href='" . URLADM . "situacao-order-payment/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                ?>
+            </span>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
         ?>
-        <form method="POST" action="" enctype="multipart/form-data"> 
+        <form method="POST" action="" class="was-validated" enctype="multipart/form-data"> 
             <input name="id" type="hidden" value="<?php
             if (isset($valorForm['id'])) {
                 echo $valorForm['id'];
@@ -37,7 +36,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Nome</label>
-                    <input name="exibition_name" type="text" class="form-control" placeholder="Nome da situação" value="<?php
+                    <input name="exibition_name" type="text" class="form-control is-invalid" placeholder="Nome da situação" value="<?php
                     if (isset($valorForm['exibition_name'])) {
                         echo $valorForm['exibition_name'];
                     }
@@ -45,7 +44,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Ordem</label>
-                    <input name="order_sit" type="text" class="form-control" value="<?php
+                    <input name="order_sit" type="text" class="form-control is-invalid" value="<?php
                     if (isset($valorForm['order_sit'])) {
                         echo $valorForm['order_sit'];
                     }
@@ -53,7 +52,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Situação</label>
-                    <select name="status_id" id="status_id" class="form-control" required>
+                    <select name="status_id" id="status_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['sit'] as $sit) {

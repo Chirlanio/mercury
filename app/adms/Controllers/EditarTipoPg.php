@@ -51,7 +51,7 @@ class EditarTipoPg {
     private function editTipoPgViewPriv() {
         if ($this->Dados['form']) {
 
-            $botao = ['vis_tpg' => ['menu_controller' => 'ver-tipo-pg', 'menu_metodo' => 'ver-tipo-pg']];
+            $botao = ['list_tpg' => ['menu_controller' => 'tipo-pg', 'menu_metodo' => 'listar'],'vis_tpg' => ['menu_controller' => 'ver-tipo-pg', 'menu_metodo' => 'ver-tipo-pg']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

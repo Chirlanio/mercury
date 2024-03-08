@@ -6,23 +6,13 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Listar Marcas</h2>
+                <h2 class="display-4 titulo">Marcas</h2>
             </div>
             <?php
             if ($this->Dados['botao']['cad_marca']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-marca/cad-marca'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            <span><i class="fas fa-plus d-block d-md-none fa-2x"></i>
-                                <span class='d-none d-md-block'>Cadastrar</span>
-                            </span>
-                        </button>
-                    </div>
-                </a>
-                <?php
+                echo "<a href='" . URLADM . "cadastrar-marca/cad-marca' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
             }
             ?>
         </div>
@@ -47,7 +37,7 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center">#ID</th>
                         <th>Nome</th>
                         <th class="d-none d-sm-table-cell">Cadastrado</th>
                         <th class="d-none d-sm-table-cell">Atualizado</th>

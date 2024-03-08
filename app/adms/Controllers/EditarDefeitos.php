@@ -54,7 +54,7 @@ class EditarDefeitos {
             $listarSelect = new \App\adms\Models\AdmsEditarDefeitos();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_defeitos' => ['menu_controller' => 'ver-defeitos', 'menu_metodo' => 'ver-defeitos']];
+            $botao = ['list_defeitos' => ['menu_controller' => 'defeitos', 'menu_metodo' => 'listar'], 'vis_defeitos' => ['menu_controller' => 'ver-defeitos', 'menu_metodo' => 'ver-defeitos']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -68,5 +68,4 @@ class EditarDefeitos {
             header("Location: $UrlDestino");
         }
     }
-
 }

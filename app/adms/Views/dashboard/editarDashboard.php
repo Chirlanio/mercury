@@ -9,22 +9,23 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Dashboard</h2>
             </div>
-
-            <?php
-            if ($this->Dados['botao']['vis_dash']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-dashboard/ver-dashboard/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
+                if ($this->Dados['botao']['list_dash']) {
+                    echo "<a href='" . URLADM . "dashboard/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['vis_dash']) {
+                    echo "<a href='" . URLADM . "ver-dashboard/ver-dashboard/{$valorForm['id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
 
-        </div><hr>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
@@ -56,8 +57,6 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span>Descrição</label>
                     <input name="descricao" class="form-control" value="<?php
@@ -66,6 +65,21 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-12">
+                    <label><span class="text-danger">*</span>Link</label>
+                    <input name="link" type="text" class="form-control" placeholder="link do dashboard" value="<?php
+                    if (isset($valorForm['link'])) {
+                        echo $valorForm['link'];
+                    }
+                    ?>">
+                </div>
+            </div>
+            <div class="form-row">
+
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span>Área</label>
                     <?php
@@ -123,18 +137,6 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>
                     </select>
-                </div>
-            </div>
-
-            <div class="form-row">
-
-                <div class="form-group col-md-9">
-                    <label><span class="text-danger">*</span>Link</label>
-                    <input name="link" type="text" class="form-control" placeholder="link do dashboard" value="<?php
-                    if (isset($valorForm['link'])) {
-                        echo $valorForm['link'];
-                    }
-                    ?>">
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span>Situação</label>

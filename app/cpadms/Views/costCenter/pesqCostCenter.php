@@ -6,7 +6,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Centro de Custo</h2>
             </div>
@@ -14,10 +14,10 @@ if (!defined('URLADM')) {
                 <span class="d-none d-md-block">
                     <?php
                     if ($this->Dados['botao']['list_cost']) {
-                        echo "<a href='" . URLADM . "cost-centers/list' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i> Listar</a> ";
+                        echo "<a href='" . URLADM . "cost-centers/list' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['add_cost']) {
-                        echo "<a href='" . URLADM . "add-cost-center/cost-center' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "add-cost-center/cost-center' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>
@@ -79,7 +79,7 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center">#ID</th>
                         <th class="d-none d-sm-table-cell">Id Centro de Custo</th>
                         <th class="d-none d-sm-table-cell">Centro de Custo</th>
                         <th class="d-none d-sm-table-cell">Responsável</th>

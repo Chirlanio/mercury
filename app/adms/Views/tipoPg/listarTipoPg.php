@@ -6,24 +6,19 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Listar Tipo das Páginas</h2>
+                <h2 class="display-4 titulo">Tipo das Páginas</h2>
             </div>
-            <?php
-            if ($this->Dados['botao']['cad_tpg']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-tipo-pg/cad-tipo-pg'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            Cadastrar
-                        </button>
-                    </div>
-                </a>
+            <div class="p-2">
                 <?php
-            }
-            ?>
+                if ($this->Dados['botao']['cad_tpg']) {
+                    echo "<a href='" . URLADM . "cadastrar-tipo-pg/cad-tipo-pg' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
+                }
+                ?>                
+            </div>
         </div>
+        <hr>
         <?php
         if (empty($this->Dados['listTipoPg'])) {
             ?>
@@ -40,12 +35,11 @@ if (!defined('URLADM')) {
             unset($_SESSION['msg']);
         }
         ?>
-        <hr>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center">#ID</th>
                         <th>Tipo - Nome</th>
                         <th class="d-none d-sm-table-cell">ordem</th>
                         <th class="text-center">Ações</th>

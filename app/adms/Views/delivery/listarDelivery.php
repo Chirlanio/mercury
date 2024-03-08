@@ -7,7 +7,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Listar Entregas</h2>
             </div>
@@ -107,7 +107,7 @@ if (!defined('URLADM')) {
                         }
                     }
                     if ($this->Dados['botao']['cad_delivery']) {
-                        echo "<a href='" . URLADM . "cadastrar-delivery/cad-delivery' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "cadastrar-delivery/cad-delivery' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>
@@ -272,11 +272,10 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center">#ID</th>
                         <th>Loja</th>
                         <th class="d-none d-sm-table-cell">Cliente</th>
                         <th class="d-none d-sm-table-cell">Bairro</th>
-                        <th class="d-none d-sm-table-cell">Rota</th>
                         <th class="d-none d-sm-table-cell">Saída</th>
                         <th class="d-none d-sm-table-cell d-print-none">Cadastro</th>
                         <th class="d-none d-sm-table-cell d-print-none">Atualizado</th>
@@ -294,9 +293,6 @@ if (!defined('URLADM')) {
                             <td class="align-middle"><?php echo $nome_loja; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $cliente; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $bairro; ?></td>
-                            <td class="d-none d-sm-table-cell align-middle">
-                                <span class="badge badge-<?php echo $cor; ?>"><?php echo $rota; ?></span>
-                            </td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $saida; ?></td>
                             <td class="d-none d-sm-table-cell d-print-none align-middle"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></td>
                             <td class="d-none d-sm-table-cell d-print-none align-middle"><?php echo (!empty($modified)) ? date('d/m/Y H:i:s', strtotime($modified)) : ""; ?></td>
@@ -305,10 +301,10 @@ if (!defined('URLADM')) {
                                 <span class="d-none d-md-block">
                                     <?php
                                     if ($this->Dados['botao']['vis_delivery']) {
-                                        echo "<a href='" . URLADM . "ver-delivery/ver-delivery/$id_loja' class='btn btn-outline-primary btn-sm mb-1' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                        echo "<a href='" . URLADM . "ver-delivery/ver-delivery/$id_loja' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['edit_delivery']) {
-                                        echo "<a href='" . URLADM . "editar-delivery/edit-delivery/$id_loja' class='btn btn-outline-warning btn-sm mb-1' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                        echo "<a href='" . URLADM . "editar-delivery/edit-delivery/$id_loja' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['del_delivery']) {
                                         echo "<a href='" . URLADM . "apagar-delivery/apagar-delivery/$id_loja' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";

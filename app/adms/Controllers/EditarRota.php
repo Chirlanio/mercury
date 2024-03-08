@@ -58,7 +58,7 @@ class EditarRota {
     private function editRotaViewPriv() {
 
         if ($this->Dados['form']) {
-            $botao = ['vis_rota' => ['menu_controller' => 'ver-rota', 'menu_metodo' => 'ver-rota']];
+            $botao = ['list_rota' => ['menu_controller' => 'rota', 'menu_metodo' => 'listar'],'vis_rota' => ['menu_controller' => 'ver-rota', 'menu_metodo' => 'ver-rota']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

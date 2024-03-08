@@ -8,24 +8,24 @@ if (!empty($this->Dados['dados_usuario'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4 titulo">Ver Usuário</h2>
+                    <h2 class="display-4 titulo">Usuário</h2>
                 </div>
                 <div class="p-2">
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_usuario']) {
-                            echo "<a href='" . URLADM . "usuarios/listar' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                            echo "<a href='" . URLADM . "usuarios/listar' class='btn btn-outline-info btn-sm' title='Listar usuários'><i class='fa-solid fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_usuario']) {
-                            echo "<a href='" . URLADM . "editar-usuario/edit-usuario/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                            echo "<a href='" . URLADM . "editar-usuario/edit-usuario/$id' class='btn btn-outline-warning btn-sm' title='Editar usuário'><i class='fa-solid fa-pen-to-square'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_senha']) {
-                            echo "<a href='" . URLADM . "editar-senha/edit-senha/$id' class='btn btn-outline-danger btn-sm'>Editar Senha</a> ";
+                            echo "<a href='" . URLADM . "editar-senha/edit-senha/$id' class='btn btn-outline-danger btn-sm' title='Editar senha'><i class='fa-solid fa-key'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_usuario']) {
-                            echo "<a href='" . URLADM . "apagar-usuario/apagar-usuario/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-usuario/apagar-usuario/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar usuário'><i class='fa-solid fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>
@@ -79,7 +79,7 @@ if (!empty($this->Dados['dados_usuario'][0])) {
                 <dt class="col-sm-3">Apelido</dt>
                 <dd class="col-sm-9"><?php echo $apelido; ?></dd>
 
-                <dt class="col-sm-3">Loja</dt>
+                <dt class="col-sm-3">Local de Trabalho</dt>
                 <dd class="col-sm-9"><?php echo $loja; ?></dd>
 
                 <dt class="col-sm-3">E-mail</dt>
@@ -88,7 +88,7 @@ if (!empty($this->Dados['dados_usuario'][0])) {
                 <dt class="col-sm-3">Área</dt>
                 <dd class="col-sm-9"><?php echo $area; ?></dd>
 
-                <dt class="col-sm-3">Gerência</dt>
+                <dt class="col-sm-3">Gerência da Área</dt>
                 <dd class="col-sm-9"><?php echo $manager; ?></dd>
 
                 <dt class="col-sm-3">Usuário</dt>

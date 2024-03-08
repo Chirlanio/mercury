@@ -10,7 +10,7 @@ if (!defined('URLADM')) {
 /**
  * Description of EditarCor
  *
- * @copyright (c) year, Cesar Szpak - Celke
+ * @copyright (c) year, Francisco Chirlanio - Grupo Meia Sola
  */
 class EditarCor
 {
@@ -55,7 +55,7 @@ class EditarCor
     private function editCorViewPriv()
     {
         if ($this->Dados['form']) {            
-            $botao = ['vis_cor' => ['menu_controller' => 'ver-cor', 'menu_metodo' => 'ver-cor']];
+            $botao = ['list_cor' => ['menu_controller' => 'cor', 'menu_metodo' => 'listar'],'vis_cor' => ['menu_controller' => 'ver-cor', 'menu_metodo' => 'ver-cor']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

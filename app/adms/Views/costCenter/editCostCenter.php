@@ -9,22 +9,23 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Centro de Custo</h2>
             </div>
-
-            <?php
-            if ($this->Dados['botao']['view_cost']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'view-cost-center/cost-center/' . $valorForm['c_id']; ?>" class="btn btn-outline-primary btn-sm"><i class='fas fa-eye'></i> Visualizar</a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
+                if ($this->Dados['botao']['list_cost']) {
+                    echo "<a href='" . URLADM . "cost-centers/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['view_cost']) {
+                    echo "<a href='" . URLADM . "view-cost-center/cost-center/{$valorForm['c_id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
 
-        </div><hr>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];

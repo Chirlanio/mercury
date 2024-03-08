@@ -6,7 +6,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Listar Nível de Acesso</h2>
             </div>
@@ -14,10 +14,10 @@ if (!defined('URLADM')) {
                 <span class="d-none d-md-block">
                     <?php
                     if ($this->Dados['botao']['sincro_permi']) {
-                        echo "<a href='" . URLADM . "sincro-pg-niv-ac/sincro-pg-niv-ac' class='btn btn-outline-warning btn-sm'>Sincronizar</a> ";
+                        echo "<a href='" . URLADM . "sincro-pg-niv-ac/sincro-pg-niv-ac' class='btn btn-outline-warning btn-sm' title='Sincronizar'><i class='fa-solid fa-rotate'></i></a> ";
                     }
                     if ($this->Dados['botao']['cad_nivac']) {
-                        echo "<a href='" . URLADM . "cadastrar-niv-ac/cad-niv-ac' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "cadastrar-niv-ac/cad-niv-ac' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>
@@ -38,6 +38,7 @@ if (!defined('URLADM')) {
                 </div>
             </div>
         </div>
+        <hr>
         <?php
         if (empty($this->Dados['listNivAc'])) {
             ?>
@@ -54,7 +55,6 @@ if (!defined('URLADM')) {
             unset($_SESSION['msg']);
         }
         ?>
-        <hr>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
@@ -78,7 +78,7 @@ if (!defined('URLADM')) {
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $ordem; ?></td>
                             <td class="d-none d-sm-table-cell align-middle">
                                 <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $nome_cor; ?></span>
-                                </td>
+                            </td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php

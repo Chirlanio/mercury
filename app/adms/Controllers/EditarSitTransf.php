@@ -24,7 +24,7 @@ class EditarSitTransf {
             $this->editSitPriv();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Situação não encontrada!</div>";
-            $UrlDestino = URLADM . 'situacao/listar';
+            $UrlDestino = URLADM . 'situacao-transf/listar';
             header("Location: $UrlDestino");
         }
     }
@@ -53,7 +53,7 @@ class EditarSitTransf {
             $listarSelect = new \App\adms\Models\AdmsEditarSitTransf();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_sit' => ['menu_controller' => 'ver-sit-transf', 'menu_metodo' => 'ver-sit']];
+            $botao = ['list_sit' => ['menu_controller' => 'situacao-transf', 'menu_metodo' => 'listar'],'vis_sit' => ['menu_controller' => 'ver-sit-transf', 'menu_metodo' => 'ver-sit']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

@@ -17,7 +17,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['list_bank']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'banks/list'; ?>" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-list"></i> Listar</a>
+                    <a href="<?php echo URLADM . 'banks/list'; ?>" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-list"></i></a>
                 </div>
                 <?php
             }

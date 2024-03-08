@@ -62,7 +62,7 @@ class EditarDelivery {
             $listarSelect = new \App\adms\Models\AdmsEditarDelivery();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_delivery' => ['menu_controller' => 'editar-delivery', 'menu_metodo' => 'edit-delivery']];
+            $botao = ['list_delivery' => ['menu_controller' => 'delivery', 'menu_metodo' => 'listar'], 'vis_delivery' => ['menu_controller' => 'editar-delivery', 'menu_metodo' => 'edit-delivery']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

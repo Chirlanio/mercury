@@ -6,7 +6,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">
                     <?php
@@ -21,7 +21,7 @@ if (!defined('URLADM')) {
             if ($this->Dados['botao']['list_nivac']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'nivel-acesso/listar'; ?>" class="btn btn-outline-info btn-sm">Nível de Acesso</a>
+                    <a href="<?php echo URLADM . 'nivel-acesso/listar'; ?>" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-turn-up"></i></a>
                 </div>
                 <?php
             }

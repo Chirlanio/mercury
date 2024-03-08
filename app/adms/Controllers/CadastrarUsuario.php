@@ -21,7 +21,6 @@ class CadastrarUsuario {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         
         if (!empty($this->Dados['CadUsuario'])) {
-            
             unset($this->Dados['CadUsuario']);
             
             $this->Dados['imagem_nova'] = ($_FILES['imagem_nova'] ? $_FILES['imagem_nova'] : null);
@@ -43,7 +42,7 @@ class CadastrarUsuario {
 
     private function cadUsuarioViewPriv() {
         $listarSelect = new \App\adms\Models\AdmsCadastrarUsuario();
-        $this->Dados['select'] = $listarSelect->listarCadastrar();
+        $this->Dados['select'] = $listarSelect->listAdd();
 
         $botao = ['list_usuario' => ['menu_controller' => 'usuarios', 'menu_metodo' => 'listar']];
         $listarBotao = new \App\adms\Models\AdmsBotao();

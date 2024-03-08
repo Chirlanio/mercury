@@ -75,9 +75,9 @@ if (!defined('URLADM')) {
             $html .= "<span>" . $client_name . "</span>";
             $html .= "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $qtde . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . utf8_decode($defeito) . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . utf8_decode($detalhe) . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . utf8_decode($local) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($defeito) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($detalhe) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($local) . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $order_service . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($date_order_service) ? date('d/m/Y', strtotime($date_order_service)) : "") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $order_service_zznet . "</td>";

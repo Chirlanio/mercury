@@ -9,9 +9,9 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Editar Form Cadastrar Usuário</h2>
+                <h2 class="display-4 titulo">Editar Cadastrar Usuário</h2>
             </div>
 
         </div><hr>
@@ -21,11 +21,11 @@ if (isset($this->Dados['form'][0])) {
             unset($_SESSION['msg']);
         }
         ?>
-        <form method="POST" action="" enctype="multipart/form-data">             
+        <form method="POST" action="" class="was-validated" enctype="multipart/form-data">             
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Enviar E-mail de Confirmação</label>
-                    <select name="env_email_conf" id="env_email_conf" class="form-control">
+                    <select name="env_email_conf" id="env_email_conf" class="form-control is-invalid" required>
                         <?php
                             if ($valorForm['env_email_conf'] == 1) {
                                 echo "<option value=''>Selecione</option>";
@@ -48,7 +48,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Situação</label>
-                    <select name="adms_sits_usuario_id" id="adms_sits_usuario_id" class="form-control">
+                    <select name="adms_sits_usuario_id" id="adms_sits_usuario_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['sit'] as $sit) {
@@ -67,7 +67,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Nível de Acesso</label>
-                    <select name="adms_niveis_acesso_id" id="adms_niveis_acesso_id" class="form-control">
+                    <select name="adms_niveis_acesso_id" id="adms_niveis_acesso_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['nivac'] as $nivac) {

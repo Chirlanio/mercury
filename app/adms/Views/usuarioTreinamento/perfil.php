@@ -6,14 +6,14 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Perfil</h2>
             </div>
             <div class="p-2">
                 <span class="d-none d-md-block">
-                    <a href="<?php echo URLADM . 'editar-perfil-treinamento/alt-perfil'; ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pen-nib"></i> Editar</a>
-                    <a href="<?php echo URLADM . 'alterar-senha-treinamento/alt-senha'; ?>" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-key"></i> Editar a Senha</a>
+                    <a href="<?php echo URLADM . 'editar-perfil-treinamento/alt-perfil'; ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pen-nib"></i></a>
+                    <a href="<?php echo URLADM . 'alterar-senha-treinamento/alt-senha'; ?>" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-key"></i></a>
                 </span>
                 <div class="dropdown d-block d-md-none">
                     <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,7 +25,8 @@ if (!defined('URLADM')) {
                     </div>
                 </div>
             </div>
-        </div><hr>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];

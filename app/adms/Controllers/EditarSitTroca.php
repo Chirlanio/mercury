@@ -53,7 +53,7 @@ class EditarSitTroca {
             $listarSelect = new \App\adms\Models\AdmsEditarSitTroca();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_sit' => ['menu_controller' => 'ver-sit-troca', 'menu_metodo' => 'ver-sit']];
+            $botao = ['list_sit' => ['menu_controller' => 'situacao-troca', 'menu_metodo' => 'listar'],'vis_sit' => ['menu_controller' => 'ver-sit-troca', 'menu_metodo' => 'ver-sit']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

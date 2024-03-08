@@ -66,12 +66,12 @@ class AdmsEditCostCenter {
 
     public function listAdd() {
         $listar = new \App\adms\Models\helper\AdmsRead();
-
-        $listar->fullRead("SELECT id f_id, name gerencia FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
-        $registro['resp'] = $listar->getResult();
         
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
         $registro['sits'] = $listar->getResult();
+
+        $listar->fullRead("SELECT id f_id, name gerencia FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
+        $registro['resp'] = $listar->getResult();
         
         $listar->fullRead("SELECT id a_id, name name_area FROM adms_areas WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         $registro['areas'] = $listar->getResult();

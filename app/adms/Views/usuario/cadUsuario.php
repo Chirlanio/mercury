@@ -9,7 +9,7 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Cadastrar Usuário</h2>
             </div>
@@ -17,7 +17,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['list_usuario']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'usuarios/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'usuarios/listar'; ?>" class="btn btn-outline-info btn-sm"><i class='fa-solid fa-list'></i></a>
                 </div>
                 <?php
             }
@@ -74,16 +74,16 @@ if (isset($this->Dados['form'][0])) {
                     ?>" required>
                 </div>
                 <div class="form-group col-md-2">
-                    <label><span class="text-danger">*</span> Loja</label>
+                    <label><span class="text-danger">*</span> Local de Trabalho</label>
                     <select name="loja_id" id="loja_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['loja'] as $l) {
-                            extract($l);
-                            if ($valorForm['loja_id'] == $id_loja) {
-                                echo "<option value='$id_loja' selected>$loja</option>";
+                        foreach ($this->Dados['select']['stores'] as $store) {
+                            extract($store);
+                            if ($valorForm['loja_id'] == $l_id) {
+                                echo "<option value='$l_id' selected>$store_name</option>";
                             } else {
-                                echo "<option value='$id_loja'>$loja</option>";
+                                echo "<option value='$l_id'>$store_name</option>";
                             }
                         }
                         ?>
@@ -98,10 +98,10 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['nivac'] as $nivac) {
                             extract($nivac);
-                            if ($valorForm['adms_niveis_acesso_id'] == $id_nivac) {
-                                echo "<option value='$id_nivac' selected>$nome_nivac</option>";
+                            if ($valorForm['adms_niveis_acesso_id'] == $n_id) {
+                                echo "<option value='$n_id' selected>$nome_nivac</option>";
                             } else {
-                                echo "<option value='$id_nivac'>$nome_nivac</option>";
+                                echo "<option value='$n_id'>$nome_nivac</option>";
                             }
                         }
                         ?>

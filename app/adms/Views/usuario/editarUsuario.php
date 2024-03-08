@@ -5,32 +5,24 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-var_dump($this->Dados['select']['areas']);
+//var_dump($this->Dados['select']['areas']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Usuário</h2>
             </div>
-
-            <?php
-            if ($this->Dados['botao']['list_usuario']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'usuarios/listar'; ?>" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-list"></i></a>
-                </div>
+            <span class="d-none d-md-block p-2">
                 <?php
-            }
-            if ($this->Dados['botao']['vis_usuario']) {
+                if ($this->Dados['botao']['list_usuario']) {
+                    echo "<a href='" . URLADM . "usuarios/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['vis_usuario']) {
+                    echo "<a href='" . URLADM . "ver-usuario/ver-usuario/{$valorForm['id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
                 ?>
-                <div class="pt-2">
-                    <a href="<?php echo URLADM . 'ver-usuario/ver-usuario/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
-                </div>
-                <?php
-            }
-            ?>
-
+            </span>
         </div>
         <hr>
         <?php
@@ -39,7 +31,7 @@ var_dump($this->Dados['select']['areas']);
             unset($_SESSION['msg']);
         }
         ?>
-        <form method="POST" action="" enctype="multipart/form-data"> 
+        <form method="POST" action="" class="was-validated" enctype="multipart/form-data"> 
             <input name="id" type="hidden" value="<?php
             if (isset($valorForm['id'])) {
                 echo $valorForm['id'];
@@ -48,41 +40,41 @@ var_dump($this->Dados['select']['areas']);
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Nome</label>
-                    <input name="nome" type="text" class="form-control" placeholder="Digite o nome completo" value="<?php
+                    <input name="nome" type="text" class="form-control is-invalid" placeholder="Digite o nome completo" value="<?php
                     if (isset($valorForm['nome'])) {
                         echo $valorForm['nome'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Apelido</label>
-                    <input name="apelido" type="text" class="form-control" placeholder="Como gostaria de ser chamado" value="<?php
+                    <input name="apelido" type="text" class="form-control is-invalid" placeholder="Como gostaria de ser chamado" value="<?php
                     if (isset($valorForm['apelido'])) {
                         echo $valorForm['apelido'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> E-mail</label>
-                    <input name="email" type="text" class="form-control" placeholder="Seu melhor e-mail" value="<?php
+                    <input name="email" type="email" class="form-control is-invalid" placeholder="Seu melhor e-mail" value="<?php
                     if (isset($valorForm['email'])) {
                         echo $valorForm['email'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Usuário</label>
-                    <input name="usuario" type="text" class="form-control" id="nome" placeholder="Digite o usuário" value="<?php
+                    <input name="usuario" type="email" class="form-control is-invalid" id="usuario" placeholder="Digite o usuário" value="<?php
                     if (isset($valorForm['usuario'])) {
                         echo $valorForm['usuario'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Loja</label>
-                    <select name="loja_id" id="loja_id" class="form-control">
+                    <label><span class="text-danger">*</span> Local de Trabalho</label>
+                    <select name="loja_id" id="loja_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['stores'] as $loja) {
@@ -98,7 +90,7 @@ var_dump($this->Dados['select']['areas']);
                 </div>
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Área</label>
-                    <select name="adms_area_id" id="adms_area_id" class="form-control">
+                    <select name="adms_area_id" id="adms_area_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['areas'] as $a) {
@@ -116,7 +108,7 @@ var_dump($this->Dados['select']['areas']);
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Nível de Acesso</label>
-                    <select name="adms_niveis_acesso_id" id="adms_niveis_acesso_id" class="form-control">
+                    <select name="adms_niveis_acesso_id" id="adms_niveis_acesso_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['nivac'] as $nivac) {
@@ -132,7 +124,7 @@ var_dump($this->Dados['select']['areas']);
                 </div>
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Situação</label>
-                    <select name="adms_sits_usuario_id" id="adms_sits_usuario_id" class="form-control">
+                    <select name="adms_sits_usuario_id" id="adms_sits_usuario_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['sits'] as $sit) {
@@ -162,9 +154,9 @@ var_dump($this->Dados['select']['areas']);
                 </div>
                 <div class="form-group col-md-6">
                     <?php
-                    if (isset($valorForm['imagem']) AND ! empty($valorForm['imagem'])) {
+                    if (isset($valorForm['imagem']) AND !empty($valorForm['imagem'])) {
                         $imagem_antiga = URLADM . 'assets/imagens/usuario/' . $valorForm['id'] . '/' . $valorForm['imagem'];
-                    } elseif (isset($valorForm['imagem_antiga']) AND ! empty($valorForm['imagem_antiga'])) {
+                    } elseif (isset($valorForm['imagem_antiga']) AND !empty($valorForm['imagem_antiga'])) {
                         $imagem_antiga = URLADM . 'assets/imagens/usuario/' . $valorForm['id'] . '/' . $valorForm['imagem_antiga'];
                     } else {
                         $imagem_antiga = URLADM . 'assets/imagens/usuario/preview_img.png';

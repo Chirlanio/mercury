@@ -6,7 +6,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Pesquisar Cadastro para Trocas</h2>
             </div>
@@ -14,10 +14,10 @@ if (!defined('URLADM')) {
                 <span class="d-none d-md-block">
                     <?php
                     if ($this->Dados['botao']['list_troca']) {
-                        echo "<a href='" . URLADM . "listar-troca/listar-troca' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                        echo "<a href='" . URLADM . "listar-troca/listar-troca' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['cad_troca']) {
-                        echo "<a href='" . URLADM . "cadastrar-troca/cad-troca' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "cadastrar-troca/cad-troca' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>
@@ -63,6 +63,18 @@ if (!defined('URLADM')) {
                 <div class="col-sm-12 col-lg-4 mb-3">
                     <div class="input-group">
                         <div class="input-group-prepend">
+                            <label class="input-group-text" style="font-weight: bold" for="referencia">Referência</label>
+                        </div>
+                        <input name="referencia" type="text" id="referencia" class="form-control" aria-describedby="referencia" placeholder="Digite a referência" value="<?php
+                        if (isset($_SESSION['referencia'])) {
+                            echo $_SESSION['referencia'];
+                        }
+                        ?>" autofocus>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4 mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
                             <label class="input-group-text" style="font-weight: bold" for="sit_id">Situação</label>
                         </div>
                         <?php
@@ -78,18 +90,6 @@ if (!defined('URLADM')) {
                         }
                         echo "</select>";
                         ?>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-lg-4 mb-3">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="referencia">Referência</label>
-                        </div>
-                        <input name="referencia" type="text" id="referencia" class="form-control" aria-describedby="referencia" placeholder="Digite a referência" value="<?php
-                        if (isset($_SESSION['referencia'])) {
-                            echo $_SESSION['referencia'];
-                        }
-                        ?>" autofocus>
                     </div>
                 </div>
             </div>

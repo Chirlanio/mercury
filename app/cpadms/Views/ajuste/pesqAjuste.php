@@ -1,12 +1,12 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Pesquisar Ajustes de Estoque</h2>
             </div>
@@ -14,10 +14,10 @@ if (!defined('URL')) {
                 <span class="d-none d-md-block">
                     <?php
                     if ($this->Dados['botao']['list_ajuste']) {
-                        echo "<a href='" . URLADM . "ajuste/listar-ajuste' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                        echo "<a href='" . URLADM . "ajuste/listar-ajuste' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['cad_ajuste']) {
-                        echo "<a href='" . URLADM . "cadastrar-ajuste/cad-ajuste' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "cadastrar-ajuste/cad-ajuste' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>
@@ -48,12 +48,12 @@ if (!defined('URL')) {
                         <?php
                         echo "<select name='loja_id' id='loja_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['loja_id'] as $lo) {
-                            extract($lo);
-                            if (isset($_SESSION['pesqLoja']) == $loja_id) {
-                                echo "<option value='$loja_id' selected>$loja</option>";
+                        foreach ($this->Dados['select']['stores'] as $store) {
+                            extract($store);
+                            if ($_SESSION['pesqLoja'] == $l_id) {
+                                echo "<option value='$l_id' selected>$store_name</option>";
                             } else {
-                                echo "<option value='$loja_id'>$loja</option>";
+                                echo "<option value='$l_id'>$store_name</option>";
                             }
                         }
                         echo "</select>";
@@ -66,8 +66,8 @@ if (!defined('URL')) {
                             <label class="input-group-text" style="font-weight: bold" for="referencia">Referência</label>
                         </div>
                         <input name="referencia" type="text" id="referencia" class="form-control" aria-describedby="referencia" placeholder="Digite a referência" value="<?php
-                        if (isset($_SESSION['referencia'])) {
-                            echo $_SESSION['referencia'];
+                        if (isset($_SESSION['pesqRef'])) {
+                            echo $_SESSION['pesqRef'];
                         }
                         ?>" autofocus>
                     </div>
@@ -82,7 +82,7 @@ if (!defined('URL')) {
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['sit'] as $ld) {
                             extract($ld);
-                            if (isset($_SESSION['sit']) == $sit_id) {
+                            if ($_SESSION['pesqSit'] == $sit_id) {
                                 echo "<option value='$sit_id' selected>$sit</option>";
                             } else {
                                 echo "<option value='$sit_id'>$sit</option>";
@@ -114,12 +114,13 @@ if (!defined('URL')) {
             echo $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
-        ?><hr>
+        ?>
+        <hr>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center">#ID</th>
                         <th>Loja</th>
                         <th class="d-none d-sm-table-cell">Referência</th>
                         <th class="d-none d-sm-table-cell">Tamanho</th>
@@ -133,7 +134,7 @@ if (!defined('URL')) {
                         foreach ($this->Dados['listAjuste'] as $Ajuste) {
                             extract($Ajuste);
                             ?>
-                    <tr title="<?php echo strip_tags($obs);?>">
+                            <tr title="<?php echo strip_tags($obs); ?>">
                                 <th class="align-middle text-center"><?php echo $id; ?></th>
                                 <td class="align-middle"><?php echo $nome_loja; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $referencia; ?></td>

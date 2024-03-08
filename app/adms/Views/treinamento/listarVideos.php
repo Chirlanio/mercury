@@ -6,23 +6,17 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Treinamentos</h2>
             </div>
-            <?php
-            if ($this->Dados['botao']['cad_video']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-video/cad-videos'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            Cadastrar
-                        </button>
-                    </div>
-                </a>
+            <div class="p-2">
                 <?php
-            }
-            ?>
+                if ($this->Dados['botao']['cad_video']) {
+                    echo "<a href='" . URLADM . "cadastrar-video/cad-videos' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
+                }
+                ?>                
+            </div>
         </div>
         <form class="form d-print-none" method="POST" action="<?php echo URLADM . 'pesq-videos/listar'; ?>" enctype="multipart/form-data"> 
             <div class="row">
@@ -38,7 +32,7 @@ if (!defined('URLADM')) {
                         ?>">
                     </div>
                 </div>
-                
+
             </div>
             <div class="row">
                 <div class="form-group ml-sm-3 ml-md-3 ml-lg-3 ml-3">

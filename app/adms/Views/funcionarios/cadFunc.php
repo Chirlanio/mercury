@@ -9,7 +9,7 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Cadastrar Funcionário</h2>
             </div>
@@ -17,7 +17,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['list_func']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'funcionarios/listar-func'; ?>" class="btn btn-outline-info btn-sm"><i class='fas fa-list'></i> Listar</a>
+                    <a href="<?php echo URLADM . 'funcionarios/listar-func'; ?>" class="btn btn-outline-info btn-sm"><i class='fas fa-list'></i></a>
                 </div>
                 <?php
             }

@@ -58,7 +58,7 @@ class EditBrands {
             $listSelect = new \App\adms\Models\AdmsEditBrand();
             $this->Dados['select'] = $listSelect->listAdd();
             
-            $botao = ['list_brand' => ['menu_controller' => 'brands', 'menu_metodo' => 'list']];
+            $botao = ['list_brand' => ['menu_controller' => 'brands', 'menu_metodo' => 'list'],'view_brand' => ['menu_controller' => 'view-brands', 'menu_metodo' => 'view-brand']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

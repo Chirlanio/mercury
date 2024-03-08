@@ -55,7 +55,7 @@ class EditarTipoPagamento {
     private function editTipoPagViewPriv() {
         if ($this->Dados['form']) {
             
-            $botao = ['vis_pag' => ['menu_controller' => 'ver-tipo-pagamento', 'menu_metodo' => 'ver-tipo']];
+            $botao = ['list_pag' => ['menu_controller' => 'tipo-pagamento', 'menu_metodo' => 'listar'], 'vis_pag' => ['menu_controller' => 'ver-tipo-pagamento', 'menu_metodo' => 'ver-tipo']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

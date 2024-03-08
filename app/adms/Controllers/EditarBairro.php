@@ -18,11 +18,11 @@ class EditarBairro {
     private $DadosId;
 
     public function editBairro($DadosId = null) {
-        
+
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        
+
         $this->DadosId = (int) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
             $this->editBairroPriv();
         } else {
@@ -54,11 +54,11 @@ class EditarBairro {
 
     private function editBairroViewPriv() {
         if ($this->Dados['form']) {
-            
+
             $listarSelect = new \App\adms\Models\AdmsEditarBairro();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
-            
-            $botao = ['vis_bairro' => ['menu_controller' => 'ver-bairro', 'menu_metodo' => 'ver-bairro']];
+
+            $botao = ['list_bairro' => ['menu_controller' => 'bairro', 'menu_metodo' => 'listar'], 'vis_bairro' => ['menu_controller' => 'ver-bairro', 'menu_metodo' => 'ver-bairro']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -73,5 +73,4 @@ class EditarBairro {
             header("Location: $UrlDestino");
         }
     }
-
 }

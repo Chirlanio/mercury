@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Pesquisar Ordens de Pagamentos</h2>
             </div>
@@ -16,13 +16,13 @@ if (!defined('URLADM')) {
                 <span class="d-none d-md-block">
                     <?php
                     if ($this->Dados['botao']['create_sheet']) {
-                        echo "<a href='" . URLADM . "create-spreadsheet-order-payments/create" . $_SESSION['terms'] . "' class='btn btn-success btn-sm'><i class='fas fa-table'></i> Planilha</a> ";
+                        echo "<a href='" . URLADM . "create-spreadsheet-order-payments/create" . $_SESSION['terms'] . "' class='btn btn-success btn-sm'><i class='fas fa-table'></i> Gerar Excel</a> ";
                     }
                     if ($this->Dados['botao']['list_payment']) {
-                        echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
+                        echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['add_payment']) {
-                        echo "<a href='" . URLADM . "add-order-payments/order-payment' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "add-order-payments/order-payment' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>

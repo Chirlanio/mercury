@@ -6,24 +6,17 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Lojas</h2>
             </div>
             <?php
             if ($this->Dados['botao']['cad_loja']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-loja/cad-loja'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            Cadastrar
-                        </button>
-                    </div>
-                </a>
-                <?php
+                echo "<a href='" . URLADM . "cadastrar-loja/cad-loja' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
             }
             ?>
         </div>
+        <hr>
         <?php
         if (empty($this->Dados['listLoja'])) {
             ?>
@@ -40,12 +33,11 @@ if (!defined('URLADM')) {
             unset($_SESSION['msg']);
         }
         ?>
-        <hr>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center">#ID</th>
                         <th>Loja</th>
                         <th class="d-none d-sm-table-cell">Rede</th>
                         <th class="d-none d-sm-table-cell text-center">Status</th>

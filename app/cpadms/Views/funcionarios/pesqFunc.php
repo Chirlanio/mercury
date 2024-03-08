@@ -6,7 +6,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Pesquisar Funcionários</h2>
             </div>
@@ -14,10 +14,10 @@ if (!defined('URLADM')) {
                 <span class="d-none d-md-block">
                     <?php
                     if ($this->Dados['botao']['list_func']) {
-                        echo "<a href='" . URLADM . "funcionarios/listar-func' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                        echo "<a href='" . URLADM . "funcionarios/listar-func' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['cad_func']) {
-                        echo "<a href='" . URLADM . "cadastrar-func/cad-func/' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "cadastrar-func/cad-func/' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>

@@ -29,7 +29,7 @@ class AdmsListarCor {
         
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'cor/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_cors", "ordem=" . $_SESSION['ordem_nivac']);
+        $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_cors");
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarCor = new \App\adms\Models\helper\AdmsRead();

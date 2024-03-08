@@ -9,20 +9,20 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Cadastro do Funcionário</h2>
             </div>
-
-            <?php
-            if ($this->Dados['botao']['vis_func']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-func/ver-func/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm"><i class='fas fa-eye'></i></a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
+                if ($this->Dados['botao']['list_func']) {
+                    echo "<a href='" . URLADM . "funcionarios/listar-func' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['vis_func']) {
+                    echo "<a href='" . URLADM . "ver-func/ver-func/{$valorForm['id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
 
         </div><hr>
         <?php

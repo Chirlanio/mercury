@@ -6,7 +6,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Listar Ordens de Serviços</h2>
             </div>
@@ -17,96 +17,96 @@ if (!defined('URLADM')) {
 
                         switch (isset($_SESSION['search']) AND (!empty($_SESSION['search']))) {
                             case 1:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 2:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 3:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 4:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 5:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 6:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 7:
-                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 8:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 9:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 10:
-                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 11:
-                                echo "<a href='" . URLADM . "gegerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gegerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 12:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 13:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 14:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 15:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 16:
-                                echo "<a href='" . URLADM . "gegerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gegerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&max_id=" . $_SESSION['max_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 17:
-                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 18:
-                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 19:
-                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 20:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 21:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?max_id=" . $_SESSION['max_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?max_id=" . $_SESSION['max_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 22:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 23:
-                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "ggerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 24:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?loja=" . $_SESSION['loja_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 25:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?min_id=" . $_SESSION['min_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 26:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?max_id=" . $_SESSION['max_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?max_id=" . $_SESSION['max_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 27:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?situacao=" . $_SESSION['sit_id'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 28:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?cliente={$thti->Dados['search']['cliente']}' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar?cliente={$thti->Dados['search']['cliente']}' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             default:
-                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Exportar</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha-order-service/gerar' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                         }
                     }
                     if ($this->Dados['botao']['cad_ordem_servico']) {
-                        echo "<a href='" . URLADM . "cadastrar-ordem-servico/cad-ordem-servico' class='btn btn-outline-success btn-sm'><i class='fa-regular fa-square-plus mr-1'></i>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "cadastrar-ordem-servico/cad-ordem-servico' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>

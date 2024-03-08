@@ -1,5 +1,5 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -8,9 +8,9 @@ if (!empty($this->Dados['dados_cargo'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4 titulo">Ver Detalhes do Cargo</h2>
+                    <h2 class="display-4 titulo">Detalhes do Cargo</h2>
                 </div>
                 <div class="p-2">
                     <span class="d-none d-md-block">
@@ -19,7 +19,7 @@ if (!empty($this->Dados['dados_cargo'][0])) {
                             echo "<a href='" . URLADM . "cargo/listar-cargo' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_cargo']) {
-                            echo "<a href='" . URLADM . "editar-cargo/edit-cargo/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
+                            echo "<a href='" . URLADM . "editar-cargo/edit-cargo/$id' class='btn btn-outline-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_cargo']) {
                             echo "<a href='" . URLADM . "apagar-cargo/apagar-cargo/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
@@ -33,7 +33,7 @@ if (!empty($this->Dados['dados_cargo'][0])) {
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
                             <?php
                             if ($this->Dados['botao']['list_cargo']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "cargo/listarCargo'>Listar</a>";
+                                echo "<a class='dropdown-item' href='" . URLADM . "cargo/listar-cargo'>Listar</a>";
                             }
                             if ($this->Dados['botao']['edit_cargo']) {
                                 echo "<a class='dropdown-item' href='" . URLADM . "editar-cargo/edit-cargo/$id'>Editar</a>";

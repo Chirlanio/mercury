@@ -66,6 +66,9 @@ class AdmsEditProcessLibrary {
     public function listAdd() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
+        $listar->fullRead("SELECT id sit_id, nome status FROM adms_sits ORDER BY id ASC");
+        $registro['sits'] = $listar->getResult();
+
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas ORDER BY name ASC");
         $registro['area'] = $listar->getResult();
 
@@ -80,9 +83,6 @@ class AdmsEditProcessLibrary {
         
         $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");
         $registro['managerSectors'] = $listar->getResult();
-
-        $listar->fullRead("SELECT id sit_id, nome status FROM adms_sits ORDER BY id ASC");
-        $registro['sits'] = $listar->getResult();
 
         $this->Resultado = ['area' => $registro['area'], 'cats' => $registro['cats'], 'managerAreas' => $registro['managerAreas'], 'sectors' => $registro['sectors'], 'managerSectors' => $registro['managerSectors'], 'sits' => $registro['sits']];
 

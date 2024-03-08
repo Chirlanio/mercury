@@ -9,20 +9,22 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Pedido de Faturamento <strong>ID: <?php echo $valorForm['id']; ?></strong></h2>
             </div>
-            <?php
-            if ($this->Dados['botao']['list_ecommerce_order']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'ecommerce/list'; ?>" class="btn btn-outline-info btn-sm"><i class='fas fa-list'></i></a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
-        </div><hr>
+                if ($this->Dados['botao']['list_ecommerce_order']) {
+                    echo "<a href='" . URLADM . "ecommerce/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['view_ecommerce_order']) {
+                    echo "<a href='" . URLADM . "view-ecommerce-order/view-order/{$valorForm['id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];

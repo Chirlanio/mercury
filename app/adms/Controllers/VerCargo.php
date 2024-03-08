@@ -24,7 +24,7 @@ class VerCargo {
             $verCargo = new \App\adms\Models\AdmsVerCargo();
             $this->Dados['dados_cargo'] = $verCargo->verCargo($this->DadosId);
 
-            $botao = ['list_cargo' => ['menu_controller' => 'cargo', 'menu_metodo' => 'listarCargo'],
+            $botao = ['list_cargo' => ['menu_controller' => 'cargo', 'menu_metodo' => 'listar-cargo'],
                 'edit_cargo' => ['menu_controller' => 'editar-cargo', 'menu_metodo' => 'edit-cargo'],
                 'del_cargo' => ['menu_controller' => 'apagar-cargo', 'menu_metodo' => 'apagar-cargo']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
@@ -37,7 +37,7 @@ class VerCargo {
             $carregarView->renderizar();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Cargo não encontrado!</div>";
-            $UrlDestino = URLADM . 'cargo/listarCargo';
+            $UrlDestino = URLADM . 'cargo/listar-cargo';
             header("Location: $UrlDestino");
         }
     }

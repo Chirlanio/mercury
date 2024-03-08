@@ -102,22 +102,22 @@ class AdmsCadastrarUsuario {
         }
     }
 
-    public function listarCadastrar() {
+    public function listAdd() {
         $listar = new \App\adms\Models\helper\AdmsRead();
-        
-        $listar->fullRead("SELECT id id_nivac, nome nome_nivac FROM adms_niveis_acessos WHERE ordem >=:ordem ORDER BY nome ASC", "ordem=" . $_SESSION['ordem_nivac']);
-        $registro['nivac'] = $listar->getResult();
+
+        $listar->fullRead("SELECT id l_id, nome store_name FROM tb_lojas ORDER BY nome ASC");
+        $registro['stores'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits_usuarios ORDER BY nome ASC");
         $registro['sit'] = $listar->getResult();
 
-        $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY nome ASC");
-        $registro['loja'] = $listar->getResult();
-
         $listar->fullRead("SELECT id a_id, name name_area FROM adms_areas ORDER BY name ASC");
         $registro['areas'] = $listar->getResult();
+        
+        $listar->fullRead("SELECT id n_id, nome nome_nivac FROM adms_niveis_acessos WHERE ordem >=:ordem ORDER BY nome ASC", "ordem=" . $_SESSION['ordem_nivac']);
+        $registro['nivac'] = $listar->getResult();
 
-        $this->Resultado = ['nivac' => $registro['nivac'], 'sit' => $registro['sit'], 'loja' => $registro['loja'], 'areas' => $registro['areas']];
+        $this->Resultado = ['nivac' => $registro['nivac'], 'sit' => $registro['sit'], 'stores' => $registro['stores'], 'areas' => $registro['areas']];
 
         return $this->Resultado;
     }

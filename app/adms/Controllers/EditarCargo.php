@@ -51,7 +51,8 @@ class EditarCargo {
 
     private function editCargoViewPriv() {
         if ($this->Dados['form']) {
-            $botao = ['vis_cargo' => ['menu_controller' => 'ver-cargo', 'menu_metodo' => 'ver-cargo']];
+            $botao = ['list_cargo' => ['menu_controller' => 'cargo', 'menu_metodo' => 'listar-cargo'],
+                'vis_cargo' => ['menu_controller' => 'ver-cargo', 'menu_metodo' => 'ver-cargo']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

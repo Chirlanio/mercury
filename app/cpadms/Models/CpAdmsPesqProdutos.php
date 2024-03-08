@@ -29,7 +29,7 @@ class CpAdmsPesqProdutos {
         $this->PageId = (int) $PageId;
         $this->Dados = $Dados;
 
-        $this->Dados['referencia'] = trim($this->Dados['referencia']);
+        $this->Dados['referencia'] = !empty($this->Dados['referencia']) ? trim($this->Dados['referencia']) : null;
 
         if ((!empty($this->Dados['referencia'])) AND (!empty($this->Dados['refauxiliar']))) {
             $this->pesqComp();
@@ -91,5 +91,4 @@ class CpAdmsPesqProdutos {
            ORDER BY referencia ASC LIMIT :limit OFFSET :offset", "refauxiliar={$this->Dados['refauxiliar']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarProdutos->getResultado();
     }
-
 }

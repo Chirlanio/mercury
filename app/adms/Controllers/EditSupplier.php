@@ -58,7 +58,7 @@ class EditSupplier {
             $listSelect = new \App\adms\Models\AdmsEditSupplier();
             $this->Dados['select'] = $listSelect->listAdd();
             
-            $botao = ['view_supplier' => ['menu_controller' => 'view-supplier', 'menu_metodo' => 'view-supplier']];
+            $botao = ['list_supplier' => ['menu_controller' => 'supplier', 'menu_metodo' => 'list'],'view_supplier' => ['menu_controller' => 'view-supplier', 'menu_metodo' => 'view-supplier']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

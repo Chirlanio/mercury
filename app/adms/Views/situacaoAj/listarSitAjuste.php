@@ -6,21 +6,13 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Situações dos Ajustes</h2>
             </div>
             <?php
             if ($this->Dados['botao']['cad_sit']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-sit-aj/cad-sit'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            Cadastrar
-                        </button>
-                    </div>
-                </a>
-                <?php
+                echo "<a href='" . URLADM . "cadastrar-sit-aj/cad-sit' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
             }
             ?>
         </div>

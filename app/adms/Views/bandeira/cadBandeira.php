@@ -17,7 +17,7 @@ if (isset($this->Dados['form'][0])) {
             if ($this->Dados['botao']['list_bandeira']) {
                 ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'bandeira/listar'; ?>" class="btn btn-outline-info btn-sm">Listar</a>
+                    <a href="<?php echo URLADM . 'bandeira/listar'; ?>" class="btn btn-outline-info btn-sm"><i class='fa-solid fa-list'></i></a>
                 </div>
                 <?php
             }

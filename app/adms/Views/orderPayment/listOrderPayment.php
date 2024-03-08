@@ -7,36 +7,22 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Ordens de Pagamentos</h2>
             </div>
             <?php
             if ($this->Dados['botao']['listOrder']) {
                 ?>
-                <a href="<?php echo URLADM . 'create-spreadsheet-order-payments/create'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-success btn-sm">
-                            <span>
-                                <i class="fas fa-table d-block d-md-none fa-2x"></i>
-                                <span class='d-none d-md-block'>Planilha</span>
-                            </span>
-                        </button>
-                    </div>
+                <a href="<?php echo URLADM . 'create-spreadsheet-order-payments/create'; ?>" class='btn btn-success btn-sm mr-2'>
+                    <i class="fa-solid fa-table"></i> Gerar Excel
                 </a>
                 <?php
             }
             if ($this->Dados['botao']['add_payment']) {
                 ?>
-                <a href="<?php echo URLADM . 'add-order-payments/order-payment'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            <span>
-                                <i class="fas fa-plus d-block d-md-none fa-2x"></i>
-                                <span class='d-none d-md-block'>Cadastrar</span>
-                            </span>
-                        </button>
-                    </div>
+                <a href="<?php echo URLADM . 'add-order-payments/order-payment'; ?>" class='btn btn-outline-success btn-sm'>
+                    <i class='fa-solid fa-square-plus'></i> Novo
                 </a>
                 <?php
             }

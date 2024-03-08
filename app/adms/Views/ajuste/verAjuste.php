@@ -8,7 +8,7 @@ if (!empty($this->Dados['dados_ajuste'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
                     <h2 class="display-4 titulo">Detalhes da Solicitação</h2>
                 </div>
@@ -16,13 +16,13 @@ if (!empty($this->Dados['dados_ajuste'][0])) {
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_ajuste']) {
-                            echo "<a href='" . URLADM . "ajuste/listar-ajuste' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
+                            echo "<a href='" . URLADM . "ajuste/listar-ajuste' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_ajuste']) {
-                            echo "<a href='" . URLADM . "editar-ajuste/edit-ajuste/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i> Editar</a> ";
+                            echo "<a href='" . URLADM . "editar-ajuste/edit-ajuste/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_ajuste']) {
-                            echo "<a href='" . URLADM . "apagar-ajuste/apagar-ajuste/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i> Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-ajuste/apagar-ajuste/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>
@@ -33,7 +33,7 @@ if (!empty($this->Dados['dados_ajuste'][0])) {
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                             <?php
                             if ($this->Dados['botao']['list_ajuste']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "ajuste/listarAjuste'>Listar</a>";
+                                echo "<a class='dropdown-item' href='" . URLADM . "ajuste/listar-ajuste'>Listar</a>";
                             }
                             if ($this->Dados['botao']['edit_ajuste']) {
                                 echo "<a class='dropdown-item' href='" . URLADM . "editar-ajuste/edit-ajuste/$id'>Editar</a>";

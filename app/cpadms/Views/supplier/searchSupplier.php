@@ -7,7 +7,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Pesquisar Fornecedores</h2>
             </div>
@@ -18,7 +18,7 @@ if (!defined('URLADM')) {
                         echo "<a href='" . URLADM . "supplier/list' class='btn btn-outline-info btn-sm ml-2'><i class='fas fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['add_supplier']) {
-                        echo "<a href='" . URLADM . "add-supplier/add-supplier' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "add-supplier/add-supplier' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>

@@ -6,24 +6,13 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Solicitações de Faturamento</h2>
             </div>
             <?php
             if ($this->Dados['botao']['add_ecommerce_order']) {
-                ?>
-                <a href="<?php echo URLADM . 'add-ecommerce-order/add-order'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            <span>
-                                <i class="fas fa-plus d-block d-md-none fa-2x"></i>
-                                <span class='d-none d-md-block'>Cadastrar</span>
-                            </span>
-                        </button>
-                    </div>
-                </a>
-                <?php
+                echo "<a href='" . URLADM . "add-ecommerce-order/add-order' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
             }
             ?>
         </div>

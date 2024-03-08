@@ -55,7 +55,7 @@ class EditTypePayments {
     private function editTtpePaymentViewPriv() {
         if ($this->Dados['form']) {
             
-            $botao = ['view_pay' => ['menu_controller' => 'view-type-payments', 'menu_metodo' => 'type-payment']];
+            $botao = ['list_pay' => ['menu_controller' => 'type-payments', 'menu_metodo' => 'list'],'view_pay' => ['menu_controller' => 'view-type-payments', 'menu_metodo' => 'type-payment']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

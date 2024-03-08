@@ -9,29 +9,30 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Item de Menu</h2>
             </div>
-
-            <?php
-            if ($this->Dados['botao']['vis_menu']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-menu/ver-menu/' . $valorForm['id']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
+                if ($this->Dados['botao']['list_menu']) {
+                    echo "<a href='" . URLADM . "menu/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['vis_menu']) {
+                    echo "<a href='" . URLADM . "ver-menu/ver-menu/{$valorForm['id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
 
-        </div><hr>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
         ?>
-        <form method="POST" action="" enctype="multipart/form-data"> 
+        <form method="POST" action="" class="was-validated" enctype="multipart/form-data"> 
             <input name="id" type="hidden" value="<?php
             if (isset($valorForm['id'])) {
                 echo $valorForm['id'];
@@ -40,11 +41,11 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Nome</label>
-                    <input name="nome" type="text" class="form-control" placeholder="Nome do item de menu" value="<?php
+                    <input name="nome" type="text" class="form-control is-invalid" placeholder="Nome do item de menu" value="<?php
                     if (isset($valorForm['nome'])) {
                         echo $valorForm['nome'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> 
@@ -52,18 +53,18 @@ if (isset($this->Dados['form'][0])) {
                             <i class="fas fa-question-circle"></i>
                         </span> Ícone
                     </label>
-                    <input name="icone" type="text" class="form-control" placeholder="Ícone a ser apresentado no menu" value="<?php
+                    <input name="icone" type="text" class="form-control is-invalid" placeholder="Ícone a ser apresentado no menu" value="<?php
                     if (isset($valorForm['icone'])) {
                         echo $valorForm['icone'];
                     }
-                    ?>">
+                    ?>" required>
                 </div>
             </div>
             
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><span class="text-danger">*</span> Situação</label>
-                    <select name="adms_sit_id" id="adms_sit_id" class="form-control">
+                    <select name="adms_sit_id" id="adms_sit_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['sit'] as $sit) {

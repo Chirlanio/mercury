@@ -53,7 +53,7 @@ class EditarMenu {
             $listarSelect = new \App\adms\Models\AdmsEditarMenu();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_menu' => ['menu_controller' => 'ver-menu', 'menu_metodo' => 'ver-menu']];
+            $botao = ['list_menu' => ['menu_controller' => 'menu', 'menu_metodo' => 'listar'],'vis_menu' => ['menu_controller' => 'ver-menu', 'menu_metodo' => 'ver-menu']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

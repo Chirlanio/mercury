@@ -55,7 +55,7 @@ class EditarNivAc
     private function editNivAcViewPriv()
     {
         if ($this->Dados['form']) {            
-            $botao = ['vis_nivac' => ['menu_controller' => 'ver-niv-ac', 'menu_metodo' => 'ver-niv-ac']];
+            $botao = ['list_nivac' => ['menu_controller' => 'nivel-acesso', 'menu_metodo' => 'listar'],'vis_nivac' => ['menu_controller' => 'ver-niv-ac', 'menu_metodo' => 'ver-niv-ac']];
             $listarSelect = new \App\adms\Models\AdmsEditarNivAc();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
             

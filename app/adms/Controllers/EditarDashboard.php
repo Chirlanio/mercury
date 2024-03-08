@@ -54,7 +54,7 @@ class EditarDashboard {
             $listarSelect = new \App\adms\Models\AdmsEditarDashboard();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_dash' => ['menu_controller' => 'ver-dashboard', 'menu_metodo' => 'ver-dashboard']];
+            $botao = ['list_dash' => ['menu_controller' => 'dashboard', 'menu_metodo' => 'listar'],'vis_dash' => ['menu_controller' => 'ver-dashboard', 'menu_metodo' => 'ver-dashboard']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

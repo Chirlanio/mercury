@@ -29,13 +29,13 @@ class CpAdmsPesqUsuario {
         $this->Dados = $Dados;
         //var_dump($this->Dados);
 
-        $this->Dados['nome'] = trim($this->Dados['nome']);
-        $this->Dados['email'] = trim($this->Dados['email']);
+        $this->Dados['nome'] = !empty($this->Dados['nome']) ? trim($this->Dados['nome']) : '';
+        $this->Dados['email'] = !empty($this->Dados['email']) ? trim($this->Dados['email']) : '';
 
         $_SESSION['pesqUsuarioNome'] = $this->Dados['nome'];
         $_SESSION['pesqUsuarioEmail'] = $this->Dados['email'];
 
-        if (!empty($this->Dados['nome']) AND!empty($this->Dados['email'])) {
+        if (!empty($this->Dados['nome']) AND (!empty($this->Dados['email']))) {
             $this->pesqUsuarioComp();
         } elseif (!empty($this->Dados['nome'])) {
             $this->pesqUsuarioNome();
@@ -83,5 +83,4 @@ class CpAdmsPesqUsuario {
         $this->Resultado = $listarUsuario->getResult();
         return $this->Resultado;
     }
-
 }

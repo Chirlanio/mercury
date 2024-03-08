@@ -103,12 +103,12 @@ class AdmsEditarUsuarioTreinamento {
 
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
-        
-        $listar->fullRead("SELECT id id_nivac, nome nome_nivac FROM adms_niveis_acessos WHERE id =:id ORDER BY nome ASC", "id=11");
-        $registro['nivac'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_sit, nome nome_sit FROM adms_sits_usuarios ORDER BY nome ASC");
         $registro['sit'] = $listar->getResult();
+        
+        $listar->fullRead("SELECT id n_id, nome nome_nivac FROM adms_niveis_acessos WHERE id =:id ORDER BY nome ASC", "id=11");
+        $registro['nivac'] = $listar->getResult();
 
         $this->Resultado = ['nivac' => $registro['nivac'], 'sit' => $registro['sit']];
 

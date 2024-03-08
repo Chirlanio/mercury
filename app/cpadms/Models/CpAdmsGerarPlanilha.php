@@ -29,7 +29,7 @@ class CpAdmsGerarPlanilha {
         $this->PageId = (int) $PageId;
         $this->Dados = $Dados;
 
-        $this->Dados['cliente'] = trim($this->Dados['cliente']);
+        $this->Dados['cliente'] = !empty($this->Dados['cliente']) ? trim($this->Dados['cliente']) : null;
 
         $_SESSION['loja_id'] = $this->Dados['loja_id'];
         $_SESSION['min_id'] = $this->Dados['min_id'];
@@ -39,61 +39,61 @@ class CpAdmsGerarPlanilha {
 
         if ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqComp(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqLojaMinIdSitCli(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqLojaMaxIdSitCli(); //Revisado
-        } elseif ((!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id']))) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqMinMaxIdSit(); //Revisado
-        } elseif ((!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['cliente']))) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqMinMaxIdCli(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['sit_id']))) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqLojaMinIdSit(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id']))) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqLojaMaxIdSit(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['cliente']))) {
+        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqLojaMinIdCliente(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['cliente']))) {
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqLojaMaxIdCliente(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqLojaSitCliente(); //Revisado
-        } elseif ((!empty($this->Dados['min_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqMinIdSitCliente(); //Revisado
-        } elseif ((!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqMaxIdSitCliente(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id']))) {
+        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqLojaMinMaxId(); //Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['cliente']))) {
-            $this->pesqLojaCliente();//Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id']))) {
-            $this->pesqLojaMinId();//Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['max_id']))) {
-            $this->pesqLojaMaxId();//Revisado
-        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['sit_id']))) {
-            $this->pesqLojaStatus();//Revisado
-        } elseif ((!empty($this->Dados['min_id'])) AND (!empty($this->Dados['sit_id']))) {
-            $this->pesqMinIdStatus();//Revisado
-        } elseif ((!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id']))) {
-            $this->pesqMaxIdStatus();//Revisado
-        } elseif ((!empty($this->Dados['min_id'])) AND (!empty($this->Dados['cliente']))) {
-            $this->pesqMinIdCliente();//Revisado
-        } elseif ((!empty($this->Dados['max_id'])) AND (!empty($this->Dados['cliente']))) {
-            $this->pesqMaxIdCliente();//Revisado
-        } elseif ((!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
-            $this->pesqSitCliente();//Revisado
-        } else if ((!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id']))) {
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqLojaCliente(); //Revisado
+        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
+            $this->pesqLojaMinId(); //Revisado
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
+            $this->pesqLojaMaxId(); //Revisado
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
+            $this->pesqLojaStatus(); //Revisado
+        } elseif ((!empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
+            $this->pesqMinIdStatus(); //Revisado
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
+            $this->pesqMaxIdStatus(); //Revisado
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqMinIdCliente(); //Revisado
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqMaxIdCliente(); //Revisado
+        } elseif ((empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
+            $this->pesqSitCliente(); //Revisado
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqMinMaxId();
-        } elseif (!empty($this->Dados['loja_id'])) {
+        } elseif ((!empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqLoja();
-        } elseif (!empty($this->Dados['min_id'])) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (!empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqMinId();
-        } elseif (!empty($this->Dados['max_id'])) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (!empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqMaxId();
-        } elseif (!empty($this->Dados['sit_id'])) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (!empty($this->Dados['sit_id'])) AND (empty($this->Dados['cliente']))) {
             $this->pesqStatus();
-        } elseif (!empty($this->Dados['cliente'])) {
+        } elseif ((empty($this->Dados['loja_id'])) AND (empty($this->Dados['min_id'])) AND (empty($this->Dados['max_id'])) AND (empty($this->Dados['sit_id'])) AND (!empty($this->Dados['cliente']))) {
             $this->pesqCliente();
-        } else{
+        } else {
             $this->gerarPlanilha();
         }
         return $this->Resultado;
@@ -378,7 +378,7 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-    
+
     private function pesqLojaMinId() {//Revisado
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'gerar-planilha/gerar', '?loja=' . $this->Dados['loja_id'] . '&min_id=' . $this->Dados['min_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
@@ -398,7 +398,7 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-    
+
     private function pesqLojaMaxId() {//Revisado
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'gerar-planilha/gerar', '?loja=' . $this->Dados['loja_id'] . '&max_id=' . $this->Dados['max_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
@@ -418,7 +418,7 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-    
+
     private function pesqLojaStatus() {//Revisado
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'gerar-planilha/gerar', '?loja=' . $this->Dados['loja_id'] . '&situacao=' . $this->Dados['sit_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
@@ -438,7 +438,7 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-    
+
     private function pesqMinIdStatus() {//Revisado
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'gerar-planilha/gerar', '?min_id=' . $this->Dados['min_id'] . '&situacao=' . $this->Dados['sit_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
@@ -458,7 +458,7 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-    
+
     private function pesqMaxIdStatus() {//Revisado
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'gerar-planilha/gerar', '?max_id=' . $this->Dados['max_id'] . '&situacao=' . $this->Dados['sit_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
@@ -478,7 +478,7 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-    
+
     private function pesqMinIdCliente() {//Revisado
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'gerar-planilha/gerar', '?min_id=' . $this->Dados['min_id'] . '&cliente=' . $this->Dados['cliente']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
@@ -498,7 +498,7 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-    
+
     private function pesqMaxIdCliente() {//Revisado
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'gerar-planilha/gerar', "?max_id={$this->Dados['max_id']}&cliente={$this->Dados['cliente']}");
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
@@ -518,7 +518,7 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-    
+
     private function pesqSitCliente() {//Revisado
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'gerar-planilha/gerar', "?situacao={$this->Dados['sit_id']}&cliente={$this->Dados['cliente']}");
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
@@ -571,9 +571,9 @@ class CpAdmsGerarPlanilha {
 
         $listarDelivery = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == 5) {
-            $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, lj.nome nome_loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id = d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarDelivery->fullRead("SELECT d.*, lj.nome loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id=d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarDelivery->fullRead("SELECT d.id id_loja, d.loja_id, d.func_id, d.cliente, d.endereco, d.bairro_id, d.rota_id, d.contato, d.valor_venda, d.forma_pag_id, d.parcelas, d.maq, d.obs, d.qtde_produto, d.troca, d.ponto_saida, d.status_id, d.created, d.modified, lj.nome nome_loja, b.nome bairro, r.nome rota, c.cor, cr.cor cr_cor, ps.nome saida, s.nome sit, fp.nome forma FROM tb_delivery d INNER JOIN tb_lojas lj ON lj.id = d.loja_id INNER JOIN tb_bairros b ON b.id=d.bairro_id INNER JOIN tb_rotas r ON r.id=d.rota_id INNER JOIN tb_status_delivery s ON s.id=d.status_id INNER JOIN adms_cors c ON c.id=r.adms_cor_id INNER JOIN adms_cors cr ON cr.id=s.adms_cor_id INNER JOIN tb_ponto_saida ps ON ps.id=d.ponto_saida INNER JOIN tb_forma_pag fp ON fp.id=d.forma_pag_id WHERE d.loja_id =:loja_id ORDER BY d.id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listarDelivery->getResult();
     }
@@ -672,5 +672,4 @@ class CpAdmsGerarPlanilha {
         }
         $this->Resultado = $listarDelivery->getResult();
     }
-
 }

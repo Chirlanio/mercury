@@ -18,7 +18,7 @@ if (!defined('URLADM')) {
         $html = '';
         $html .= '<table border="1" class="table table-striped table-hover table-bordered">';
         $html .= '<tr>';
-        $html .= '<th colspan="17">Entregas de produtos</th>';
+        $html .= '<th colspan="18">Entregas de produtos</th>';
         $html .= '</tr>';
 
         $html .= "<tr>";
@@ -48,19 +48,19 @@ if (!defined('URLADM')) {
             $html .= "<tr>";
             $html .= "<th>" . $id_loja . "</th>";
             $html .= "<td>" . $nome_loja . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . utf8_decode($cliente) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($cliente) . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $contato . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . utf8_decode($endereco) . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . utf8_decode($bairro) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($endereco) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($bairro) . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>";
             $html .= "<span>" . $rota . "</span>";
             $html .= "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>R$ " . $valor_venda . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $qtde_produto . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . utf8_decode($forma) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($forma) . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $parcelas . "X</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . ($maq == 1 ? "Sim" : "Não") . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . utf8_decode($obs) . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . ($obs) . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . ($troca == 1 ? "Sim" : "Não") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $saida . "</td>";
             $html .= "<td class='d-none d-sm-table-cell d-print-none'>" . date('d/m/Y H:i:s', strtotime($created)) . "</td>";

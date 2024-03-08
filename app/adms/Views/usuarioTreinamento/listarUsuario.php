@@ -6,23 +6,17 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Listar Usuários</h2>
             </div>
-            <?php
-            if ($this->Dados['botao']['cad_usuario']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-usuario-treinamento/cad-usuario'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            Cadastrar
-                        </button>
-                    </div>
-                </a>
+            <div class="p-2">
                 <?php
-            }
-            ?>
+                if ($this->Dados['botao']['cad_usuario']) {
+                    echo "<a href='" . URLADM . "cadastrar-usuario-treinamento/cad-usuario' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
+                }
+                ?>                
+            </div>
         </div>
         <form class="form" method="POST" action="<?php echo URLADM . 'pesq-usuarios-treinamento/listar'; ?>">
             <div class="row">
@@ -44,7 +38,8 @@ if (!defined('URLADM')) {
                     <input name="PesqUsuario" type="submit" class="btn btn-outline-primary" my-2 value="Pesquisar">
                 </div>
             </div>
-        </form><hr>
+        </form>
+        <hr>
         <?php
         if (empty($this->Dados['listUser'])) {
             ?>

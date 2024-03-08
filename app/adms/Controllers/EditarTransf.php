@@ -41,7 +41,7 @@ class EditarTransf {
             $this->editTransfPriv();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
-            $UrlDestino = URLADM . 'transferencia/listarTransf';
+            $UrlDestino = URLADM . 'transferencia/listar-transf';
             header("Location: $UrlDestino");
         }
     }

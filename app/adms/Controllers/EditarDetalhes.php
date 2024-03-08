@@ -54,7 +54,7 @@ class EditarDetalhes {
             $listarSelect = new \App\adms\Models\AdmsEditarDetalhes();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_detalhes' => ['menu_controller' => 'ver-detalhes', 'menu_metodo' => 'ver-detalhes']];
+            $botao = ['list_detalhes' => ['menu_controller' => 'detalhes', 'menu_metodo' => 'listar'], 'vis_detalhes' => ['menu_controller' => 'ver-detalhes', 'menu_metodo' => 'ver-detalhes']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -68,5 +68,4 @@ class EditarDetalhes {
             header("Location: $UrlDestino");
         }
     }
-
 }

@@ -6,24 +6,17 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Listar Situação Usuário</h2>
+                <h2 class="display-4 titulo">Situação Usuário</h2>
             </div>
             <?php
             if ($this->Dados['botao']['cad_sit']) {
-                ?>
-                <a href="<?php echo URLADM . 'cadastrar-sit-user/cad-sit-user'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            Cadastrar
-                        </button>
-                    </div>
-                </a>
-                <?php
+                echo "<a href='" . URLADM . "cadastrar-sit-user/cad-sit-user' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
             }
             ?>
         </div>
+        <hr>
         <?php
         if (empty($this->Dados['listSitUser'])) {
             ?>
@@ -40,14 +33,13 @@ if (!defined('URLADM')) {
             unset($_SESSION['msg']);
         }
         ?>
-        <hr>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
                         <th class="text-center">ID</th>
                         <th>Nome</th>
-                        <th class="d-none d-sm-table-cell text-center">Cor</th>
+                        <th class="d-none d-sm-table-cell">Cor</th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -59,7 +51,7 @@ if (!defined('URLADM')) {
                         <tr>
                             <th class="text-center align-middle"><?php echo $id; ?></th>
                             <td class="align-middle"><?php echo $nome; ?></td>
-                            <td class="d-none d-lg-table-cell align-middle text-center">
+                            <td class="d-none d-lg-table-cell align-middle">
                                 <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $nome; ?></span>
                             </td>
                             <td class="text-center">

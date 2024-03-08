@@ -28,7 +28,6 @@ class CpAdmsPesqOrderService {
 
         $this->PageId = (int) $PageId;
         $this->Dados = $Dados;
-        var_dump($this->Dados);
 
         $this->Dados['cliente'] = trim($this->Dados['cliente']);
 

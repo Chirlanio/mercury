@@ -53,7 +53,7 @@ class EditarLoja {
             $listarSelect = new \App\adms\Models\AdmsEditarLoja();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_loja' => ['menu_controller' => 'ver-loja', 'menu_metodo' => 'ver-loja']];
+            $botao = ['list_loja' => ['menu_controller' => 'lojas', 'menu_metodo' => 'listar-lojas'],'vis_loja' => ['menu_controller' => 'ver-loja', 'menu_metodo' => 'ver-loja']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

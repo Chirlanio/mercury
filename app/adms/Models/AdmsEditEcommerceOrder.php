@@ -71,6 +71,10 @@ class AdmsEditEcommerceOrder {
 
     public function listAdd() {
         $listar = new \App\adms\Models\helper\AdmsRead();
+
+        $listar->fullRead("SELECT id s_id, name status FROM adms_sits_ecommerce ORDER BY id ASC");
+        $registro['status'] = $listar->getResult();
+        
         if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
@@ -91,9 +95,6 @@ class AdmsEditEcommerceOrder {
             $listar->fullRead("SELECT id u_id, nome creator FROM adms_usuarios WHERE adms_sits_usuario_id =:adms_sits_usuario_id ORDER BY nome ASC", "adms_sits_usuario_id=1");
         }
         $registro['users'] = $listar->getResult();
-
-        $listar->fullRead("SELECT id s_id, name status FROM adms_sits_ecommerce ORDER BY id ASC");
-        $registro['status'] = $listar->getResult();
 
         $this->Resultado = ['store' => $registro['store'], 'employee' => $registro['employee'], 'users' => $registro['users'], 'status' => $registro['status']];
 

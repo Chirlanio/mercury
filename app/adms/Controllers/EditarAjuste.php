@@ -55,7 +55,7 @@ class EditarAjuste {
             $listarSelect = new \App\adms\Models\AdmsEditarAjuste();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_ajuste' => ['menu_controller' => 'editar-ajuste', 'menu_metodo' => 'edit-ajuste']];
+            $botao = ['list_ajuste' => ['menu_controller' => 'ajuste', 'menu_metodo' => 'listar-ajuste'],'vis_ajuste' => ['menu_controller' => 'editar-ajuste', 'menu_metodo' => 'edit-ajuste']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

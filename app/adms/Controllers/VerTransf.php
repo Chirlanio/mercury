@@ -20,10 +20,10 @@ class VerTransf {
 
     public function verTransf($DadosId = null, $PageId = null) {
         $this->PageId = (int) $PageId ? $PageId : filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
-        $this->Dados['pg'] = $this->PageId;
+        $this->Dados['pg'] = !empty($this->PageId) ? $this->PageId : 1;
 
         $this->DadosId = (int) $DadosId;
-        if ((!empty($this->DadosId)) AND (!empty($this->PageId))) {
+        if ((!empty($this->DadosId)) AND (!empty($this->Dados['pg']))) {
             $verTransf = new \App\adms\Models\AdmsVerTransf();
             $this->Dados['dados_transf'] = $verTransf->verTransf($this->DadosId);
 
@@ -40,8 +40,8 @@ class VerTransf {
             $carregarView->renderizar();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Transferência não encontrada!</div>";
-            $UrlDestino = URLADM . 'transferencia/listarTransf';
-            header("Location: $UrlDestino");
+            /*$UrlDestino = URLADM . 'transferencia/listar-transf';
+            header("Location: $UrlDestino");*/
         }
     }
 

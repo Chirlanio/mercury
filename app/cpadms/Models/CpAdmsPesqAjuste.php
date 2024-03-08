@@ -57,7 +57,7 @@ class CpAdmsPesqAjuste {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-ajuste/listar', '?loja=' . $this->Dados['loja_id'] . '&referencia=' . $this->Dados['referencia'] . '&situacao=' . $this->Dados['status_aj_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%' AND status_aj_id =:status_aj_id", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}&status_aj_id={$this->Dados['status_aj_id']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%' AND status_aj_id =:status_aj_id", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}&status_aj_id={$this->Dados['status_aj_id']}");
@@ -65,7 +65,7 @@ class CpAdmsPesqAjuste {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id AND aj.referencia LIKE '%' :referencia '%' AND status_aj_id =:status_aj_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}&status_aj_id={$this->Dados['status_aj_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id AND aj.referencia LIKE '%' :referencia '%' AND aj.status_aj_id =:status_aj_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}&status_aj_id={$this->Dados['status_aj_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -77,7 +77,7 @@ class CpAdmsPesqAjuste {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-ajuste/listar', '?loja=' . $this->Dados['loja_id'] . '&referencia=' . $this->Dados['referencia']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%'", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}");
@@ -85,7 +85,7 @@ class CpAdmsPesqAjuste {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE loja_id =:loja_id AND aj.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id AND aj.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -97,7 +97,7 @@ class CpAdmsPesqAjuste {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-ajuste/listar', '?loja=' . $this->Dados['loja_id'] . '&situacao=' . $this->Dados['status_aj_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND status_aj_id =:status_aj_id", "loja_id={$this->Dados['loja_id']}&status_aj_id={$this->Dados['status_aj_id']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND status_aj_id =:status_aj_id", "loja_id=" . $_SESSION['usuario_loja'] . "&status_aj_id={$this->Dados['status_aj_id']}");
@@ -105,7 +105,7 @@ class CpAdmsPesqAjuste {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE loja_id =:loja_id AND status_aj_id =:status_aj_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&status_aj_id={$this->Dados['status_aj_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id AND aj.status_aj_id =:status_aj_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_aj_id={$this->Dados['status_aj_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -117,7 +117,7 @@ class CpAdmsPesqAjuste {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-ajuste/listar', '?referencia=' . $this->Dados['referencia'] . '&situacao=' . $this->Dados['status_aj_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE referencia LIKE '%' :referencia '%' AND status_aj_id =:status_aj_id", "referencia={$this->Dados['referencia']}&status_aj_id={$this->Dados['status_aj_id']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%' AND status_aj_id =:status_aj_id", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}&status_aj_id={$this->Dados['status_aj_id']}");
@@ -125,7 +125,7 @@ class CpAdmsPesqAjuste {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.referencia LIKE '%' :referencia '%' AND status_aj_id =:status_aj_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "referencia={$this->Dados['referencia']}&status_aj_id={$this->Dados['status_aj_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id AND aj.referencia LIKE '%' :referencia '%' AND aj.status_aj_id =:status_aj_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}&status_aj_id={$this->Dados['status_aj_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -137,7 +137,7 @@ class CpAdmsPesqAjuste {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-ajuste/listar', '?loja=' . $this->Dados['loja_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id", "loja_id={$this->Dados['loja_id']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja'] . "&loja_id={$this->Dados['loja_id']}");
@@ -145,7 +145,7 @@ class CpAdmsPesqAjuste {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id={$this->Dados['loja_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id AND aj.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -157,7 +157,7 @@ class CpAdmsPesqAjuste {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-ajuste/listar', '?referencia=' . $this->Dados['referencia']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE referencia LIKE '%' :referencia '%'", "referencia={$this->Dados['referencia']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND referencia LIKE '%' :referencia '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}");
@@ -165,7 +165,7 @@ class CpAdmsPesqAjuste {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.loja_id =:loja_id AND aj.referencia LIKE '%' :referencia '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&referencia={$this->Dados['referencia']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -177,7 +177,7 @@ class CpAdmsPesqAjuste {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-ajuste/listar', '?situacao=' . $this->Dados['status_aj_id']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE status_aj_id =:status_aj_id", "status_aj_id={$this->Dados['status_aj_id']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_ajuste WHERE loja_id =:loja_id AND status_aj_id =:status_aj_id", "loja_id=" . $_SESSION['usuario_loja'] . "&status_aj_id={$this->Dados['status_aj_id']}");
@@ -185,7 +185,7 @@ class CpAdmsPesqAjuste {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarAjuste = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam, st.adms_cor_id, c.cor cor_cr FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id INNER JOIN adms_cors c on c.id=st.adms_cor_id WHERE aj.status_aj_id =:status_aj_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_aj_id={$this->Dados['status_aj_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarAjuste->fullRead("SELECT aj.*, lj.nome nome_loja, st.nome status, tam.nome tam FROM tb_ajuste aj INNER JOIN tb_lojas lj ON lj.id=aj.loja_id INNER JOIN tb_status_aj st ON st.id=aj.status_aj_id INNER JOIN adms_usuarios user ON user.loja_id=aj.loja_id INNER JOIN tb_tam tam ON tam.id=aj.tam_id WHERE aj.loja_id =:loja_id AND aj.status_aj_id =:status_aj_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&status_aj_id={$this->Dados['status_aj_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -197,16 +197,16 @@ class CpAdmsPesqAjuste {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
-            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY id ASC");
+            $listar->fullRead("SELECT id l_id, nome store_name FROM tb_lojas ORDER BY id ASC");
         } else {
-            $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+            $listar->fullRead("SELECT id l_id, nome store_name FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         }
-        $registro['loja_id'] = $listar->getResult();
+        $registro['stores'] = $listar->getResult();
 
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_aj ORDER BY id ASC");
         $registro['sit'] = $listar->getResult();
 
-        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit']];
+        $this->Resultado = ['stores' => $registro['stores'], 'sit' => $registro['sit']];
 
         return $this->Resultado;
     }

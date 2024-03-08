@@ -77,12 +77,12 @@ class AdmsEditarDelivery {
     public function listarCadastrar() {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
+
+        $listar->fullRead("SELECT id s_id, nome sit FROM tb_status_delivery ORDER BY id ASC");
+        $registro['sit'] = $listar->getResult();
+        
         $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas ORDER BY nome ASC");
-
         $registro['loja'] = $listar->getResult();
-
-        $listar->fullRead("SELECT id func_id, usuario func FROM tb_funcionarios WHERE (cargo_id =:cargo_id OR cargo_id =:cargo) AND status_id =:status_id ORDER BY nome ASC", "cargo_id=23&cargo=27&status_id=1");
-        $registro['func'] = $listar->getResult();
 
         $listar->fullRead("SELECT id b_id, nome bairro, rota_id FROM tb_bairros ORDER BY nome ASC");
         $registro['bairros'] = $listar->getResult();
@@ -90,11 +90,11 @@ class AdmsEditarDelivery {
         $listar->fullRead("SELECT id f_id, nome forma FROM tb_forma_pag ORDER BY nome ASC");
         $registro['pag'] = $listar->getResult();
 
-        $listar->fullRead("SELECT id s_id, nome sit FROM tb_status_delivery ORDER BY id ASC");
-        $registro['sit'] = $listar->getResult();
-
         $listar->fullRead("SELECT id rota_id, nome rota FROM tb_rotas ORDER BY id ASC");
         $registro['rota'] = $listar->getResult();
+
+        $listar->fullRead("SELECT id func_id, usuario func FROM tb_funcionarios WHERE (cargo_id =:cargo_id OR cargo_id =:cargo) AND status_id =:status_id ORDER BY nome ASC", "cargo_id=23&cargo=27&status_id=1");
+        $registro['func'] = $listar->getResult();
 
         $this->Resultado = ['loja' => $registro['loja'], 'func' => $registro['func'], 'pag' => $registro['pag'], 'bairros' => $registro['bairros'], 'pag' => $registro['pag'], 'sit' => $registro['sit'], 'rota' => $registro['rota']];
 

@@ -8,7 +8,7 @@ if (!defined('URLADM')) {
 }
 
 /**
- * Description of EditarUsuario
+ * Description of EditarPagina
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
@@ -57,7 +57,7 @@ class EditarPagina
             $listarSelect = new \App\adms\Models\AdmsEditarPagina();
             $this->Dados['select'] = $listarSelect->listarCadastrar();
 
-            $botao = ['vis_pagina' => ['menu_controller' => 'ver-pagina', 'menu_metodo' => 'ver-pagina']];
+            $botao = ['list_pagina' => ['menu_controller' => 'pagina', 'menu_metodo' => 'listar'],'vis_pagina' => ['menu_controller' => 'ver-pagina', 'menu_metodo' => 'ver-pagina']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

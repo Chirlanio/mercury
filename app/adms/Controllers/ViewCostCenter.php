@@ -26,7 +26,7 @@ class ViewCostCenter {
 
             $botao = ['list_cost' => ['menu_controller' => 'cost-centers', 'menu_metodo' => 'list'],
                 'edit_cost' => ['menu_controller' => 'edit-cost-center', 'menu_metodo' => 'cost-center'],
-                'del_cost' => ['menu_controller' => 'del-cost-center', 'menu_metodo' => 'cost-center']];
+                'del_cost' => ['menu_controller' => 'delete-cost-center', 'menu_metodo' => 'cost-center']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

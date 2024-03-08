@@ -9,22 +9,22 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Rota</h2>
             </div>
-
-            <?php
-            if ($this->Dados['botao']['vis_rota']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-rota/ver-rota/' . $valorForm['r_id']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
-
-        </div><hr>
+                if ($this->Dados['botao']['list_rota']) {
+                    echo "<a href='" . URLADM . "rota/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['vis_rota']) {
+                    echo "<a href='" . URLADM . "ver-rota/ver-rota/{$valorForm['r_id']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];

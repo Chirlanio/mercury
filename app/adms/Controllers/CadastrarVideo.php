@@ -41,7 +41,7 @@ class CadastrarVideo {
 
     private function cadVideoViewPriv() {
 
-        $botao = ['list_video' => ['menu_controller' => 'escola-digital', 'menu_metodo' => 'listar-video'],
+        $botao = ['list_video' => ['menu_controller' => 'escola-digital', 'menu_metodo' => 'listar-videos'],
             'cad_video' => ['menu_controller' => 'cadastrar-video', 'menu_metodo' => 'cad-videos'],
             'ver_video' => ['menu_controller' => 'ver-video', 'menu_metodo' => 'ver-video'],
             'editar_video' => ['menu_controller' => 'editar-video', 'menu_metodo' => 'edit-video'],

@@ -1,5 +1,5 @@
 <?php
-if (!defined('URL')) {
+if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
@@ -8,21 +8,21 @@ if (!empty($this->Dados['dados_tpg'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4 titulo">Ver Tipo de Página</h2>
+                    <h2 class="display-4 titulo">Tipo de Página</h2>
                 </div>
                 <div class="p-2">
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_tpg']) {
-                            echo "<a href='" . URLADM . "tipo-pg/listar' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                            echo "<a href='" . URLADM . "tipo-pg/listar' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_tpg']) {
-                            echo "<a href='" . URLADM . "editar-tipo-pg/edit-tipo-pg/$id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                            echo "<a href='" . URLADM . "editar-tipo-pg/edit-tipo-pg/$id' class='btn btn-outline-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_tpg']) {
-                            echo "<a href='" . URLADM . "apagar-tipo-pg/apagar-tipo-pg/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-tipo-pg/apagar-tipo-pg/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fa-solid fa-eraser'></i></a> ";
                         }
                         ?>
                     </span>
@@ -45,7 +45,8 @@ if (!empty($this->Dados['dados_tpg'][0])) {
                         </div>
                     </div>
                 </div>
-            </div><hr>
+            </div>
+            <hr>
             <?php
             if (isset($_SESSION['msg'])) {
                 echo $_SESSION['msg'];

@@ -8,7 +8,7 @@ if (!empty($this->Dados['dados_estorno'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
                     <h2 class="display-4 titulo">Detalhes da Solicitação</h2>
                 </div>
@@ -16,13 +16,13 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                     <span class="d-none d-md-block">
                         <?php
                         if ($this->Dados['botao']['list_estorno']) {
-                            echo "<a href='" . URLADM . "estorno/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i> Listar</a> ";
+                            echo "<a href='" . URLADM . "estorno/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
                         }
                         if ($this->Dados['botao']['edit_estorno']) {
-                            echo "<a href='" . URLADM . "editar-estorno/edit-estorno/$id' class='btn btn-outline-warning btn-sm'><i class='fas fa-pen-fancy'></i> Editar</a> ";
+                            echo "<a href='" . URLADM . "editar-estorno/edit-estorno/$id' class='btn btn-outline-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a> ";
                         }
                         if ($this->Dados['botao']['del_estorno']) {
-                            echo "<a href='" . URLADM . "apagar-estorno/apagar-estorno/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i> Apagar</a> ";
+                            echo "<a href='" . URLADM . "apagar-estorno/apagar-estorno/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a>";
                         }
                         ?>
                     </span>
@@ -179,7 +179,7 @@ if (!empty($this->Dados['dados_estorno'][0])) {
                                                     if (in_array($ext, $types)) {
                                                         $arquivo = $fileInfo->getFilename();
                                                         echo "<span class='m-auto lead'>";
-                                                        echo $arquivo . " - <a href='" . URLADM . "assets/files/estorno/$id/$arquivo' class='btn btn-outline-primary btn-sm' download><i class='fas fa-download'></i> Baixar</a><br>";
+                                                        echo $arquivo . " - <a href='" . URLADM . "assets/files/estorno/$id/$arquivo' class='btn btn-outline-dark btn-sm' download><i class='fas fa-download'></i> Baixar</a><br>";
                                                         echo "</span>";
                                                     }
                                                 }

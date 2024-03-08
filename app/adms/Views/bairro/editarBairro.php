@@ -9,22 +9,22 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Bairro</h2>
             </div>
-
-            <?php
-            if ($this->Dados['botao']['vis_bairro']) {
-                ?>
-                <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-bairro/ver-bairro/' . $valorForm['id_bai']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
-                </div>
+            <span class="d-none d-md-block">
                 <?php
-            }
-            ?>
-
-        </div><hr>
+                if ($this->Dados['botao']['list_bairro']) {
+                    echo "<a href='" . URLADM . "bairro/listar' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                }
+                if ($this->Dados['botao']['vis_bairro']) {
+                    echo "<a href='" . URLADM . "ver-bairro/ver-bairro/{$valorForm['id_bai']}' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                }
+                ?>
+            </span>
+        </div>
+        <hr>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
@@ -46,8 +46,6 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Rota</label>
                     <?php
@@ -62,6 +60,8 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$r_id'>$rota</option>";
                             }
                         }
+
+                        echo "</select>";
                     } else {
                         echo '<select name="rota_id" id="rota_id" class="form-control">';
                         echo '<option value="">Selecione</option>';
@@ -73,8 +73,9 @@ if (isset($this->Dados['form'][0])) {
                                 echo "<option value='$r_id'>$rota</option>";
                             }
                         }
+
+                        echo "</select>";
                     }
-                    echo "</select>";
                     ?>
                 </div>
             </div>

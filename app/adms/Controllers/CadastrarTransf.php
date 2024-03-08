@@ -23,7 +23,7 @@ class CadastrarTransf {
             $cadTransf = new \App\adms\Models\AdmsCadastrarTransf();
             $cadTransf->cadTransf($this->Dados);
             if ($cadTransf->getResultado()) {
-                $UrlDestino = URLADM . 'transferencia/listarTransf';
+                $UrlDestino = URLADM . 'transferencia/listar-transf';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;

@@ -8,7 +8,7 @@ if (!empty($this->Dados['dados_order'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex">
+            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
                     <h2 class="display-4 titulo">Ordem de Pagamento - <strong>ID:</strong> <?php echo $id; ?></h2>
                 </div>
@@ -19,7 +19,7 @@ if (!empty($this->Dados['dados_order'][0])) {
                             echo "<a href='" . URLADM . "order-payments/list' class='btn btn-outline-info btn-sm m-1' title='Listar'><i class='fas fa-list'></i></a>";
                         }
                         if ($this->Dados['botao']['edit_order']) {
-                            echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-outline-warning btn-sm m-1' title='Editar'><i class='fas fa-pen-fancy'></i></a>";
+                            echo "<a href='" . URLADM . "edit-order-payments/order-payment/$id' class='btn btn-outline-warning btn-sm m-1' title='Editar'><i class='fa-solid fa-pen-to-square'></i></a>";
                         }
                         if ($this->Dados['botao']['del_order']) {
                             echo "<a href='" . URLADM . "delete-order-payments/order-payment/$id' class='btn btn-outline-danger btn-sm m-1' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";

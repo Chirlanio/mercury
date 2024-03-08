@@ -7,7 +7,7 @@ if (!defined('URLADM')) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex">
+        <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Pesquisar Entregas</h2>
             </div>
@@ -17,7 +17,7 @@ if (!defined('URLADM')) {
                     if ($this->Dados['botao']['gerar']) {
                         switch (isset($_SESSION['search']) AND (!empty($_SESSION['search']))) {
                             case 1:
-                                echo "<a href='" . URLADM . "gerar-planilha/gerar?loja={$this->Dados['search']['loja_id']}" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
+                                echo "<a href='" . URLADM . "gerar-planilha/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&max_id=" . $_SESSION['max_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
                                 break;
                             case 2:
                                 echo "<a href='" . URLADM . "gerar-planilha/gerar?loja=" . $_SESSION['loja_id'] . "&min_id=" . $_SESSION['min_id'] . "&situacao=" . $_SESSION['sit_id'] . "&cliente=" . $_SESSION['cliente'] . "' class='btn btn-success btn-sm'><i class='fa-solid fa-table'></i> Gerar Excel</a> ";
@@ -106,10 +106,10 @@ if (!defined('URLADM')) {
                         }
                     }
                     if ($this->Dados['botao']['list_delivery']) {
-                        echo "<a href='" . URLADM . "delivery/listar' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                        echo "<a href='" . URLADM . "delivery/listar' class='btn btn-outline-info btn-sm'><i class='fa-solid fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['cad_delivery']) {
-                        echo "<a href='" . URLADM . "cadastrar-delivery/cad-delivery' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                        echo "<a href='" . URLADM . "cadastrar-delivery/cad-delivery' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
                     }
                     ?>
                 </span>
@@ -294,7 +294,7 @@ if (!defined('URLADM')) {
                                 <th class="align-middle text-center"><?php echo $id; ?></th>
                                 <td class="align-middle"><?php echo $loja; ?></td>
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $cliente; ?></td>
-                                <td class="d-none d-sm-table-cell align-middle"><?php echo utf8_decode($bairro); ?></td>
+                                <td class="d-none d-sm-table-cell align-middle"><?php echo ($bairro); ?></td>
                                 <td class="d-none d-sm-table-cell align-middle">
                                     <span class="badge badge-<?php echo $cor; ?>"><?php echo $rota; ?></span>
                                 </td>

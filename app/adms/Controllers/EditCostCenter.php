@@ -18,11 +18,11 @@ class EditCostCenter {
     private $DadosId;
 
     public function costCenter($DadosId = null) {
-        
+
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        
+
         $this->DadosId = (int) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
             $this->editCostCenterPriv();
         } else {
@@ -54,11 +54,11 @@ class EditCostCenter {
 
     private function editCostCenterViewPriv() {
         if ($this->Dados['form']) {
-            
+
             $listarSelect = new \App\adms\Models\AdmsEditCostCenter();
             $this->Dados['select'] = $listarSelect->listAdd();
-            
-            $botao = ['view_cost' => ['menu_controller' => 'view-cost-center', 'menu_metodo' => 'cost-center']];
+
+            $botao = ['list_cost' => ['menu_controller' => 'cost-centers', 'menu_metodo' => 'list'], 'view_cost' => ['menu_controller' => 'view-cost-center', 'menu_metodo' => 'cost-center']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -73,5 +73,4 @@ class EditCostCenter {
             header("Location: $UrlDestino");
         }
     }
-
 }
