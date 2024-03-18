@@ -229,6 +229,13 @@ class AdmsAddOrderPayment {
             $this->Resultado = false;
         }
     }
+    
+    public function lastId() {
+        $lastid = new \App\adms\Models\helper\AdmsRead();
+        $lastid->fullRead("SELECT id FROM adms_order_payments ORDER BY id DESC LIMIT :limit", "limit=1");
+        $this->Resultado = $lastid->getResult();
+        return $this->Resultado;
+    }
 
     public function listAdd() {
         $listar = new \App\adms\Models\helper\AdmsRead();

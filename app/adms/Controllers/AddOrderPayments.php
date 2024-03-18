@@ -22,13 +22,17 @@ class AddOrderPayments {
 
         if (!empty($this->Dados['AddOrder'])) {
             unset($this->Dados['AddOrder']);
-            
+
             $this->Dados['file_name'] = (isset($_FILES['file_name']) ? $_FILES['file_name'] : null);
             $addOrder = new \App\adms\Models\AdmsAddOrderPayment();
             $addOrder->addOrder($this->Dados);
-            
+
             if ($addOrder->getResultado()) {
-                $UrlDestino = URLADM . 'order-payments/list';
+                $payment = new \App\adms\Models\AdmsAddOrderPayment();
+                $payment->lastId();
+                $lastId = $payment->getResultado();
+
+                $UrlDestino = URLADM . 'view-order-payments/order-payment/' . $lastId[0]['id'];
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;

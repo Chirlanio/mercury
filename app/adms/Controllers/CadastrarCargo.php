@@ -23,7 +23,7 @@ class CadastrarCargo {
             $cadCargo = new \App\adms\Models\AdmsCadastrarCargo();
             $cadCargo->cadCargo($this->Dados);
             if ($cadCargo->getResultado()) {
-                $UrlDestino = URLADM . 'cargo/listarCargo';
+                $UrlDestino = URLADM . 'cargo/listar-cargo';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
