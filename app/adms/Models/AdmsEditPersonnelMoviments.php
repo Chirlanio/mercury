@@ -29,44 +29,12 @@ class AdmsEditPersonnelMoviments {
         $_SESSION['id'] = $this->DadosId;
         $viewMoviment = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == SUPADMPERMITION) {
-            $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id,
-                    pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id,
-                    pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund,
-                    pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy,
-                    pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card,
-                    pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account,
-                    pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation,
-                    ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso_resigns,
-                    df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified
-                    FROM adms_personnel_moviments pm
-                    LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id
-                    LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id
-                    LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id
-                    LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id
-                    LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id
-                    LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id
-                    WHERE pm.id =:id LIMIT :limit", "id={$this->DadosId}&limit=1");
+            $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation, ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso_resigns, df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id WHERE pm.id =:id LIMIT :limit", "id={$this->DadosId}&limit=1");
         } else {
-            $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id,
-                    pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id,
-                    pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund,
-                    pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy,
-                    pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card,
-                    pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account,
-                    pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation,
-                    ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso_resigns,
-                    df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified
-                    FROM adms_personnel_moviments pm
-                    LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id
-                    LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id
-                    LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id
-                    LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id
-                    LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id
-                    LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id
-                    WHERE pm.id =:id AND pm.adms_loja_id =:adms_loja_id AND pm.adms_sits_personnel_mov_id <=:adms_sits_personnel_mov_id LIMIT :limit", "id={$this->DadosId}&adms_loja_id={$_SESSION['usuario_loja']}&adms_sits_personnel_mov_id=2&limit=1");
+            $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation, ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso_resigns, df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id WHERE pm.id =:id AND pm.adms_loja_id =:adms_loja_id AND pm.adms_sits_personnel_mov_id <=:adms_sits_personnel_mov_id LIMIT :limit", "id={$this->DadosId}&adms_loja_id=" . $_SESSION['usuario_loja'] . "&adms_sits_personnel_mov_id=2&limit=1");
         }
         $this->Resultado = $viewMoviment->getResult();
-        //var_dump($this->Resultado);
+        var_dump($this->Resultado);
         return $this->Resultado;
     }
 
@@ -169,7 +137,7 @@ class AdmsEditPersonnelMoviments {
 
         $listar->fullRead("SELECT id s_id, name status FROM adms_sits_personnel_moviments ORDER BY id ASC");
         $registro['status'] = $listar->getResult();
-        
+
         if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
