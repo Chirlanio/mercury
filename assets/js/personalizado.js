@@ -1,12 +1,87 @@
-const editorCK = document.querySelector('.editorCK');
-const editorCKQl = document.querySelector('.editorCKQl');
-const editorObs = document.querySelector('.editorObs');
-const editorFarUm = document.querySelector('.editorFarUm');
-const editorFarDois = document.querySelector('.editorFarDois');
-const editorMatUm = document.querySelector('.editorMatUm');
-const editorMatDois = document.querySelector('.editorMatDois');
-const editorDesUm = document.querySelector('.editorDesUm');
-const editorDesDois = document.querySelector('.editorDesDois');
+function getValuesFouls() {
+    var fouls = document.getElementById('fouls');
+    console.log(fouls);
+    const totalFouls = document.getElementById('totalFouls');
+    console.log(totalFouls.value);
+    if (fouls.value === '1') {
+        fouls.value = 2;
+        totalFouls.removeAttribute('disabled');
+        totalFouls.required = true;
+    } else {
+        fouls.value = 1;
+        totalFouls.value = '';
+        totalFouls.required = false;
+        totalFouls.disabled = true;
+        if (totalFouls.value > 0) {
+            fouls.checked = true;
+        }
+    }
+}
+
+// adicionar ação ao clique no checkbox
+var checkboxesFouls = document.getElementById('fouls');
+// somente nome da função, sem executar com ()
+checkboxesFouls.addEventListener('click', getValuesFouls, false);
+
+function getValuesDaysOff() {
+    var daysOff = document.getElementById('days_off');
+    const totalDaysOff = document.getElementById('totalDaysOff');
+    if (daysOff.value === '1') {
+        daysOff.value = 2;
+        totalDaysOff.removeAttribute('disabled');
+        totalDaysOff.required = true;
+    } else {
+        daysOff.value = 1;
+        totalDaysOff.value = '';
+        totalDaysOff.required = false;
+        totalDaysOff.disabled = true;
+    }
+}
+
+// adicionar ação ao clique no checkbox
+var checkboxesDaysOff = document.getElementById('days_off');
+// somente nome da função, sem executar com ()
+checkboxesDaysOff.addEventListener('click', getValuesDaysOff, false);
+
+function getValuesFolds() {
+    var folds = document.getElementById('folds');
+    const totalFolds = document.getElementById('totalFolds');
+    if (folds.value === '1') {
+        folds.value = 2;
+        totalFolds.removeAttribute('disabled');
+        totalFolds.required = true;
+    } else {
+        folds.value = 1;
+        totalFolds.value = '';
+        totalFolds.required = false;
+        totalFolds.disabled = true;
+    }
+}
+
+// adicionar ação ao clique no checkbox
+var checkboxesFolds = document.getElementById('folds');
+// somente nome da função, sem executar com ()
+checkboxesFolds.addEventListener('click', getValuesFolds, false);
+
+function getValuesFixedFund() {
+    var fixedFund = document.getElementById('fixed_fund');
+    const totalFund = document.getElementById('text1');
+    if (fixedFund.value === '1') {
+        fixedFund.value = 2;
+        totalFund.removeAttribute('disabled');
+        totalFund.required = true;
+    } else {
+        fixedFund.value = 1;
+        totalFund.value = '';
+        totalFund.required = false;
+        totalFund.disabled = true;
+    }
+}
+
+// adicionar ação ao clique no checkbox
+var checkboxesFund = document.getElementById('fixed_fund');
+// somente nome da função, sem executar com ()
+checkboxesFund.addEventListener('click', getValuesFixedFund, false);
 
 window.sr = ScrollReveal({
     reset: true
@@ -289,142 +364,3 @@ function somaTotalRefAjusteFourth() {
     }
     element.innerHTML = '<input name="total_4" class="form-control text-center" id="total4" value=' + total + ' readonly tabindex="9996">';
 }
-
-var selectType = document.getElementById('adms_type_payment_id');
-var div = document.getElementById('parc');
-var firstChild = div.children[0];
-
-selectType.addEventListener('change', function () {
-    const value = 5;
-    if (parseInt(selectType.value) === value) {
-        div.classList.remove('d-none');
-        div.classList.add('d-flex');
-    } else {
-        div.classList.remove('d-flex');
-        div.classList.add('d-none');
-        console.log(div);
-    }
-});
-
-firstChild.children[1].addEventListener('change', function () {
-    var quantidade = firstChild.children[1].value;
-
-    if (quantidade >= 0 || quantidade <= 10) {// Limpa os campos de entrada anteriores
-        var camposExistentes = document.querySelectorAll('.input-dinamico');
-
-        camposExistentes.forEach(function (campo) {
-            campo.remove();
-        });
-        // Adiciona novos campos de entrada de acordo com a quantidade
-        for (var i = 1; i <= quantidade; i++) {
-
-            var divFormGroup = document.createElement('div');
-            divFormGroup.classList.add('form-group', 'col-md-3', 'input-dinamico');
-            var label = document.createElement('label');
-            label.setAttribute('for', 'text'+i);
-            label.textContent = 'Valor - Parcela';
-            
-            var input = document.createElement('input');
-            input.setAttribute('name', 'installment_values[]');
-            input.setAttribute('type', 'text');
-            input.setAttribute('id', 'text'+i);
-            input.classList.add('form-control');
-            input.classList.add('mb-1');
-
-            var dateInput = document.createElement('input');
-            dateInput.setAttribute('name', 'date_payments[]');
-            dateInput.setAttribute('type', 'date');
-            dateInput.setAttribute('id', 'dateInput');
-            dateInput.classList.add('form-control');
-
-            divFormGroup.appendChild(label);
-            divFormGroup.appendChild(input);
-            divFormGroup.appendChild(dateInput);
-            div.appendChild(divFormGroup);
-        }
-    }
-});
-
-function getValuesFouls() {
-    var fouls = document.getElementById('fouls');
-    const totalFouls = document.getElementById('totalFouls');
-    console.log(totalFouls.value);
-    if (fouls.value === '1') {
-        fouls.value = 2;
-        totalFouls.removeAttribute('disabled');
-        totalFouls.required = true;
-    } else {
-        fouls.value = 1;
-        totalFouls.value = '';
-        totalFouls.required = false;
-        totalFouls.disabled = true;
-        if (totalFouls.value > 0){
-            fouls.checked = true;
-        }
-    }
-}
-
-// adicionar ação ao clique no checkbox
-var checkboxesFouls = document.getElementById('fouls');
-// somente nome da função, sem executar com ()
-checkboxesFouls.addEventListener('click', getValuesFouls, false);
-
-function getValuesDaysOff() {
-    var daysOff = document.getElementById('days_off');
-    const totalDaysOff = document.getElementById('totalDaysOff');
-    if (daysOff.value === '1') {
-        daysOff.value = 2;
-        totalDaysOff.removeAttribute('disabled');
-        totalDaysOff.required = true;
-    } else {
-        daysOff.value = 1;
-        totalDaysOff.value = '';
-        totalDaysOff.required = false;
-        totalDaysOff.disabled = true;
-    }
-}
-
-// adicionar ação ao clique no checkbox
-var checkboxesDaysOff = document.getElementById('days_off');
-// somente nome da função, sem executar com ()
-checkboxesDaysOff.addEventListener('click', getValuesDaysOff, false);
-
-function getValuesFolds() {
-    var folds = document.getElementById('folds');
-    const totalFolds = document.getElementById('totalFolds');
-    if (folds.value === '1') {
-        folds.value = 2;
-        totalFolds.removeAttribute('disabled');
-        totalFolds.required = true;
-    } else {
-        folds.value = 1;
-        totalFolds.value = '';
-        totalFolds.required = false;
-        totalFolds.disabled = true;
-    }
-}
-
-// adicionar ação ao clique no checkbox
-var checkboxesFolds = document.getElementById('folds');
-// somente nome da função, sem executar com ()
-checkboxesFolds.addEventListener('click', getValuesFolds, false);
-
-function getValuesFixedFund() {
-    var fixedFund = document.getElementById('fixed_fund');
-    const totalFund = document.getElementById('text1');
-    if (fixedFund.value === '1') {
-        fixedFund.value = 2;
-        totalFund.removeAttribute('disabled');
-        totalFund.required = true;
-    } else {
-        fixedFund.value = 1;
-        totalFund.value = '';
-        totalFund.required = false;
-        totalFund.disabled = true;
-    }
-}
-
-// adicionar ação ao clique no checkbox
-var checkboxesFund = document.getElementById('fixed_fund');
-// somente nome da função, sem executar com ()
-checkboxesFund.addEventListener('click', getValuesFixedFund, false);

@@ -19,7 +19,6 @@ class CpAdmsPesqTransf {
     private $PageId;
     private $LimiteResultado = LIMIT;
     private $ResultadoPg;
-    private $Nivac = 8;
 
     function getResultadoPg() {
         return $this->ResultadoPg;
@@ -66,7 +65,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id =:loja_origem_id AND t.loja_destino_id =:loja_destino_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id={$this->Dados['loja_origem_id']}&loja_destino_id={$this->Dados['loja_destino_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id =:loja_origem_id AND t.loja_origem_id =:loja_origem_id AND t.loja_destino_id =:loja_destino_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id=" . $_SESSION['usuario_loja'] . "&loja_origem_id={$this->Dados['loja_origem_id']}&loja_destino_id={$this->Dados['loja_destino_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -82,7 +81,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id =:loja_origem_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id={$this->Dados['loja_origem_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id =:loja_origem_id AND t.loja_origem_id =:loja_origem_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id=" . $_SESSION['usuario_loja'] . "&loja_origem_id={$this->Dados['loja_origem_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -98,7 +97,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_destino_id =:loja_destino_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_destino_id={$this->Dados['loja_destino_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id =:loja_origem_id AND t.loja_destino_id =:loja_destino_id AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id=" . $_SESSION['usuario_loja'] . "&loja_destino_id={$this->Dados['loja_destino_id']}&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -114,7 +113,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id LIKE '%' :loja_origem_id '%' AND t.loja_destino_id LIKE '%' :loja_destino_id '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id={$this->Dados['loja_origem_id']}&loja_destino_id={$this->Dados['loja_destino_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id =:loja_origem_id AND (t.loja_origem_id LIKE :loja_origem_id AND t.loja_destino_id LIKE :loja_destino_id) ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id=" . $_SESSION['usuario_loja'] . "&loja_origem_id={$this->Dados['loja_origem_id']}&loja_destino_id={$this->Dados['loja_destino_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -130,7 +129,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarTransf->fullRead("SELECT t.id, t.loja_origem_id, t.loja_destino_id, t.nf, t.qtd_vol, t.qtd_prod, t.tipo_transf_id, t.status_id, t.recebido, t.created, t.modified, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id LIKE '%' :loja_origem_id '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id={$this->Dados['loja_origem_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_origem_id =:loja_origem_id AND t.loja_origem_id LIKE '%' :loja_origem_id '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id=" . $_SESSION['usuario_loja'] . "&loja_origem_id={$this->Dados['loja_origem_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -146,7 +145,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_destino_id =:loja_destino_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_destino_id={$this->Dados['loja_destino_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.loja_destino_id =:loja_destino_id AND t.loja_destino_id LIKE '%' :loja_destino_id '%' ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_destino_id=" . $_SESSION['usuario_loja'] . "&loja_destino_id={$this->Dados['loja_destino_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -162,7 +161,7 @@ class CpAdmsPesqTransf {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= $this->Nivac) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE (t.loja_origem_id =:loja_origem_id OR t.loja_destino_id =:loja_destino_id) AND t.status_id =:status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id=" . $_SESSION['usuario_loja'] . "&loja_destino_id=" . $_SESSION['usuario_loja'] . "&status_id={$this->Dados['status_id']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -173,7 +172,7 @@ class CpAdmsPesqTransf {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['ordem_nivac'] >= $this->Nivac) {
+        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
             $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");

@@ -142,9 +142,9 @@ if (!defined('URLADM')) {
                         <?php
                         echo "<select name='loja_id' id='loja_id' class='custom-select'>";
                         echo "<option value = ''>Selecione...</option>";
-                        foreach ($this->Dados['select']['loja_id'] as $lo) {
+                        foreach ($this->Dados['select']['lojas'] as $lo) {
                             extract($lo);
-                            if ($_SESSION['loja_id'] == $loja_id) {
+                            if (isset($_SESSION['loja_id']) and $_SESSION['loja_id'] == $loja_id) {
                                 echo "<option value='$loja_id' selected>$loja</option>";
                             } else {
                                 echo "<option value='$loja_id'>$loja</option>";
@@ -179,9 +179,9 @@ if (!defined('URLADM')) {
                         <?php
                         echo "<select name='sit_id' id='sit_id' class='custom-select'>";
                         echo "<option value = ''>Selecione</option>";
-                        foreach ($this->Dados['select']['sit'] as $ld) {
+                        foreach ($this->Dados['select']['sits'] as $ld) {
                             extract($ld);
-                            if ($_SESSION['sit_id'] == $sit_id) {
+                            if (isset($_SESSION['sit_id']) and $_SESSION['sit_id'] == $sit_id) {
                                 echo "<option value='$sit_id' selected>$sit</option>";
                             } else {
                                 echo "<option value='$sit_id'>$sit</option>";
@@ -201,7 +201,7 @@ if (!defined('URLADM')) {
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['marcas'] as $marca) {
                             extract($marca);
-                            if ($_SESSION['marca_id'] == $m_id) {
+                            if (isset($_SESSION['marca_id']) and $_SESSION['marca_id'] == $m_id) {
                                 echo "<option value='$m_id' selected>$brand</option>";
                             } else {
                                 echo "<option value='$m_id'>$brand</option>";
@@ -315,7 +315,7 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center">#ID</th>
                         <th class="text-center">Foto</th>
                         <th class="text-center">Loja</th>
                         <th class="text-center d-none d-sm-table-cell">O.S</th>

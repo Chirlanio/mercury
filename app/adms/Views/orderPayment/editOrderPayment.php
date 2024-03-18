@@ -9,7 +9,7 @@ if (isset($this->Dados['form'][0])) {
 ?>
 <div class="content p-1">
     <div class="list-group-item">
-        <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
+        <div class="d-flex">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Editar Ordem de Pagamento - <strong>ID: </strong><?php echo $valorForm['id']; ?></h2>
             </div>
@@ -61,7 +61,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-3">
                     <label for="adms_area_id"><span class="text-danger">*</span> Área</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="adms_area_id" id="adms_area_id" class="form-control is-invalid">';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['area'] as $a) {
@@ -92,7 +92,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-3">
                     <label for="adms_cost_center_id"><span class="text-danger">*</span> Centro de Custo</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="adms_cost_center_id" id="adms_cost_center_id" class="form-control is-invalid">';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['costCenter'] as $cc) {
@@ -123,7 +123,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-3">
                     <label for="adms_brand_id"><span class="text-danger">*</span> Marca</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="adms_brand_id" id="adms_brand_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['brand'] as $bn) {
@@ -167,7 +167,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-12">
                     <label for="manager_id"><span class="text-danger">*</span> Aprovador</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="manager_id" id="manager_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['manager'] as $man) {
@@ -201,7 +201,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-3">
                     <label for="number_nf"> Nota fiscal</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="number_nf" id="number_nf" type="number" class="form-control is-valid" value="';
                         if (isset($valorForm['number_nf']) and !empty($valorForm['number_nf'])) {
                             echo $valorForm['number_nf'];
@@ -220,7 +220,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-6">
                     <label for="adms_supplier_id"><span class="text-danger">*</span> Fornecedor</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="adms_supplier_id" id="adms_supplier_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['supp'] as $sp) {
@@ -249,9 +249,9 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <div class="form-group col-md-3">
-                    <label for="money"><span class="text-danger">*</span> Valor Totalz</label>
+                    <label for="money"><span class="text-danger">*</span> Valor Total</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="total_value" id="money" type="text" class="form-control is-invalid" value="';
                         if (isset($valorForm['total_value']) and !empty($valorForm['total_value'])) {
                             echo $valorForm['total_value'];
@@ -272,7 +272,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-12">
                     <label for="description"><span class="text-danger">*</span> Descrição</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == SUPADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="description" id="description" type="text" class="form-control is-invalid" value="';
                         if (isset($valorForm['description']) and (!empty($valorForm['description']))) {
                             echo $valorForm['description'];
@@ -293,7 +293,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="adms_type_payment_id"><span class="text-danger">*</span> Forma de Pagamento</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == SUPADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="adms_type_payment_id" id="adms_type_payment_id" class="form-control is-valid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['typePayment'] as $type) {
@@ -324,7 +324,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="advance"><span class="text-danger">*</span> Adiantamento</label>                    
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == SUPADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="advance" id="advance" class="form-control is-valid" required>';
                         if ($valorForm['advance'] == 1) {
                             echo "<option value=''>Selecione</option>";
@@ -362,7 +362,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="valor_lancado"> Valor - Adiantamento</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == SUPADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="advance_amount" id="valor_lancado" type="text" class="form-control is-valid" value="';
                         if (isset($valorForm['advance_amount']) and !empty($valorForm['advance_amount'])) {
                             echo $valorForm['advance_amount'];
@@ -377,7 +377,6 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>
                 </div>
-
 
                 <div class="form-group col-md-2">
 
@@ -419,7 +418,7 @@ if (isset($this->Dados['form'][0])) {
                         }
                     } else {
                         echo "<label for='diff_payment_advance_sit'><span class='text-danger'>*</span> Diferença - Pago?</label>";
-                        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                             echo '<select name="diff_payment_advance_sit" id="diff_payment_advance_sit" class="form-control is-invalid" required>';
                             if (isset($valorForm['diff_payment_advance_sit']) and $valorForm['diff_payment_advance_sit'] == 1) {
                                 echo "<option value=''>Selecione</option>";
@@ -459,7 +458,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="proof"><span class="text-danger">*</span> Comprovante?</label>                    
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="proof" id="proof" class="form-control is-valid" required>';
                         if ($valorForm['advance'] == 1) {
                             echo "<option value=''>Selecione</option>";
@@ -497,7 +496,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="launch_number"> Lançamento Fiscal</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="launch_number" id="launch_number" type="number" class="form-control is-valid" value="';
                         if (isset($valorForm['launch_number']) and !empty($valorForm['launch_number'])) {
                             echo $valorForm['launch_number'];
@@ -535,7 +534,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="bank_id">Banco</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="bank_id" id="bank_id" class="form-control is-valid">';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['bank'] as $bank) {
@@ -566,7 +565,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-1">
                     <label for="agency">Agência</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="agency" id="agency" type="number" class="form-control" value="';
                         if (isset($valorForm['agency']) and !empty($valorForm['agency'])) {
                             echo $valorForm['agency'];
@@ -583,7 +582,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="checking_account">Conta</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="checking_account" id="checking_account" type="number" class="form-control" value="';
                         if (isset($valorForm['checking_account']) and !empty($valorForm['checking_account'])) {
                             echo $valorForm['checking_account'];
@@ -600,7 +599,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="type_account">Tipo de Conta</label>                    
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="type_account" id="type_account" class="form-control is-valid">';
                         if ($valorForm['type_account'] == 1) {
                             echo "<option value=''>Selecione</option>";
@@ -638,7 +637,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="document_number_supplier">CPF</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="document_number_supplier" id="document_number_supplier" type="text" class="form-control is-valid" value="';
                         if (isset($valorForm['document_number_supplier']) and !empty($valorForm['document_number_supplier'])) {
                             echo $valorForm['document_number_supplier'];
@@ -656,7 +655,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-3">
                     <label for="name_supplier">Títular</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="name_supplier" id="name_supplier" type="text" class="form-control is-valid" value="';
                         if (isset($valorForm['name_supplier']) and !empty($valorForm['name_supplier'])) {
                             echo $valorForm['name_supplier'];
@@ -685,7 +684,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="adms_type_key_pix_id"><span class="text-danger">*</span> Tipo de Chave</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="adms_type_key_pix_id" id="adms_type_key_pix_id" class="form-control is-valid">';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['typeKey'] as $key) {
@@ -716,7 +715,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-5">
                     <label for="key_pix">Chave PIX</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<input name="key_pix" id="key_pix" type="text" class="form-control is-valid" value="';
                         if (isset($valorForm['key_pix']) and !empty($valorForm['key_pix'])) {
                             echo $valorForm['key_pix'];
@@ -734,7 +733,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="payment_prepared"><span class="text-danger">*</span> Preparado?</label>                    
                     <?php
-                    if (($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) and $valorForm['payment_prepared'] == 2) {
+                    if (($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) and $valorForm['payment_prepared'] == 2) {
                         echo '<select name="payment_prepared" id="payment_prepared" class="form-control is-valid" required >';
                         if ($valorForm['payment_prepared'] == 1) {
                             echo "<option value=''>Selecione</option>";
@@ -772,7 +771,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-3">
                     <label for="adms_sits_order_pay_id"><span class="text-danger">*</span> Situação</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
                         echo '<select name="adms_sits_order_pay_id" id="adms_sits_order_pay_id" class="form-control is-valid">';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['sits'] as $st) {

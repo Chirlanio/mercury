@@ -44,7 +44,7 @@ if (!empty($this->Dados['dados_transf'][0])) {
                                 echo "<a class='dropdown-item' href='" . URLADM . "transferencia/listar'>Listar</a>";
                             }
                             if ($this->Dados['botao']['edit_transf']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id?origem={$_SESSION['pesqOrigem']}&pg={$this->Dados['pg']}'>Editar</a>";
+                                echo "<a class='dropdown-item' href='" . URLADM . "editar-transf/edit-transf/$id?origem=" . (isset($_SESSION['pesqOrigem']) and !empty($_SESSION['pesqOrigem'])) ? $_SESSION['pesqOrigem'] : '' . "&pg={$this->Dados['pg']}'>Editar</a>";
                             }
                             if ($this->Dados['botao']['del_transf']) {
                                 echo "<a class='dropdown-item' href='" . URLADM . "apagar-transf/apagar-transf/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
@@ -85,9 +85,9 @@ if (!empty($this->Dados['dados_transf'][0])) {
 
                 <dt class="col-sm-2">Situação</dt>
                 <dd class="col-sm-10"><?php echo $sit; ?></dd>
-                
+
                 <dt class="col-sm-2">Entrega Confirmada?</dt>
-                <dd class="col-sm-10"><?php echo $confirma_receb == 1 ? "Sim" : "Não";?></dd>
+                <dd class="col-sm-10"><?php echo $confirma_receb == 1 ? "Sim" : "Não"; ?></dd>
 
                 <dt class="col-sm-2">Recebido Por:</dt>
                 <dd class="col-sm-10"><?php echo $recebido; ?></dd>

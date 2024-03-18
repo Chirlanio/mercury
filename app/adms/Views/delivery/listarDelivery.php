@@ -140,7 +140,7 @@ if (!defined('URLADM')) {
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['loja_id'] as $lo) {
                             extract($lo);
-                            if ($_SESSION['pesqLoja'] == $loja_id) {
+                            if (isset($_SESSION['pesqLoja']) and $_SESSION['pesqLoja'] == $loja_id) {
                                 echo "<option value='$loja_id' selected>$loja</option>";
                             } else {
                                 echo "<option value='$loja_id'>$loja</option>";
@@ -177,7 +177,7 @@ if (!defined('URLADM')) {
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['sit_id'] as $ld) {
                             extract($ld);
-                            if ($_SESSION['pesqSit'] == $sit_id) {
+                            if (isset($_SESSION['pesqSit']) and $_SESSION['pesqSit'] == $sit_id) {
                                 echo "<option value='$sit_id' selected>$sit</option>";
                             } else {
                                 echo "<option value='$sit_id'>$sit</option>";

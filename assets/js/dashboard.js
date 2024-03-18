@@ -1,3 +1,13 @@
+const editorCK = document.querySelector('.editorCK');
+const editorCKQl = document.querySelector('.editorCKQl');
+const editorObs = document.querySelector('.editorObs');
+const editorFarUm = document.querySelector('.editorFarUm');
+const editorFarDois = document.querySelector('.editorFarDois');
+const editorMatUm = document.querySelector('.editorMatUm');
+const editorMatDois = document.querySelector('.editorMatDois');
+const editorDesUm = document.querySelector('.editorDesUm');
+const editorDesDois = document.querySelector('.editorDesDois');
+
 $(document).ready(function () {
     //Apresentar ou ocultar o menu
     $('.sidebar-toggle').on('click', function () {
@@ -12,8 +22,65 @@ $(document).ready(function () {
     }
 });
 
-//Pesquisar treinamentos
-$(function () {
+$(document).ready(function () {
+    $('#date').mask('00/00/0000');
+    $('#time').mask('00:00:00');
+    $('#totalFolds').mask('00:00:00', {reverse: true});
+    $('#date_time').mask('00/00/0000 00:00:00');
+    $('#cep').mask('00000-000');
+    $('#phone').mask('00000-0000');
+    $('#order_service_zznet').mask('######-00000');
+    $('#phone_with_ddd').mask('(00) 00000-0000');
+    $('#phone_us').mask('(000) 000-0000');
+    $('#mixed').mask('AAA 000-S0S');
+    $('#cpf').mask('000.000.000-00', {reverse: true});
+    $('#cnpj').mask('00.000.000/0000-00', {reverse: true});
+    $('#inscricao_estadual').mask('00.000000-0', {reverse: true});
+    $('#money').mask('000.000.000.000.000,00', {reverse: true});
+    $('#valor_lancado').mask("#.##0,00", {reverse: true});
+    $('#valor_venda').mask("#.##0,00", {reverse: true});
+    $('#valor_correto').mask("#.##0,00", {reverse: true});
+    $('#valor_estorno').mask("#.##0,00", {reverse: true});
+    $('#text1').mask("#.##0,00", {reverse: true});
+    $('#text2').mask("#.##0,00", {reverse: true});
+    $('#cost_center_id').mask("0.0.00.00", {reverse: false});
+    $('.cost_center').mask("0.0.00.00", {reverse: false});
+    $('#version_number').mask("0.0.0.00", {reverse: false});
+    $('#ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+        translation: {
+            'Z': {
+                pattern: /[0-9]/, optional: true
+            }
+        }
+    });
+    $('#installments').mask('ZZ', {
+        translation: {
+            'Z': {
+                pattern: /[0-9]/, optional: true
+            }
+        }
+    });
+    $('#ip_address').mask('099.099.099.099');
+    $('#percent').mask('##0,00%', {reverse: true});
+    $('#clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
+    $('#placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+    $('#cnpj_cpf').mask("00.000.000/0000-00", {placeholder: "00.000.000/0000-00"});
+    $('#document_number_supplier').mask("000.000.000-00", {placeholder: "000.000.000-00"});
+    $('#contact').mask("(00) 00000-0000", {placeholder: "(00) 00000-0000"});
+    $('#fallback').mask("00r00r0000", {
+        translation: {
+            'r': {
+                pattern: /[\/]/,
+                fallback: '/'
+            },
+            placeholder: "__/__/____"
+        }
+    });
+    $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+});
+
+//Pesquisar treinamentos;
+/*$(function () {
     $("#pesqVideo").keyup(function () {
         var pesqVideo = $(this).val();
         console.log(pesqVideo);
@@ -30,7 +97,7 @@ $(function () {
             listar(pagina);
         }
     });
-});
+});*/
 
 var ClassicEditor;
 
@@ -122,63 +189,6 @@ $(document).ready(function () {
                     console.error(error);
                 });
     }
-});
-
-$(document).ready(function () {
-    $('#date').mask('00/00/0000');
-    $('#time').mask('00:00:00');
-    $('#totalFolds').mask('00:00:00', {reverse: true});
-    $('#date_time').mask('00/00/0000 00:00:00');
-    $('#cep').mask('00000-000');
-    $('#phone').mask('00000-0000');
-    $('#order_service_zznet').mask('######-00000');
-    $('#phone_with_ddd').mask('(00) 00000-0000');
-    $('#phone_us').mask('(000) 000-0000');
-    $('#mixed').mask('AAA 000-S0S');
-    $('#cpf').mask('000.000.000-00', {reverse: true});
-    $('#cnpj').mask('00.000.000/0000-00', {reverse: true});
-    $('#inscricao_estadual').mask('00.000000-0', {reverse: true});
-    $('#money').mask('000.000.000.000.000,00', {reverse: true});
-    $('#valor_lancado').mask("#.##0,00", {reverse: true});
-    $('#valor_venda').mask("#.##0,00", {reverse: true});
-    $('#valor_correto').mask("#.##0,00", {reverse: true});
-    $('#valor_estorno').mask("#.##0,00", {reverse: true});
-    $('#text1').mask("#.##0,00", {reverse: true});
-    $('#text2').mask("#.##0,00", {reverse: true});
-    $('#cost_center_id').mask("0.0.00.00", {reverse: false});
-    $('.cost_center').mask("0.0.00.00", {reverse: false});
-    $('#version_number').mask("0.0.0.00", {reverse: false});
-    $('#ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
-        translation: {
-            'Z': {
-                pattern: /[0-9]/, optional: true
-            }
-        }
-    });
-    $('#installments').mask('ZZ', {
-        translation: {
-            'Z': {
-                pattern: /[0-9]/, optional: true
-            }
-        }
-    });
-    $('#ip_address').mask('099.099.099.099');
-    $('#percent').mask('##0,00%', {reverse: true});
-    $('#clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
-    $('#placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
-    $('#cnpj_cpf').mask("00.000.000/0000-00", {placeholder: "00.000.000/0000-00"});
-    $('#document_number_supplier').mask("000.000.000-00", {placeholder: "000.000.000-00"});
-    $('#contact').mask("(00) 00000-0000", {placeholder: "(00) 00000-0000"});
-    $('#fallback').mask("00r00r0000", {
-        translation: {
-            'r': {
-                pattern: /[\/]/,
-                fallback: '/'
-            },
-            placeholder: "__/__/____"
-        }
-    });
-    $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
 });
 
 $(document).change(function () {

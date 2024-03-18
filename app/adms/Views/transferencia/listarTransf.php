@@ -30,7 +30,7 @@ if (!defined('URLADM')) {
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['loja_origem'] as $lo) {
                             extract($lo);
-                            if (isset($valorForm['loja_origem_id']) == $loja_id) {
+                            if (isset($valorForm['loja_origem_id']) and $valorForm['loja_origem_id'] == $loja_id) {
                                 echo "<option value='$loja_id' selected>$loja_orig</option>";
                             } else {
                                 echo "<option value='$loja_id'>$loja_orig</option>";
@@ -50,7 +50,7 @@ if (!defined('URLADM')) {
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['loja_destino'] as $ld) {
                             extract($ld);
-                            if (isset($valorForm['loja_destino_id']) == $loja_id) {
+                            if (isset($valorForm['loja_destino_id']) and $valorForm['loja_destino_id'] == $loja_id) {
                                 echo "<option value='$loja_id' selected>$loja_dest</option>";
                             } else {
                                 echo "<option value='$loja_id'>$loja_dest</option>";
@@ -70,7 +70,7 @@ if (!defined('URLADM')) {
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['status'] as $ld) {
                             extract($ld);
-                            if (isset($valorForm['status_id']) == $sit_id) {
+                            if (isset($valorForm['status_id']) and $valorForm['status_id'] == $sit_id) {
                                 echo "<option value='$sit_id' selected>$sit</option>";
                             } else {
                                 echo "<option value='$sit_id'>$sit</option>";

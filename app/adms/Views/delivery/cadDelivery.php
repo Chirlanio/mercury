@@ -36,12 +36,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="loja_id" id="loja_id" class="form-control is-invalid" required autofocus>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['loja'] as $id_loja) {
-                            extract($id_loja);
-                            if (isset($valorForm['loja_id']) && $valorForm['loja_id'] == $id_loja) {
-                                echo "<option value='$id_loja' selected>$loja</option>";
+                        foreach ($this->Dados['select']['lojas'] as $loja) {
+                            extract($loja);
+                            if (isset($valorForm['loja_id']) and $valorForm['loja_id'] == $l_id) {
+                                echo "<option value='$l_id' selected>$nome_loja</option>";
                             } else {
-                                echo "<option value='$id_loja'>$loja</option>";
+                                echo "<option value='$l_id'>$nome_loja</option>";
                             }
                         }
                         ?>
@@ -54,7 +54,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['func'] as $id_func) {
                             extract($id_func);
-                            if (isset($valorForm['func_id']) && $valorForm['func_id'] == $id_func) {
+                            if (isset($valorForm['func_id']) and $valorForm['func_id'] == $id_func) {
                                 echo "<option value='$id_func' selected>$func</option>";
                             } else {
                                 echo "<option value='$id_func'>$func</option>";
@@ -86,12 +86,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="bairro_id" id="bairro_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['bairro'] as $id_bairro) {
-                            extract($id_bairro);
-                            if (isset($valorForm['bairro_id']) && $valorForm['bairro_id'] == $id_bairro) {
-                                echo "<option value='$id_bairro' selected>$bairro</option>";
+                        foreach ($this->Dados['select']['bairros'] as $bairro) {
+                            extract($bairro);
+                            if (isset($valorForm['bairro_id']) and $valorForm['bairro_id'] == $b_id) {
+                                echo "<option value='$b_id' selected>$nome_bairro</option>";
                             } else {
-                                echo "<option value='$id_bairro'>$bairro</option>";
+                                echo "<option value='$b_id'>$nome_bairro</option>";
                             }
                         }
                         ?>
@@ -118,11 +118,11 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Troca</label>
                     <select name="troca" id="troca" class="form-control is-invalid" required>
                         <?php
-                        if (isset($valorForm['troca']) == 1) {
+                        if (isset($valorForm['troca']) and $valorForm['troca'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
                             echo "<option value='2'>Não</option>";
-                        } elseif (isset($valorForm['troca']) == 2) {
+                        } elseif (isset($valorForm['troca']) and $valorForm['troca'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Sim</option>";
                             echo "<option value='2' selected>Não</option>";
@@ -141,12 +141,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="forma_pag_id" id="forma_pag_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['forma'] as $id_pag) {
-                            extract($id_pag);
-                            if (isset($valorForm['forma_pag_id']) == $id_pag) {
-                                echo "<option value='$id_pag' selected>$forma</option>";
+                        foreach ($this->Dados['select']['formas'] as $forma) {
+                            extract($forma);
+                            if (isset($valorForm['forma_pag_id']) and $valorForm['forma_pag_id'] == $p_id) {
+                                echo "<option value='$p_id' selected>$nome_forma</option>";
                             } else {
-                                echo "<option value='$id_pag'>$forma</option>";
+                                echo "<option value='$p_id'>$nome_forma</option>";
                             }
                         }
                         ?>
@@ -156,7 +156,7 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Parcelas</label>
                     <select name="parcelas" id="troca" class="form-control is-invalid" required>
                         <?php
-                        if (isset($valorForm['parcelas']) == 1) {
+                        if (isset($valorForm['parcelas']) and $valorForm['parcelas'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>1X</option>";
                             echo "<option value='2'>2X</option>";
@@ -164,7 +164,7 @@ if (isset($this->Dados['form'][0])) {
                             echo "<option value='4'>4X</option>";
                             echo "<option value='5'>5X</option>";
                             echo "<option value='6'>6X</option>";
-                        } elseif (isset($valorForm['parcelas']) == 2) {
+                        } elseif (isset($valorForm['parcelas']) and $valorForm['parcelas'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>1X</option>";
                             echo "<option value='2' selected>2X</option>";
@@ -196,11 +196,11 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Maquineta</label>
                     <select name="maq" id="maq" class="form-control is-invalid" required>
                         <?php
-                        if (isset($valorForm['maq']) == 1) {
+                        if (isset($valorForm['maq']) and $valorForm['maq'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
                             echo "<option value='2'>Não</option>";
-                        } elseif (isset($valorForm['maq']) == 2) {
+                        } elseif (isset($valorForm['maq']) and $valorForm['maq'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Sim</option>";
                             echo "<option value='2' selected>Não</option>";
@@ -216,11 +216,11 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Presente</label>
                     <select name="presente" id="presente" class="form-control is-invalid" required>
                         <?php
-                        if (isset($valorForm['presente']) == 1) {
+                        if (isset($valorForm['presente']) and $valorForm['presente'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
                             echo "<option value='2'>Não</option>";
-                        } elseif (isset($valorForm['presente']) == 2) {
+                        } elseif (isset($valorForm['presente']) and $valorForm['presente'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Sim</option>";
                             echo "<option value='2' selected>Não</option>";
@@ -262,11 +262,11 @@ if (isset($this->Dados['form'][0])) {
                     <label><span class="text-danger">*</span> Ponto de Saída</label>
                     <select name="ponto_saida" id="ponto_saida" class="form-control is-invalid" required>
                         <?php
-                        if (isset($valorForm['ponto_saida']) == 1) {
+                        if (isset($valorForm['ponto_saida']) and $valorForm['ponto_saida'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Loja</option>";
                             echo "<option value='2'>CD</option>";
-                        } elseif (isset($valorForm['ponto_saida']) == 2) {
+                        } elseif (isset($valorForm['ponto_saida']) and $valorForm['ponto_saida'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Loja</option>";
                             echo "<option value='2' selected>CD</option>";

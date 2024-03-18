@@ -29,7 +29,7 @@ class AdmsListarEstorno {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'estorno/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_estornos");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_estornos WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
@@ -51,7 +51,7 @@ class AdmsListarEstorno {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['ordem_nivac'] <= 5) {
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE rede_id <=:rede_id AND status_id =:status_id ORDER BY id ASC", "rede_id=6&status_id=1");
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");

@@ -50,27 +50,24 @@ class AdmsCadastrarTransf {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
-            $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
-        } else {
-            $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");
-        }
-        $registro['loja_origem_id'] = $listar->getResult();
+        $listar->fullRead("SELECT id t_id, nome tipo FROM tb_tipo_transf ORDER BY id ASC");
+        $registro['tipo_transf'] = $listar->getResult();
 
         if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
-            $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas WHERE id !=:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+            $listar->fullRead("SELECT id ld_id, nome loja_dest FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
-            $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas ORDER BY id ASC");
+            $listar->fullRead("SELECT id ld_id, nome loja_dest FROM tb_lojas ORDER BY id ASC");
         }
-        $registro['loja_destino_id'] = $listar->getResult();
+        $registro['loja_destino'] = $listar->getResult();
 
-        $listar->fullRead("SELECT id id_tipo, nome tipo FROM tb_tipo_transf ORDER BY id ASC");
-        $registro['tipo_transf_id'] = $listar->getResult();
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
+            $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+        } else {
+            $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");
+        }
+        $registro['loja_origem'] = $listar->getResult();
 
-        $listar->fullRead("SELECT id id_sit, nome sit FROM tb_status_transf ORDER BY id ASC");
-        $registro['sit'] = $listar->getResult();
-
-        $this->Resultado = ['loja_origem_id' => $registro['loja_origem_id'], 'loja_destino_id' => $registro['loja_destino_id'], 'tipo_transf_id' => $registro['tipo_transf_id'], 'sit' => $registro['sit']];
+        $this->Resultado = ['loja_origem' => $registro['loja_origem'], 'loja_destino' => $registro['loja_destino'], 'tipo_transf' => $registro['tipo_transf']];
 
         return $this->Resultado;
     }

@@ -44,21 +44,22 @@ class AdmsPhpMailer {
         try {
             //Server settings
             //$mail->SMTPDebug = 2;                                     // Enable verbose debug output
+            /* $phpmailer->CharSet = 'UTF-8';
+              $phpmailer->isSMTP();                                       // Set mailer to use SMTP
+              $phpmailer->Host = $this->DadosCredEmail[0]['host'];             // Specify main and backup SMTP servers
+              $phpmailer->SMTPAuth = true;                                     // Enable SMTP authentication
+              $phpmailer->Username = $this->DadosCredEmail[0]['usuario'];      // SMTP username
+              $phpmailer->Password = $this->DadosCredEmail[0]['senha'];        // SMTP password
+              $phpmailer->SMTPSecure = $this->DadosCredEmail[0]['smtpsecure']; // Enable TLS encryption, `ssl` also accepted
+              $phpmailer->Port = $this->DadosCredEmail[0]['porta'];             // TCP port to connect to */
+
             $phpmailer->CharSet = 'UTF-8';
-            $phpmailer->isSMTP();                                       // Set mailer to use SMTP
-            $phpmailer->Host = $this->DadosCredEmail[0]['host'];             // Specify main and backup SMTP servers
-            $phpmailer->SMTPAuth = true;                                     // Enable SMTP authentication
-            $phpmailer->Username = $this->DadosCredEmail[0]['usuario'];      // SMTP username
-            $phpmailer->Password = $this->DadosCredEmail[0]['senha'];        // SMTP password
-            $phpmailer->SMTPSecure = $this->DadosCredEmail[0]['smtpsecure']; // Enable TLS encryption, `ssl` also accepted
-            $phpmailer->Port = $this->DadosCredEmail[0]['porta'];             // TCP port to connect to
-
-
-            /* $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
-              $phpmailer->SMTPAuth = true;
-              $phpmailer->Port = 2525;
-              $phpmailer->Username = '987f768ae51cbd';
-              $phpmailer->Password = 'ed060abe6c72d9'; */
+            $phpmailer->isSMTP();
+            $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Port = 2525;
+            $phpmailer->Username = '987f768ae51cbd';
+            $phpmailer->Password = 'ed060abe6c72d9';
             //Recipients
             $phpmailer->setFrom($this->DadosCredEmail[0]['email'], $this->DadosCredEmail[0]['nome']);
             $phpmailer->addAddress($this->Dados['dest_email'], $this->Dados['dest_nome']);     // Add a recipient

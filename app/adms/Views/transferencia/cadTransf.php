@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['form']);
+//var_dump($valorForm);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -37,12 +37,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="loja_origem_id" id="loja_origem_id" class="form-control is-invalid" required autofocus>
                         <option value = "">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['loja_origem_id'] as $lo) {
+                        foreach ($this->Dados['select']['loja_origem'] as $lo) {
                             extract($lo);
-                            if ($valorForm['loja_origem_id'] == $loja_id) {
-                                echo "<option value='$loja_id' selected>$loja_orig</option>";
+                            if (isset($valorForm['loja_origem_id']) and $valorForm['loja_origem_id'] == $lo_id) {
+                                echo "<option value='$lo_id' selected>$loja_orig</option>";
                             } else {
-                                echo "<option value='$loja_id'>$loja_orig</option>";
+                                echo "<option value='$lo_id'>$loja_orig</option>";
                             }
                         }
                         ?>
@@ -53,12 +53,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="loja_destino_id" id="loja_destino_id" class="form-control is-invalid" required>
                         <option value = "">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['loja_destino_id'] as $ld) {
+                        foreach ($this->Dados['select']['loja_destino'] as $ld) {
                             extract($ld);
-                            if ($valorForm['loja_destino_id'] == $loja_id) {
-                                echo "<option value='$loja_id' selected>$loja_dest</option>";
+                            if (isset($valorForm['loja_destino_id']) and $valorForm['loja_destino_id'] == $ld_id) {
+                                echo "<option value='$ld_id' selected>$loja_dest</option>";
                             } else {
-                                echo "<option value='$loja_id'>$loja_dest</option>";
+                                echo "<option value='$ld_id'>$loja_dest</option>";
                             }
                         }
                         ?>
@@ -95,12 +95,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="tipo_transf_id" id="tipo_transf_id" class="form-control is-invalid" required>
                         <option value = "">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['tipo_transf_id'] as $t) {
-                            extract($t);
-                            if ($valorForm['tipo_transf_id'] == $id_tipo) {
-                                echo "<option value='$id_tipo' selected>$tipo</option>";
+                        foreach ($this->Dados['select']['tipo_transf'] as $typeTransf) {
+                            extract($typeTransf);
+                            if (isset($valorForm['tipo_transf_id']) and $valorForm['tipo_transf_id'] == $t_id) {
+                                echo "<option value='$t_id' selected>$tipo</option>";
                             } else {
-                                echo "<option value='$id_tipo'>$tipo</option>";
+                                echo "<option value='$t_id'>$tipo</option>";
                             }
                         }
                         ?>
@@ -108,7 +108,6 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <input name="status_id" type="hidden" value="<?php echo 1; ?>">
-            <input name="created" type="hidden" value="<?php echo date("Y-m-d H:i:s"); ?>">
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>

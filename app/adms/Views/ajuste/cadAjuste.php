@@ -39,7 +39,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['func_id'] as $c) {
                             extract($c);
-                            if ($valorForm['func_id'] == $id_consul) {
+                            if (isset($valorForm['func_id']) and $valorForm['func_id'] == $id_consul) {
                                 echo "<option value='$id_consul' selected>$consul</option>";
                             } else {
                                 echo "<option value='$id_consul'>$consul</option>";
@@ -55,7 +55,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['loja_id'] as $l) {
                             extract($l);
-                            if ($valorForm['loja_id'] == $lj_id) {
+                            if (isset($valorForm['loja_id']) and $valorForm['loja_id'] == $lj_id) {
                                 echo "<option value='$lj_id' selected>$loja</option>";
                             } else {
                                 echo "<option value='$lj_id'>$loja</option>";
@@ -73,7 +73,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['func_id'] as $c) {
                             extract($c);
-                            if ($valorForm['func_id'] == $id_consul) {
+                            if (isset($valorForm['func_id']) and $valorForm['func_id'] == $id_consul) {
                                 echo "<option value='$id_consul' selected>$consul</option>";
                             } else {
                                 echo "<option value='$id_consul'>$consul</option>";
@@ -105,12 +105,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="tam_id" id="tam_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['tam_id'] as $tam) {
+                        foreach ($this->Dados['select']['tams'] as $tam) {
                             extract($tam);
-                            if ($valorForm['tam_id'] == $id_tam) {
-                                echo "<option value='$id_tam' selected>$tam</option>";
+                            if (isset($valorForm['tam_id']) and $valorForm['tam_id'] == $t_id) {
+                                echo "<option value='$t_id' selected>$tamanho</option>";
                             } else {
-                                echo "<option value='$id_tam'>$tam</option>";
+                                echo "<option value='$t_id'>$tamanho</option>";
                             }
                         }
                         ?>
@@ -552,7 +552,6 @@ if (isset($this->Dados['form'][0])) {
                 </textarea>
             </div>
             <input name="status_aj_id" type="hidden" value="<?php echo 2; ?>">
-            <input name="created" type="hidden" value="<?php echo date('Y-m-d H:i:s'); ?>">
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>

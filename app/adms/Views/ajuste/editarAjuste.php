@@ -46,18 +46,18 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['func_id_sol'] as $sol) {
                             extract($sol);
-                            if ($valorForm['func_id_sol'] == $func_id_sol) {
+                            if (isset($valorForm['func_id_sol']) and $valorForm['func_id_sol'] == $func_id_sol) {
                                 echo "<option value='$func_id_sol' selected>$consul_sol</option>";
                             } else {
                                 echo "<option value='$func_id_sol'>$consul_sol</option>";
                             }
                         }
                     } else {
-                        echo '<select name="solicitante" id="solicitante" class="form-control">';
+                        echo '<select name="solicitante" id="solicitante" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['func_id_sol'] as $sol) {
                             extract($sol);
-                            if ($valorForm['func_id_sol'] == $func_id_sol) {
+                            if (isset($valorForm['func_id_sol']) and $valorForm['func_id_sol'] == $func_id_sol) {
                                 echo "<option value='$func_id_sol' selected>$consul_sol</option>";
                             } else {
                                 echo "<option value='$func_id_sol'>$consul_sol</option>";
@@ -75,18 +75,18 @@ if (isset($this->Dados['form'][0])) {
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['loja_id'] as $loja) {
                             extract($loja);
-                            if ($valorForm['loja_id'] == $loja_id) {
+                            if (isset($valorForm['loja_id']) and $valorForm['loja_id'] == $loja_id) {
                                 echo "<option value='$loja_id' selected>$loja</option>";
                             } else {
                                 echo "<option value='$loja_id'>$loja</option>";
                             }
                         }
                     } else {
-                        echo '<select name="loja_id" id="loja_id" class="form-control">';
+                        echo '<select name="loja_id" id="loja_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['loja_id'] as $loja) {
                             extract($loja);
-                            if ($valorForm['loja_id'] == $loja_id) {
+                            if (isset($valorForm['loja_id']) and $valorForm['loja_id'] == $loja_id) {
                                 echo "<option value='$loja_id' selected>$loja</option>";
                             } else {
                                 echo "<option value='$loja_id'>$loja</option>";
@@ -100,12 +100,12 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label><span class="text-danger">*</span> Consultora</label>
-                    <select name="func_id" id="func_id" class="form-control">
+                    <select name="func_id" id="func_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['func_id'] as $consul) {
                             extract($consul);
-                            if ($valorForm['func_id'] == $func_id) {
+                            if (isset($valorForm['func_id']) and $valorForm['func_id'] == $func_id) {
                                 echo "<option value='$func_id' selected>$consul</option>";
                             } else {
                                 echo "<option value='$func_id'>$consul</option>";
@@ -123,7 +123,7 @@ if (isset($this->Dados['form'][0])) {
                             echo $valorForm['cliente'];
                         }
                     } else {
-                        echo '<input name="cliente" type="text" class="form-control" placeholder="Nome do solicitante do ajuste" value ="';
+                        echo '<input name="cliente" type="text" class="form-control is-invalid" required placeholder="Nome do solicitante do ajuste" value ="';
                         if (isset($valorForm['cliente'])) {
                             echo $valorForm['cliente'];
                         }
@@ -134,7 +134,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Referência</label>
-                    <input name="referencia" type="text" class="form-control" placeholder="Referência" value="<?php
+                    <input name="referencia" type="text" class="form-control is-invalid" required placeholder="Referência" value="<?php
                     if (isset($valorForm['referencia'])) {
                         echo $valorForm['referencia'];
                     }
@@ -142,12 +142,12 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-4">
                     <label><span class="text-danger text-center">*</span> Tamanho</label>
-                    <select name="tam_id" id="tam_id" class="form-control">
+                    <select name="tam_id" id="tam_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['tam_id'] as $tam) {
                             extract($tam);
-                            if ($valorForm['tam_id'] == $id_tam) {
+                            if (isset($valorForm['tam_id']) and $valorForm['tam_id'] == $id_tam) {
                                 echo "<option value='$id_tam' selected>$tam</option>";
                             } else {
                                 echo "<option value='$id_tam'>$tam</option>";
@@ -174,7 +174,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-auto">
                             <div class="input-group">
                                 <div class="input-group">Bolsa</div>
-                                <input name="t01" id="t01" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t01" id="t01" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t01'])) {
                                     echo $valorForm['t01'];
                                 }
@@ -184,7 +184,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">33</div>
-                                <input name="t33" id="t33" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t33" id="t33" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t33'])) {
                                     echo $valorForm['t33'];
                                 }
@@ -194,7 +194,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">34</div>
-                                <input name="t34" id="t34" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t34" id="t34" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t34'])) {
                                     echo $valorForm['t34'];
                                 }
@@ -204,7 +204,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">35</div>
-                                <input name="t35" id="t35" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t35" id="t35" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t35'])) {
                                     echo $valorForm['t35'];
                                 }
@@ -214,7 +214,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">36</div>
-                                <input name="t36" id="t36" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t36" id="t36" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t36'])) {
                                     echo $valorForm['t36'];
                                 }
@@ -224,7 +224,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">37</div>
-                                <input name="t37" id="t37" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t37" id="t37" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t37'])) {
                                     echo $valorForm['t37'];
                                 }
@@ -234,7 +234,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">38</div>
-                                <input name="t38" id="t38" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t38" id="t38" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t38'])) {
                                     echo $valorForm['t38'];
                                 }
@@ -244,7 +244,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">39</div>
-                                <input name="t39" id="t39" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t39" id="t39" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t39'])) {
                                     echo $valorForm['t39'];
                                 }
@@ -254,7 +254,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">40</div>
-                                <input name="t40" id="t40" type="number" class="form-control text-center" onchange="somaTotalRefAjuste()" value="<?php
+                                <input name="t40" id="t40" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjuste()" value="<?php
                                 if (isset($valorForm['t40'])) {
                                     echo $valorForm['t40'];
                                 }
@@ -276,7 +276,7 @@ if (isset($this->Dados['form'][0])) {
             <!-- Aqui começa a grade das outras cores-->
             <div class="form-row">
                 <div class="input-group col-md-3">
-                    <input name="referencia_2" id="referencia_2" type="text" class="form-control text-center" value="<?php
+                    <input name="referencia_2" id="referencia_2" type="text" class="form-control is-invalid text-center" required value="<?php
                     if (isset($valorForm['referencia_2'])) {
                         echo $valorForm['referencia_2'];
                     }
@@ -287,7 +287,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-3">
                             <div class="input-group">
                                 <div class="input-group">Bolsa</div>
-                                <input name="t01_2" id="t01_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t01_2" id="t01_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t01_2'])) {
                                     echo $valorForm['t01_2'];
                                 }
@@ -297,7 +297,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">33</div>
-                                <input name="t33_2" id="t33_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t33_2" id="t33_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t33_2'])) {
                                     echo $valorForm['t33_2'];
                                 }
@@ -307,7 +307,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">34</div>
-                                <input name="t34_2" id="t34_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t34_2" id="t34_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t34_2'])) {
                                     echo $valorForm['t34_2'];
                                 }
@@ -317,7 +317,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">35</div>
-                                <input name="t35_2" id="t35_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t35_2" id="t35_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t35_2'])) {
                                     echo $valorForm['t35_2'];
                                 }
@@ -327,7 +327,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">36</div>
-                                <input name="t36_2" id="t36_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t36_2" id="t36_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t36_2'])) {
                                     echo $valorForm['t36_2'];
                                 }
@@ -337,7 +337,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">37</div>
-                                <input name="t37_2" id="t37_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t37_2" id="t37_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t37_2'])) {
                                     echo $valorForm['t37_2'];
                                 }
@@ -347,7 +347,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">38</div>
-                                <input name="t38_2" id="t38_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t38_2" id="t38_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t38_2'])) {
                                     echo $valorForm['t38_2'];
                                 }
@@ -357,7 +357,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">39</div>
-                                <input name="t39_2" id="t39_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t39_2" id="t39_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t39_2'])) {
                                     echo $valorForm['t39_2'];
                                 }
@@ -367,7 +367,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">40</div>
-                                <input name="t40_2" id="t40_2" type="number" class="form-control text-center" onchange="somaTotalRefAjusteSecond()" value="<?php
+                                <input name="t40_2" id="t40_2" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteSecond()" value="<?php
                                 if (isset($valorForm['t40_2'])) {
                                     echo $valorForm['t40_2'];
                                 }
@@ -385,7 +385,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
             <div class="form-row">
                 <div class="input-group col-md-3">
-                    <input name="referencia_3" id="referencia_3" type="text" class="form-control text-center" value="<?php
+                    <input name="referencia_3" id="referencia_3" type="text" class="form-control is-invalid text-center" required value="<?php
                     if (isset($valorForm['referencia_3'])) {
                         echo $valorForm['referencia_3'];
                     }
@@ -396,7 +396,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-3">
                             <div class="input-group">
                                 <div class="input-group">Bolsa</div>
-                                <input name="t01_3" id="t01_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t01_3" id="t01_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t01_3'])) {
                                     echo $valorForm['t01_3'];
                                 }
@@ -406,7 +406,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">33</div>
-                                <input name="t33_3" id="t33_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t33_3" id="t33_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t33_3'])) {
                                     echo $valorForm['t33_3'];
                                 }
@@ -416,7 +416,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">34</div>
-                                <input name="t34_3" id="t34_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t34_3" id="t34_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t34_3'])) {
                                     echo $valorForm['t34_3'];
                                 }
@@ -426,7 +426,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">35</div>
-                                <input name="t35_3" id="t35_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t35_3" id="t35_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t35_3'])) {
                                     echo $valorForm['t35_3'];
                                 }
@@ -436,7 +436,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">36</div>
-                                <input name="t36_3" id="t36_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t36_3" id="t36_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t36_3'])) {
                                     echo $valorForm['t36_3'];
                                 }
@@ -446,7 +446,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">37</div>
-                                <input name="t37_3" id="t37_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t37_3" id="t37_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t37_3'])) {
                                     echo $valorForm['t37_3'];
                                 }
@@ -456,7 +456,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">38</div>
-                                <input name="t38_3" id="t38_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t38_3" id="t38_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t38_3'])) {
                                     echo $valorForm['t38_3'];
                                 }
@@ -466,7 +466,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">39</div>
-                                <input name="t39_3" id="t39_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t39_3" id="t39_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t39_3'])) {
                                     echo $valorForm['t39_3'];
                                 }
@@ -476,7 +476,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">40</div>
-                                <input name="t40_3" id="t40_3" type="number" class="form-control text-center" onchange="somaTotalRefAjusteThird()" value="<?php
+                                <input name="t40_3" id="t40_3" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteThird()" value="<?php
                                 if (isset($valorForm['t40_3'])) {
                                     echo $valorForm['t40_3'];
                                 }
@@ -494,7 +494,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
             <div class="form-row">
                 <div class="input-group col-md-3">
-                    <input name="referencia_4" id="referencia_4" type="text" class="form-control text-center" value="<?php
+                    <input name="referencia_4" id="referencia_4" type="text" class="form-control is-invalid text-center" required value="<?php
                     if (isset($valorForm['referencia_4'])) {
                         echo $valorForm['referencia_4'];
                     }
@@ -505,7 +505,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-3">
                             <div class="input-group">
                                 <div class="input-group">Bolsa</div>
-                                <input name="t01_4" id="t01_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t01_4" id="t01_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t01_4'])) {
                                     echo $valorForm['t01_4'];
                                 }
@@ -515,7 +515,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">33</div>
-                                <input name="t33_4" id="t33_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t33_4" id="t33_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t33_4'])) {
                                     echo $valorForm['t33_4'];
                                 }
@@ -525,7 +525,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">34</div>
-                                <input name="t34_4" id="t34_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t34_4" id="t34_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t34_4'])) {
                                     echo $valorForm['t34_4'];
                                 }
@@ -535,7 +535,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">35</div>
-                                <input name="t35_4" id="t35_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t35_4" id="t35_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t35_4'])) {
                                     echo $valorForm['t35_4'];
                                 }
@@ -545,7 +545,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">36</div>
-                                <input name="t36_4" id="t36_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t36_4" id="t36_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t36_4'])) {
                                     echo $valorForm['t36_4'];
                                 }
@@ -555,7 +555,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">37</div>
-                                <input name="t37_4" id="t37_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t37_4" id="t37_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t37_4'])) {
                                     echo $valorForm['t37_4'];
                                 }
@@ -565,7 +565,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">38</div>
-                                <input name="t38_4" id="t38_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t38_4" id="t38_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t38_4'])) {
                                     echo $valorForm['t38_4'];
                                 }
@@ -575,7 +575,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">39</div>
-                                <input name="t39_4" id="t39_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t39_4" id="t39_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t39_4'])) {
                                     echo $valorForm['t39_4'];
                                 }
@@ -585,7 +585,7 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-1">
                             <div class="input-group">
                                 <div class="input-group">40</div>
-                                <input name="t40_4" id="t40_4" type="number" class="form-control text-center" onchange="somaTotalRefAjusteFourth()" value="<?php
+                                <input name="t40_4" id="t40_4" type="number" class="form-control is-invalid text-center" required onchange="somaTotalRefAjusteFourth()" value="<?php
                                 if (isset($valorForm['t40_4'])) {
                                     echo $valorForm['t40_4'];
                                 }
@@ -626,7 +626,7 @@ if (isset($this->Dados['form'][0])) {
                             }
                         }
                     } else {
-                        echo '<select name="status_aj_id" id="status_aj_id" class="form-control">';
+                        echo '<select name="status_aj_id" id="status_aj_id" class="form-control is-invalid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['sit_id'] as $sit) {
                             extract($sit);

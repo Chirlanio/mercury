@@ -53,7 +53,7 @@ if (isset($this->Dados['form'][0])) {
                     <select name="adms_cost_center_id" id="adms_cost_center_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        if ($_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                        if ($_SESSION['ordem_nivac'] <= ADMPERMITION) {
                             foreach ($this->Dados['select']['cost'] as $cc) {
                                 extract($cc);
                                 if (isset($valorForm['adms_cost_center_id']) and ($valorForm['adms_cost_center_id'] == $c_id)) {
@@ -179,7 +179,7 @@ if (isset($this->Dados['form'][0])) {
                         <?php
                         foreach ($this->Dados['select']['type_payment'] as $type) {
                             extract($type);
-                            if (isset($valorForm['adms_type_payment_id']) and ($valorForm['adms_supplier_id'] == $t_id)) {
+                            if (isset($valorForm['adms_type_payment_id']) and $valorForm['adms_type_payment_id'] == $t_id) {
                                 echo "<option value='$t_id' selected>$type_payment</option>";
                             } else {
                                 echo "<option value='$t_id'>$type_payment</option>";
@@ -193,11 +193,11 @@ if (isset($this->Dados['form'][0])) {
                     <label for="advance"><span class="text-danger">*</span> Adiantamento</label>
                     <select name="advance" id="advance" class="form-control is-invalid" required>
                         <?php
-                        if (isset($valorForm['advance']) == 1) {
+                        if (isset($valorForm['advance']) and $valorForm['advance'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
                             echo "<option value='2'>Não</option>";
-                        } elseif (isset($valorForm['advance']) == 2) {
+                        } elseif (isset($valorForm['advance']) and $valorForm['advance'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Sim</option>";
                             echo "<option value='2' selected>Não</option>";
@@ -223,11 +223,11 @@ if (isset($this->Dados['form'][0])) {
                     <label for="advance_amount_sit"><span class="text-danger">*</span> Adiantamento Pago?</label>
                     <select name="advance_amount_sit" id="advance_amount_sit" class="form-control is-invalid" required>
                         <?php
-                        if (isset($valorForm['advance_amount_sit']) == 1) {
+                        if (isset($valorForm['advance_amount_sit']) and $valorForm['advance_amount_sit'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
                             echo "<option value='2'>Não</option>";
-                        } elseif ($valorForm['advance_amount_sit'] == 2) {
+                        } elseif (isset($valorForm['advance_amount_sit']) and $valorForm['advance_amount_sit'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Sim</option>";
                             echo "<option value='2' selected>Não</option>";
@@ -244,11 +244,11 @@ if (isset($this->Dados['form'][0])) {
                     <label for="proof"><span class="text-danger">*</span> Comprovante?</label>
                     <select name="proof" id="proof" class="form-control is-invalid" required>
                         <?php
-                        if (isset($valorForm['proof']) == 1) {
+                        if (isset($valorForm['proof']) and $valorForm['proof'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Sim</option>";
                             echo "<option value='2'>Não</option>";
-                        } elseif ($valorForm['proof'] == 2) {
+                        } elseif (isset($valorForm['proof']) and $valorForm['proof'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Sim</option>";
                             echo "<option value='2' selected>Não</option>";
@@ -269,11 +269,6 @@ if (isset($this->Dados['form'][0])) {
                     }
                     ?>">
                 </div>
-            </div>
-
-            <div class="form-row">
-
-
             </div>
 
             <div class="form-row d-none" id="parc">
@@ -317,11 +312,11 @@ if (isset($this->Dados['form'][0])) {
                     <label for="type_account">Tipo de Conta</label>
                     <select name="type_account" id="type_account" class="form-control is-valid">
                         <?php
-                        if (isset($valorForm['type_account']) == 1) {
+                        if (isset($valorForm['type_account']) and $valorForm['type_account'] == 1) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1' selected>Conta Corrente</option>";
                             echo "<option value='2'>Poupança</option>";
-                        } elseif ($valorForm['type_account'] == 2) {
+                        } elseif (isset($valorForm['type_account']) and $valorForm['type_account'] == 2) {
                             echo "<option value=''>Selecione</option>";
                             echo "<option value='1'>Conta Corrente</option>";
                             echo "<option value='2' selected>Poupança</option>";
@@ -363,7 +358,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
 
             <div class="form-row">
-                <div class="form-control text-center">
+                <div class="form-control text-center mb-2">
                     <strong>Pagamento via PIX</strong>
                 </div>
             </div>

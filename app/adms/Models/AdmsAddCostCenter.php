@@ -56,14 +56,14 @@ class AdmsAddCostCenter {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        $listar->fullRead("SELECT id r_id, name responsavel FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
-        $registro['resp'] = $listar->getResult();
-
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
         $registro['sits'] = $listar->getResult();
 
         $listar->fullRead("SELECT id a_id, name name_area FROM adms_areas ORDER BY name ASC");
         $registro['areas'] = $listar->getResult();
+
+        $listar->fullRead("SELECT id r_id, name responsavel FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
+        $registro['resp'] = $listar->getResult();
 
         $this->Resultado = ['resp' => $registro['resp'], 'sits' => $registro['sits'], 'areas' => $registro['areas']];
 

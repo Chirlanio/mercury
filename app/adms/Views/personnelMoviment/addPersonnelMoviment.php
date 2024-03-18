@@ -37,7 +37,7 @@ if (isset($this->Dados['form'][0])) {
                     <select name="adms_loja_id" id="adms_loja_id" class="form-control is-invalid" required autofocus>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['store'] as $stp) {
+                        foreach ($this->Dados['select']['name_stores'] as $stp) {
                             extract($stp);
                             if (isset($valorForm['adms_loja_id']) and $valorForm['adms_loja_id'] == $s_id) {
                                 echo "<option value='$s_id' selected>$store</option>";
@@ -100,7 +100,7 @@ if (isset($this->Dados['form'][0])) {
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <div class="border border-dark rounded p-3">
+                    <div class="border border-dark rounded p-3 h-100">
                         <label for="adms_employee_relation_id" class="mb-2"><span class="text-danger">*</span> Motivo</label>
                         <div class="form-group d-flex">
                             <div class="custom-control custom-radio mr-2">
@@ -413,7 +413,7 @@ if (isset($this->Dados['form'][0])) {
                     <select name="request_area_id" id="request_area_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['area_id'] as $area) {
+                        foreach ($this->Dados['select']['areas'] as $area) {
                             extract($area);
                             if (isset($valorForm['request_area_id']) and $valorForm['request_area_id'] == $a_id) {
                                 echo "<option value='$a_id' selected>$area_name</option>";
@@ -424,7 +424,7 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
-                
+
                 <div class="form-group col-md-5">
                     <label><span class="text-danger">*</span> Solicitante</label>
                     <select name="requester_id" id="requester_id" class="form-control is-invalid" required>
@@ -458,7 +458,7 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
-                
+
             </div>
 
             <div class="form-row">

@@ -32,6 +32,7 @@ class AdmsAddOrderPayment {
     private $DadosUsuario;
     private $typeAccount;
     private $documentNumberSupplier;
+    private $DadosEmail;
 
     function getResultado() {
         return $this->Resultado;
@@ -103,13 +104,38 @@ class AdmsAddOrderPayment {
             } else {
                 $this->Dados['id'] = $addOrder->getResult();
                 $this->insertInstallment();
-                $this->valArquivo();
-                $this->viewManager();
             }
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A solicitação não foi cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
+    }
+
+    private function insertInstallment() {
+        $installments = intval($this->Dados['installments']);
+        $datePayments = $this->datePayments;
+        $installmentValues = $this->installmentValues;
+
+        $insertData = [];
+
+        // Prepara os dados para inserção
+        for ($i = 0; $i < $installments; $i++) {
+            $insertData[] = [
+                'adms_order_payment_id' => $this->Dados['id'],
+                'installment' => $installments,
+                'date_payment' => $datePayments[$i],
+                'installment_value' => str_replace(',', '.', str_replace('.', '', $installmentValues[$i])),
+                'created' => date("Y-m-d H:i:s")
+            ];
+        }
+
+        // Insere os dados no banco de dados
+        $installment = new \App\adms\Models\helper\AdmsCreate();
+
+        foreach ($insertData as $data) {
+            $installment->exeCreate('adms_installments', $data);
+        }
+        $this->valArquivo();
     }
 
     private function valArquivo() {
@@ -142,37 +168,12 @@ class AdmsAddOrderPayment {
         }
 
         if ($uploadFile->getResultado()) {
+            $this->viewManager();
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação cadastrada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Solicitação cadastrada. Erro ao realizar o upload do arquivo!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
-        }
-    }
-
-    private function insertInstallment() {
-        $installments = intval($this->Dados['installments']);
-        $datePayments = $this->datePayments;
-        $installmentValues = $this->installmentValues;
-
-        $insertData = [];
-
-        // Prepara os dados para inserção
-        for ($i = 0; $i < $installments; $i++) {
-            $insertData[] = [
-                'adms_order_payment_id' => $this->Dados['id'],
-                'installment' => $installments,
-                'date_payment' => $datePayments[$i],
-                'installment_value' => str_replace(',', '.', str_replace('.', '', $installmentValues[$i])),
-                'created' => date("Y-m-d H:i:s")
-            ];
-        }
-
-        // Insere os dados no banco de dados
-        $installment = new \App\adms\Models\helper\AdmsCreate();
-
-        foreach ($insertData as $data) {
-            $installment->exeCreate('adms_installments', $data);
         }
     }
 
@@ -183,6 +184,18 @@ class AdmsAddOrderPayment {
         $this->DadosUsuario = $manager->getResult();
 
         if ($this->DadosUsuario) {
+            $this->viewSupplier($this->Dados['adms_supplier_id']);
+        }
+    }
+
+    private function viewSupplier($supplier_id) {
+        $this->Dados['supplier_id'] = $supplier_id;
+
+        $supplier = new \App\adms\Models\helper\AdmsRead();
+        $supplier->fullRead("SELECT id, fantasy_name FROM adms_suppliers WHERE id =:id LIMIT :limit", "id={$this->Dados['supplier_id']}&limit=1");
+        $this->Dados['name_supplier'] = $supplier->getResult();
+
+        if ($this->Dados['name_supplier']) {
             $this->sendEmail();
         }
     }
@@ -196,12 +209,14 @@ class AdmsAddOrderPayment {
         $this->DadosEmail['cont_email'] = "Olá " . $prim_nome . ",<br><br>";
         $this->DadosEmail['cont_email'] .= "Foi cadastrada uma nova ordem de pagamento.<br>";
         $this->DadosEmail['cont_email'] .= "<p>Segue informações sobre o cadastro.</p>";
-        $this->DadosEmail['cont_email'] .= "<p>ID: " . $this->Dados['id'] . ".<br>";
+        $this->DadosEmail['cont_email'] .= "<p>ID: {$this->Dados['id']}.<br>";
         $this->DadosEmail['cont_email'] .= "Valor: " . number_format($this->Dados['total_value'], 2, ',', '.') . ".<br>";
+        $this->DadosEmail['cont_email'] .= "Fornecedor: {$this->Dados['name_supplier'][0]['fantasy_name']} .<br>";
         $this->DadosEmail['cont_email'] .= "Data Pagamento: " . date("d/m/Y", strtotime($this->Dados['date_payment'])) . ".</p>";
+        $this->DadosEmail['cont_email'] .= "Para visualizar <a href='" . URLADM . "view-order-payments/order-payment/{$this->Dados['id']}'>clique aqui</a>.<br>";
         $this->DadosEmail['cont_email'] .= "Se você não reconhece a solicitação entre em contado com o setor Financeiro.<br>";
 
-        $this->DadosEmail['cont_text_email'] = "Olá " . $prim_nome . ",\n\n Foi cadastrada uma nova ordem de pagamento.\n\n Segue informações sobre o cadastro.\n\n ID: " . $this->Dados['id'] . "\n Valor: " . number_format($this->Dados['total_value'], 2, ',', '.') . "\n Data Pagamento: " . date("d/m/Y", strtotime($this->Dados['date_payment'])) . ".\n\n Se você não reconhece a solicitação entre em contado com o setor Financeiro.";
+        $this->DadosEmail['cont_text_email'] = "Olá " . $prim_nome . ",\n\n Foi cadastrada uma nova ordem de pagamento.\n\n Segue informações sobre o cadastro.\n\n ID: " . $this->Dados['id'] . "\n Valor: " . number_format($this->Dados['total_value'], 2, ',', '.') . "Fornecedor: " . $this->Dados['name_supplier'][0]['fantasy_name'] . ".\n Data Pagamento: " . date("d/m/Y", strtotime($this->Dados['date_payment'])) . ".\n\n Para visualizar copie o link: " . URLADM . "view-order-payments/order-payment/{$this->Dados['id']}\n\n Se você não reconhece a solicitação entre em contado com o setor Financeiro.";
 
         $emailPHPMailer = new \App\adms\Models\helper\AdmsPhpMailer();
         $emailPHPMailer->emailPhpMailer($this->DadosEmail);
@@ -221,7 +236,7 @@ class AdmsAddOrderPayment {
         $listar->fullRead("SELECT id a_id, name area FROM adms_areas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['area'] = $listar->getResult();
 
-        if ($_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+        if ($_SESSION['ordem_nivac'] == SUPADMPERMITION) {
             $listar->fullRead("SELECT id c_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
         } else {
             $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area_id AND status_id =:status_id ORDER BY name ASC", "adms_area_id=" . $_SESSION['area_id'] . "&status_id=1");

@@ -57,7 +57,7 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th># ID</th>
+                        <th>#ID</th>
                         <th class="d-none d-sm-table-cell">Loja</th>
                         <th class="d-none d-sm-table-cell">Colaborador</th>
                         <th class="d-none d-sm-table-cell">Último Dia Trabalhado</th>

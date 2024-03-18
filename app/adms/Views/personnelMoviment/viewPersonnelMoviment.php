@@ -45,7 +45,8 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                         </div>
                     </div>
                 </div>
-            </div><hr>
+            </div>
+            <hr>
             <?php
             if (isset($_SESSION['msg'])) {
                 echo $_SESSION['msg'];
@@ -62,7 +63,7 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed</table>">
                                 <div class="my-2">
                                     <h6 class="my-2">Cargo Atual</h6>
-                                    <small class="lead">Caixa</small>
+                                    <small class="lead"><?php echo $office_name; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -77,19 +78,19 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                     <small style="font-size: 15px;">
                                         <div class="form-group d-block mr-2">
                                             <div class="form-group form-check">
-                                                <input name="uniform" type="checkbox" class="form-check-input" id="uniform" value="1" <?php echo (isset($access_power_bi) and $access_power_bi == 1) ? "checked" : ""; ?> disabled />
+                                                <input name="uniform" type="checkbox" class="form-check-input" id="uniform" value="1" <?php echo (isset($uniform) and $uniform == 1) ? "checked" : ""; ?> disabled />
                                                 <label class="form-check-label" for="uniform">Farda</label>
                                             </div>
                                             <div class="form-group form-check">
-                                                <input name="chip_phone" type="checkbox" class="form-check-input" id="chip_phone" value="1" <?php echo (isset($access_zznet) and $access_zznet == 1) ? "checked" : ""; ?> disabled />
+                                                <input name="chip_phone" type="checkbox" class="form-check-input" id="chip_phone" value="1" <?php echo (isset($phone_chip) and $phone_chip == 1) ? "checked" : ""; ?> disabled />
                                                 <label class="form-check-label" for="chip_phone">Chip</label>
                                             </div>
                                             <div class="form-group form-check">
-                                                <input name="original_card" type="checkbox" class="form-check-input" id="original_card" value="1" <?php echo (isset($access_cigam) and $access_cigam == 1) ? "checked" : ""; ?> disabled />
+                                                <input name="original_card" type="checkbox" class="form-check-input" id="original_card" value="1" <?php echo (isset($original_card) and $original_card == 1) ? "checked" : ""; ?> disabled />
                                                 <label class="form-check-label" for="original_card">Carta Original</label>
                                             </div>
                                             <div class="form-group form-check">
-                                                <input name="aso" type="checkbox" class="form-check-input" id="aso" value="1" <?php echo (isset($access_camera) and $access_camera == 1) ? "checked" : ""; ?> disabled />
+                                                <input name="aso" type="checkbox" class="form-check-input" id="aso" value="1" <?php echo (isset($aso_resigns) and $aso_resigns == 1) ? "checked" : ""; ?> disabled />
                                                 <label class="form-check-label" for="aso">ASO</label>
                                             </div>
                                         </div>
@@ -99,29 +100,23 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="my-2">
                                     <h6 class="my-2">Data assinatura TRCT</h6>
-                                    <small class="text-muted lead"><?php echo date("d/m/Y", strtotime($last_day_worked)); ?></small>
+                                    <small class="text-muted lead"><?php echo date("d/m/Y", strtotime($signature_date_trct)); ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="my-2">
                                     <h6 class="my-2">ASO Demissional</h6>
-                                    <small class="text-muted lead" >Não</small>
+                                    <small class="text-muted lead" ><?php echo $aso_resigns == 1 ? "Sim" : "Não"; ?></small>
                                 </div>
                                 <div class="my-2">
                                     <h6 class="my-2">Guia ASO Demissional</h6>
-                                    <small class="lead">Sim</small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div class="my-2">
-                                    <h6 class="my-2">Histórico</h6>
-                                    <small class="text-muted lead">Bla bla bla bla, bla bla, bla bla ble.</small>
+                                    <small class="lead"><?php echo $send_aso_guide == 1 ? "Sim" : "Não"; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Atualizado Por:</h6>
-                                    <small class="text-muted lead" ><?php echo !empty($updated_by) ? $updated_by : ""; ?></small>
+                                    <small class="text-muted lead" ><?php echo!empty($updated_by) ? $updated_by : ""; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -145,7 +140,7 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                             </li>
                         </ul>
                     </div>
-                    
+
                     <div class="col-md-8 order-md-1">
                         <h4 class="mb-3">Dados da Movimentação</h4>
                         <form class="needs-validation" novalidate>
@@ -264,11 +259,11 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input name="folds" id="folds" type="checkbox" class="mr-2" aria-label="folds" value="<?php echo $folds; ?>" <?php echo (!empty($folds) and $folds > 0) ? "checked" : ""; ?> disabled />
+                                                            <input name="folds" id="folds" type="checkbox" class="mr-2" aria-label="folds" value="<?php echo $folds; ?>" <?php echo (!empty($folds) and $folds != "00:00:00") ? "checked" : ""; ?> disabled />
                                                             <label class="form-check-label" for="folds">Horas Adicionais</label>
                                                         </div>
                                                     </div>
-                                                    <input name="totalFolds" id="totalFolds" type="text" id="time" class="form-control text-center" placeholder="00:00:00" value="<?php echo (!empty($folds) and $folds > 0) ? $folds : ""; ?>" disabled />
+                                                    <input name="totalFolds" id="totalFolds" type="text" id="time" class="form-control text-center" placeholder="00:00:00" value="<?php echo (!empty($folds) and $folds != "00:00:00") ? $folds : ""; ?>" disabled />
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
