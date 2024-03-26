@@ -106,11 +106,11 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="my-2">
                                     <h6 class="my-2">ASO Demissional</h6>
-                                    <small class="text-muted lead" ><?php echo $aso_resigns == 1 ? "Sim" : "Não"; ?></small>
+                                    <small class="text-muted lead" ><?php echo $aso_resigns == 1 ? "Não" : "Sim"; ?></small>
                                 </div>
                                 <div class="my-2">
                                     <h6 class="my-2">Guia ASO Demissional</h6>
-                                    <small class="lead"><?php echo $send_aso_guide == 1 ? "Sim" : "Não"; ?></small>
+                                    <small class="lead"><?php echo $send_aso_guide == 1 ? "Não" : "Sim"; ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">

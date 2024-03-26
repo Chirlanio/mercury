@@ -52,7 +52,7 @@ if (isset($this->Dados['form'][0])) {
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-2">Data do Desligamento:</h6>
-                                <input class="form-control is-invalid col-12" type='date' value="<?php echo $valorForm['last_day_worked']; ?>">
+                                <input name="last_day_worked" id="last_day_worked" class="form-control is-invalid col-12" type='date' value="<?php echo $valorForm['last_day_worked']; ?>">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-condenced">
@@ -83,7 +83,7 @@ if (isset($this->Dados['form'][0])) {
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div class="my-2">
                                 <h6 class="my-2">Data assinatura TRCT</h6>
-                                <small class="text-muted lead"><?php echo date("d/m/Y", strtotime($valorForm['signature_date_trct'])); ?></small>
+                                <input name="signature_date_trct" id="signature_date_trct" class="form-control is-invalid col-12" type='date' value="<?php echo $valorForm['signature_date_trct']; ?>">
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-condensed">

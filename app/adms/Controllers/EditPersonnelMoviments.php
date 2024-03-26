@@ -19,8 +19,12 @@ class EditPersonnelMoviments {
 
     public function editMoviment($DadosId = null) {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        $this->Dados['id'] = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
-        $this->Dados['delete'] = filter_input(INPUT_GET, 'file', FILTER_DEFAULT);
+        if (filter_input(INPUT_GET, 'id', FILTER_DEFAULT)) {
+            $this->Dados['id'] = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
+        }
+        if (filter_input(INPUT_GET, 'file', FILTER_DEFAULT)) {
+            $this->Dados['delete'] = filter_input(INPUT_GET, 'file', FILTER_DEFAULT);
+        }
 
         if (!empty($this->Dados['delete'])) {
             $this->delFiles();
@@ -40,7 +44,7 @@ class EditPersonnelMoviments {
         if (!empty($this->Dados['EditMoviment'])) {
             unset($this->Dados['EditMoviment']);
             $this->Dados['file_name'] = (isset($_FILES['file_name']) ? $_FILES['file_name'] : null);
-            
+
             $editMoviment = new \App\adms\Models\AdmsEditPersonnelMoviments();
             $editMoviment->altOrder($this->Dados);
 
@@ -83,5 +87,6 @@ class EditPersonnelMoviments {
     private function delFiles() {
         $delFilename = new \App\adms\Models\helper\AdmsApagarArq();
         $delFilename->apagarArq($this->Dados['delete'], 'assets/files/mp/' . $this->Dados['id'] . '/');
+        unset($this->Dados['delete']);
     }
 }

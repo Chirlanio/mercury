@@ -15,10 +15,12 @@ if (!defined('URLADM')) {
 class AdmsEditPersonnelMoviments {
 
     private $Resultado;
-    private $Dados;
-    private $DadosId;
-    private $File;
-    private $Optional;
+    private array|string|null $Dados;
+    private int $DadosId;
+    private string|null $Observation;
+    private array|object|null $File;
+    private array|string|null $Optional;
+    private array|string|null $DismissalFollow;
 
     function getResultado() {
         return $this->Resultado;
@@ -26,7 +28,6 @@ class AdmsEditPersonnelMoviments {
 
     public function viewMoviment($DadosId) {
         $this->DadosId = (int) $DadosId;
-        $_SESSION['id'] = $this->DadosId;
         $viewMoviment = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['adms_niveis_acesso_id'] == SUPADMPERMITION) {
             $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation, ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso_resigns, df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id WHERE pm.id =:id LIMIT :limit", "id={$this->DadosId}&limit=1");
@@ -34,16 +35,15 @@ class AdmsEditPersonnelMoviments {
             $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation, ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso_resigns, df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id WHERE pm.id =:id AND pm.adms_loja_id =:adms_loja_id AND pm.adms_sits_personnel_mov_id <=:adms_sits_personnel_mov_id LIMIT :limit", "id={$this->DadosId}&adms_loja_id=" . $_SESSION['usuario_loja'] . "&adms_sits_personnel_mov_id=2&limit=1");
         }
         $this->Resultado = $viewMoviment->getResult();
-        var_dump($this->Resultado);
         return $this->Resultado;
     }
 
     public function altOrder(array $Dados) {
         $this->Dados = $Dados;
-        $this->Dados['id'] = $_SESSION['id'];
         $this->File = $this->Dados['file_name'];
+        $this->Observation = $this->Dados['observation'];
 
-        unset($this->Dados['delete'], $this->Dados['file_name']);
+        unset($this->Dados['delete'], $this->Dados['file_name'], $this->Dados['observation']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -55,11 +55,19 @@ class AdmsEditPersonnelMoviments {
         }
     }
 
+    private function treatDismissalData() {
+        $this->DismissalFollow = $this->Dados;
+        var_dump($this->DismissalFollow);
+        unset($this->Dados['uniform'], $this->Dados['aso'], $this->Dados['aso_resigns'], $this->Dados['send_aso_guide']);
+        $this->updateEditPersonnelMoviments();
+    }
+
     private function treatData(array $Dados) {
+        //var_dump($Dados);
         $this->Optional = $Dados;
 
         $this->Optional['adms_area_id'] = (isset($this->Dados['request_area_id']) and !empty($this->Dados['request_area_id'])) ? $this->Dados['request_area_id'] : 0;
-        $this->Optional['fouls'] = (isset($this->Dados['totalFouls']) and !empty($this->Dados['totalFouls'])) ? $this->Dados['totalFouls'] : null;
+        $this->Optional['fouls'] = (isset($this->Dados['totalFouls']) and !empty($this->Dados['totalFouls'])) ? $this->Dados['totalFouls'] : 0;
         $this->Optional['days_off'] = (isset($this->Dados['totalDaysOff']) and !empty($this->Dados['totalDaysOff'])) ? $this->Dados['totalDaysOff'] : null;
         $this->Optional['folds'] = (isset($this->Dados['totalFolds']) and !empty($this->Dados['totalFolds'])) ? date("H:i:s", strtotime($this->Dados['totalFolds'])) : null;
         $this->Optional['totalFund'] = (isset($this->Dados['totalFund']) and !empty($this->Dados['totalFund'])) ? str_replace(".", "", $this->Dados['totalFund']) : null;
@@ -67,16 +75,17 @@ class AdmsEditPersonnelMoviments {
 
         unset($this->Dados['totalFouls'], $this->Dados['totalDaysOff'], $this->Dados['totalFolds'], $this->Dados['totalFund']);
 
+        var_dump($this->Optional);
         if (!empty($this->File['name'][0])) {
             $this->valArquivo();
         } else {
-            $this->updateEditPersonnelMoviments();
+            $this->treatDismissalData();
         }
     }
 
     private function valArquivo() {
         if (!isset($this->File['name'][0]) || empty($this->File['name'][0])) {
-            $this->updateEditPersonnelMoviments();
+            $this->treatDismissalData();
         }
 
         $uploadPath = 'assets/files/mp/' . $_SESSION['id'] . '/';
@@ -114,6 +123,7 @@ class AdmsEditPersonnelMoviments {
 
     private function updateEditPersonnelMoviments() {
 
+        $this->Dados['observation'] = !empty($this->Observation) ? $this->Observation : null;
         $this->Dados['fouls'] = !empty($this->Optional['fouls']) ? $this->Optional['fouls'] : null;
         $this->Dados['days_off'] = !empty($this->Optional['days_off']) ? $this->Optional['days_off'] : null;
         $this->Dados['folds'] = !empty($this->Optional['folds']) ? $this->Optional['folds'] : null;
