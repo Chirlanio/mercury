@@ -64,22 +64,23 @@ class AdmsCadastrarDelivery {
      */
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
-        $listar->fullRead("SELECT id id_loja, nome loja FROM tb_lojas ORDER BY id ASC");
-        $registro['loja'] = $listar->getResult();
 
-        $listar->fullRead("SELECT id id_func, usuario func FROM tb_funcionarios WHERE (cargo_id =:cargo_id OR cargo_id =:cargo) AND status_id =:status_id ORDER BY usuario ASC", "cargo_id=23&cargo=27&status_id=1");
-        $registro['func'] = $listar->getResult();
+        $listar->fullRead("SELECT id b_id, nome nome_bairro FROM tb_bairros ORDER BY nome ASC");
+        $registro['neighborhoods'] = $listar->getResult();
+        
+        $listar->fullRead("SELECT id l_id, nome name_store FROM tb_lojas ORDER BY id ASC");
+        $registro['stores'] = $listar->getResult();
+
+        $listar->fullRead("SELECT id p_id, nome type_pay FROM tb_forma_pag ORDER BY nome ASC");
+        $registro['payments'] = $listar->getResult();
+
+        $listar->fullRead("SELECT id f_id, usuario func FROM tb_funcionarios WHERE (cargo_id =:cargo_id OR cargo_id =:cargo) AND status_id =:status_id ORDER BY usuario ASC", "cargo_id=23&cargo=27&status_id=1");
+        $registro['employees'] = $listar->getResult();
 
         $listar->fullRead("SELECT id id_rota, nome rota FROM tb_rotas ORDER BY id ASC");
-        $registro['rota'] = $listar->getResult();
+        $registro['rotas'] = $listar->getResult();
 
-        $listar->fullRead("SELECT id id_bairro, nome bairro, rota_id FROM tb_bairros ORDER BY nome ASC");
-        $registro['bairro'] = $listar->getResult();
-
-        $listar->fullRead("SELECT id id_pag, nome forma FROM tb_forma_pag ORDER BY nome ASC");
-        $registro['forma'] = $listar->getResult();
-
-        $this->Resultado = ['loja' => $registro['loja'], 'func' => $registro['func'], 'rota' => $registro['rota'], 'bairro' => $registro['bairro'], 'forma' => $registro['forma']];
+        $this->Resultado = ['stores' => $registro['stores'], 'employees' => $registro['employees'], 'rotas' => $registro['rotas'], 'neighborhoods' => $registro['neighborhoods'], 'payments' => $registro['payments']];
 
         return $this->Resultado;
     }

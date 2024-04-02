@@ -12,13 +12,11 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class ApagarEstorno
-{
+class ApagarEstorno {
 
     private $DadosId;
 
-    public function apagarEstorno($DadosId = null)
-    {
+    public function apagarEstorno($DadosId = null) {
         $this->DadosId = (int) $DadosId;
         if (!empty($this->DadosId)) {
             $apagarEstorno = new \App\adms\Models\AdmsApagarEstorno();

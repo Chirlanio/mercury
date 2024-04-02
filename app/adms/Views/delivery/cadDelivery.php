@@ -5,7 +5,6 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($valorForm['rota_id']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -36,12 +35,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="loja_id" id="loja_id" class="form-control is-invalid" required autofocus>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['lojas'] as $loja) {
-                            extract($loja);
+                        foreach ($this->Dados['select']['stores'] as $store) {
+                            extract($store);
                             if (isset($valorForm['loja_id']) and $valorForm['loja_id'] == $l_id) {
-                                echo "<option value='$l_id' selected>$nome_loja</option>";
+                                echo "<option value='$l_id' selected>$name_store</option>";
                             } else {
-                                echo "<option value='$l_id'>$nome_loja</option>";
+                                echo "<option value='$l_id'>$name_store</option>";
                             }
                         }
                         ?>
@@ -52,12 +51,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="func_id" id="func_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['func'] as $id_func) {
-                            extract($id_func);
-                            if (isset($valorForm['func_id']) and $valorForm['func_id'] == $id_func) {
-                                echo "<option value='$id_func' selected>$func</option>";
+                        foreach ($this->Dados['select']['employees'] as $employee) {
+                            extract($employee);
+                            if (isset($valorForm['func_id']) and $valorForm['func_id'] == $f_id) {
+                                echo "<option value='$f_id' selected>$func</option>";
                             } else {
-                                echo "<option value='$id_func'>$func</option>";
+                                echo "<option value='$f_id'>$func</option>";
                             }
                         }
                         ?>
@@ -86,8 +85,8 @@ if (isset($this->Dados['form'][0])) {
                     <select name="bairro_id" id="bairro_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['bairros'] as $bairro) {
-                            extract($bairro);
+                        foreach ($this->Dados['select']['neighborhoods'] as $neighborhood) {
+                            extract($neighborhood);
                             if (isset($valorForm['bairro_id']) and $valorForm['bairro_id'] == $b_id) {
                                 echo "<option value='$b_id' selected>$nome_bairro</option>";
                             } else {
@@ -141,12 +140,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="forma_pag_id" id="forma_pag_id" class="form-control is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['formas'] as $forma) {
-                            extract($forma);
+                        foreach ($this->Dados['select']['payments'] as $payment) {
+                            extract($payment);
                             if (isset($valorForm['forma_pag_id']) and $valorForm['forma_pag_id'] == $p_id) {
-                                echo "<option value='$p_id' selected>$nome_forma</option>";
+                                echo "<option value='$p_id' selected>$type_pay</option>";
                             } else {
-                                echo "<option value='$p_id'>$nome_forma</option>";
+                                echo "<option value='$p_id'>$type_pay</option>";
                             }
                         }
                         ?>

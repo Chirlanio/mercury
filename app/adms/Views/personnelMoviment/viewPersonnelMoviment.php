@@ -82,15 +82,15 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                                 <label class="form-check-label" for="uniform">Farda</label>
                                             </div>
                                             <div class="form-group form-check">
-                                                <input name="chip_phone" type="checkbox" class="form-check-input" id="chip_phone" value="1" <?php echo (isset($phone_chip) and $phone_chip == 1) ? "checked" : ""; ?> disabled />
-                                                <label class="form-check-label" for="chip_phone">Chip</label>
+                                                <input name="phone_chip" type="checkbox" class="form-check-input" id="phone_chip" value="1" <?php echo (isset($phone_chip) and $phone_chip == 1) ? "checked" : ""; ?> disabled />
+                                                <label class="form-check-label" for="phone_chip">Chip</label>
                                             </div>
                                             <div class="form-group form-check">
                                                 <input name="original_card" type="checkbox" class="form-check-input" id="original_card" value="1" <?php echo (isset($original_card) and $original_card == 1) ? "checked" : ""; ?> disabled />
                                                 <label class="form-check-label" for="original_card">Carta Original</label>
                                             </div>
                                             <div class="form-group form-check">
-                                                <input name="aso" type="checkbox" class="form-check-input" id="aso" value="1" <?php echo (isset($aso_resigns) and $aso_resigns == 1) ? "checked" : ""; ?> disabled />
+                                                <input name="aso" type="checkbox" class="form-check-input" id="aso" value="1" <?php echo (isset($aso) and $aso == 1) ? "checked" : ""; ?> disabled />
                                                 <label class="form-check-label" for="aso">ASO</label>
                                             </div>
                                         </div>

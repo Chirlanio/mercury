@@ -3,6 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
  */
 
+const btnSave = document.querySelector('input[type=submit]');
+
+btnSave.addEventListener('click', function(e) {
+    e.preventDefaut();
+    window.alert('Salvando...');
+    console.log(btnSave);
+});
 
 var selectType = document.getElementById('adms_type_payment_id');
 var div = document.getElementById('parc');

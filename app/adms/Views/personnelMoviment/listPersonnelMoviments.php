@@ -57,7 +57,7 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>#ID</th>
+                        <th class="text-center">#ID</th>
                         <th class="d-none d-sm-table-cell">Loja</th>
                         <th class="d-none d-sm-table-cell">Colaborador</th>
                         <th class="d-none d-sm-table-cell">Último Dia Trabalhado</th>
@@ -70,7 +70,7 @@ if (!defined('URLADM')) {
                     foreach ($this->Dados['list_moviment'] as $moviment) {
                         extract($moviment);
                         ?>
-                    <th><?php echo $m_id; ?></th>
+                    <th class="text-center"><?php echo $m_id; ?></th>
                     <td><?php echo $name_store; ?></td>
                     <td class="d-none d-sm-table-cell"><?php echo $funcionario; ?></td>
                     <td class="d-none d-sm-table-cell"><?php echo date("d/m/Y", strtotime($last_day_worked)); ?></td>

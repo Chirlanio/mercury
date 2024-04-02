@@ -45,8 +45,7 @@ class AdmsDeleteOrderPayments {
 
     public function viewOrder() {
         $viewOrder = new \App\adms\Models\helper\AdmsRead();
-        $viewOrder->fullRead("SELECT * FROM adms_order_payments
-                WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $viewOrder->fullRead("SELECT * FROM adms_order_payments WHERE id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->DadosArq = $viewOrder->getResult();
     }
 

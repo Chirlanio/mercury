@@ -40,7 +40,7 @@ if (isset($this->Dados['form'][0])) {
                     <select name="loja_id" id="loja_id" class="custom-select is-invalid" required autofocus>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['loja'] as $lj) {
+                        foreach ($this->Dados['select']['stores'] as $lj) {
                             extract($lj);
                             if (isset($valorForm['loja_id']) and $valorForm['loja_id'] == $l_id) {
                                 echo "<option value='$l_id' selected>$loja</option>";
@@ -64,12 +64,12 @@ if (isset($this->Dados['form'][0])) {
                     <select name="tam_id" id="tam_id" class="custom-select is-invalid" required>
                         <option value="">Selecione</option>
                         <?php
-                        foreach ($this->Dados['select']['tam'] as $ta) {
+                        foreach ($this->Dados['select']['tams'] as $ta) {
                             extract($ta);
-                            if (isset($valorForm['tam_id']) and $valorForm['tam_id'] == $t_id) {
-                                echo "<option value='$t_id' selected>$tamanho</option>";
+                            if (isset($valorForm['tam_id']) and $valorForm['tam_id'] == $tam_id) {
+                                echo "<option value='$tam_id' selected>$tam</option>";
                             } else {
-                                echo "<option value='$t_id'>$tamanho</option>";
+                                echo "<option value='$tam_id'>$tam</option>";
                             }
                         }
                         ?>

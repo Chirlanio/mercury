@@ -12,14 +12,12 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class DeletePersonnelMoviments
-{
+class DeletePersonnelMoviments {
 
-    private $DadosId;
+    private int|null $DadosId;
 
-    public function deleteMoviment($DadosId = null)
-    {
-        $this->DadosId = (int) $DadosId;
+    public function deleteMoviment(int $DadosId = null) {
+        $this->DadosId = $DadosId;
         if (!empty($this->DadosId)) {
             $delMoviment = new \App\adms\Models\AdmsDeletePersonnelMoviments();
             $delMoviment->deleteMoviment($this->DadosId);

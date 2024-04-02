@@ -1,8 +1,6 @@
 function getValuesFouls() {
     var fouls = document.getElementById('fouls');
-    console.log(fouls);
     const totalFouls = document.getElementById('totalFouls');
-    console.log(totalFouls.value);
     if (fouls.value === '1') {
         fouls.value = 2;
         totalFouls.removeAttribute('disabled');

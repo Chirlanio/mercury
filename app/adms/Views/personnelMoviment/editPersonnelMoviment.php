@@ -65,15 +65,15 @@ if (isset($this->Dados['form'][0])) {
                                             <label class="form-check-label" for="uniform">Farda</label>
                                         </div>
                                         <div class="form-group form-check">
-                                            <input name="chip_phone" type="checkbox" class="form-check-input" id="chip_phone" value="1" <?php echo (isset($valorForm['phone_chip']) and $valorForm['phone_chip'] == 1) ? "checked" : ""; ?> />
-                                            <label class="form-check-label" for="chip_phone">Chip</label>
+                                            <input name="phone_chip" type="checkbox" class="form-check-input" id="phone_chip" value="1" <?php echo (isset($valorForm['phone_chip']) and $valorForm['phone_chip'] == 1) ? "checked" : ""; ?> />
+                                            <label class="form-check-label" for="phone_chip">Chip</label>
                                         </div>
                                         <div class="form-group form-check">
                                             <input name="original_card" type="checkbox" class="form-check-input" id="original_card" value="1" <?php echo (isset($valorForm['original_card']) and $valorForm['original_card'] == 1) ? "checked" : ""; ?> />
                                             <label class="form-check-label" for="original_card">Carta Original</label>
                                         </div>
                                         <div class="form-group form-check">
-                                            <input name="aso" type="checkbox" class="form-check-input" id="aso" value="1" <?php echo (isset($valorForm['aso_resigns']) and $valorForm['aso_resigns'] == 1) ? "checked" : ""; ?> />
+                                            <input name="aso" type="checkbox" class="form-check-input" id="aso" value="1" <?php echo (isset($valorForm['aso']) and $valorForm['aso'] == 1) ? "checked" : ""; ?> />
                                             <label class="form-check-label" for="aso">ASO</label>
                                         </div>
                                     </div>
@@ -112,12 +112,6 @@ if (isset($this->Dados['form'][0])) {
                                         <label class="custom-control-label" for="send_aso_guideNo">Enviado</label>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-2">Atualizado Por:</h6>
-                                <small class="text-muted lead" ><?php echo (!empty($valorForm['updated_by']) ? $valorForm['updated_by'] : ""); ?></small>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -262,14 +256,14 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-group col-12">
                             <div class="border border-dark rounded p-3">
                                 <label class="mb-2">Informações para DP:</label>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-5">
                                     <div class="form-group d-block">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <?php
-                                                    $fouls = 1;
-                                                    if (isset($valorForm['fouls']) and $valorForm['fouls'] == 2) {
+                                                    $fouls = $valorForm['fouls'];
+                                                    if (isset($valorForm['fouls']) and $valorForm['fouls'] > 0) {
                                                         $fouls = 2;
                                                     }
                                                     if (isset($valorForm['totalFouls']) and !empty($valorForm['totalFouls'])) {
@@ -280,14 +274,14 @@ if (isset($this->Dados['form'][0])) {
                                                     <label class="form-check-label" for="fouls">Faltas</label>
                                                 </div>
                                             </div>
-                                            <input name="totalFouls" id="totalFouls" type="number" class="form-control text-center" placeholder="Qtde de faltas" value="<?php echo (isset($totalFouls) and !empty($totalFouls)) ? $totalFouls : ""; ?>" <?php echo ($fouls == 2) ? "" : "disabled"; ?>>
+                                            <input name="totalFouls" id="totalFouls" type="number" class="form-control text-center" placeholder="Qtde de faltas" value="<?php echo (isset($totalFouls) and !empty($totalFouls)) ? $totalFouls : $fouls; ?>" <?php echo ($fouls == 2) ? "" : "disabled"; ?>>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <?php
-                                                    $days_off = 1;
-                                                    if (isset($valorForm['days_off']) and $valorForm['days_off'] == 2) {
+                                                    $days_off = $valorForm['days_off'] > 0 ? $valorForm['days_off'] : 1;
+                                                    if (isset($valorForm['days_off']) and ($valorForm['days_off'] > 0 or $valorForm['days_off'] == 2)) {
                                                         $days_off = 2;
                                                     }
                                                     if (isset($valorForm['totalDaysOff']) and !empty($valorForm['totalDaysOff'])) {
@@ -298,13 +292,13 @@ if (isset($this->Dados['form'][0])) {
                                                     <label class="form-check-label" for="days_off">Folgas</label>
                                                 </div>
                                             </div>
-                                            <input name="totalDaysOff" id="totalDaysOff" type="number" class="form-control text-center" placeholder="Qtde de folgas" value="<?php echo (isset($totalDaysOff) and !empty($totalDaysOff)) ? $totalDaysOff : ""; ?>" <?php echo ($days_off == 2) ? "" : "disabled"; ?>>
+                                            <input name="totalDaysOff" id="totalDaysOff" type="number" class="form-control text-center" placeholder="Qtde de folgas" value="<?php echo (isset($totalDaysOff) and !empty($totalDaysOff)) ? $totalDaysOff : $valorForm['days_off']; ?>" <?php echo ($days_off == 2) ? "" : "disabled"; ?>>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <?php
-                                                    $folds = 1;
+                                                    $folds = $valorForm['folds'] > 0 ? $valorForm['folds'] : 1;
                                                     if (isset($valorForm['folds']) and $valorForm['folds'] == 2) {
                                                         $folds = 2;
                                                     }
@@ -316,13 +310,13 @@ if (isset($this->Dados['form'][0])) {
                                                     <label class="form-check-label" for="folds">Horas Adicionais</label>
                                                 </div>
                                             </div>
-                                            <input name="totalFolds" id="totalFolds" type="text" id="time" class="form-control text-center" placeholder="00:00:00" value="<?php echo (isset($totalFolds) and !empty($totalFolds)) ? $totalFolds : ""; ?>" <?php echo ($folds == 2) ? "" : "disabled"; ?>>
+                                            <input name="totalFolds" id="totalFolds" type="text" id="time" class="form-control text-center" placeholder="00:00:00" value="<?php echo (isset($totalFolds) and !empty($totalFolds)) ? $totalFolds : $valorForm['folds']; ?>" <?php echo ($folds == 2) ? "" : "disabled"; ?>>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <?php
-                                                    $fixed_fund = 1;
+                                                    $fixed_fund = $valorForm['fixed_fund'] > 0 ? $valorForm['fixed_fund'] : 1;
                                                     if (isset($valorForm['fixed_fund']) and $valorForm['fixed_fund'] == 2) {
                                                         $fixed_fund = 2;
                                                     }
@@ -334,7 +328,7 @@ if (isset($this->Dados['form'][0])) {
                                                     <label class="form-check-label" for="fixed_fund">Fundo fixo</label>
                                                 </div>
                                             </div>
-                                            <input name="totalFund" type="text" id="text1" class="form-control text-center" placeholder="R$ 0,00" value="<?php echo (isset($totalFund) and !empty($totalFund)) ? $totalFund : ""; ?>" <?php echo ($fixed_fund == 2) ? "" : "disabled"; ?>>
+                                            <input name="totalFund" type="text" id="text1" class="form-control text-center" placeholder="R$ 0,00" value="<?php echo (isset($totalFund) and !empty($totalFund)) ? $totalFund : $valorForm['fixed_fund']; ?>" <?php echo ($fixed_fund == 2) ? "" : "disabled"; ?>>
                                         </div>
                                     </div>
                                 </div>

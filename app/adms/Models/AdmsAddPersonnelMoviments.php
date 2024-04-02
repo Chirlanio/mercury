@@ -96,7 +96,6 @@ class AdmsAddPersonnelMoviments {
         $this->treatData['created'] = date("Y-m-d H:i:s");
         $this->treatData['observation'] = $this->Observation;
         $this->viewUser($this->Dados['adms_employee_id']);
-        //var_dump($this->treatData);
 
         $addProcess = new \App\adms\Models\helper\AdmsCreate();
         $addProcess->exeCreate("adms_personnel_moviments", $this->treatData);
@@ -111,6 +110,7 @@ class AdmsAddPersonnelMoviments {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A Movimentação não foi cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
+        $this->InsertDismissalFollow();
     }
 
     private function valArquivo() {
@@ -188,7 +188,6 @@ class AdmsAddPersonnelMoviments {
 
         if (!empty($this->DadosDismissal['tb_funcionario_id'])) {
             $this->viewUser($this->DadosDismissal['tb_funcionario_id']);
-            $this->InsertDismissalFollow();
         }
     }
 

@@ -146,18 +146,18 @@ class AdmsCadastrarOrdemServico {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['adms_niveis_acesso_id'] <= 3 || $_SESSION['adms_niveis_acesso_id'] == 9) {
-            $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
-        } else {
-            $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id_loja ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
-        }
-        $registro['loja'] = $listar->getResult();
-
         $listar->fullRead("SELECT id tip_id, nome tipo FROM adms_tips_ordem_servico ORDER BY id ASC");
-        $registro['tips'] = $listar->getResult();
+        $registro['types'] = $listar->getResult();
 
         $listar->fullRead("SELECT id tam_id, nome tam FROM tb_tam ORDER BY id ASC");
-        $registro['tam'] = $listar->getResult();
+        $registro['tams'] = $listar->getResult();
+        
+        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
+            $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE status_id =:status_id ORDER BY id_loja ASC", "status_id=1");
+        } else {
+            $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE id =:l_id AND status_id =:status_id ORDER BY id_loja ASC", "l_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
+        }
+        $registro['stores'] = $listar->getResult();
 
         $listar->fullRead("SELECT id m_id, nome marca FROM adms_marcas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         $registro['marc'] = $listar->getResult();
@@ -171,7 +171,7 @@ class AdmsCadastrarOrdemServico {
         $listar->fullRead("SELECT id l_id, descricao local, status_id FROM adms_def_local_ordem_servico WHERE status_id =:status_id", "status_id=1");
         $registro['loc'] = $listar->getResult();
 
-        $this->Resultado = ['loja' => $registro['loja'], 'tips' => $registro['tips'], 'tam' => $registro['tam'], 'marc' => $registro['marc'], 'def' => $registro['def'],
+        $this->Resultado = ['stores' => $registro['stores'], 'types' => $registro['types'], 'tams' => $registro['tams'], 'marc' => $registro['marc'], 'def' => $registro['def'],
             'det' => $registro['det'], 'loc' => $registro['loc']];
 
         return $this->Resultado;
