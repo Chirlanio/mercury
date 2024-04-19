@@ -3,13 +3,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
  */
 
-const btnSave = document.querySelector('input[type=submit]');
+/*function addTextSave(selectButton) {
+    // Seleciona todos os botões que correspondem ao seletor
+    const botoesSubmit = document.querySelectorAll(selectButton);
 
-btnSave.addEventListener('click', function(e) {
-    e.preventDefaut();
-    window.alert('Salvando...');
-    console.log(btnSave);
-});
+    // Adiciona um ouvinte de evento 'click' a cada botão
+    botoesSubmit.forEach(function (button) {
+        button.addEventListener('click', function () {
+            // Altera o texto do botão para 'Salvando...'
+            console.log(button);
+            button.value = 'Salvando...';
+
+            // Desabilita o botão para evitar múltiplos envios
+            button.disabled = true;
+
+            setTimeout(function () {
+                button.value = 'Salvar';
+                button.disabled = false;
+            }, 3000); // Tempo em milissegundos (3000 ms = 3 segundos)
+
+
+            // Aqui você pode adicionar mais lógica para o envio do formulário
+        });
+    });
+}
+
+// Uso da função
+addTextSave('.btn-submit');*/
 
 var selectType = document.getElementById('adms_type_payment_id');
 var div = document.getElementById('parc');

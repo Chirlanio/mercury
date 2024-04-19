@@ -48,15 +48,15 @@ class AdmsListarFunc {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
-            $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas ORDER BY id ASC");
-        } else {
-            $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
-        }
-        $registro['loja'] = $listar->getResult();
-
         $listar->fullRead("SELECT id s_id, nome status FROM adms_sits ORDER BY id ASC");
         $registro['sits'] = $listar->getResult();
+
+        if ($_SESSION['ordem_nivac'] < STOREPERMITION) {
+            $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas ORDER BY l_id ASC");
+        } else {
+            $listar->fullRead("SELECT id l_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY l_id ASC", "id=" . $_SESSION['usuario_loja']);
+        }
+        $registro['loja'] = $listar->getResult();
 
         $this->Resultado = ['loja' => $registro['loja'], 'sits' => $registro['sits']];
 

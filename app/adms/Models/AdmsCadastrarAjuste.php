@@ -56,7 +56,10 @@ class AdmsCadastrarAjuste {
 
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['adms_niveis_acesso_id'] > 3) {
+        $listar->fullRead("SELECT id t_id, nome tamanho FROM tb_tam ORDER BY nome ASC");
+        $registro['tams'] = $listar->getResult();
+
+        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
             $listar->fullRead("SELECT id_loja, id lj_id, nome loja FROM tb_lojas WHERE id =:id ORDER BY nome ASC", "id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id_loja, id lj_id, nome loja FROM tb_lojas ORDER BY nome ASC");
@@ -66,17 +69,14 @@ class AdmsCadastrarAjuste {
         $listar->fullRead("SELECT id sit_id, nome sit FROM tb_status_aj ORDER BY nome ASC");
         $registro['sit'] = $listar->getResult();
 
-        $listar->fullRead("SELECT id id_tam, nome tam FROM tb_tam ORDER BY nome ASC");
-        $registro['tam_id'] = $listar->getResult();
-
-        if ($_SESSION['adms_niveis_acesso_id'] >= 5) {
+        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
             $listar->fullRead("SELECT id id_consul, nome consul FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
             $listar->fullRead("SELECT id id_consul, nome consul FROM tb_funcionarios ORDER BY nome ASC");
         }
         $registro['func_id'] = $listar->getResult();
 
-        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'tam_id' => $registro['tam_id'], 'func_id' => $registro['func_id']];
+        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit' => $registro['sit'], 'tams' => $registro['tams'], 'func_id' => $registro['func_id']];
 
         return $this->Resultado;
     }

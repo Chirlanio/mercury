@@ -12,8 +12,9 @@ define('LIMIT', 20);
 define('SUPADMPERMITION', 1);
 define('ADMPERMITION', 2);
 define('STOREPERMITION', 17);
-define('FINANCIALPERMITION', 7);
-define('FINANCIALPERMITIONONE', 8);
+define('FINANCIALPERMITION', 9);
+define('FINANCIALPERMITIONONE', 10);
+define('DP', 7);
 
 define('HOST', 'localhost');
 define('USER', 'root');

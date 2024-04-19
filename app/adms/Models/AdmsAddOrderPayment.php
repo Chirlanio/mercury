@@ -86,8 +86,10 @@ class AdmsAddOrderPayment {
         $this->Dados['name_supplier'] = $this->titular;
         $this->Dados['launch_number'] = $this->launchNumebr;
         $this->Dados['type_account'] = $this->typeAccount;
+        $this->Dados['diff_payment_advance'] = $this->Dados['total_value'] - $this->Dados['advance_amount'];
         $this->Dados['document_number_supplier'] = (!empty($this->documentNumberSupplier) ? str_replace('.', '', str_replace('-', '', $this->documentNumberSupplier)) : null);
         $this->Dados['created'] = date("Y-m-d H:i:s");
+        //var_dump($this->Dados);
 
         if (!empty($this->Filename['name'][0])) {
             $slugFile = new \App\adms\Models\helper\AdmsSlug();
@@ -229,7 +231,7 @@ class AdmsAddOrderPayment {
             $this->Resultado = false;
         }
     }
-    
+
     public function lastId() {
         $lastid = new \App\adms\Models\helper\AdmsRead();
         $lastid->fullRead("SELECT id FROM adms_order_payments ORDER BY id DESC LIMIT :limit", "limit=1");

@@ -35,22 +35,22 @@ class CpAdmsPesqTransf {
 
         if ((!empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['loja_destino_id'])) AND (!empty($this->Dados['status_id']))) {
             $this->pesqComp();
-        } elseif ((!empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['status_id']))) {
+        } elseif ((!empty($this->Dados['loja_origem_id'])) AND (empty($this->Dados['loja_destino_id'])) AND (!empty($this->Dados['status_id']))) {
             unset($_SESSION['pesqDestino']);
             $this->pesqLojaOriSit();
-        } elseif ((!empty($this->Dados['loja_destino_id'])) AND (!empty($this->Dados['status_id']))) {
+        } elseif ((empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['loja_destino_id'])) AND (!empty($this->Dados['status_id']))) {
             unset($_SESSION['pesqOrigem']);
             $this->pesqLojaDesSit();
-        } elseif ((!empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['loja_destino_id']))) {
+        } elseif ((!empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['loja_destino_id'])) AND (empty($this->Dados['status_id']))) {
             unset($_SESSION['pesqStatus']);
             $this->pesqLojaOriDes();
-        } elseif (!empty($this->Dados['loja_origem_id'])) {
+        } elseif ((!empty($this->Dados['loja_origem_id'])) AND (empty($this->Dados['loja_destino_id'])) AND (empty($this->Dados['status_id']))) {
             unset($_SESSION['pesqStatus'], $_SESSION['pesqDestino']);
             $this->pesqLojaOrigem();
-        } elseif (!empty($this->Dados['loja_destino_id'])) {
+        } elseif ((empty($this->Dados['loja_origem_id'])) AND (!empty($this->Dados['loja_destino_id'])) AND (empty($this->Dados['status_id']))) {
             unset($_SESSION['pesqStatus'], $_SESSION['pesqOrigem']);
             $this->pesqLojaDestino();
-        } elseif (!empty($this->Dados['status_id'])) {
+        } elseif ((empty($this->Dados['loja_origem_id'])) AND (empty($this->Dados['loja_destino_id'])) AND (!empty($this->Dados['status_id']))) {
             unset($_SESSION['pesqDestino'], $_SESSION['pesqOrigem']);
             $this->pesqStatus();
         }
@@ -172,8 +172,8 @@ class CpAdmsPesqTransf {
     public function listarCadastrar() {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        if ($_SESSION['ordem_nivac'] >= FINANCIALPERMITION) {
-            $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
+            $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas WHERE id =:lo_id ORDER BY id ASC", "lo_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id lo_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");
         }
@@ -192,5 +192,4 @@ class CpAdmsPesqTransf {
 
         return $this->Resultado;
     }
-
 }

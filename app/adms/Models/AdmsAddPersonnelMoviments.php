@@ -172,7 +172,7 @@ class AdmsAddPersonnelMoviments {
         $userDismissal = new \App\adms\Models\helper\AdmsRead();
         $userDismissal->fullRead("SELECT cargo_id  FROM tb_funcionarios WHERE id =:id LIMIT :limit", "id={$this->DadosDismissal['adms_employee_id']}&limit=1");
         $this->DadosDismissal['office_id'] = $userDismissal->getResult();
-        unset($this->DadosDismissal['adms_loja_id'], $this->DadosDismissal['adms_employee_relation_id'], $this->DadosDismissal['adms_resignation_id'], $this->DadosDismissal['early_warning_id'], $this->DadosDismissal['request_area_id'], $this->DadosDismissal['requester_id'], $this->DadosDismissal['board_id'], $this->DadosDismissal['id'], $this->DadosDismissal['adms_employee_id'], $this->DadosDismissal['last_day_worked'], $this->DadosDismissal['fouls'], $this->DadosDismissal['totalFouls'], $this->DadosDismissal['days_off'], $this->DadosDismissal['totalDaysOff'], $this->DadosDismissal['folds'], $this->DadosDismissal['totalFolds'], $this->DadosDismissal['fixed_fund'], $this->DadosDismissal['totalFund'], $this->DadosDismissal['access_power_bi'], $this->DadosDismissal['access_zznet'], $this->DadosDismissal['access_cigam'], $this->DadosDismissal['access_camera'], $this->DadosDismissal['access_deskfy'], $this->DadosDismissal['notebook'], $this->DadosDismissal['email_corporate'], $this->DadosDismissal['access_meu_atendimento'], $this->DadosDismissal['office_parking_card'], $this->DadosDismissal['office_parking_shopping'], $this->DadosDismissal['key_office'], $this->DadosDismissal['key_store'], $this->DadosDismissal['instagram_corporate'], $this->DadosDismissal['deactivate_instagram_account'], $this->DadosDismissal['access_dito'], $this->DadosDismissal['signature_date_trct']);
+        unset($this->DadosDismissal['adms_loja_id'], $this->DadosDismissal['adms_employee_relation_id'], $this->DadosDismissal['adms_resignation_id'], $this->DadosDismissal['early_warning_id'], $this->DadosDismissal['request_area_id'], $this->DadosDismissal['requester_id'], $this->DadosDismissal['board_id'], $this->DadosDismissal['id'], $this->DadosDismissal['adms_employee_id'], $this->DadosDismissal['last_day_worked'], $this->DadosDismissal['fouls'], $this->DadosDismissal['totalFouls'], $this->DadosDismissal['days_off'], $this->DadosDismissal['totalDaysOff'], $this->DadosDismissal['folds'], $this->DadosDismissal['totalFolds'], $this->DadosDismissal['fixed_fund'], $this->DadosDismissal['totalFund'], $this->DadosDismissal['access_power_bi'], $this->DadosDismissal['access_zznet'], $this->DadosDismissal['access_cigam'], $this->DadosDismissal['access_camera'], $this->DadosDismissal['access_deskfy'], $this->DadosDismissal['notebook'], $this->DadosDismissal['email_corporate'], $this->DadosDismissal['access_meu_atendimento'], $this->DadosDismissal['office_parking_card'], $this->DadosDismissal['office_parking_shopping'], $this->DadosDismissal['key_office'], $this->DadosDismissal['key_store'], $this->DadosDismissal['instagram_corporate'], $this->DadosDismissal['deactivate_instagram_account'], $this->DadosDismissal['access_dito'], $this->DadosDismissal['signature_date_trct'], $this->DadosDismissal['grip'], $this->DadosDismissal['conduct'], $this->DadosDismissal['productivity'], $this->DadosDismissal['team_work'], $this->DadosDismissal['performance'], $this->DadosDismissal['new_opportunity'], $this->DadosDismissal['structure_adjustment'], $this->DadosDismissal['career_change'], $this->DadosDismissal['inadequacy'], $this->DadosDismissal['indiscipline_insubordination'], $this->DadosDismissal['frequent_absences']);
 
         $this->DadosDismissal['adms_person_mov_id'] = $DadosDismissal['id'];
         $this->DadosDismissal['tb_funcionario_id'] = $DadosDismissal['adms_employee_id'];
@@ -183,7 +183,7 @@ class AdmsAddPersonnelMoviments {
         $this->DadosDismissal['termination_date'] = $DadosDismissal['last_day_worked'];
         $this->DadosDismissal['signature_date_trct'] = date('Y-m-d', strtotime($this->Dados['last_day_worked'] . '+10 days'));
         $this->DadosDismissal['aso_resigns'] = $this->Dados['adms_employee_relation_id'] == 2 ? 2 : 1;
-        $this->DadosDismissal['send_aso_guide'] = 2;
+        $this->DadosDismissal['send_aso_guide'] = 1;
         $this->DadosDismissal['created'] = date("Y-m-d H:i:s");
 
         if (!empty($this->DadosDismissal['tb_funcionario_id'])) {
@@ -221,7 +221,7 @@ class AdmsAddPersonnelMoviments {
         $this->DadosEmail['cont_email'] .= "<p>Segue informações do cadastro.</p>";
         $this->DadosEmail['cont_email'] .= "<p>ID: {$this->Dados['id']}.<br>";
         $this->DadosEmail['cont_email'] .= "Loja: {$this->DadosUsuario['nameUser'][0]['store']}.<br>";
-        $this->DadosEmail['cont_email'] .= "Consultora: {$this->DadosUsuario['nameUser'][0]['employee']}.<br>";
+        $this->DadosEmail['cont_email'] .= "Colaborador(a): {$this->DadosUsuario['nameUser'][0]['employee']}.<br>";
         $this->DadosEmail['cont_email'] .= "Data do Desligamento: " . date("d/m/Y", strtotime($this->Dados['last_day_worked'])) . ".</p>";
         $this->DadosEmail['cont_email'] .= "Para visualizar <a href='" . URLADM . "view-personnel-moviments/view-moviment/{$this->Dados['id']}'>clique aqui</a>.<br>";
         $this->DadosEmail['cont_email'] .= "Se e-mail enviado para recebimento de equipamentos e bloqueio de acessos.<br>";
@@ -260,7 +260,7 @@ class AdmsAddPersonnelMoviments {
         }
         $registro['employee'] = $listar->getResult();
 
-        $listar->fullRead("SELECT id m_id, name manager FROM adms_managers WHERE status_id =:status_id ORDER BY name ASC ", "status_id=1");
+        $listar->fullRead("SELECT id m_id, board_name FROM adms_boards WHERE status_id =:status_id ORDER BY board_name ASC ", "status_id=1");
         $registro['manager'] = $listar->getResult();
 
         $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");

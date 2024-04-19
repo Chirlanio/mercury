@@ -40,7 +40,7 @@ class AdmsListarOrdemServico {
         if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
             $listarOrdemService->fullRead("SELECT os.*, lj.nome nome_loja, st.nome status, tam.nome tam, c.cor FROM adms_qualidade_ordem_servico os INNER JOIN tb_lojas lj ON lj.id=os.loja_id INNER JOIN adms_sits_ordem_servico st ON st.id=os.status_id INNER JOIN adms_cors c ON c.id=st.cor_id INNER JOIN tb_tam tam ON tam.id=os.tam_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarOrdemService->fullRead("SELECT os.*, lj.nome nome_loja, st.nome status, tam.nome tam, c.cor FROM adms_qualidade_ordem_servico os INNER JOIN tb_lojas lj ON lj.id=os.loja_id INNER JOIN adms_sits_ordem_servico st ON st.id=os.status_id INNER JOIN adms_cors c ON c.id=st.cor_id INNER JOIN tb_tam tam ON tam.id=os.tam_id INNER JOIN adms_usuarios user ON user.loja_id=os.loja_id WHERE os.loja_id =:loja_id ORDER BY os.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarOrdemService->fullRead("SELECT os.*, lj.nome nome_loja, st.nome status, tam.nome tam, c.cor FROM adms_qualidade_ordem_servico os INNER JOIN tb_lojas lj ON lj.id=os.loja_id INNER JOIN adms_sits_ordem_servico st ON st.id=os.status_id INNER JOIN adms_cors c ON c.id=st.cor_id INNER JOIN tb_tam tam ON tam.id=os.tam_id WHERE os.loja_id =:loja_id ORDER BY os.id DESC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listarOrdemService->getResult();
         return $this->Resultado;

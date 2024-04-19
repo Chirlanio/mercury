@@ -37,10 +37,10 @@ class AdmsListarTransferencia {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarTransf = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= STOREPERMITION) {
-            $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        if ($_SESSION['ordem_nivac'] < STOREPERMITION) {
+            $listarTransf->fullRead("SELECT t.id t_id, t.loja_origem_id, t.loja_destino_id, t.nf, t.qtd_vol, t.tipo_transf_id, t.confirma_receb, t.status_id, t.created, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id ORDER BY t.id DESC LIMIT :limit OFFSET :offset", "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listarTransf->fullRead("SELECT t.*, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE loja_origem_id =:loja_origem_id OR loja_destino_id =:loja_destino_id ORDER BY id DESC LIMIT :limit OFFSET :offset", "loja_origem_id=" . $_SESSION['usuario_loja'] . "&loja_destino_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarTransf->fullRead("SELECT t.id t_id, t.loja_origem_id, t.loja_destino_id, t.nf, t.qtd_vol, t.tipo_transf_id, t.confirma_receb, t.status_id, t.created, l.nome loja_ori, lj.nome nome_des, tt.nome tipo, s.nome sit, s.adms_cor_id, c.cor cor_cr FROM tb_transferencias t INNER JOIN tb_lojas l ON l.id=t.loja_origem_id INNER JOIN tb_lojas lj ON lj.id=t.loja_destino_id INNER JOIN tb_tipo_transf tt ON tt.id=t.tipo_transf_id INNER JOIN tb_status_transf s ON s.id=t.status_id INNER JOIN adms_cors c on c.id=s.adms_cor_id AND s.id=t.status_id WHERE loja_origem_id =:loja_origem_id OR loja_destino_id =:loja_destino_id ORDER BY t.id DESC LIMIT :limit OFFSET :offset", "loja_origem_id=" . $_SESSION['usuario_loja'] . "&loja_destino_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listarTransf->getResult();
         return $this->Resultado;
@@ -53,14 +53,14 @@ class AdmsListarTransferencia {
         $registro['status'] = $listar->getResult();
 
         if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
-            $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas WHERE id =:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+            $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas WHERE id =:loja_id ORDER BY id ASC", "loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja_orig FROM tb_lojas ORDER BY id ASC");
         }
         $registro['loja_origem'] = $listar->getResult();
 
         if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
-            $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas WHERE id !=:id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja']);
+            $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas WHERE id !=:loja_id ORDER BY id ASC", "loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $listar->fullRead("SELECT id loja_id, nome loja_dest FROM tb_lojas ORDER BY id ASC");
         }

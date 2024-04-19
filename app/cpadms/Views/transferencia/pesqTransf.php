@@ -51,7 +51,7 @@ if (!defined('URLADM')) {
                             echo "<option value = ''>Selecione</option>";
                             foreach ($this->Dados['select']['loja_origem'] as $lo) {
                                 extract($lo);
-                                if (isset($valorForm['loja_origem_id']) == $lo_id) {
+                                if (isset($_SESSION['pesqOrigem']) and $_SESSION['pesqOrigem'] == $lo_id) {
                                     echo "<option value='$lo_id' selected>$loja_orig</option>";
                                 } else {
                                     echo "<option value='$lo_id'>$loja_orig</option>";
@@ -71,7 +71,7 @@ if (!defined('URLADM')) {
                             echo "<option value = ''>Selecione</option>";
                             foreach ($this->Dados['select']['loja_destino'] as $ld) {
                                 extract($ld);
-                                if (isset($valorForm['loja_destino_id']) == $ld_id) {
+                                if (isset($_SESSION['pesqDestino']) and $_SESSION['pesqDestino'] == $ld_id) {
                                     echo "<option value='$ld_id' selected>$loja_dest</option>";
                                 } else {
                                     echo "<option value='$ld_id'>$loja_dest</option>";
@@ -91,7 +91,7 @@ if (!defined('URLADM')) {
                         echo "<option value = ''>Selecione</option>";
                         foreach ($this->Dados['select']['status'] as $ld) {
                             extract($ld);
-                            if (isset($valorForm['status_id']) == $sit_id) {
+                            if (isset($_SESSION['pesqStatus']) and $_SESSION['pesqStatus'] == $sit_id) {
                                 echo "<option value='$sit_id' selected>$sit</option>";
                             } else {
                                 echo "<option value='$sit_id'>$sit</option>";
@@ -128,9 +128,9 @@ if (!defined('URLADM')) {
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th>Loja de Origem</th>
-                        <th class="d-none d-sm-table-cell">Loja de Destino</th>
+                        <th class="text-center">#ID</th>
+                        <th>Loja - Origem</th>
+                        <th class="d-none d-sm-table-cell">Loja - Destino</th>
                         <th class="d-none d-sm-table-cell">NF</th>
                         <th class="d-none d-sm-table-cell">Volumes</th>
                         <th class="d-none d-sm-table-cell">Tipo</th>

@@ -11,7 +11,7 @@ if (!empty($this->Dados['gg'][0])) {
         <div class="list-group-item">
             <div class="d-flex">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4">Gente & Gestão</h2>
+                    <h2 class="display-4">Pessoas & Cultura</h2>
                 </div>
                 <div class="img-fluid">
                     <img src="<?php echo URLADM . 'assets/imagens/logo/logo_preta.png'; ?>" alt="Grupo Meia Sola" width="200" height="90">
@@ -37,7 +37,7 @@ if (!empty($this->Dados['gg'][0])) {
             <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th colspan="12" class="text-center display-4 bg-dark text-white border-bottom">DIRETRIZES GENTE & GESTÃO</th>
+                        <th colspan="12" class="text-center display-4 bg-dark text-white border-bottom">DIRETRIZES PESSOAS & CULTURA</th>
                     </tr>
                 </thead>
                 <tbody>

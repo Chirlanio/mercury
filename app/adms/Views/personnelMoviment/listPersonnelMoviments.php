@@ -16,24 +16,24 @@ if (!defined('URLADM')) {
             }
             ?>
         </div>
-        <form class="form" method="POST" action="<?php echo URLADM . 'pesq-personnel-movements/list'; ?>" enctype="multipart/form-data">
+        <form class="form" method="POST" action="<?php echo URLADM . 'search-personnel-moviments/list'; ?>" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-sm-12 col-lg-12 mb-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <label class="input-group-text" style="font-weight: bold" for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
                         </div>
-                        <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Pesquise por Área, Loja, Situação ou ID" value="<?php
+                        <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Pesquise por Colaborador, Área, Loja ou ID" value="<?php
                         if (isset($_SESSION['search'])) {
                             echo $_SESSION['search'];
                         }
-                        ?>">
+                        ?>" autofocus>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group ml-sm-2 ml-md-2 ml-lg-2 ml-3">
-                    <input name="PesqMoviment" type="submit" class="btn btn-outline-primary mx-sm-2" value="Pesquisar">
+                    <input name="SearchMoviments" type="submit" class="btn btn-outline-primary mx-sm-2" value="Pesquisar">
                 </div>
             </div>
         </form>

@@ -37,7 +37,7 @@ class AdmsListPersonnelMovements {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listPersonnel = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
             $listPersonnel->fullRead("SELECT pm.id m_id, lj.nome name_store, fc.nome funcionario, pm.last_day_worked, st.name status, pm.early_warning_id, cr.cor FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj on lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc on fc.id = pm.adms_employee_id LEFT JOIN adms_sits_personnel_moviments st on st.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr on cr.id = st.adms_cor_id WHERE pm.adms_loja_id =:adms_loja_id ORDER BY pm.id DESC LIMIT :limit OFFSET :offset", "adms_loja_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listPersonnel->fullRead("SELECT pm.id m_id, lj.nome name_store, fc.nome funcionario, pm.last_day_worked, st.name status, pm.early_warning_id, cr.cor FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj on lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc on fc.id = pm.adms_employee_id LEFT JOIN adms_sits_personnel_moviments st on st.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr on cr.id = st.adms_cor_id ORDER BY pm.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");

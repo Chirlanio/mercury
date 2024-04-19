@@ -29,7 +29,7 @@ class AdmsListEcommerceOrder {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'ecommerce/list');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_ecommerce_orders WHERE loja_id =:loja_id", "loja_id=" . $_SESSION['usuario_loja']);
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM adms_ecommerce_orders");
@@ -37,21 +37,10 @@ class AdmsListEcommerceOrder {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listEcommerce = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
-            $listEcommerce->fullRead("SELECT e.*, l.nome store, se.name status, c.cor cor_cr
-                FROM adms_ecommerce_orders e
-                LEFT JOIN tb_lojas l ON l.id = e.loja_id
-                LEFT JOIN adms_sits_ecommerce se ON se.id = e.adms_sit_ecommerce_id
-                LEFT JOIN adms_cors c ON c.id = se.adms_cor_id
-                WHERE e.loja_id =:loja_id
-                ORDER BY e.id DESC LIMIT :limit OFFSET :offset", "loja_id={$_SESSION['usuario_loja']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
+            $listEcommerce->fullRead("SELECT e.*, l.nome store, se.name status, c.cor cor_cr FROM adms_ecommerce_orders e LEFT JOIN tb_lojas l ON l.id = e.loja_id LEFT JOIN adms_sits_ecommerce se ON se.id = e.adms_sit_ecommerce_id LEFT JOIN adms_cors c ON c.id = se.adms_cor_id WHERE e.loja_id =:loja_id ORDER BY e.id DESC LIMIT :limit OFFSET :offset", "loja_id={$_SESSION['usuario_loja']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
-            $listEcommerce->fullRead("SELECT e.*, l.nome store, se.name status, c.cor cor_cr
-                FROM adms_ecommerce_orders e
-                LEFT JOIN tb_lojas l ON l.id = e.loja_id
-                LEFT JOIN adms_sits_ecommerce se ON se.id = e.adms_sit_ecommerce_id
-                LEFT JOIN adms_cors c ON c.id = se.adms_cor_id
-                ORDER BY e.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listEcommerce->fullRead("SELECT e.*, l.nome store, se.name status, c.cor cor_cr FROM adms_ecommerce_orders e LEFT JOIN tb_lojas l ON l.id = e.loja_id LEFT JOIN adms_sits_ecommerce se ON se.id = e.adms_sit_ecommerce_id LEFT JOIN adms_cors c ON c.id = se.adms_cor_id ORDER BY e.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         }
         $this->Resultado = $listEcommerce->getResult();
         return $this->Resultado;
