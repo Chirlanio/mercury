@@ -22,6 +22,7 @@ class VacancyOpening {
         $this->PageId = (int) $PageId ? $PageId : 1;
 
         $botao = ['add_vacancy' => ['menu_controller' => 'add-vacancy-opening', 'menu_metodo' => 'add-vacancy'],
+            'spreadsheet' => ['menu_controller' => 'generate-excel-spreadsheet', 'menu_metodo' => 'generate-excel'],
             'view_vacancy' => ['menu_controller' => 'view-vacancy-opening', 'menu_metodo' => 'view-vacancy'],
             'edit_vacancy' => ['menu_controller' => 'edit-vacancy-opening', 'menu_metodo' => 'edit-vacancy'],
             'del_vacancy' => ['menu_controller' => 'delete-vacancy-opening', 'menu_metodo' => 'delete-vacancy']];
@@ -30,9 +31,6 @@ class VacancyOpening {
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
-        
-        $listSelect = new \App\adms\Models\AdmsListVacancyOpening();
-        $this->Dados['select'] = $listSelect->listAdd();
 
         $listVacancy = new \App\adms\Models\AdmsListVacancyOpening();
         $this->Dados['list_vacancy'] = $listVacancy->list($this->PageId);

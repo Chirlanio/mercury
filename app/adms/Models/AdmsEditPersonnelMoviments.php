@@ -174,21 +174,23 @@ class AdmsEditPersonnelMoviments {
         $listar->fullRead("SELECT id s_id, name status FROM adms_sits_personnel_moviments ORDER BY id ASC");
         $registro['status'] = $listar->getResult();
 
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE id =:id AND status_id =:status_id ORDER BY id ASC", "id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {
             $listar->fullRead("SELECT id s_id, nome store FROM tb_lojas WHERE status_id =:status_id ORDER BY id ASC", "status_id=1");
         }
         $registro['store'] = $listar->getResult();
 
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
+        } elseif ($_SESSION['adms_niveis_acesso_id'] == 16 or $_SESSION['adms_niveis_acesso_id'] == 17){
+            $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=2");
         } else {//$_SESSION['area_id']
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
         }
         $registro['employee'] = $listar->getResult();
 
-        if ($_SESSION['adms_niveis_acesso_id'] == STOREPERMITION) {
+        if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id a_id, name area_name FROM adms_areas WHERE id =:id AND status_id =:status_id ORDER BY name ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
         } else {//$_SESSION['area_id']
             $listar->fullRead("SELECT id a_id, name area_name FROM adms_areas WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");

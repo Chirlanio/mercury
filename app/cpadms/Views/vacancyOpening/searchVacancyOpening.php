@@ -3,29 +3,42 @@ if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
+//var_dump($_SESSION['terms']);
+//var_dump($this->Dados['paginacao']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex align-items-center bg-light pr-2 pl-2 mb-4 border rounded shadow-sm">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Abertura de Vagas</h2>
+                <h2 class="display-4 titulo">Pesquisar Abertura de Vagas</h2>
             </div>
-            <?php
-            if ($this->Dados['botao']['spreadsheet']) {
-                ?>
-                <a href="<?php echo URLADM . 'generate-excel-spreadsheet/generate-excel'; ?>" class='btn btn-success btn-sm mr-2'>
-                    <i class="fa-solid fa-table"></i> Gerar Excel
-                </a>
-                <?php
-            }
-            if ($this->Dados['botao']['add_vacancy']) {
-                ?>
-                <a href="<?php echo URLADM . 'add-vacancy-opening/add-vacancy'; ?>" class='btn btn-outline-success btn-sm'>
-                    <i class='fa-solid fa-square-plus'></i> Novo
-                </a>
-                <?php
-            }
-            ?>
+            <div class="p-2">
+                <span class="d-none d-md-block">
+                    <?php
+                    if ($this->Dados['botao']['list_vacancy']) {
+                        echo "<a href='" . URLADM . "vacancy-opening/list' class='btn btn-outline-info btn-sm'><i class='fas fa-list'></i></a> ";
+                    }
+                    if ($this->Dados['botao']['add_vacancy']) {
+                        echo "<a href='" . URLADM . "add-vacancy-opening/add-vacancy' class='btn btn-outline-success btn-sm'><i class='fa-solid fa-square-plus'></i> Novo</a> ";
+                    }
+                    ?>
+                </span>
+                <div class="dropdown d-block d-md-none">
+                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ações
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
+                        <?php
+                        if ($this->Dados['botao']['list_vacancy']) {
+                            echo "<a class='dropdown-item' href='" . URLADM . "vacancy-opening/list'>Listar</a>";
+                        }
+                        if ($this->Dados['botao']['add_vacancy']) {
+                            echo "<a class='dropdown-item' href='" . URLADM . "add-vacancy-opening/add-vacancy'>Cadastrar</a>";
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
         </div>
         <form class="form" method="POST" action="<?php echo URLADM . 'search-vacancy-opening/list'; ?>" enctype="multipart/form-data">
             <div class="row">
@@ -35,10 +48,10 @@ if (!defined('URLADM')) {
                             <label class="input-group-text" style="font-weight: bold" for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
                         </div>
                         <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Pesquise por Consultor(a), Loja, Situação ou ID" value="<?php
-            if (isset($_SESSION['search'])) {
-                echo $_SESSION['search'];
-            }
-            ?>" autofocus>
+                        if ((isset($_SESSION['search'])) AND (!empty($_SESSION['search']))) {
+                            echo $_SESSION['search'];
+                        }
+                        ?>" autofocus>
                     </div>
                 </div>
             </div>
@@ -52,18 +65,23 @@ if (!defined('URLADM')) {
         if (empty($this->Dados['list_vacancy'])) {
             ?>
             <div class="alert alert-danger" role="alert">
-                Nenhuma solicitação encontrada!
+                Nenhum registro encontrado!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <?php
+            $redirectUrl = URLADM . 'vacancy-opening/list';
+            if (empty($this->Dados['list_vacancy'])) {
+                header("Location: $redirectUrl");
+                exit();
+            }
         }
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
-        ?><hr>
+        ?>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
@@ -84,12 +102,12 @@ if (!defined('URLADM')) {
                         ?>
                         <tr>
                             <th class="text-center"><?php echo $v_id; ?></th>
-                            <td><?php echo $store_name; ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo!empty($funcionario) ? $funcionario : $type_name; ?></td>
+                            <td><?php echo $name_store; ?></td>
+                            <td class="d-none d-sm-table-cell"><?php echo!empty($employee) ? $employee : $type_name; ?></td>
                             <td class="d-none d-sm-table-cell"><?php echo $cargo; ?></td>
                             <td class="d-none d-sm-table-cell"><?php echo $type_name; ?></td>
                             <td class="d-none d-sm-table-cell align-middle text-center">
-                                <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $status; ?></span>
+                                <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $name_sit; ?></span>
                             </td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">

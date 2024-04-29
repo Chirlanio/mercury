@@ -3,33 +3,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
  */
 
-/*function addTextSave(selectButton) {
-    // Seleciona todos os botões que correspondem ao seletor
-    const botoesSubmit = document.querySelectorAll(selectButton);
+// Definindo a função em um escopo que pode ser acessado globalmente
+window.onload = function() {
+    // Função para verificar alterações no campo select
+    function checkRequestType() {
+        var requestTypeSelect = document.getElementById("adms_request_type_id");
+        var employeeDiv = document.getElementById("employee_id");
+        
+        // Verificar se o valor selecionado é igual a 2
+        if (requestTypeSelect.value === "2") {
+            // Ocultar a div de funcionário
+            employeeDiv.style.display = "none";
+        } else {
+            // Caso contrário, mostrar a div de funcionário
+            employeeDiv.style.display = "block";
+        }
+    }
 
-    // Adiciona um ouvinte de evento 'click' a cada botão
-    botoesSubmit.forEach(function (button) {
-        button.addEventListener('click', function () {
-            // Altera o texto do botão para 'Salvando...'
-            console.log(button);
-            button.value = 'Salvando...';
+    // Verificar o estado inicial ao carregar a página
+    checkRequestType();
 
-            // Desabilita o botão para evitar múltiplos envios
-            button.disabled = true;
-
-            setTimeout(function () {
-                button.value = 'Salvar';
-                button.disabled = false;
-            }, 3000); // Tempo em milissegundos (3000 ms = 3 segundos)
-
-
-            // Aqui você pode adicionar mais lógica para o envio do formulário
-        });
-    });
-}
-
-// Uso da função
-addTextSave('.btn-submit');*/
+    // Adicionar um ouvinte de evento para o campo select
+    var requestTypeSelect = document.getElementById("adms_request_type_id");
+    requestTypeSelect.addEventListener("change", checkRequestType);
+};
 
 var selectType = document.getElementById('adms_type_payment_id');
 var div = document.getElementById('parc');
@@ -85,3 +82,32 @@ firstChild.children[1].addEventListener('change', function () {
         }
     }
 });
+
+
+/*function addTextSave(selectButton) {
+ // Seleciona todos os botões que correspondem ao seletor
+ const botoesSubmit = document.querySelectorAll(selectButton);
+ 
+ // Adiciona um ouvinte de evento 'click' a cada botão
+ botoesSubmit.forEach(function (button) {
+ button.addEventListener('click', function () {
+ // Altera o texto do botão para 'Salvando...'
+ console.log(button);
+ button.value = 'Salvando...';
+ 
+ // Desabilita o botão para evitar múltiplos envios
+ button.disabled = true;
+ 
+ setTimeout(function () {
+ button.value = 'Salvar';
+ button.disabled = false;
+ }, 3000); // Tempo em milissegundos (3000 ms = 3 segundos)
+ 
+ 
+ // Aqui você pode adicionar mais lógica para o envio do formulário
+ });
+ });
+ }
+ 
+ // Uso da função
+ addTextSave('.btn-submit');*/

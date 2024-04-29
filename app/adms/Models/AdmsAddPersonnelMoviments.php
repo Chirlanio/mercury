@@ -23,6 +23,7 @@ class AdmsAddPersonnelMoviments {
     private array|null $DadosDismissal;
     private array|null $DadosUsuario;
     private string|null $Observation;
+    private array|int|string|null $Inactivated;
 
     function getResultado() {
         return $this->Resultado;
@@ -205,9 +206,25 @@ class AdmsAddPersonnelMoviments {
         $viewUser->fullRead("SELECT f.nome employee, l.nome store, f.cargo_id, cg.adms_niv_cargo_id FROM tb_funcionarios f LEFT JOIN tb_lojas l ON l.id = f.loja_id LEFT JOIN tb_cargos cg ON cg.id = f.cargo_id WHERE f.id =:id", "id={$this->DadosUsuario['userId']}");
         $this->DadosUsuario['nameUser'] = $viewUser->getResult();
 
+        $this->inactivatedEmployee($this->DadosUsuario['userId']);
         $this->sendEmail();
-
+        
         return $this->Resultado = false;
+    }
+
+    private function inactivatedEmployee($DadosId) {
+        $this->Inactivated['id'] = $DadosId;
+        $this->Inactivated['status_id'] = 2;
+        $this->Inactivated['modified'] = date("Y-m-d H:i:s");
+
+        $inactive = new \App\adms\Models\helper\AdmsUpdate();
+        $inactive->exeUpdate("tb_funcionarios", $this->Inactivated, "WHERE id =:id", "id={$this->Inactivated['id']}");
+        if ($inactive->getResult()) {
+            $this->Resultado = false;
+        } else {
+            $this->Resultado = false;
+        }
+        return $this->Resultado;
     }
 
     private function sendEmail() {

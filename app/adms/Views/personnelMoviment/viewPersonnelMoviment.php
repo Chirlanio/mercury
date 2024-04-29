@@ -116,7 +116,7 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
                                     <h6 class="my-2">Atualizado Por:</h6>
-                                    <small class="text-muted lead" ><?php echo!empty($updated_by) ? $updated_by : ""; ?></small>
+                                    <small class="text-muted lead" ><?php echo (!empty($updated_by) ? $updated_by : ""); ?></small>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
