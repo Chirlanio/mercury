@@ -17,42 +17,42 @@ class AddRelocation {
     private $Dados;
     private $DataFile;
 
-    public function cadRemanejo() {
-        
+    public function addRelocation() {
+
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        
+
         if (!empty($this->Dados['SendRelocation'])) {
             unset($this->Dados['SendRelocation']);
-            
-            $this->DataFile = ($_FILES['file_relocation'] ? $_FILES['file_relocation'] : null);
-            
+
+            $this->DataFile['data_file'] = ($_FILES['file_relocation'] ? $_FILES['file_relocation'] : null);
+            $this->DataFile['data'] = $this->Dados;
+
             $addRelocation = new \App\adms\Models\AdmsAddRelocation();
-            $addRelocation->addRelocatio($this->Dados);
-            
+            $addRelocation->addRelocation($this->DataFile);
+
             if ($addRelocation->getResultado()) {
                 $UrlDestino = URLADM . 'relocation/list';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
-                $this->cadRemanejoViewPriv();
+                $this->addRelocationViewPriv();
             }
         } else {
-            $this->cadRemanejoViewPriv();
+            $this->addRelocationViewPriv();
         }
     }
 
-    private function cadRemanejoViewPriv() {
-        $listarSelect = new \App\adms\Models\AdmsCadastrarRemanejo();
-        $this->Dados['select'] = $listarSelect->listarCadastrar();
+    private function addRelocationViewPriv() {
+        $listarSelect = new \App\adms\Models\AdmsAddRelocation();
+        $this->Dados['select'] = $listarSelect->listAdd();
 
-        $botao = ['list_remanejo' => ['menu_controller' => 'remanejo', 'menu_metodo' => 'listar']];
+        $botao = ['list_relocation' => ['menu_controller' => 'relocation', 'menu_metodo' => 'list']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
-        $carregarView = new \Core\ConfigView("adms/Views/remanejo/cadRemanejo", $this->Dados);
+        $carregarView = new \Core\ConfigView("adms/Views/relocation/addRelocation", $this->Dados);
         $carregarView->renderizar();
     }
-
 }

@@ -38,7 +38,18 @@ class AdmsListRelocation {
 
         $listarRemanejo = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
-            $listarRemanejo->fullRead("SELECT rem.*, lj.nome loja_origem, ld.nome loja_destino, s.name_sit, c.cor FROM adms_relocations rem INNER JOIN tb_lojas lj ON lj.id=rem.source_store_id INNER JOIN tb_lojas ld ON ld.id=rem.destination_store_id INNER JOIN adms_sit_relocations s ON s.id=rem.adms_sit_relocation_id INNER JOIN adms_cors c ON c.id=s.adms_cor_id ORDER BY rem.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+            $listarRemanejo->fullRead("SELECT rem.id, rem.relocation_name, rem.adms_sit_relocation_id,
+                    lj.nome loja_origem, ld.nome loja_destino,
+                    s.name_sit, c.cor FROM adms_relocations rem
+                    LEFT JOIN adms_relocation_items ri ON ri.adms_relocation_id = rem.id
+                    INNER JOIN tb_lojas lj ON lj.id = ri.source_store_id
+                    INNER JOIN tb_lojas ld ON ld.id = ri.destination_store_id
+                    INNER JOIN adms_sit_relocations s ON s.id = rem.adms_sit_relocation_id
+                    INNER JOIN adms_cors c ON c.id = s.adms_cor_id
+                    GROUP BY rem.id, rem.relocation_name, rem.adms_sit_relocation_id,
+                    lj.nome loja_origem, ld.nome loja_destino,
+                    s.name_sit, c.cor
+                    ORDER BY rem.id DESC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarRemanejo->fullRead("SELECT rem.*, lj.nome loja_origem, ld.nome loja_destino,
                     s.name_sit, c.cor FROM adms_relocations rem INNER JOIN tb_lojas lj ON lj.id=rem.source_store_id INNER JOIN tb_lojas ld ON ld.id=rem.destination_store_id INNER JOIN adms_sit_relocations s ON s.id=rem.adms_sit_relocation_id INNER JOIN adms_cors c ON c.id=s.adms_cor_id WHERE rem.source_store_id =:source_store_id ORDER BY rem.id DESC LIMIT :limit OFFSET :offset", "source_store_id=" . $_SESSION['usuario_loja'] . "&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
