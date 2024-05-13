@@ -41,6 +41,7 @@ class AdmsEditPersonnelMoviments {
 
     public function altOrder(array $Dados) {
         $this->Dados = $Dados;
+
         $this->File = $this->Dados['file_name'];
         $this->Observation = $this->Dados['observation'];
 
@@ -101,7 +102,7 @@ class AdmsEditPersonnelMoviments {
             $this->treatDismissalData();
         }
 
-        $uploadPath = 'assets/files/mp/' . $_SESSION['id'] . '/';
+        $uploadPath = 'assets/files/mp/' . $this->Dados['id'] . '/';
         $arquivosParaUpload = [];
 
         foreach ($this->File['name'] as $key => $filename) {
@@ -183,10 +184,10 @@ class AdmsEditPersonnelMoviments {
 
         if ($_SESSION['ordem_nivac'] == STOREPERMITION) {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE loja_id =:loja_id AND status_id =:status_id ORDER BY nome ASC", "loja_id=" . $_SESSION['usuario_loja'] . "&status_id=1");
-        } elseif ($_SESSION['adms_niveis_acesso_id'] == 16 or $_SESSION['adms_niveis_acesso_id'] == 17){
+        } elseif ($_SESSION['adms_niveis_acesso_id'] == 16 or $_SESSION['adms_niveis_acesso_id'] == 17) {
             $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=2");
         } else {//$_SESSION['area_id']
-            $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id =:status_id ORDER BY nome ASC", "status_id=1");
+            $listar->fullRead("SELECT id f_id, nome colaborador FROM tb_funcionarios WHERE status_id <=:status_id ORDER BY nome ASC", "status_id=2");
         }
         $registro['employee'] = $listar->getResult();
 

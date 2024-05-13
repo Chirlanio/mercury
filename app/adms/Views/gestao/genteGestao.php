@@ -71,7 +71,7 @@ if (!empty($this->Dados['gg'][0])) {
                         <th colspan="3" class="text-center border align-middle">Recrutamento e Seleção</th>
                         <td colspan="3" class="text-center border align-middle"><?php echo $descricao_recrutamento; ?></td>
                         <td colspan="3" class="text-center border align-middle"><?php echo $obs_recrutamento; ?></td>
-                        <td colspan="3" class="text-center border align-middle"><a href="<?php echo $link_recrutamento; ?>" class="btn btn-outline-danger" target="_blank">Fortes RH</a></td>
+                        <td colspan="3" class="text-center border align-middle"></td>
                     </tr>
                     <tr>
                         <th colspan="3" class="text-center border align-middle">Solicitação de fardamento</th>
@@ -99,7 +99,6 @@ if (!empty($this->Dados['gg'][0])) {
                         <th colspan="3" class="text-center border align-middle">Desligamentos</th>
                         <td colspan="3" class="text-center border align-middle"><?php echo $descricao_desligamento; ?></td>
                         <td colspan="3" class="text-center border align-middle"><?php echo $obs_desligamento; ?></td>
-                        <td colspan="3" class="text-center border align-middle"><a href="<?php echo URLADM . 'assets/download/gente-gestao/' . $arquivo; ?>" class="btn btn-outline-info" download>Planilha</a></td>
                     </tr>
                     <tr>
                         <th colspan="12" scope="row" class="table-active text-center border">UM PASSO A FRENTE FAZENDO SEMPRE MAIS</th>

@@ -79,7 +79,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label><span class="text-danger">* </span>Descrição - Recrutamento</label>
-                        <textarea name="descricao_recrutamento" class="form-control editorCKQl">
+                        <textarea name="descricao_recrutamento" class="form-control editorCKQ">
                             <?php
                             if (isset($valorForm['descricao_recrutamento'])) {
                                 echo $valorForm['descricao_recrutamento'];

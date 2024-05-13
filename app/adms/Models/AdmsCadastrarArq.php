@@ -34,7 +34,6 @@ class AdmsCadastrarArq {
     public function cadArq(array $Dados) {
 
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
         $this->Arquivo = $this->Dados['slug'];
         unset($this->Dados['slug']);
 

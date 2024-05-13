@@ -1,5 +1,5 @@
 const editorCK = document.querySelector('.editorCK');
-const editorCKQl = document.querySelector('.editorCKQl');
+const editorCKQ = document.querySelector('.editorCKQ');
 const editorObs = document.querySelector('.editorObs');
 const editorFarUm = document.querySelector('.editorFarUm');
 const editorFarDois = document.querySelector('.editorFarDois');
@@ -112,9 +112,9 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    if (editorCKQl.classList.contains('editorCKQl')) {
+    if (editorCKQ.classList.contains('editorCKQ')) {
         ClassicEditor
-                .create(document.getElementById('editorCKQl'))
+                .create(document.querySelector('.editorCKQ'))
                 .catch(error => {
                     console.error(error);
                 });

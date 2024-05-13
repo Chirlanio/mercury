@@ -142,6 +142,20 @@ function previewImagem() {
     }
 }
 
+function previewNewImage() {
+    var imagem = document.querySelector('input[name=new_image').files[0];
+    var preview = document.querySelector('#preview-image');
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+    if (imagem) {
+        reader.readAsDataURL(imagem);
+    } else {
+        preview.src = "";
+    }
+}
+
 function previewImageOne() {
     var imageOne = document.querySelector('input[name=image_one').files[0];
     var preview = document.querySelector('#preview-product-one');

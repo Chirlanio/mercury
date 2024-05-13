@@ -467,6 +467,32 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="mb-3">
+                                <ul class="list-group mb-3">
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h6 class="my-0"><p>Documentos:</p></h6>
+                                            <small class="text-muted">
+                                                <?php
+                                                $types = array('png', 'jpg', 'jpeg', 'gif', 'xls', 'txt', 'doc', 'csv', 'pdf', 'docx', 'xlsx');
+                                                $path = 'assets/files/mp/' . $id . '/';
+                                                $dir = new DirectoryIterator($path);
+                                                foreach ($dir as $fileInfo) {
+                                                    $ext = strtolower($fileInfo->getExtension());
+                                                    if (in_array($ext, $types)) {
+                                                        $arquivo = $fileInfo->getFilename();
+                                                        echo "<span class='m-auto lead'>";
+                                                        echo $arquivo . " - <a href='" . URLADM . "assets/files/mp/$id/$arquivo' class='btn btn-outline-dark btn-sm' download><i class='fas fa-download'></i> Baixar</a><br>";
+                                                        echo "</span>";
+                                                    }
+                                                }
+                                                ?>
+                                            </small>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
