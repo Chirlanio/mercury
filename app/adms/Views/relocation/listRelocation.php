@@ -87,7 +87,7 @@ if (!defined('URLADM')) {
         </form>
         <hr>
         <?php
-        if (empty($this->Dados['list_rolocation'])) {
+        if (empty($this->Dados['list_relocation'])) {
             ?>
             <div class="alert alert-danger" role="alert">
                 Nenhuma solicitação encontrada!
@@ -107,6 +107,7 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="text-center">#ID</th>
+                        <th class="d-none d-sm-table-cell">Descrição</th>
                         <th class="d-none d-sm-table-cell">Loja - Origem</th>
                         <th class="d-none d-sm-table-cell">Loja - Destino</th>
                         <th class="d-none d-sm-table-cell">Status</th>
@@ -120,6 +121,7 @@ if (!defined('URLADM')) {
                         ?>
                         <tr>
                             <th class="text-center align-middle"><?php echo $id; ?></th>
+                            <td class="d-none d-sm-table-cell align-middle"><?php echo $relocation_name; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $loja_origem; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $loja_destino; ?></td>
                             <td class="d-none d-sm-table-cell align-middle text-center">
@@ -129,13 +131,13 @@ if (!defined('URLADM')) {
                                 <span class="d-none d-md-block">
                                     <?php
                                     if ($this->Dados['botao']['view_relocation']) {
-                                        echo "<a href='" . URLADM . "view-relocation/view-relocation/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
+                                        echo "<a href='" . URLADM . "view-relocation/view-relocation/1?id=$id&origem=$source_store_id&destino=$destination_store_id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['edit_relocation']) {
-                                        echo "<a href='" . URLADM . "edit-relocation/edit-relocation/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                        echo "<a href='" . URLADM . "edit-relocation/edit-relocation/$source_store_id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['del_relocation']) {
-                                        echo "<a href='" . URLADM . "delete-relocation/delete-relocation/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a>";
+                                        echo "<a href='" . URLADM . "delete-relocation/delete-relocation/$source_store_id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a>";
                                     }
                                     ?>
                                 </span>
@@ -146,13 +148,13 @@ if (!defined('URLADM')) {
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                         <?php
                                         if ($this->Dados['botao']['view_relocation']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "view-relocation/view-relocation/$id'>Visualizar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "view-relocation/view-relocation/1?id=$id&origem=$source_store_id'>Visualizar</a>";
                                         }
                                         if ($this->Dados['botao']['edit_relocation']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-relocation/edit-relocation/$id'>Editar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-relocation/edit-relocation/$source_store_id'>Editar</a>";
                                         }
                                         if ($this->Dados['botao']['del_relocation']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-relocation/delete-relocation/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "delete-relocation/delete-relocation/$source_store_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                         }
                                         ?>
                                     </div>

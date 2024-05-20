@@ -31,10 +31,10 @@ class AdmsAddRelocation {
         if (!empty($this->Dados['relocation_name'])) {
             $this->insertRelocation();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Selecione um arquivo do tipo CSV!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Selecione um arquivo do tipo \".csv ou .txt\"!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
-        if ($this->FileUp['type'] == 'text/csv') {
+        if ($this->FileUp['type'] == 'text/csv' OR $this->FileUp['type'] == 'text/plain') {
             $this->File = fopen($this->FileUp['tmp_name'], "r");
             while ($row = fgetcsv($this->File, 2000, ";")) {
                 $this->FileResult['adms_relocation_id'] = $this->FileUp['adms_relocation_id'];
@@ -47,7 +47,7 @@ class AdmsAddRelocation {
                 $this->insertRelocationItems();
             }
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Selecione um arquivo do tipo CSV!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Selecione um arquivo do tipo \".csv ou .txt\"!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
         $this->valFile();
