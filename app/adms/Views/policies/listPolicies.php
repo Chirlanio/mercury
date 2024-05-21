@@ -33,70 +33,90 @@ if (!defined('URLADM')) {
             unset($_SESSION['msg']);
         }
         ?>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">#ID</th>
-                        <th class="d-none d-sm-table-cell">Titulo</th>
-                        <th class="d-none d-sm-table-cell">Data Inicial</th>
-                        <th class="d-none d-sm-table-cell">Data Final</th>
-                        <th class="d-none d-sm-table-cell">Situação</th>
-                        <th class="text-center">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($this->Dados['listPolicies'] as $Policie) {
-                        extract($Policie);
-                        ?>
-                <th class="text-center"><?php echo $id; ?></th>
-                    <td><?php echo $title; ?></td>
-                    <td class="d-none d-sm-table-cell"><?php echo date('d/m/Y', strtotime($dataInicial)); ?></td>
-                    <td class="d-none d-sm-table-cell"><?php echo date('d/m/Y', strtotime($dataFinal)); ?></td>
-                    <td class="d-none d-sm-table-cell text-center"><span class="badge badge-<?php echo $color; ?>"><?php echo $status; ?></span></td>
-                    <td class="text-center">
-                        <span class="d-none d-md-block">
-                            <?php
-                            if ($this->Dados['botao']['view_policies']) {
-                                echo "<a href='" . URLADM . "view-policies/view-policie/$id' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
-                            }
-                            if ($this->Dados['botao']['edit_policies']) {
-                                echo "<a href='" . URLADM . "edit-policies/edit-policie/$id' class='btn btn-outline-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a> ";
-                            }
-                            if ($this->Dados['botao']['del_policies']) {
-                                echo "<a href='" . URLADM . "delete-policies/del-policie/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fa-solid fa-eraser'></i></a> ";
-                            }
-                            ?>
-                        </span>
-                        <div class="dropdown d-block d-md-none">
-                            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Ações
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
-                                <?php
-                                if ($this->Dados['botao']['view_policies']) {
-                                    echo "<a class='dropdown-item' href='" . URLADM . "view-policies/view-policie/$id'>Visualizar</a>";
-                                }
-                                if ($this->Dados['botao']['edit_policies']) {
-                                    echo "<a class='dropdown-item' href='" . URLADM . "edit-policies/edit-policie/$id'>Editar</a>";
-                                }
-                                if ($this->Dados['botao']['del_policies']) {
-                                    echo "<a class='dropdown-item' href='" . URLADM . "delete-policies/del-policie/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
-                                }
-                                ?>
+        <div class="accordion" id="accordionExample">
+            <div class="table-responsive">
+                <?php
+                foreach ($this->Dados['listPolicies'] as $key => $policie) {
+                    extract($policie);
+                    //var_dump($this->Dados['areas']);
+                    ?>
+                    <div class="card mb-2">
+                        <div class="card-header" id="heading<?php echo $id; ?>">
+                            <div class="row justify-content-between">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<?php echo $id; ?>" aria-expanded="true" aria-controls="collapse<?php echo $id; ?>">
+                                        <strong><?php echo $title; ?></strong> - <span class="btn-link text-decoration-none">Clique aqui</span> para ver a descrição da política!
+                                    </button>
+                                </h2>
+
+                                <div class="d-flex align-items-center">
+                                    <?php
+                                    $Path = "assets/files/policies/$id/$link";
+                                    if (file_exists($Path)) {
+                                        echo "<div class='d-flex align-items-center mr-1'>";
+                                        echo "<a href='" . URLADM . "assets/files/policies/$id/$link' target='_blank' class='btn btn-outline-dark btn-sm' title='Baixar arquivo' download><i class='fa-solid fa-download'></i></a> ";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class='d-flex align-items-center mr-1'>";
+                                        echo "<button type='button' class='btn btn-secondary btn-sm' disabled><i class='fa-solid fa-download'></i></button> ";
+                                        echo "</div>";
+                                    }
+                                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
+                                        ?>
+                                        <span class="d-none d-md-block">
+                                            <?php
+                                            if ($this->Dados['botao']['view_policies']) {
+                                                echo "<a href='" . URLADM . "view-policies/view-policie/$id' class='btn btn-outline-primary btn-sm'><i class='fa-solid fa-eye'></i></a> ";
+                                            }
+                                            if ($this->Dados['botao']['edit_policies']) {
+                                                echo "<a href='" . URLADM . "edit-policies/edit-policie/$id' class='btn btn-outline-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a> ";
+                                            }
+                                            if ($this->Dados['botao']['del_policies']) {
+                                                echo "<a href='" . URLADM . "delete-policies/del-policie/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fa-solid fa-eraser'></i></a> ";
+                                            }
+                                            ?>
+                                        </span>
+                                        <div class="dropdown d-block d-md-none">
+                                            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Ações
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
+                                                <?php
+                                                if ($this->Dados['botao']['view_policies']) {
+                                                    echo "<a class='dropdown-item' href='" . URLADM . "view-policies/view-policie/$id'>Visualizar</a>";
+                                                }
+                                                if ($this->Dados['botao']['edit_policies']) {
+                                                    echo "<a class='dropdown-item' href='" . URLADM . "edit-policies/edit-policie/$id'>Editar</a>";
+                                                }
+                                                if ($this->Dados['botao']['del_policies']) {
+                                                    echo "<a class='dropdown-item' href='" . URLADM . "delete-policies/del-policie/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
-                    </td>
-                    </tr>
+
+                        <div id="collapse<?php echo $id; ?>" class="collapse" aria-labelledby="heading<?php echo $id; ?>" data-parent="#accordionExample">
+
+                            <div class="text-justify p-4">
+                                <?php echo $content; ?>
+                                <?php echo "<span class='blockquote-footer text-center'><strong>Validade: </strong>" . date("d/m/Y", strtotime($dataInicial)); ?>
+                                <?php echo "até " . date("d/m/Y", strtotime($dataFinal)) . "</span>"; ?>
+                            </div>
+
+                        </div>
+
+                    </div>
                     <?php
                 }
                 ?>
-                </tbody>
-            </table>
-            <?php
-            echo $this->Dados['paginacao'];
-            ?>
+
+            </div>
         </div>
     </div>
 </div>

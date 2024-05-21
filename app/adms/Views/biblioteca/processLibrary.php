@@ -16,6 +16,7 @@ if (!defined('URLADM')) {
             }
             ?>
         </div>
+        <hr>
         <?php
         if (empty($this->Dados['listProcess'])) {
             ?>
@@ -32,7 +33,6 @@ if (!defined('URLADM')) {
             unset($_SESSION['msg']);
         }
         ?>
-        <hr>
         <div class="accordion" id="accordionExample">
             <div class="table-responsive">
                 <?php
@@ -127,9 +127,5 @@ if (!defined('URLADM')) {
 
             </div>
         </div>
-
-        <?php
-        //echo $this->Dados['paginacao'];
-        ?>
     </div>
 </div>

@@ -27,9 +27,8 @@ class AdmsAddPolicies {
 
         $this->Dados = $Dados;
 
-        $this->Foto = $this->Dados['new_image'];
         $this->Filename = $this->Dados['file_name'];
-        unset($this->Dados['new_image'], $this->Dados['file_name']);
+        unset($this->Dados['file_name']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag;
         $valCampoVazio->validarDados($this->Dados);
@@ -46,17 +45,15 @@ class AdmsAddPolicies {
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
         $slugImg = new \App\adms\Models\helper\AdmsSlug();
-        $this->Dados['image'] = $slugImg->nomeSlug($this->Foto['name']);
         $this->Dados['link'] = $slugImg->nomeSlug($this->Filename['name']);
         $this->Dados['file_name'] = $this->Filename['name'];
-
-        $slugPg = new \App\adms\Models\helper\AdmsSlug();
-        $this->Dados['slug'] = $slugPg->nomeSlug($this->Dados['slug']);
+        
+        var_dump($this->Dados);
 
         $addPolicie = new \App\adms\Models\helper\AdmsCreate;
         $addPolicie->exeCreate("adms_policies", $this->Dados);
         if ($addPolicie->getResult()) {
-            if (empty($this->Foto['name'])) {
+            if (empty($this->Filename['name'])) {
                 $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Política</strong> cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $this->Resultado = true;
             } else {
@@ -65,18 +62,6 @@ class AdmsAddPolicies {
             }
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Política não foi cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $this->Resultado = false;
-        }
-    }
-
-    private function valImage() {
-        $uploadImg = new \App\adms\Models\helper\AdmsUploadImgRed();
-        $uploadImg->uploadImagem($this->Foto, 'assets/imagens/policies/' . $this->Dados['id'] . '/', $this->Dados['image'], 1200, 627);
-        if ($uploadImg->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Política</strong> cadastrado com sucesso. Upload da imagem e arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $this->Resultado = true;
-        } else {
-            $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro:</strong> Política cadastrada. Erro ao realizar o upload da imagem!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -90,12 +75,8 @@ class AdmsAddPolicies {
         $uploadArq->upload($this->Filename, 'assets/files/policies/' . $this->Dados['id'] . '/', $this->Dados['link']);
 
         if ($uploadArq->getResultado()) {
-            if ($uploadArq->getResultado()) {
-                $this->valImage();
-            } else {
-                $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro:</strong> Política cadastrada, arquivo não enviado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-                $this->Resultado = true;
-            }
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Política</strong> cadastrada, arquivo enviado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = true;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro:</strong> Política cadastrada, arquivo não enviado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;

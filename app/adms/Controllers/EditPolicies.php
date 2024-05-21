@@ -31,9 +31,8 @@ class EditPolicies {
 
     private function editPoliciePriv() {
         if (!empty($this->Dados['EditPolicie'])) {
+            $this->Dados['file_name'] = !empty($_FILES['file_name_new']['name']) ? $_FILES['file_name_new'] : null;
             unset($this->Dados['EditPolicie']);
-            $this->Dados['new_image'] = ($_FILES['new_image'] ? $_FILES['new_image'] : null);
-            $this->Dados['file_name'] = ($_FILES['file_name'] ? $_FILES['file_name'] : null);
 
             $editPolicie = new \App\adms\Models\AdmsEditPolicies();
             $editPolicie->altPolicie($this->Dados);

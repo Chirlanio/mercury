@@ -3,7 +3,7 @@
         'name' => 'vendor/mercury',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '9626f31ab52da5a830c8193245ff35aa97f48897',
+        'reference' => 'f297e853dedca5c14c39a8afd79670a65bb669c3',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'vendor/mercury' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '9626f31ab52da5a830c8193245ff35aa97f48897',
+            'reference' => 'f297e853dedca5c14c39a8afd79670a65bb669c3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

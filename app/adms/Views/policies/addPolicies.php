@@ -44,17 +44,6 @@ if (isset($this->Dados['form'][0])) {
                     ?>" required autofocus>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Descrição</label>
-                    <textarea name="description" id="editor-um" class="form-control is-invalid editorCK" rows="3" required><?php
-                        if (isset($valorForm['description'])) {
-                            echo $valorForm['description'];
-                        }
-                        ?>
-                    </textarea>
-                </div>
-            </div>
 
             <div class="form-row">
                 <div class="form-group col-md-12">
@@ -67,77 +56,7 @@ if (isset($this->Dados['form'][0])) {
                     </textarea>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Resumo Publico</label>
-                    <textarea name="public_summary" id="editor-tres" class="form-control editorDesUm" rows="3"><?php
-                        if (isset($valorForm['public_summary'])) {
-                            echo $valorForm['public_summary'];
-                        }
-                        ?>
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Situação</label>
-                    <select name="adms_sit_id" id="adms_sit_id" class="form-control is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['sit'] as $sit) {
-                            extract($sit);
-                            if (isset($valorForm['adms_sit_id']) AND $valorForm['adms_sit_id'] == $id_sit) {
-                                echo "<option value='$id_sit' selected>$nome_sit</option>";
-                            } else {
-                                echo "<option value='$id_sit'>$nome_sit</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label><span class="text-danger">*</span> Foto (1200x627)</label>
-                    <input class="form-control-file is-invalid" name="new_image" type="file" onchange="previewNewImage();" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <?php
-                    $imagem_antiga = URLADM . 'assets/imagens/policies/preview_img.jpg';
-                    ?>
-                    <img src="<?php echo $imagem_antiga; ?>" alt="Imagem da política" id="preview-image" class="img-thumbnail" style="width: 300px; height: 150px;">
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Arquivo</label>
-                    <input class="form-control-file is-invalid" name="file_name" type="file" required />
-                </div>
-            </div>
-
-            <hr>
-            <h2 class="display-4 titulo">SEO</h2>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label><span class="text-danger">*</span> Slug</label>
-                    <input name="slug" type="text" class="form-control is-invalid" placeholder="Nome que será exibido na barra de endereço URL" title="Não pode ser igual a outro artigo." value="<?php
-                    if (isset($valorForm['slug'])) {
-                        echo $valorForm['slug'];
-                    }
-                    ?>" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label><span class="text-danger">*</span> Palavra chave</label>
-                    <input name="keywords" type="text" class="form-control is-invalid" placeholder="Palavra chave do artigo" title="Nome que será usado nas buscas do site" value="<?php
-                    if (isset($valorForm['keywords'])) {
-                        echo $valorForm['keywords'];
-                    }
-                    ?>" required>
-                </div>
-            </div>
+            <div cla
 
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -157,24 +76,27 @@ if (isset($this->Dados['form'][0])) {
                     ?>" required="">
                 </div>
                 <div class="form-group col-md-4">
-                    <label><span class="text-danger">*</span> Destaque</label>
-                    <select name="destaque" id="lib_pub" class="form-control is-invalid" required>
+                    <label><span class="text-danger">*</span> Situação</label>
+                    <select name="adms_sit_id" id="adms_sit_id" class="form-control is-invalid" required>
+                        <option value="">Selecione</option>
                         <?php
-                        if (isset($valorForm['destaque']) == 1) {
-                            echo "<option value=''>Selecione</option>";
-                            echo "<option value='1' selected>Sim</option>";
-                            echo "<option value='2'>Não</option>";
-                        } elseif (isset($valorForm['destaque']) == 2) {
-                            echo "<option value=''>Selecione</option>";
-                            echo "<option value='1'>Sim</option>";
-                            echo "<option value='2' selected>Não</option>";
-                        } else {
-                            echo "<option value='' selected>Selecione</option>";
-                            echo "<option value='1'>Sim</option>";
-                            echo "<option value='2'>Não</option>";
+                        foreach ($this->Dados['select']['sit'] as $sit) {
+                            extract($sit);
+                            if (isset($valorForm['adms_sit_id']) AND $valorForm['adms_sit_id'] == $id_sit) {
+                                echo "<option value='$id_sit' selected>$nome_sit</option>";
+                            } else {
+                                echo "<option value='$id_sit'>$nome_sit</option>";
+                            }
                         }
                         ?>
                     </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label><span class="text-danger">*</span> Arquivo</label>
+                    <input class="form-control-file is-invalid" name="file_name" type="file" required />
                 </div>
             </div>
 

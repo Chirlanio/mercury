@@ -55,71 +55,46 @@ if (!empty($this->Dados['dados_policies'][0])) {
                 unset($_SESSION['msg']);
             }
             ?>
-
-            <h2 class="display-4 titulo mb-3">Conteúdo</h2>
+            
             <dl class="row">
-                <dt class="col-sm-3">Imagem</dt>
-                <dd class="col-sm-9">                    
-                    <?php
-                    if (!empty($image)) {
-                        echo "<img src='" . URLADM . "assets/imagens/policies/" . $id . "/" . $image . "' class='img img-thumbnail' width='250' height='120'>";
-                    }
-                    ?>
-                </dd>
 
-                <dt class="col-sm-3">ID</dt>
-                <dd class="col-sm-9"><?php echo $id; ?></dd>
+                <dt class="col-sm-2">ID</dt>
+                <dd class="col-sm-10"><?php echo $id; ?></dd>
 
-                <dt class="col-sm-3">Titulo</dt>
-                <dd class="col-sm-9"><?php echo $title; ?></dd>
+                <dt class="col-sm-2">Titulo</dt>
+                <dd class="col-sm-10"><?php echo $title; ?></dd>
 
-                <dt class="col-sm-3">Resumo Público</dt>
-                <dd class="col-sm-9"><?php echo $description; ?></dd>
+                <dt class="col-sm-2">Conteúdo</dt>
+                <dd class="col-sm-10 text-justify"><?php echo $content; ?></dd>
 
-                <dt class="col-sm-3">Conteúdo</dt>
-                <dd class="col-sm-9"><?php echo $content; ?></dd>
-
-                <dt class="col-sm-3">Arquivos</dt>
-                <dd class="col-sm-9">
+                <dt class="col-sm-2">Arquivos</dt>
+                <dd class="col-sm-10">
                     <a href="<?php echo URLADM . 'assets/files/policies/' . $id . '/' . $link; ?>" download>
                         <?php echo $file_name; ?>
                     </a>                        
                 </dd>
 
-                <dt class="col-sm-3">Situação</dt>
-                <dd class="col-sm-9">
+                <dt class="col-sm-2">Situação</dt>
+                <dd class="col-sm-10">
                     <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $nome_sit; ?></span>
                 </dd>
 
-                <dt class="col-sm-3">Inserido</dt>
-                <dd class="col-sm-9"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></dd>
+                <dt class="col-sm-2">Data Inicial</dt>
+                <dd class="col-sm-10"><?php echo date('d/m/Y', strtotime($dataInicial)); ?></dd>
 
-                <dt class="col-sm-3">Alterado</dt>
-                <dd class="col-sm-9"><?php
+                <dt class="col-sm-2">Data Final</dt>
+                <dd class="col-sm-10"><?php echo date('d/m/Y', strtotime($dataFinal)); ?></dd>
+
+                <dt class="col-sm-2">Inserido</dt>
+                <dd class="col-sm-10"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></dd>
+
+                <dt class="col-sm-2">Alterado</dt>
+                <dd class="col-sm-10"><?php
                     if (!empty($modified)) {
                         echo date('d/m/Y H:i:s', strtotime($modified));
                     }
                     ?>
                 </dd>
-            </dl><hr>
-
-            <h2 class="display-4 titulo">SEO</h2>
-            <dl class="row">
-
-                <dt class="col-sm-3">Slug</dt>
-                <dd class="col-sm-9"><?php echo $slug; ?></dd>
-
-                <dt class="col-sm-3">Palavra Chave</dt>
-                <dd class="col-sm-9"><?php echo $keywords; ?></dd>
-
-                <dt class="col-sm-3">Data Inicial</dt>
-                <dd class="col-sm-9"><?php echo date('d/m/Y', strtotime($dataInicial)); ?></dd>
-
-                <dt class="col-sm-3">Data Final</dt>
-                <dd class="col-sm-9"><?php echo date('d/m/Y', strtotime($dataFinal)); ?></dd>
-
-                <dt class="col-sm-3">Destaque</dt>
-                <dd class="col-sm-9"><?php echo ($destaque = 1 ? "Sim" : "Não"); ?></dd>
             </dl>
 
         </div>

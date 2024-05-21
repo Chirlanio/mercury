@@ -23,7 +23,6 @@ class AddPolicies {
         if (!empty($this->Dados['AddPolicies'])) {
             unset($this->Dados['AddPolicies']);
             
-            $this->Dados['new_image'] = ($_FILES['new_image'] ? $_FILES['new_image'] : null);
             $this->Dados['file_name'] = ($_FILES['file_name'] ? $_FILES['file_name'] : null);
             $addPolicies = new \App\adms\Models\AdmsAddPolicies();
             $addPolicies->addPolicie($this->Dados);
