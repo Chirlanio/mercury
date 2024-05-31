@@ -34,10 +34,14 @@ class Login {
     }
 
     public function logout() {
-        unset($_SESSION['usuario_id'], $_SESSION['usuario_nome'], $_SESSION['usuario_email'], $_SESSION['usuario_imagem'], $_SESSION['adms_niveis_acesso_id'], $_SESSION['ordem_nivac']);
-        $_SESSION['msg'] = "<div class='alert alert-success'>Deslogado com sucesso</div>";
+
+        $logoff = new \App\adms\Models\AdmsLogin();
+        $logoff->logoutUser($_SESSION['usuario_id']);
+        if ($logoff->getResultado()) {
+            unset($_SESSION['usuario_id'], $_SESSION['usuario_nome'], $_SESSION['usuario_email'], $_SESSION['usuario_imagem'], $_SESSION['adms_niveis_acesso_id'], $_SESSION['ordem_nivac'], $_SESSION['nivac_cor'], $_SESSION['nome_gerente'], $_SESSION['nome_loja'], $_SESSION['area_id'], $_SESSION['usuario_loja'], $_SESSION['adms_niveis_acesso_id']);
+        }
+
         $UrlDestino = URLADM . 'login/acesso';
         header("Location: $UrlDestino");
     }
-
 }

@@ -69,19 +69,35 @@ class AdmsViewRelocation {
                 AND source_store_id =:source
                 AND destination_store_id =:destination", "id={$this->DadosId}&source={$this->Dados['origem']}&destination={$this->Dados['destino']}");
         $this->Dados['product_reference'] = $product->getResult();
-
+        var_dump($this->Dados['product_reference']);
         foreach ($this->Dados['product_reference'] as $product) {
             extract($product);
+            //var_dump($product);
             $quantity = new \App\adms\Models\helper\AdmsRead();
             $quantity->fullRead("SELECT id q_id, adms_relocation_id, destination_store_id, product_reference, size, quantity_requested
                 FROM  adms_relocation_items
-                WHERE adms_relocation_id =:id
+                WHERE adms_relocation_id =:id_p
                 AND product_reference =:product
                 AND source_store_id =:source
                 AND destination_store_id =:destination
-                GROUP BY id, adms_relocation_id, source_store_id, destination_store_id, product_reference", "id={$this->DadosId}&product={$product['product_reference']}&source={$this->Dados['origem']}&destination={$this->Dados['destino']}");
-            $this->Resultado = $quantity->getResult();
-            return $this->Resultado;
+                GROUP BY id, adms_relocation_id, source_store_id, destination_store_id, product_reference", "id_p={$this->DadosId}&product={$product['product_reference']}&source={$this->Dados['origem']}&destination={$this->Dados['destino']}");
+            $values = $quantity->getResult();
+            //var_dump($this->Resultado);
+            //return $this->Resultado;
+            $this->Resultado = [];
+            foreach ($values as $key => $value) {
+                extract($value);
+                $this->Resultado[] = [
+                    'q_id' => $value['q_id'],
+                    'adms_relocation_id' => $value['adms_relocation_id'],
+                    'destination_store_id' => $value['destination_store_id'],
+                    'product_reference' => $value['product_reference'],
+                    'size' => $value['size'],
+                    'quantity_requested' => $value['quantity_requested']
+                ];
+                
+            }
+            var_dump($this->Resultado);
         }
     }
 

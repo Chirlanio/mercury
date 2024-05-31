@@ -76,7 +76,7 @@ if (!empty($this->Dados['dados_relocation'][0])) {
                         <?php
                         foreach ($this->Dados['listRelocation'] as $rem) {
                             extract($rem);
-                            //var_dump($rem);
+                            var_dump($rem);
                             ?>
                             <tr>
                                 <th class="text-center align-middle"><?php echo $ri_id; ?></th>
@@ -84,17 +84,21 @@ if (!empty($this->Dados['dados_relocation'][0])) {
                                 <td class="d-none d-sm-table-cell align-middle"><?php echo $product_reference; ?></td>
                                 <?php
                                 $tams = count($this->Dados['dados_relocation']);
-                                //var_dump($this->Dados['dados_relocation']);
+                                //var_dump($this->Dados['listQuantity']);
 
                                 for ($i = 0; $i < $tams; $i++) {
-                                    if ($this->Dados['dados_relocation'][$i]['id'] == $rem['ri_id']) {
-                                        $tamm = $rem['quantity_requested'];
-                                    } else {
-                                        $tamm = 0;
+                                    foreach ($this->Dados['listQuantity'] as $query) {
+                                        extract($query);
+                                        var_dump($query['q_id']);
+                                        if ($query['q_id'] == $ri_id) {
+                                            $tamm = $rem['quantity_requested'];
+                                        } else {
+                                            $tamm = 0;
+                                        }
                                     }
                                     ?>
                                     <td class = 'd-none d-sm-table-cell align-middle text-center'>
-                                        <?php echo $tamm;?>
+                                        0+1
                                     </td>
                                     <?php
                                 }
