@@ -3,6 +3,8 @@
 session_start();
 ob_start();
 
+date_default_timezone_set("America/Sao_Paulo");
+
 define('URL', 'http://localhost/mercury/');
 define('URLADM', 'http://localhost/mercury/');
 

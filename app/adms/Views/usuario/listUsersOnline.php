@@ -11,39 +11,6 @@ if (!defined('URLADM')) {
                 <h2 class="display-4 titulo">Usuários Online</h2>
             </div>
         </div>
-        <!--<form class="form" method="POST" action="<?php echo URLADM . 'pesq-usuarios/listar'; ?>">
-            <div class="row">
-                <div class="col-sm-12 col-lg-6 mb-3">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="nome">Nome</label>
-                        </div>
-                        <input name="nome" type="text" id="nome" class="form-control" aria-describedby="nome" placeholder="Digite o nome" value="<?php
-                        if (isset($_SESSION['nome'])) {
-                            echo $_SESSION['nome'];
-                        }
-                        ?>">
-                    </div>
-                </div>
-                <div class="col-sm-12 col-lg-6 mb-3">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="font-weight: bold" for="email">E-mail</label>
-                        </div>
-                        <input name="email" type="email" id="nome" class="form-control" aria-describedby="email" placeholder="Digite o e-mail do usuário" value="<?php
-                        if (isset($_SESSION['email'])) {
-                            echo $_SESSION['email'];
-                        }
-                        ?>">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group ml-sm-3 ml-md-3 ml-lg-3 ml-3">
-                    <input name="PesqUsuario" type="submit" class="btn btn-outline-primary" my-2 value="Pesquisar">
-                </div>
-            </div>
-        </form>-->
         <hr>
         <?php
         if (empty($this->Dados['listUserOnline'])) {
@@ -67,7 +34,7 @@ if (!defined('URLADM')) {
                     <tr>
                         <th>Nome</th>
                         <th class="d-none d-sm-table-cell">E-mail</th>
-                        <th class="d-none d-sm-table-cell">Área</th>
+                        <th class="d-none d-sm-table-cell">Loja</th>
                         <th class="d-none d-sm-table-cell">Data</th>
                         <th class="d-none d-sm-table-cell">Acessou</th>
                         <th class="d-none d-lg-table-cell text-center">Situação</th>
@@ -82,7 +49,7 @@ if (!defined('URLADM')) {
                         <tr>
                             <td class="align-middle"><?php echo $nome; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo $email; ?></td>
-                            <td class="d-none d-sm-table-cell align-middle"><?php echo $area; ?></td>
+                            <td class="d-none d-sm-table-cell align-middle"><?php echo $store; ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo date("d/m/Y", strtotime($adms_date_access)); ?></td>
                             <td class="d-none d-sm-table-cell align-middle"><?php echo date("H:i:s", strtotime($adms_hours_access)); ?></td>
                             <td class="d-none d-lg-table-cell align-middle text-center">
@@ -91,14 +58,8 @@ if (!defined('URLADM')) {
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php
-                                    if ($this->Dados['botao']['vis_usuario']) {
-                                        echo "<a href='" . URLADM . "ver-usuario/ver-usuario/$id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
-                                    }
-                                    if ($this->Dados['botao']['edit_usuario']) {
-                                        echo "<a href='" . URLADM . "editar-usuario/edit-usuario/$id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
-                                    }
-                                    if ($this->Dados['botao']['del_usuario']) {
-                                        echo "<a href='" . URLADM . "apagar-usuario/apagar-usuario/$id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
+                                    if ($this->Dados['botao']['logout']) {
+                                        echo "<a href='" . URLADM . "login/logout/$adms_user_id' class='btn btn-outline-dark btn-sm' title='Sair'><i class='fa-solid fa-right-from-bracket'></i></a> ";
                                     }
                                     ?>
                                 </span>
@@ -108,14 +69,8 @@ if (!defined('URLADM')) {
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                         <?php
-                                        if ($this->Dados['botao']['vis_usuario']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-usuario/ver-usuario/$id'>Visualizar</a>";
-                                        }
-                                        if ($this->Dados['botao']['edit_usuario']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-usuario/edit-usuario/$id'>Editar</a>";
-                                        }
-                                        if ($this->Dados['botao']['del_usuario']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-usuario/apagar-usuario/$id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                        if ($this->Dados['botao']['logout']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "login/logout/$adms_user_id'>Logout</a>";
                                         }
                                         ?>
                                     </div>

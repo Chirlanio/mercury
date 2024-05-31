@@ -15,6 +15,7 @@ if (!defined('URLADM')) {
 class Login {
 
     private $Dados;
+    private $UserId;
 
     public function acesso() {
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -33,15 +34,22 @@ class Login {
         $carregarView->renderizarLogin();
     }
 
-    public function logout() {
+    public function logout(int $UserId = null) {
+
+        $this->UserId = !empty($UserId) ? $UserId : $_SESSION['usuario_id'];
 
         $logoff = new \App\adms\Models\AdmsLogin();
-        $logoff->logoutUser($_SESSION['usuario_id']);
-        if ($logoff->getResultado()) {
+        $logoff->logoutUser($this->UserId);
+        if (empty($UserId) and $logoff->getResultado()) {
             unset($_SESSION['usuario_id'], $_SESSION['usuario_nome'], $_SESSION['usuario_email'], $_SESSION['usuario_imagem'], $_SESSION['adms_niveis_acesso_id'], $_SESSION['ordem_nivac'], $_SESSION['nivac_cor'], $_SESSION['nome_gerente'], $_SESSION['nome_loja'], $_SESSION['area_id'], $_SESSION['usuario_loja'], $_SESSION['adms_niveis_acesso_id']);
         }
 
-        $UrlDestino = URLADM . 'login/acesso';
-        header("Location: $UrlDestino");
+        if (empty($UserId) and $logoff->getResultado()) {
+            $UrlDestino = URLADM . 'login/acesso';
+            header("Location: $UrlDestino");
+        }else{
+            $UrlDestino = URLADM . 'users-online/list';
+            header("Location: $UrlDestino");
+        }
     }
 }
