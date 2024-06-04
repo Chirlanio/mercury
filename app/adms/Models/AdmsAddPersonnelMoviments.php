@@ -232,9 +232,9 @@ class AdmsAddPersonnelMoviments {
         $prim_nome = $nome[0];
         $this->DadosEmail['dest_nome'] = $prim_nome;
         $this->DadosEmail['dest_email'] = $this->DadosUsuario[0]['email'];
-        $this->DadosEmail['titulo_email'] = "Movimentação de Pessoal";
+        $this->DadosEmail['titulo_email'] = "Requisição de Desligamento";
         $this->DadosEmail['cont_email'] = "Olá " . $prim_nome . ",<br><br>";
-        $this->DadosEmail['cont_email'] .= "Foi cadastrada uma nova movimentação de pessoal.<br>";
+        $this->DadosEmail['cont_email'] .= "Foi cadastrada uma nova Requisição de Desligamento.<br>";
         $this->DadosEmail['cont_email'] .= "<p>Segue informações do cadastro.</p>";
         $this->DadosEmail['cont_email'] .= "<p>ID: {$this->Dados['id']}.<br>";
         $this->DadosEmail['cont_email'] .= "Loja: {$this->DadosUsuario['nameUser'][0]['store']}.<br>";
@@ -243,7 +243,7 @@ class AdmsAddPersonnelMoviments {
         $this->DadosEmail['cont_email'] .= "Para visualizar <a href='" . URLADM . "view-personnel-moviments/view-moviment/{$this->Dados['id']}'>clique aqui</a>.<br>";
         $this->DadosEmail['cont_email'] .= "Se e-mail enviado para recebimento de equipamentos e bloqueio de acessos.<br>";
 
-        $this->DadosEmail['cont_text_email'] = "Olá " . $prim_nome . ",\n\n Foi cadastrada uma nova movimentação de pessoal.\n\n Segue informações sobre o cadastro.\n\n ID: " . $this->Dados['id'] . "\n Loja: " . $this->DadosUsuario['nameUser'][0]['store'] . "\n Consultora: " . $this->DadosUsuario['nameUser'][0]['employee'] . "\n Data do Desligamento: " . date("d/m/Y", strtotime($this->Dados['last_day_worked'])) . ".\n\n Para visualizar copie o link: " . URLADM . "view-order-payments/order-payment/{$this->Dados['id']}\n\n Se você não reconhece a solicitação entre em contado com o setor Financeiro.";
+        $this->DadosEmail['cont_text_email'] = "Olá " . $prim_nome . ",\n\n Foi cadastrada uma nova Requisição de Desligamento.\n\n Segue informações sobre o cadastro.\n\n ID: " . $this->Dados['id'] . "\n Loja: " . $this->DadosUsuario['nameUser'][0]['store'] . "\n Consultora: " . $this->DadosUsuario['nameUser'][0]['employee'] . "\n Data do Desligamento: " . date("d/m/Y", strtotime($this->Dados['last_day_worked'])) . ".\n\n Para visualizar copie o link: " . URLADM . "view-order-payments/order-payment/{$this->Dados['id']}\n\n Se você não reconhece a solicitação entre em contado com o setor Financeiro.";
 
         $emailPHPMailer = new \App\adms\Models\helper\AdmsPhpMailer();
         $emailPHPMailer->emailPhpMailer($this->DadosEmail);
