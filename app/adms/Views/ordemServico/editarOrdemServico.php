@@ -377,7 +377,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
 
                 <?php
-                if (!empty($valorForm['data_confir_nota_transf']) or $_SESSION['adms_niveis_acesso_id'] == 14 or $_SESSION['adms_niveis_acesso_id'] == 1) {
+                if (!empty($valorForm['data_confir_nota_transf']) or $_SESSION['adms_niveis_acesso_id'] <= 3 or $_SESSION['adms_niveis_acesso_id'] == 1) {
                     ?>
                     <div class="form-group col-md-2">
                         <label>Data de Confirmação</label>
@@ -430,7 +430,7 @@ if (isset($this->Dados['form'][0])) {
             </div>
 
             <?php
-            if ($_SESSION['adms_niveis_acesso_id'] == 14 OR ($_SESSION['adms_niveis_acesso_id'] <= 3)) {
+            if (($_SESSION['adms_niveis_acesso_id'] == 3) OR ($_SESSION['ordem_nivac'] <= 3)) {
                 ?>
                 <hr>
 
@@ -573,7 +573,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label>Observações - Qualidade</label>
-                        <textarea name="obs_qualidade" id="editorCKQl" class="form-control editorCKQl is-invalid" rows="4" required>
+                        <textarea name="obs_qualidade" id="editorCKQ" class="form-control editorCKQ is-invalid" rows="4" required>
                             <?php
                             if (isset($valorForm['obs_qualidade'])) {
                                 echo $valorForm['obs_qualidade'];
