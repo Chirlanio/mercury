@@ -38,14 +38,14 @@ extract($this->Dados['select']);
                             <div class="card-body">
                                 <i class="fas fa-truck fa-3x"></i>
                                 <?php
-                                foreach ($this->Dados['select']['transf'] as $aj) {
-                                    extract($aj);
+                                foreach ($this->Dados['select']['transfer'] as $transfer) {
+                                    extract($transfer);
                                     ?>
                                     <h6 class="card-title blockquote">Transferências</h6>
                                     <figcaption class="blockquote-footer text-white">
                                         Total de <cite title="Transferências">transferências</cite> solicitadas.
                                     </figcaption>
-                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;" ><?php echo number_format($transf, 0, ',', '.'); ?></h2>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;" ><?php echo number_format($transfer, 0, ',', '.'); ?></h2>
                                     <?php
                                 }
                                 ?>
@@ -84,22 +84,18 @@ extract($this->Dados['select']);
                         </a>
                     </div>
                 </div><!-- Final Cards Ajuste de Estoque-->
-                <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Cadastro - Troca-->
+                <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Usuários-->
                     <div class="card bg-warning text-white anima-right h-100">
-                        <a href="<?php
-                        if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                            echo URLADM . 'listar-troca/listar-troca/';
-                        }
-                        ?>" class="text-white text-decoration-none">
+                        <a href="<?php echo URLADM . 'users-online/list'; ?>" class="text-white text-decoration-none">
                             <div class="card-body">
-                                <i class="fas fa-boxes fa-3x"></i>
+                                <i class="fa-solid fa-users fa-3x"></i>
                                 <?php
-                                foreach ($this->Dados['select']['troca'] as $aj) {
-                                    extract($aj);
+                                foreach ($this->Dados['select']['usersTotal'] as $user) {
+                                    extract($user);
                                     ?>
-                                    <h6 class="card-title blockquote">Cadastro - Troca</h6>
+                                    <h6 class="card-title blockquote">Usuários</h6>
                                     <figcaption class="blockquote-footer text-white">
-                                        Total de <cite title="Cadastro - Troca">cadastro de produtos</cite> solicitados.
+                                        Total de <cite title="Cadastro - Troca">usuários</cite> cadastrados.
                                     </figcaption>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
@@ -114,7 +110,7 @@ extract($this->Dados['select']);
                             </div>
                         </a>
                     </div>
-                </div><!-- Final Cards Cadastro - Troca-->
+                </div><!-- Final Cards Usuário-->
                 <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Dashboards-->
                     <div class="card bg-primary text-white anima-right-delay h-100">
                         <a href="<?php
@@ -147,6 +143,7 @@ extract($this->Dados['select']);
                     </div>
                 </div><!-- Final Cards Dashboards-->
             </div>
+
             <div class="row">
                 <div class="col-lg-3 col-sm-6 mb-3">
                     <div class="card bg-success text-white anima-left-delay h-100">
@@ -224,15 +221,15 @@ extract($this->Dados['select']);
                     <div class="card bg-warning text-white anima-right h-100">
                         <div class="row">
                             <div class="card-body">
-                                <i class="fas fa-box-open fa-3x"></i>
+                                <i class="fa-solid fa-user-plus fa-3x"></i>
                                 <?php
-                                foreach ($this->Dados['select']['cad'] as $aj) {
-                                    extract($aj);
+                                foreach ($this->Dados['select']['userActive'] as $active) {
+                                    extract($active);
                                     ?>
-                                    <h6 class="card-title">Cadastrado</h6>
+                                    <h6 class="card-title">Ativos</h6>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($cad, 0, ',', '.');
+                                            echo number_format($active, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -242,15 +239,15 @@ extract($this->Dados['select']);
                                 ?>
                             </div>
                             <div class="card-body">
-                                <i class="fas fa-archive fa-3x"></i>
+                                <i class="fa-solid fa-user-minus fa-3x"></i>
                                 <?php
-                                foreach ($this->Dados['select']['jaCad'] as $aj) {
+                                foreach ($this->Dados['select']['userInactive'] as $aj) {
                                     extract($aj);
                                     ?>
-                                    <h6 class="card-title">Já Cadastrado</h6>
+                                    <h6 class="card-title">Inativos</h6>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($jaCad, 0, ',', '.');
+                                            echo number_format($userInactive, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -369,13 +366,13 @@ extract($this->Dados['select']);
                         <div class="card-body">
                             <i class="fas fa-box fa-3x"></i>
                             <?php
-                            foreach ($this->Dados['select']['cadPend'] as $aj) {
-                                extract($aj);
+                            foreach ($this->Dados['select']['usersOnline'] as $online) {
+                                extract($online);
                                 ?>
-                                <h6 class="card-title">Pendentes</h6>
+                                <h6 class="card-title">Usuários Online</h6>
                                 <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                     if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                        echo number_format($cadPend, 0, ',', '.');
+                                        echo number_format($usersOnline, 0, ',', '.');
                                     } else {
                                         echo "0";
                                     }
@@ -445,7 +442,7 @@ extract($this->Dados['select']);
                                         Total de <cite title="Transferências">transferências</cite> solicitadas.
                                     </figcaption>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;">
-                                        <?php echo number_format($transf, 0,',','.'); ?>
+                                        <?php echo number_format($transf, 0, ',', '.'); ?>
                                     </h2>
                                     <?php
                                 }
@@ -475,7 +472,7 @@ extract($this->Dados['select']);
                                     </figcaption> 
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($ajuste, 0,',','.');
+                                            echo number_format($ajuste, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -532,7 +529,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Coleta</h6>
-                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo number_format($agCol, 0,',','.'); ?></h2>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo number_format($agCol, 0, ',', '.'); ?></h2>
                                     <?php
                                 }
                                 ?>
@@ -544,7 +541,7 @@ extract($this->Dados['select']);
                                     extract($aj);
                                     ?>
                                     <h6 class="card-title">Em Rota</h6>
-                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo number_format($emRota, 0,',','.'); ?></h2>
+                                    <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo number_format($emRota, 0, ',', '.'); ?></h2>
                                     <?php
                                 }
                                 ?>
@@ -564,7 +561,7 @@ extract($this->Dados['select']);
                                     <h6 class="card-title">Ajustado</h6>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($ajustado, 0,',','.');
+                                            echo number_format($ajustado, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -582,7 +579,7 @@ extract($this->Dados['select']);
                                     <h6 class="card-title">Sem ajuste</h6>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($semAj, 0,',','.');
+                                            echo number_format($semAj, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -606,7 +603,7 @@ extract($this->Dados['select']);
                                     <h6 class="card-title">Cadastrado</h6>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($cad, 0,',','.');
+                                            echo number_format($cad, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -624,7 +621,7 @@ extract($this->Dados['select']);
                                     <h6 class="card-title">Já Cadastrado</h6>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($jaCad, 0,',','.');
+                                            echo number_format($jaCad, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -647,7 +644,7 @@ extract($this->Dados['select']);
                                 extract($aj);
                                 ?>
                                 <h6 class="card-title">Entregue</h6>
-                                <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo number_format($entregue, 0,',','.'); ?></h2>
+                                <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php echo number_format($entregue, 0, ',', '.'); ?></h2>
                                 <?php
                             }
                             ?>
@@ -666,7 +663,7 @@ extract($this->Dados['select']);
                                     <h6 class="card-title">Pendentes</h6>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($pend, 0,',','.');
+                                            echo number_format($pend, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -684,7 +681,7 @@ extract($this->Dados['select']);
                                     <h6 class="card-title">Em Analise</h6>
                                     <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                         if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                            echo number_format($emAna, 0,',','.');
+                                            echo number_format($emAna, 0, ',', '.');
                                         } else {
                                             echo "0";
                                         }
@@ -707,7 +704,7 @@ extract($this->Dados['select']);
                                 <h6 class="card-title">Pendentes</h6>
                                 <h2 class="lead text-right mt-4" style="font-size: 30px !important;"><?php
                                     if ($_SESSION['adms_niveis_acesso_id'] != 6) {
-                                        echo number_format($cadPend, 0,',','.');
+                                        echo number_format($cadPend, 0, ',', '.');
                                     } else {
                                         echo "0";
                                     }

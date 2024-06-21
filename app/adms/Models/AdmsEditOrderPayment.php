@@ -117,8 +117,9 @@ class AdmsEditOrderPayment {
         }
 
         if ($uploadFile->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $this->Resultado = true;
+            /*$_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = true;*/
+         $this->updateEditOrderPayment();
         } else {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
@@ -140,7 +141,7 @@ class AdmsEditOrderPayment {
         $this->Dados['update_user_id'] = $_SESSION['usuario_id'];
         $this->Dados['type_account'] = $this->typeAccount;
         $this->Dados['document_number_supplier'] = $this->documentNumberSupplier;
-        var_dump($this->Dados);
+        //var_dump($this->Dados);
 
         if (!empty($this->File['name'][0])) {
             $slugImg = new \App\adms\Models\helper\AdmsSlug();

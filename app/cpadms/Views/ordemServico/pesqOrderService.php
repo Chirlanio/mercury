@@ -191,7 +191,7 @@ if (!defined('URLADM')) {
                             ?>
                             <tr>
                                 <th class="text-center align-middle"><?php echo $os_id; ?></th>
-                                <td class="text-center align-middle pt-1 pr-0 pb-1 pl-0"><?php echo "<img class='img-thumbnail' src='http://www.meiasola.com/powerbi/" . $referencia . ".jpg' width='50' height='50' alt='" . $referencia . "' title='" . $referencia . "'>" ?></td>
+                                <td class="text-center align-middle pt-1 pr-0 pb-1 pl-0"><?php echo "<img class='img-thumbnail' src='" . URLADM . 'assets/imagens/product/'. $referencia . ".jpg' width='50' height='50' alt='" . $referencia . "' title='" . $referencia . "'>" ?></td>
                                 <td class="text-center align-middle"><?php echo $loja; ?></td>
                                 <td class="text-center align-middle"><?php echo $order_service; ?></td>
                                 <td class="text-center d-none d-sm-table-cell align-middle"><?php echo $referencia; ?></td>

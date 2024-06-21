@@ -79,7 +79,7 @@ class AdmsLogin {
 
         unset($this->Dados['usuario'], $this->Dados['senha']);
         $this->Dados['adms_user_id'] = $UserId;
-        $this->Dados['hash_user_id'] = md5($UserId);
+        $this->Dados['hash_user_id'] = md5(date("Y-m-d H:i:s"));
         $this->Dados['adms_store_id'] = $this->Resultado[0]['loja_id'];
         $this->Dados['adms_nivac_id'] = $this->Resultado[0]['adms_niveis_acesso_id'];
         if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {

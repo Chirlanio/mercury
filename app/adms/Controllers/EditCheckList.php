@@ -20,14 +20,10 @@ class EditCheckList {
     public function checkList($DadosId = null) {
 
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        $this->Dados['id'] = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
-        $this->Dados['delete'] = filter_input(INPUT_GET, 'file', FILTER_DEFAULT);
-
-        if (!empty($this->Dados['delete'])) {
-            $this->delFiles();
-        }
+        var_dump($this->Dados);
 
         $this->DadosId = (string) $DadosId;
+        
         if (!empty($this->DadosId)) {
             $this->editCheckListPriv();
         } else {
@@ -81,10 +77,5 @@ class EditCheckList {
             $UrlDestino = URLADM . 'check-list/list';
             header("Location: $UrlDestino");
         }
-    }
-
-    private function delFiles() {
-        $delFilename = new \App\adms\Models\helper\AdmsApagarArq();
-        $delFilename->apagarArq($this->Dados['delete'], 'assets/files/checkListComercial/' . $this->Dados['id'] . '/');
     }
 }
