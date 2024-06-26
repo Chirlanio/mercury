@@ -33,7 +33,7 @@ class AdmsLogin {
             if (!empty($this->Resultado)) {
                 $this->validarSenha();
             } else {
-                $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Senha Inválida!</div>";
+                $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Usuário ou Senha Inválida!</div>";
                 $this->Resultado = false;
             }
         } else {

@@ -18,6 +18,8 @@ class AdmsEditCheckList {
     private $Dados;
     private $DadosId;
     private $File;
+    private $EmptyField;
+    private $CheckList;
 
     function getResultado() {
         return $this->Resultado;
@@ -29,12 +31,7 @@ class AdmsEditCheckList {
         $_SESSION['id'] = $this->DadosId;
 
         $viewCheckList = new \App\adms\Models\helper\AdmsRead();
-        $viewCheckList->fullRead("SELECT cls.id as cls_id, cls.hash_id, cls.adms_store_id, cla.id as cla_id, cla.name AS area,
-                clq.id as clq_id, clq.adms_check_list_area_id as clqa_id, clq.question_description
-                FROM adms_check_list_stores AS cls
-                LEFT JOIN adms_check_list_areas AS cla ON cls.adms_check_list_area_id = cla.id
-                LEFT JOIN adms_check_list_questions AS clq ON cls.adms_check_list_question_id = clq.id
-                WHERE cls.hash_id =:hash", "hash={$this->DadosId}");
+        $viewCheckList->fullRead("SELECT cls.id as cls_id, cls.hash_id, cls.adms_store_id, cls.adms_sits_question_id, cla.id as cla_id, cla.name AS name_area, clq.id as clq_id, clq.adms_check_list_area_id as clqa_id, clq.question_description FROM adms_check_list_stores AS cls LEFT JOIN adms_check_list_areas AS cla ON cls.adms_check_list_area_id = cla.id LEFT JOIN adms_check_list_questions AS clq ON cls.adms_check_list_question_id = clq.id WHERE cls.hash_id =:hash AND cls.adms_sits_question_id =:sit_id LIMIT :limit", "hash={$this->DadosId}&sit_id=1&limit=1");
         $this->Resultado = $viewCheckList->getResult();
         return $this->Resultado;
     }
@@ -42,9 +39,12 @@ class AdmsEditCheckList {
     public function altCheckList(array $Dados) {
         $this->Dados = $Dados;
 
-        $this->File = (!empty($this->Dados['new_files']['name'])) ? $this->Dados['new_files'] : $this->Dados['file_name'];
+        $this->EmptyField['adms_sits_question_id'] = $this->Dados['adms_sits_question_id'];
 
-        unset($this->Dados['new_files'], $this->Dados['file_name']);
+        $this->File = $this->Dados['file_name'];
+        $this->EmptyField['justified'] = !empty($this->Dados['justified']) ? strip_tags($this->Dados['justified']) : null;
+
+        unset($this->Dados['file_name'], $this->Dados['justified']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -53,7 +53,7 @@ class AdmsEditCheckList {
             if (!empty($this->File['name'][0])) {
                 $this->validationFiles();
             } else {
-                $this->updateEditOrderPayment();
+                $this->updateEditCheckList();
             }
         } else {
             $this->Resultado = false;
@@ -65,7 +65,7 @@ class AdmsEditCheckList {
             $this->updateEditCheckList();
         }
 
-        $uploadPath = 'assets/files/checkListComertial/' . $_SESSION['id'] . '/' . $this->Dados['id'];
+        $uploadPath = 'assets/imagens/commercial/checkList/' . $_SESSION['id'] . '/' . $this->Dados['id'] . '/';
         $arquivosParaUpload = [];
 
         foreach ($this->File['name'] as $key => $filename) {
@@ -79,7 +79,7 @@ class AdmsEditCheckList {
         }
 
         if (count($arquivosParaUpload) > 1) {
-            $uploadFile = new \App\adms\Models\helper\AdmsUploadMultFiles();
+            $uploadFile = new \App\adms\Models\helper\AdmsUploadMultImages();
             $uploadFile->upload($uploadPath, $arquivosParaUpload);
         } else {
             $newName = new \App\adms\Models\helper\AdmsSlug();
@@ -90,31 +90,53 @@ class AdmsEditCheckList {
         }
 
         if ($uploadFile->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $this->Resultado = true;
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Check List:</strong> Resposta salva com sucesso, Upload. Arquivo salvo com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->updateEditCheckList();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento:</strong> Solicitação atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Check List:</strong> Resposta salva com sucesso. Arquivo salvo com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
 
     private function updateEditCheckList() {
 
-        if (!empty($this->File['name'][0])) {
-            $slugImg = new \App\adms\Models\helper\AdmsSlug();
-            $this->Dados['file_name'] = $slugImg->nomeSlug($this->File['name'][0]);
-        }
+        $this->Dados['justified'] = $this->EmptyField['justified'];
         $this->Dados['modified'] = date("Y-m-d H:i:s");
 
         $upAltOrder = new \App\adms\Models\helper\AdmsUpdate();
-        $upAltOrder->exeUpdate("adms_order_payments", $this->Dados, "WHERE id =:id", "id=" . $_SESSION['id']);
+        $upAltOrder->exeUpdate("adms_check_list_stores", $this->Dados, "WHERE id =:id AND hash_id =:hash", "id=" . $this->Dados['id'] . "&hash={$this->Dados['hash_id']}");
         if ($upAltOrder->getResult()) {
-            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Ordem de pagamento</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $this->updateInstallment();
-            $this->Resultado = true;
+            $this->altSitCheckList();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A ordem de pagamento não foi atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Ao tentar salvar resposta, arquivo não enviado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
+        }
+    }
+
+    private function altSitCheckList() {
+        $this->CheckList['hash_id'] = $this->Dados['hash_id'];
+        $this->CheckList['modified'] = date('Y-m-d H:i:s');
+
+        $updataCheckList = new \App\adms\Models\helper\AdmsRead();
+        $updataCheckList->fullRead("SELECT COUNT(id) as resp_result FROM adms_check_list_stores WHERE hash_id =:hash AND adms_sits_question_id <>:sit_id", "hash={$_SESSION['id']}&sit_id=1");
+        $num_result = $updataCheckList->getResult();
+
+        if ($num_result[0]['resp_result'] == 1) {
+            $this->CheckList['adms_sit_check_list_id'] = 2;
+        }
+
+        if ($updataCheckList->getResult() == 28) {
+            $this->CheckList['adms_sit_check_list_id'] = 3;
+        }
+
+        $updateCheckList = new \App\adms\Models\helper\AdmsUpdate();
+        $updateCheckList->exeUpdate('adms_check_lists', $this->CheckList, "WHERE hash_id =:hash", "hash={$this->CheckList['hash_id']}");
+        $this->Resultado = $updateCheckList->getResult();
+
+        if ($this->Resultado) {
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Check List</strong> salvo com sucesso. Arquivo enviado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            //$this->Resultado = true;
+            return $this->Resultado = true;
         }
     }
 
@@ -130,7 +152,13 @@ class AdmsEditCheckList {
         $listar->fullRead("SELECT id clq_id, adms_check_list_area_id clqa_id, question_description FROM adms_check_list_questions WHERE adms_sit_id =:sitq", "sitq=1");
         $registro['questions'] = $listar->getResult();
 
-        $this->Resultado = ['sits' => $registro['sits'], 'areas' => $registro['areas'], 'questions' => $registro['questions']];
+        $listar->fullRead("SELECT COUNT(id) as resp_result FROM adms_check_list_stores WHERE hash_id =:hash AND adms_sits_question_id <>:sit_id", "hash={$_SESSION['id']}&sit_id=1");
+        $registro['countHashResp'] = $listar->getResult();
+
+        $listar->fullRead("SELECT COUNT(id) as no_resp_result FROM adms_check_list_stores WHERE hash_id =:hash AND adms_sits_question_id =:sit_id", "hash={$_SESSION['id']}&sit_id=1");
+        $registro['countHashNoResp'] = $listar->getResult();
+
+        $this->Resultado = ['sits' => $registro['sits'], 'areas' => $registro['areas'], 'questions' => $registro['questions'], 'countHashResp' => $registro['countHashResp'], 'countHashNoResp' => $registro['countHashNoResp']];
 
         return $this->Resultado;
     }

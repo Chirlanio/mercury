@@ -20,10 +20,10 @@ class EditCheckList {
     public function checkList($DadosId = null) {
 
         $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        var_dump($this->Dados);
+        $this->Dados['file_name'] = (isset($_FILES['file_name']) AND !empty($_FILES['file_name'])) ? $_FILES['file_name'] : "";
 
         $this->DadosId = (string) $DadosId;
-        
+
         if (!empty($this->DadosId)) {
             $this->editCheckListPriv();
         } else {
@@ -37,13 +37,11 @@ class EditCheckList {
         if (!empty($this->Dados['EditCheckList'])) {
             unset($this->Dados['EditCheckList']);
 
-            $this->Dados['new_files'] = ($_FILES['new_files'] ? $_FILES['new_files'] : $this->Dados['file_name']);
-
             $editCheckList = new \App\adms\Models\AdmsEditCheckList();
             $editCheckList->altCheckList($this->Dados);
 
             if ($editCheckList->getResultado()) {
-                $UrlDestino = URLADM . 'check-list/list';
+                $UrlDestino = URLADM . 'edit-check-list/check-list/' . $this->DadosId;
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
@@ -72,10 +70,14 @@ class EditCheckList {
             $carregarView = new \Core\ConfigView("adms/Views/checkList/editCheckList", $this->Dados);
             $carregarView->renderizar();
         } else {
-
-            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Solicitação não encontrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $UrlDestino = URLADM . 'check-list/list';
-            header("Location: $UrlDestino");
+            if ($this->Dados['select']['countHashNoResp'][0]['no_resp_result'] == 0) {
+                $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Check List</strong> finalizado com exito!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                header("Location: $UrlDestino");
+            } else {
+                $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Solicitação não encontrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                header("Location: $UrlDestino");
+            }
         }
     }
 }

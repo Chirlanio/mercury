@@ -88,7 +88,7 @@ if (!defined('URLADM')) {
                                         echo "<a href='" . URLADM . "view-check-list/check-list/$hash_id' class='btn btn-outline-primary btn-sm' title='Visualizar'><i class='fas fa-eye'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['edit_check_list']) {
-                                        echo "<a href='" . URLADM . "edit-check-list/check-list/$hash_id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-pen-nib'></i></a> ";
+                                        echo "<a href='" . URLADM . "edit-check-list/check-list/$hash_id' class='btn btn-outline-warning btn-sm' title='Responder'><i class='fas fa-pen-nib'></i></a> ";
                                     }
                                     if ($this->Dados['botao']['del_check_list']) {
                                         echo "<a href='" . URLADM . "delete-check-list/check-list/$hash_id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?' title='Apagar'><i class='fas fa-eraser'></i></a> ";
@@ -105,7 +105,7 @@ if (!defined('URLADM')) {
                                             echo "<a class='dropdown-item' href='" . URLADM . "view-check-list/check-list/$hash_id'>Visualizar</a>";
                                         }
                                         if ($this->Dados['botao']['edit_check_list']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-check-list/check-list/$hash_id'>Editar</a>";
+                                            echo "<a class='dropdown-item' href='" . URLADM . "edit-check-list/check-list/$hash_id'>Responder</a>";
                                         }
                                         if ($this->Dados['botao']['del_check_list']) {
                                             echo "<a class='dropdown-item' href='" . URLADM . "delete-check-list/check-list/$hash_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";

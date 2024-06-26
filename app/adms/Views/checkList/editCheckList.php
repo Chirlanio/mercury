@@ -21,7 +21,7 @@ if (isset($this->Dados['form'][0])) {
                         echo "<a href='" . URLADM . "check-list/list' class='btn btn-outline-info btn-sm ml-2' title='Listar'><i class='fas fa-list'></i></a> ";
                     }
                     if ($this->Dados['botao']['view_check_list']) {
-                        echo "<a href='" . URLADM . "view-check-list/check-list/" . $valorForm['id'] . "' class='btn btn-outline-primary btn-sm'><i class='fas fa-eye'></i></a> ";
+                        echo "<a href='" . URLADM . "view-check-list/check-list/" . $valorForm['hash_id'] . "' class='btn btn-outline-primary btn-sm'><i class='fas fa-eye'></i></a> ";
                     }
                     ?>
                 </span>
@@ -35,7 +35,7 @@ if (isset($this->Dados['form'][0])) {
                             echo "<a class='dropdown-item' href='" . URLADM . "check-list/list'>Listar</a>";
                         }
                         if ($this->Dados['botao']['view_check_list']) {
-                            echo "<a class='dropdown-item' href='" . URLADM . "check-list/check-list/" . $valorForm['id'] . "'>Cadastrar</a>";
+                            echo "<a class='dropdown-item' href='" . URLADM . "view-check-list/check-list/" . $valorForm['hash_id'] . "'>Visualizar</a>";
                         }
                         ?>
                     </div>
@@ -50,40 +50,43 @@ if (isset($this->Dados['form'][0])) {
             unset($_SESSION['msg']);
         }
         ?>
-        <form method="POST" action="" enctype="multipart/form-data" class="was-validated"> 
-            <input name="hash_id" type="hidden" value="<?php
-            if (isset($valorForm['hash_id'])) {
-                echo $valorForm['hash_id'];
-            }
-            ?>">
 
-            <?php
-            echo "<input type='hidden' name='adms_store_id' id='adms_store_id' value='" . $valorForm['adms_store_id'] . "'>";
-            echo '<div>';
-            foreach ($this->Dados['select']['areas'] as $area) {
-                extract($area);
-                ?>
+        <?php
+        echo '<div>';
+        foreach ($this->Dados['form'] as $formQuestion) {
+            extract($formQuestion);
+            ?>
+            <form method="POST" action="" enctype="multipart/form-data" class="was-validated"> 
+                <input type='hidden' name='adms_store_id' id='adms_store_id' value="<?php echo $valorForm['adms_store_id']; ?>">
+                <input name="hash_id" type="hidden" value="<?php
+                if (isset($valorForm['hash_id'])) {
+                    echo $valorForm['hash_id'];
+                }
+                ?>">
 
                 <h4 class="mb-3"><?php echo $cla_id . " - " . $name_area ?></h4>
+                <h6>Perguntas respondidas: <span class="text-success"><?php echo $this->Dados['select']['countHashResp'][0]['resp_result'];?></span>.</h6>
+                <h6>Faltam: <span class="text-danger"><?php echo $this->Dados['select']['countHashNoResp'][0]['no_resp_result'];?></span>.</h6>
 
                 <?php
-                foreach ($this->Dados['select']['questions'] as $question) {
+                foreach ($this->Dados['form'] as $question) {
                     extract($question);
                     if ($cla_id == $clqa_id) {
                         ?>
-                        <h6 class="mb-3"><?php echo $cla_id . "." . $clq_id . " - " . $question_description ?></h6>
+                        <input name="id" type="hidden" value="<?php echo $cls_id; ?>">
+                        <h6 class="mb-3"><?php echo $cla_id . "." . $clq_id . " - " . $question_description; ?></h6>
 
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
-                                <input id="<?php echo $cla_id . '-' . $clq_id . '1'; ?>" name="<?php echo 'adms_sits_question_id-' . $cla_id . $clq_id; ?>" type="radio" class="custom-control-input is-invalid" value="1" required>
+                                <input id="<?php echo $cla_id . '-' . $clq_id . '1'; ?>" name="adms_sits_question_id" type="radio" class="custom-control-input is-invalid" value="2" required>
                                 <label class="custom-control-label" for="<?php echo $cla_id . '-' . $clq_id . '1'; ?>">Atendeu</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="<?php echo $cla_id . '-' . $clq_id . '2'; ?>" name="<?php echo 'adms_sits_question_id-' . $cla_id . $clq_id; ?>" type="radio" class="custom-control-input is-invalid" value="2" required>
+                                <input id="<?php echo $cla_id . '-' . $clq_id . '2'; ?>" name="adms_sits_question_id" type="radio" class="custom-control-input is-invalid" value="3" required>
                                 <label class="custom-control-label" for="<?php echo $cla_id . '-' . $clq_id . '2'; ?>">Atendeu Parcial</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="<?php echo $cla_id . '-' . $clq_id . '3'; ?>" name="<?php echo 'adms_sits_question_id-' . $cla_id . $clq_id; ?>" type="radio" class="custom-control-input is-invalid" value="3" required>
+                                <input id="<?php echo $cla_id . '-' . $clq_id . '3'; ?>" name="adms_sits_question_id" type="radio" class="custom-control-input is-invalid" value="4" required>
                                 <label class="custom-control-label" for="<?php echo $cla_id . '-' . $clq_id . '3'; ?>">Não Atendeu</label>
                             </div>
                         </div>
@@ -108,19 +111,21 @@ if (isset($this->Dados['form'][0])) {
                                 <input class="form-control-file is-invalid" name="file_name[]" id="file_name" type="file" multiple/>
                             </div>
                         </div>
-                        
+
                         <?php
                     }
                 }
-            }
-            echo '</div>';
-            ?>
+                ?>
 
-            <p>
-                <span class="text-danger">* </span>Campo obrigatório
-            </p>
-            <input name="EditCheckList" type="submit" class="btn btn-warning" value="Salvar">
+                <p>
+                    <span class="text-danger">* </span>Campo obrigatório
+                </p>
+                <input name="EditCheckList" type="submit" class="btn btn-warning" value="Salvar">
 
-        </form>
+            </form>
+            <?php
+        }
+        echo '</div>';
+        ?>
     </div>
 </div>
