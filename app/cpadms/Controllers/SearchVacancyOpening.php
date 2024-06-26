@@ -24,7 +24,7 @@ class SearchVacancyOpening {
             'add_vacancy' => ['menu_controller' => 'add-vacancy-opening', 'menu_metodo' => 'add-vacancy'],
             'view_vacancy' => ['menu_controller' => 'view-vacancy-opening', 'menu_metodo' => 'view-vacancy'],
             'edit_vacancy' => ['menu_controller' => 'edit-vacancy-opening', 'menu_metodo' => 'edit-vacancy'],
-            'del_vacancy' => ['menu_controller' => 'delete-vacancy-opening', 'menu_metodo' => 'del-vacancy']];
+            'del_vacancy' => ['menu_controller' => 'delete-vacancy-opening', 'menu_metodo' => 'delete-vacancy']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

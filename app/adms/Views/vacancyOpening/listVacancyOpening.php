@@ -69,7 +69,7 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="text-center">#ID</th>
-                        <th class="d-none d-sm-table-cell">Loja</th>
+                        <th>Loja</th>
                         <th class="d-none d-sm-table-cell">Colaborador</th>
                         <th class="d-none d-sm-table-cell">Cargo</th>
                         <th class="d-none d-sm-table-cell">Tipo</th>
@@ -95,13 +95,13 @@ if (!defined('URLADM')) {
                                 <span class="d-none d-md-block">
                                     <?php
                                     if ($this->Dados['botao']['view_vacancy']) {
-                                        echo "<a href='" . URLADM . "view-vacancy-opening/view-vacancy/$v_id' class='btn btn-outline-primary btn-sm mr-1'><i class='fas fa-eye'></i></a>";
+                                        echo "<a href='" . URLADM . "view-vacancy-opening/view-vacancy/$v_id' class='btn btn-outline-primary btn-sm m-1'><i class='fas fa-eye'></i></a>";
                                     }
                                     if ($this->Dados['botao']['edit_vacancy']) {
-                                        echo "<a href='" . URLADM . "edit-vacancy-opening/edit-vacancy/$v_id' class='btn btn-outline-warning btn-sm mr-1'><i class='fas fa-pen-fancy'></i></a>";
+                                        echo "<a href='" . URLADM . "edit-vacancy-opening/edit-vacancy/$v_id' class='btn btn-outline-warning btn-sm m-1'><i class='fas fa-pen-fancy'></i></a>";
                                     }
                                     if ($this->Dados['botao']['del_vacancy']) {
-                                        echo "<a href='" . URLADM . "delete-vacancy-opening/delete-vacancy/$v_id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
+                                        echo "<a href='" . URLADM . "delete-vacancy-opening/delete-vacancy/$v_id' class='btn btn-outline-danger btn-sm m-1' data-confirm='Tem certeza de que deseja excluir o item selecionado?'><i class='fas fa-eraser'></i></a> ";
                                     }
                                     ?>
                                 </span>

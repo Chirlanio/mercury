@@ -87,7 +87,7 @@ if (!defined('URLADM')) {
                 <thead>
                     <tr>
                         <th class="text-center">#ID</th>
-                        <th class="d-none d-sm-table-cell">Loja</th>
+                        <th>Loja</th>
                         <th class="d-none d-sm-table-cell">Colaborador</th>
                         <th class="d-none d-sm-table-cell">Cargo</th>
                         <th class="d-none d-sm-table-cell">Tipo</th>
