@@ -19,12 +19,12 @@ class GerarPlanilhaOrderService {
 
     public function gerar($PageId = null) {
         
-        $botao = ['gerar' => ['menu_controller' => 'gerar-planilha-orde-service', 'menu_metodo' => 'gerar']];
+        $botao = ['gerar' => ['menu_controller' => 'gerar-planilha-order-service', 'menu_metodo' => 'gerar']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
-        $listarBairro = new \App\cpadms\Models\CpAdmsGerarPlanilhaOrderService();
-        $this->Dados['listPlanilha'] = $listarBairro->listar($this->PageId, $this->Dados);
+        $listOrder = new \App\cpadms\Models\CpAdmsGerarPlanilhaOrderService();
+        $this->Dados['listPlanilha'] = $listOrder->listar($this->PageId, $this->Dados);
 
         $carregarView = new \App\cpadms\core\ConfigView("cpadms/Views/ordemServico/gerarPlanilha", $this->Dados);
         $carregarView->renderizarListar();

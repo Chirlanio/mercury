@@ -613,7 +613,7 @@ if (isset($this->Dados['form'][0])) {
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>
-            <input name="AddMoviment" type="submit" class="btn btn-warning btn-submit" value="Salvar">
+            <input name="AddMoviment" type="submit" onclick="return alert('Clique em OK e aguarde a solicitação ser registrada!')" class="btn btn-warning btn-submit" value="Salvar">
         </form>
     </div>
 </div>

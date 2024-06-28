@@ -36,7 +36,7 @@ class ViewCheckList {
             $this->Dados['menu'] = $listarMenu->itemMenu();
             
             $listSelect = new \App\adms\Models\AdmsViewCheckList();
-            $this->Dados['select'] = $listSelect->listAdd();
+            $this->Dados['select'] = $listSelect->listAdd($this->DadosId);
 
             $carregarView = new \Core\ConfigView("adms/Views/checkList/viewCheckList", $this->Dados);
             $carregarView->renderizar();

@@ -64,7 +64,7 @@ if (!defined('URLADM')) {
         $html .= "<tbody>";
         foreach ($this->Dados['listPlanilha'] as $c) {
             extract($c);
-            $html .= "<tr>";
+            $html .= "<tr rowspan='1'>";
             $html .= "<th>" . $id . "</th>";
             $html .= "<td>" . $loja . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $referencia . "</td>";
@@ -94,12 +94,12 @@ if (!defined('URLADM')) {
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($data_confir_retorno_conserto) ? date('d/m/Y', strtotime($data_confir_retorno_conserto)) : "") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $nf_transf_saldo_produto . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($data_nota_transf_saldo_produto) ? date('d/m/Y', strtotime($data_nota_transf_saldo_produto)) : "") . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . $obs_loja . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($obs_loja) ? strip_tags($obs_loja) : '') . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . ($indenizado == 1 ? "Não" : "Sim") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($data_indenizado) ? date('d/m/Y', strtotime($data_indenizado)) : "") . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $nf_devolucao_fornecedor . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($data_emissao_nf_devolucao) ? date('d/m/Y', strtotime($data_emissao_nf_devolucao)) : "") . "</td>";
-            $html .= "<td class='d-none d-sm-table-cell'>" . $obs_qualidade . "</td>";
+            $html .= "<td class='d-none d-sm-table-cell'>" . (!empty($obs_qualidade) ? strip_tags($obs_qualidade) : '') . "</td>";
             $html .= "<td class='d-none d-sm-table-cell'>" . $status . "</td>";
             $html .= "<td class='d-none d-sm-table-cell d-print-none'>" . date('d/m/Y H:i:s', strtotime($created)) . "</td>";
             $html .= "<td class='d-none d-sm-table-cell d-print-none'>" . (!empty($modified) ? date('d/m/Y H:i:s', strtotime($modified)) : "") . "</td>";
@@ -108,6 +108,8 @@ if (!defined('URLADM')) {
 
         $html .= "</tbody>";
         $html .= "</table>";
+
+        //var_dump($html);
         // Configurações header para forçar o download
         header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
         header("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");

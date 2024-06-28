@@ -8,7 +8,7 @@ if (!empty($this->Dados['dados_check_list'][0])) {
     ?>
     <div class="content p-1">
         <div class="list-group-item">
-            <div class="d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
+            <div class="d-print-none d-flex align-items-center bg-light pr-2 pl-2 border rounded shadow-sm">
                 <div class="mr-auto p-2">
                     <h2 class="display-4 titulo">Check List - Loja: <?php echo $stores; ?></h2>
                 </div>
@@ -53,43 +53,66 @@ if (!empty($this->Dados['dados_check_list'][0])) {
                 unset($_SESSION['msg']);
             }
             ?>
-            <div class="col">
-                <div>
-                    <h6>Perguntas respondidas: <span class="text-success"><?php echo $this->Dados['select']['countHashResp'][0]['resp_result']; ?></span>.</h6>
-                </div>
-                <div>
-                    <h6>Faltam: <span class="text-danger"><?php echo $this->Dados['select']['countHashNoResp'][0]['no_resp_result']; ?></span>.</h6>
-                </div>
-                <?php
-                foreach ($this->Dados['select']['areas'] as $area) {
-                    extract($area);
-                    ?>
-                    <div class="form">
-                        <h5 class="mb-3"><?php echo $cla_id . " - " . $name_area; ?></h5>
-                        <?php
-                        foreach ($this->Dados['select']['questions'] as $question) {
+            <div class="form">
+                <div class="col">
+                    <div>
+                        <h6>Perguntas respondidas: <span class="text-success"><?php echo $this->Dados['select']['countHashResp'][0]['resp_result']; ?></span>.</h6>
+                    </div>
+                    <div>
+                        <h6>Faltam: <span class="text-danger"><?php echo $this->Dados['select']['countHashNoResp'][0]['no_resp_result']; ?></span>.</h6>
+                    </div>
+                    <?php
+                    foreach ($this->Dados['select']['areas'] as $area) {
+                        extract($area);
+                        echo "<div class='border rounded p-3 my-1'>";
+                        echo "<h5 class='mb-3'>$id_cla - $name_area</h5>";
+                        foreach ($this->Dados['dados_check_list'] as $question) {
                             extract($question);
-                            if ($cla_id == $clqa_id) {
-                                ?>
-                                <h6 class="mb-3"><?php echo $cla_id . "." . $clq_id . " - " . $question_description; ?></h6>
-                                <p>
-                                    Pendente
-                                </p>
-                                <?php
-                                echo "<img src='" . URLADM . "assets/imagens/'>";
+                            if ($adms_sits_question_id === 2) {
+                                $point = 1;
+                            } elseif ($adms_sits_question_id === 3) {
+                                $point = '0,5';
+                            } else {
+                                $point = 0;
                             }
-                            ?>
-                            <?php
+                            if ($id_cla == $cla_id) {
+                                echo "<h6 class='mb-3'><span class='mr-1'>$id_cla.$order_question  -  $question_description</span> <span class='badge badge-dark'> $point/$points</span></h6>";
+                                echo "<p><strong>Resposta:</strong> <span class='badge badge-$cor'>$name_sit</span></p>";
+                                echo "<p><strong>Justificativa:</strong> $justified</p>";
+                                echo "<p><strong>Plano de Ação:</strong> $action_plans</p>";
+                                echo "<p><strong>Inicío:</strong> $action_plans</p>";
+                                echo "<p><strong>Fim:</strong> $action_plans</p>";
+                                echo "<p><strong>Responsável:</strong> $action_plans</p>";
+                                echo "<div class = 'col-12 mb-1' style = 'height: 250px; width: 100%;'>";
+                                echo "<h6 class = 'my-0'><p>Fotos:</p></h6>";
+                                echo "<small class = 'text-muted'>";
+                                $types = array('png', 'jpg', 'jpeg');
+                                $path = 'assets/imagens/commercial/checkList/' . $hash_id . '/' . $cls_id . '/';
+                                if (file_exists($path) && is_dir($path)) {
+                                    $dir = new DirectoryIterator($path);
+                                    foreach ($dir as $fileInfo) {
+                                        $ext = strtolower($fileInfo->getExtension());
+                                        if (in_array($ext, $types)) {
+                                            $arquivo = $fileInfo->getFilename();
+                                            echo "<img src='" . URLADM . "assets/imagens/commercial/checkList/$hash_id/$cls_id/$arquivo' class='img-thumbnail m-1' width='250' height='250'>";
+                                        }
+                                    }
+                                }
+                                echo "</small>";
+                                echo "</div>";
+                            }
                         }
-                        echo '</div>';
+
+                        echo "</div>";
                     }
                     ?>
                 </div>
             </div>
         </div>
-        <?php
-    } else {
-        $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
-        //$UrlDestino = URLADM . 'ordem-conserto/listar';
-        //header("Location: $UrlDestino");
-    }    
+    </div>
+    <?php
+} else {
+    $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
+    //$UrlDestino = URLADM . 'ordem-conserto/listar';
+    //header("Location: $UrlDestino");
+}    
