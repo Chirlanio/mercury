@@ -33,6 +33,7 @@ class AdmsEditCheckList {
         $viewCheckList = new \App\adms\Models\helper\AdmsRead();
         $viewCheckList->fullRead("SELECT cls.id as cls_id, cls.hash_id, cls.adms_store_id, cls.adms_sits_question_id, cla.id as cla_id, cla.name AS name_area, clq.id as clq_id, clq.adms_check_list_area_id as clqa_id, clq.question_description FROM adms_check_list_stores AS cls LEFT JOIN adms_check_list_areas AS cla ON cls.adms_check_list_area_id = cla.id LEFT JOIN adms_check_list_questions AS clq ON cls.adms_check_list_question_id = clq.id WHERE cls.hash_id =:hash AND cls.adms_sits_question_id =:sit_id LIMIT :limit", "hash={$this->DadosId}&sit_id=1&limit=1");
         $this->Resultado = $viewCheckList->getResult();
+        $_SESSION['adms_store_id'] = $this->Resultado[0]['adms_store_id'];
         return $this->Resultado;
     }
 
@@ -43,8 +44,12 @@ class AdmsEditCheckList {
 
         $this->File = $this->Dados['file_name'];
         $this->EmptyField['justified'] = !empty($this->Dados['justified']) ? strip_tags($this->Dados['justified']) : null;
+        $this->EmptyField['action_plans'] = !empty($this->Dados['action_plans']) ? strip_tags($this->Dados['action_plans']) : null;
+        $this->EmptyField['initial_date'] = !empty($this->Dados['initial_date']) ? strip_tags($this->Dados['initial_date']) : null;
+        $this->EmptyField['final_date'] = !empty($this->Dados['final_date']) ? strip_tags($this->Dados['final_date']) : null;
+        $this->EmptyField['action_plan_responsible_id'] = !empty($this->Dados['action_plan_responsible_id']) ? strip_tags($this->Dados['action_plan_responsible_id']) : null;
 
-        unset($this->Dados['file_name'], $this->Dados['justified']);
+        unset($this->Dados['file_name'], $this->Dados['justified'], $this->Dados['action_plans'], $this->Dados['initial_date'], $this->Dados['final_date'], $this->Dados['action_plan_responsible_id']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -100,6 +105,12 @@ class AdmsEditCheckList {
 
     private function updateEditCheckList() {
 
+        $this->Dados['action_plans'] = $this->EmptyField['action_plans'];
+        $this->Dados['initial_date'] = $this->EmptyField['initial_date'];
+        $this->Dados['final_date'] = $this->EmptyField['final_date'];
+        $this->Dados['action_plan_responsible_id'] = $this->EmptyField['action_plan_responsible_id'];
+        $this->Dados['evaluation_date'] = date("Y-m-d");
+        $this->Dados['points'] = $this->Dados['adms_sits_question_id'] == 1 ? 1 : ($this->Dados['adms_sits_question_id'] == 2 ? 0.5 : 0);
         $this->Dados['justified'] = $this->EmptyField['justified'];
         $this->Dados['modified'] = date("Y-m-d H:i:s");
 
@@ -158,7 +169,10 @@ class AdmsEditCheckList {
         $listar->fullRead("SELECT COUNT(id) as no_resp_result FROM adms_check_list_stores WHERE hash_id =:hash AND adms_sits_question_id =:sit_id", "hash={$_SESSION['id']}&sit_id=1");
         $registro['countHashNoResp'] = $listar->getResult();
 
-        $this->Resultado = ['sits' => $registro['sits'], 'areas' => $registro['areas'], 'questions' => $registro['questions'], 'countHashResp' => $registro['countHashResp'], 'countHashNoResp' => $registro['countHashNoResp']];
+        $listar->fullRead("SELECT id s_id, nome resp_store FROM tb_funcionarios WHERE loja_id =:store AND status_id =:sit", "store={$_SESSION['adms_store_id']}&sit=1");
+        $registro['responsibles'] = $listar->getResult();
+
+        $this->Resultado = ['sits' => $registro['sits'], 'areas' => $registro['areas'], 'questions' => $registro['questions'], 'countHashResp' => $registro['countHashResp'], 'countHashNoResp' => $registro['countHashNoResp'], 'responsibles' => $registro['responsibles']];
 
         return $this->Resultado;
     }

@@ -5,7 +5,7 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['form']);
+//var_dump($this->Dados['select']['responsibles']);
 ?>
 <div class="content p-1">
     <div class="list-group-item h-100">
@@ -52,6 +52,7 @@ if (isset($this->Dados['form'][0])) {
         ?>
 
         <?php
+        $dataNow = date("Y/m/d");
         echo '<div>';
         foreach ($this->Dados['form'] as $formQuestion) {
             extract($formQuestion);
@@ -65,8 +66,8 @@ if (isset($this->Dados['form'][0])) {
                 ?>">
 
                 <h4 class="mb-3"><?php echo $cla_id . " - " . $name_area ?></h4>
-                <h6>Perguntas respondidas: <span class="text-success"><?php echo $this->Dados['select']['countHashResp'][0]['resp_result'];?></span>.</h6>
-                <h6>Faltam: <span class="text-danger"><?php echo $this->Dados['select']['countHashNoResp'][0]['no_resp_result'];?></span>.</h6>
+                <h6>Perguntas respondidas: <span class="text-success"><?php echo $this->Dados['select']['countHashResp'][0]['resp_result']; ?></span>.</h6>
+                <h6>Faltam: <span class="text-danger"><?php echo $this->Dados['select']['countHashNoResp'][0]['no_resp_result']; ?></span>.</h6>
 
                 <?php
                 foreach ($this->Dados['form'] as $question) {
@@ -108,8 +109,50 @@ if (isset($this->Dados['form'][0])) {
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="file_name">Arquivo</label>
-                                <input class="form-control-file is-invalid" name="file_name[]" id="file_name" type="file" multiple/>
+                                <input class="form-control-file is-invalid" name="file_name[]" id="file_name" type="file" multiple>
                             </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="action_plans">Plano de Ação</label>
+                                <textarea class="form-control is-valid editorCK" id="action_plans" name="action_plans" rows="5" cols="10"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            
+                            <div class="form-group col-lg-3 col-md-12">
+                                <label for="initial_date">Início</label>
+                                <input class="form-control" type="date" id="initial_date" name="initial_date">
+                            </div>
+                            
+                            <div class="form-group col-lg-3 col-md-12">
+                                <label for="final_date">Fim</label>
+                                <input class="form-control" type="date" id="final_date" name="final_date">
+                            </div>
+                            
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label for="action_plan_responsible_id">Responsavel</label>
+
+                                <select class="custom-select" name="action_plan_responsible_id" id="action_plan_responsible_id">
+                                    <option value="">Selecione</option>
+                                    <?php
+                                    foreach ($this->Dados['select']['responsibles'] as $responsavel) {
+                                        extract($responsavel);
+                                        if (isset($valorForm['action_plan_responsible_id']) and ($valorForm['action_plan_responsible_id'] == $s_id)) {
+                                            echo "<option value='$s_id' selected>$resp_store</option>";
+                                        } else {
+                                            echo "<option value='$s_id'>$resp_store</option>";
+                                        }
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                            
                         </div>
 
                         <?php
