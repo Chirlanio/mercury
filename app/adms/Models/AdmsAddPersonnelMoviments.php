@@ -19,11 +19,13 @@ class AdmsAddPersonnelMoviments {
     private $treatData;
     private $Filename;
     private $DadosEmail;
-    private array $areas = [4, 6, 8, 10, 14];
+    private array $areas = [4, 6, 8, 10, 14, 15];
     private array|null $DadosDismissal;
     private array|null $DadosUsuario;
     private string|null $Observation;
     private array|int|string|null $Inactivated;
+    private array|object|null $Reasons;
+    private $ReasonsId;
 
     function getResultado() {
         return $this->Resultado;
@@ -32,9 +34,15 @@ class AdmsAddPersonnelMoviments {
     public function addMoviment(array $Dados) {
 
         $this->Dados = $Dados;
+        
+        //var_dump($this->Dados);
         $this->Filename = !empty($this->Dados['file_name']) ? $this->Dados['file_name'] : null;
+        $this->Reasons['reasons'] = !empty($this->Dados['reasons']) ? $this->Dados['reasons'] : null;
         //$this->DadosDismissal['phone_chip'] = $this->Dados['phone_chip'];
         $this->Observation = $this->Dados['observation'];
+        if(isset($this->Dados['reasons'])){
+            unset($this->Dados['reasons']);
+        }
         if (isset($this->Dados['phone_chip'])) {
             unset($this->Dados['phone_chip']);
         }
@@ -103,10 +111,12 @@ class AdmsAddPersonnelMoviments {
 
         if ($addProcess->getResult()) {
             $this->Dados['id'] = $addProcess->getResult();
+            $this->ReasonsId = $this->Dados['id'];
             $this->viewManager();
             $this->valArquivo();
+            $this->insertReasons($this->ReasonsId);
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Movimentação</strong> cadastrada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $this->Resultado = true;
+            $this->Resultado = false;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A Movimentação não foi cadastrada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
@@ -174,7 +184,7 @@ class AdmsAddPersonnelMoviments {
         $userDismissal->fullRead("SELECT cargo_id  FROM tb_funcionarios WHERE id =:id LIMIT :limit", "id={$this->DadosDismissal['adms_employee_id']}&limit=1");
         $this->DadosDismissal['office_id'] = $userDismissal->getResult();
         unset($this->DadosDismissal['adms_loja_id'], $this->DadosDismissal['adms_employee_relation_id'], $this->DadosDismissal['adms_resignation_id'], $this->DadosDismissal['early_warning_id'], $this->DadosDismissal['request_area_id'], $this->DadosDismissal['requester_id'], $this->DadosDismissal['board_id'], $this->DadosDismissal['id'], $this->DadosDismissal['adms_employee_id'], $this->DadosDismissal['last_day_worked'], $this->DadosDismissal['fouls'], $this->DadosDismissal['totalFouls'], $this->DadosDismissal['days_off'], $this->DadosDismissal['totalDaysOff'], $this->DadosDismissal['folds'], $this->DadosDismissal['totalFolds'], $this->DadosDismissal['fixed_fund'], $this->DadosDismissal['totalFund'], $this->DadosDismissal['access_power_bi'], $this->DadosDismissal['access_zznet'], $this->DadosDismissal['access_cigam'], $this->DadosDismissal['access_camera'], $this->DadosDismissal['access_deskfy'], $this->DadosDismissal['notebook'], $this->DadosDismissal['email_corporate'], $this->DadosDismissal['access_meu_atendimento'], $this->DadosDismissal['office_parking_card'], $this->DadosDismissal['office_parking_shopping'], $this->DadosDismissal['key_office'], $this->DadosDismissal['key_store'], $this->DadosDismissal['instagram_corporate'], $this->DadosDismissal['deactivate_instagram_account'], $this->DadosDismissal['access_dito'], $this->DadosDismissal['signature_date_trct'], $this->DadosDismissal['grip'], $this->DadosDismissal['conduct'], $this->DadosDismissal['productivity'], $this->DadosDismissal['team_work'], $this->DadosDismissal['performance'], $this->DadosDismissal['new_opportunity'], $this->DadosDismissal['structure_adjustment'], $this->DadosDismissal['career_change'], $this->DadosDismissal['inadequacy'], $this->DadosDismissal['indiscipline_insubordination'], $this->DadosDismissal['frequent_absences']);
-
+        
         $this->DadosDismissal['adms_person_mov_id'] = $DadosDismissal['id'];
         $this->DadosDismissal['tb_funcionario_id'] = $DadosDismissal['adms_employee_id'];
         $this->DadosDismissal['office_id'] = $this->DadosDismissal['office_id'][0]['cargo_id'];
@@ -198,6 +208,23 @@ class AdmsAddPersonnelMoviments {
         $userDF->exeCreate("adms_dismissal_follow_up", $this->DadosDismissal);
         $this->Resultado = $userDF->getResult();
     }
+    
+    private function insertReasons(int $ReasonId) {
+        $addReasons = [];
+        foreach ($this->Reasons['reasons'] as $reason) {
+            $addReasons[] = [
+                'adms_personnel_mov_id' => $ReasonId,
+                'adms_reason_dism_id' => $reason,
+                'created' => date("Y-m-d H:i:s")
+            ];
+        }
+        
+        $insertReason = new \App\adms\Models\helper\AdmsCreate();
+        $insertReason->exeCreate("adms_reasons_personnel_moviments", $addReasons);
+        if($insertReason->getResult()){
+            $_SESSION['msg'] = "Erro no cadastro das repostas";
+        }
+    }
 
     private function viewUser(int|null $userId) {
         $this->DadosUsuario['userId'] = $userId;
@@ -205,7 +232,7 @@ class AdmsAddPersonnelMoviments {
         $viewUser = new \App\adms\Models\helper\AdmsRead();
         $viewUser->fullRead("SELECT f.nome employee, l.nome store, f.cargo_id, cg.adms_niv_cargo_id FROM tb_funcionarios f LEFT JOIN tb_lojas l ON l.id = f.loja_id LEFT JOIN tb_cargos cg ON cg.id = f.cargo_id WHERE f.id =:id", "id={$this->DadosUsuario['userId']}");
         $this->DadosUsuario['nameUser'] = $viewUser->getResult();
-
+        
         $this->inactivatedEmployee($this->DadosUsuario['userId']);
         $this->sendEmail();
         
@@ -228,6 +255,7 @@ class AdmsAddPersonnelMoviments {
     }
 
     private function sendEmail() {
+        var_dump($this->DadosUsuario);
         $nome = explode(" ", $this->DadosUsuario[0]['name']);
         $prim_nome = $nome[0];
         $this->DadosEmail['dest_nome'] = $prim_nome;
@@ -282,8 +310,11 @@ class AdmsAddPersonnelMoviments {
 
         $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");
         $registro['manager_sector'] = $listar->getResult();
+        
+        $listar->fullRead("SELECT id, reason, order_reason FROM adms_reasons_for_dismissals WHERE adms_sit_id =:sits", "sits=1");
+        $registro['reasons'] = $listar->getResult();
 
-        $this->Resultado = ['name_stores' => $registro['name_stores'], 'employee' => $registro['employee'], 'areas' => $registro['areas'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector']];
+        $this->Resultado = ['name_stores' => $registro['name_stores'], 'employee' => $registro['employee'], 'areas' => $registro['areas'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector'], 'reasons' => $registro['reasons']];
 
         return $this->Resultado;
     }
