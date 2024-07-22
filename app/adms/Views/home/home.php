@@ -29,7 +29,7 @@ extract($this->Dados['select']);
 
         <hr>
 
-        <?php if ($_SESSION['adms_niveis_acesso_id'] <= 3) { ?>
+        <?php if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) { ?>
 
             <div class="row"><!-- Inicio Cards -->
                 <div class="col-lg-3 col-sm-6 mb-3"><!-- Inicio Cards Transferência-->
@@ -406,26 +406,26 @@ extract($this->Dados['select']);
                     </div>
                 </div>
             </div>
-            <!--<hr>
+            <hr>
             <div class="content mt-5 anima-bottom">
                 <div class="container-fluid">
-                    <h2 class="display-4 text-center" style="margin-bottom: 40px;">Agosto Premiado</h2>
+                    <h2 class="display-4 text-center" style="margin-bottom: 40px;">Decola Meia Sola</h2>
                     <div class="row justify-content-md-center">
                         <div class="col-12 col-md-12">
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe title="Dashboard - Agosto Premiado" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d90fd021-d0b7-4e3b-884b-f5376c08ce58&autoAuth=true&ctid=ae472a64-42b3-4e2d-8fd3-c6957618b09f&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+                                <iframe title="Dashboard - Decola" width="1140" height="541.25" src="https://app.powerbi.com/view?r=eyJrIjoiYmYxMDc5M2ItOTQ4YS00YmY3LWE4NGYtMjcwMGNhMDlkOWUyIiwidCI6ImFlNDcyYTY0LTQyYjMtNGUyZC04ZmQzLWM2OTU3NjE4YjA5ZiJ9" frameborder="0" allowFullScreen="true"></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
         <?php } else { ?>
 
             <div class="row mb-3">
                 <div class="col-lg-4 col-sm-6">
                     <div class="card bg-success text-white anima-left">
                         <a href="<?php
-                        if ($_SESSION['adms_niveis_acesso_id'] <= 5) {
+                        if ($_SESSION['ordem_nivac'] <= STOREPERMITION) {
                             echo URLADM . 'transferencia/listar-transf/';
                         } else {
                             echo "#";
@@ -487,7 +487,7 @@ extract($this->Dados['select']);
                 <div class="col-lg-4 col-sm-6">
                     <div class="card bg-warning text-white anima-right h-100">
                         <a href="<?php
-                        if ($_SESSION['adms_niveis_acesso_id'] <= 5) {
+                        if ($_SESSION['ordem_nivac'] <= STOREPERMITION) {
                             echo URLADM . 'listar-troca/listar-troca/';
                         } else {
                             echo "#";
@@ -716,19 +716,19 @@ extract($this->Dados['select']);
                     </div>
                 </div>
             </div>
-            <!--<hr>
+            <hr>
             <div class="content mt-5 anima-bottom">
                 <div class="container-fluid">
-                    <h2 class="display-4 text-center" style="margin-bottom: 40px;">Agosto Premiado</h2>
+                    <h2 class="display-4 text-center" style="margin-bottom: 40px;">Decola Meia Sola</h2>
                     <div class="row justify-content-md-center">
                         <div class="col-12 col-md-12">
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe title="Dashboard - Agosto Premiado" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d90fd021-d0b7-4e3b-884b-f5376c08ce58&autoAuth=true&ctid=ae472a64-42b3-4e2d-8fd3-c6957618b09f&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+                                <iframe title="Dashboard - Decola" width="1140" height="541.25" src="https://app.powerbi.com/view?r=eyJrIjoiYmYxMDc5M2ItOTQ4YS00YmY3LWE4NGYtMjcwMGNhMDlkOWUyIiwidCI6ImFlNDcyYTY0LTQyYjMtNGUyZC04ZmQzLWM2OTU3NjE4YjA5ZiJ9" frameborder="0" allowFullScreen="true"></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
         </div>
     <?php }
     ?>

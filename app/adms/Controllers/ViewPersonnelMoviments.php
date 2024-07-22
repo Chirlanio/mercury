@@ -34,6 +34,9 @@ class ViewPersonnelMoviments {
 
             $listarMenu = new \App\adms\Models\AdmsMenu();
             $this->Dados['menu'] = $listarMenu->itemMenu();
+            
+            $reasons = new \App\adms\Models\AdmsViewPersonnelMoviments();
+            $this->Dados['reasons'] = $reasons->addList($this->DadosId);
 
             $carregarView = new \Core\ConfigView("adms/Views/personnelMoviment/viewPersonnelMoviment", $this->Dados);
             $carregarView->renderizar();

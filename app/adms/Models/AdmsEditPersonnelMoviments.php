@@ -17,11 +17,13 @@ class AdmsEditPersonnelMoviments {
     private $Resultado;
     private array|string|null $Dados;
     private int $DadosId;
+    private int $ReasonsId;
     private string|null $Observation;
     private array|object|null $File;
     private array|string|null $Optional;
     private array|string|null $Dismissal;
     private array|string|null $DismissalFollow;
+    private array|int|null $Reasons;
 
     function getResultado() {
         return $this->Resultado;
@@ -31,21 +33,32 @@ class AdmsEditPersonnelMoviments {
         $this->DadosId = (int) $DadosId;
         $viewMoviment = new \App\adms\Models\helper\AdmsRead();
         if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
-            $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.grip, pm.conduct, pm.productivity, pm.team_work, pm.performance, pm.new_opportunity, pm.structure_adjustment, pm.career_change, pm.inadequacy, pm.indiscipline_insubordination, pm.frequent_absences, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation, ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso, df.aso_resigns, df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id WHERE pm.id =:id LIMIT :limit", "id={$this->DadosId}&limit=1");
+            $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation, ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso, df.aso_resigns, df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id WHERE pm.id =:id LIMIT :limit", "id={$this->DadosId}&limit=1");
         } else {
-            $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.grip, pm.conduct, pm.productivity, pm.team_work, pm.performance, pm.new_opportunity, pm.structure_adjustment, pm.career_change, pm.inadequacy, pm.indiscipline_insubordination, pm.frequent_absences, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation, ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso, df.aso_resigns, df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id WHERE pm.id =:id AND pm.adms_loja_id =:adms_loja_id AND pm.adms_sits_personnel_mov_id <=:adms_sits_personnel_mov_id LIMIT :limit", "id={$this->DadosId}&adms_loja_id=" . $_SESSION['usuario_loja'] . "&adms_sits_personnel_mov_id=2&limit=1");
+            $viewMoviment->fullRead("SELECT pm.id, pm.adms_loja_id, lj.nome store, pm.adms_area_id, pm.adms_employee_id, fc.nome colaborador, pm.last_day_worked, pm.adms_employee_relation_id, pm.adms_resignation_id, pm.early_warning_id, pm.fouls, pm.days_off, pm.folds, pm.fixed_fund, pm.access_power_bi, pm.access_zznet, pm.access_cigam, pm.access_camera, pm.access_deskfy, pm.access_meu_atendimento, pm.access_dito, pm.notebook, pm.email_corporate, pm.office_parking_card, pm.office_parking_shopping, pm.key_office, pm.key_store, pm.instagram_corporate, pm.deactivate_instagram_account, pm.request_area_id, pm.requester_id, pm.board_id, pm.adms_sits_personnel_mov_id, pm.observation, ca.nome office_name, df.uniform, df.phone_chip, df.original_card, df.signature_date_trct, df.aso, df.aso_resigns, df.send_aso_guide, sd.name status, cr.cor, pm.created, pm.modified FROM adms_personnel_moviments pm LEFT JOIN tb_lojas lj ON lj.id = pm.adms_loja_id LEFT JOIN tb_funcionarios fc ON fc.id = pm.adms_employee_id LEFT JOIN tb_cargos ca ON ca.id = fc.cargo_id LEFT JOIN adms_dismissal_follow_up df ON df.adms_person_mov_id = pm.id LEFT JOIN adms_sits_personnel_moviments sd ON sd.id = pm.adms_sits_personnel_mov_id LEFT JOIN adms_cors cr ON cr.id = sd.adms_cor_id WHERE pm.id =:id AND pm.adms_loja_id =:adms_loja_id AND pm.adms_sits_personnel_mov_id <=:adms_sits_personnel_mov_id LIMIT :limit", "id={$this->DadosId}&adms_loja_id=" . $_SESSION['usuario_loja'] . "&adms_sits_personnel_mov_id=2&limit=1");
         }
         $this->Resultado = $viewMoviment->getResult();
         return $this->Resultado;
     }
 
+    public function viewReasons(int $ReasonsId) {
+        $this->ReasonsId = $ReasonsId;
+
+        $viewReasons = new \App\adms\Models\helper\AdmsRead();
+        $viewReasons->fullRead("SELECT id rs_id, adms_personnel_mov_id, adms_reason_dism_id FROM adms_reasons_personnel_moviments WHERE adms_personnel_mov_id =:mov", "mov={$this->DadosId}");
+        $this->Resultado = $viewReasons->getResult();
+        return $this->Resultado;
+    }
+
     public function altOrder(array $Dados) {
         $this->Dados = $Dados;
+        //var_dump($this->Dados);
+        $this->Reasons = $this->Dados['reasons'];
 
         $this->File = $this->Dados['file_name'];
         $this->Observation = $this->Dados['observation'];
 
-        unset($this->Dados['delete'], $this->Dados['file_name'], $this->Dados['observation']);
+        unset($this->Dados['delete'], $this->Dados['file_name'], $this->Dados['observation'], $this->Dados['reasons']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazioComTag();
         $valCampoVazio->validarDados($this->Dados);
@@ -128,7 +141,7 @@ class AdmsEditPersonnelMoviments {
 
         if ($uploadFile->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>MP</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $this->Resultado = true;
+            $this->Resultado = false;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>MP:</strong> Satualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
@@ -161,11 +174,46 @@ class AdmsEditPersonnelMoviments {
         $updateDismissal->exeUpdate("adms_dismissal_follow_up", $this->Dismissal, "WHERE adms_person_mov_id =:adms_person_mov_id", "adms_person_mov_id={$this->Dismissal['adms_person_mov_id']}");
 
         if ($updateDismissal->getResult()) {
+            $this->updateReasons($this->Dados['id']);
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>MP</strong> atualizada com sucesso. Upload do arquivo realizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> A MP não foi atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
+        }
+    }
+    
+    private function updateReasons(int $ReasonId) {
+        $this->ReasonsId = $ReasonId;
+        
+        $deleteReasons = new \App\adms\Models\helper\AdmsDelete();
+        $deleteReasons->exeDelete("adms_reasons_personnel_moviments", "WHERE adms_personnel_mov_id =:mov", "mov={$this->ReasonsId}");
+        
+        if($deleteReasons->getResult()){
+            $this->insertReasons($this->ReasonsId);
+        }else{
+            return $this->Resultado = false;
+        }
+        
+    }
+
+    private function insertReasons(int|string|null $ReasonId) {
+        
+        $addReasons = [];
+        foreach ($this->Reasons as $reason) {
+            $addReasons[] = [
+                'adms_personnel_mov_id' => $ReasonId,
+                'adms_reason_dism_id' => $reason,
+                'created' => date("Y-m-d H:i:s")
+            ];
+        }
+
+        foreach ($addReasons as $reason) {
+            $insertReason = new \App\adms\Models\helper\AdmsCreate();
+            $insertReason->exeCreate("adms_reasons_personnel_moviments", $reason);
+            if ($insertReason->getResult()) {
+                $_SESSION['msg'] = "Erro no cadastro das respostas";
+            }
         }
     }
 
@@ -204,7 +252,10 @@ class AdmsEditPersonnelMoviments {
         $listar->fullRead("SELECT f.id f_id, f.nome manager_sector FROM tb_funcionarios f LEFT JOIN tb_cargos c ON c.id = f.cargo_id LEFT JOIN adms_niv_cargos nv ON nv.id = c.adms_niv_cargo_id WHERE c.adms_niv_cargo_id =:adms_niv_cargo_id AND f.status_id =:status_id ORDER BY f.nome", "adms_niv_cargo_id=1&status_id=1");
         $registro['manager_sector'] = $listar->getResult();
 
-        $this->Resultado = ['store' => $registro['store'], 'employee' => $registro['employee'], 'area' => $registro['area'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector'], 'status' => $registro['status']];
+        $listar->fullRead("SELECT id r_id, reason question_reason, order_reason FROM adms_reasons_for_dismissals WHERE adms_sit_id =:sits", "sits=1");
+        $registro['reasons'] = $listar->getResult();
+
+        $this->Resultado = ['store' => $registro['store'], 'employee' => $registro['employee'], 'area' => $registro['area'], 'manager' => $registro['manager'], 'manager_sector' => $registro['manager_sector'], 'status' => $registro['status'], 'reasons' => $registro['reasons']];
 
         return $this->Resultado;
     }

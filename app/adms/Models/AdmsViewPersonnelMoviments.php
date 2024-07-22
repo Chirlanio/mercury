@@ -28,4 +28,14 @@ class AdmsViewPersonnelMoviments {
         $this->Resultado = $viewMoviment->getResult();
         return $this->Resultado;
     }
+    
+    public function addList(int $DataId) {
+        $this->DadosId = $DataId;
+        
+        $reasons = new \App\adms\Models\helper\AdmsRead();
+        $reasons->fullRead("SELECT rpm.id rp_id, rpm.adms_personnel_mov_id, rpm.adms_reason_dism_id, rfd.reason question_reason, rfd.order_reason FROM adms_reasons_personnel_moviments rpm LEFT JOIN adms_reasons_for_dismissals rfd ON rfd.id = rpm.adms_reason_dism_id WHERE adms_personnel_mov_id =:mov", "mov={$this->DadosId}");
+        $this->Resultado = $reasons->getResult();
+        
+        return $this->Resultado;
+    }
 }

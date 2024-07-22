@@ -56,11 +56,11 @@ if (!empty($this->Dados['dados_moviment'][0])) {
             <div class="content p1">
                 <div class="row">
                     <div class="col-md-4 order-md-2 mb-4">
-                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="d-flex justify-content-between align-items-center border border-second rounded mb-3 p-3 bg-light shadow-sm">
                             <span class="text-muted">Acompanhamento</span>
                         </h4>
-                        <ul class="list-group border border-dark mb-3">
-                            <li class="list-group-item d-flex justify-content-between lh-condensed</table>">
+                        <ul class="list-group border border-second mb-3 shadow-sm">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="my-2">
                                     <h6 class="my-2">Cargo Atual</h6>
                                     <small class="lead"><?php echo $office_name; ?></small>
@@ -142,46 +142,48 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                     </div>
 
                     <div class="col-md-8 order-md-1">
-                        <h4 class="mb-3">Dados da Movimentação</h4>
+                        <h4 class="text-muted border border-second rounded mb-3 p-3 bg-light shadow-sm">Dados da Movimentação</h4>
                         <form class="needs-validation" novalidate>
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="adms_loja_id">Loja</label>
-                                    <input type="text" class="form-control bg-white" id="adms_loja_id" readonly value="<?php echo $store; ?>">
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="adms_employee_id">Colaborador</label>
-                                    <input type="text" class="form-control bg-white" id="adms_employee_id" value="<?php echo $colaborador; ?>" readonly>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="manager_id">Último Dia Trabalhado</label>
-                                    <input type="text" class="form-control bg-white" id="manager_id" value="<?php echo date("d/m/Y", strtotime($last_day_worked)); ?>" readonly>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-
-                                <div class="form-group col-md-3">
-                                    <label><span class="text-danger">*</span> Área</label>
-                                    <input name="request_area_id" type="text" class="form-control bg-white" id="request_area_id" value="<?php echo $area ?>" readonly />
+                            <div class="border border-second rounded p-3 mb-3 shadow-sm">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="adms_loja_id">Loja</label>
+                                        <input type="text" class="form-control bg-white" id="adms_loja_id" readonly value="<?php echo $store; ?>">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="adms_employee_id">Colaborador</label>
+                                        <input type="text" class="form-control bg-white" id="adms_employee_id" value="<?php echo $colaborador; ?>" readonly>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="manager_id">Último Dia Trabalhado</label>
+                                        <input type="text" class="form-control bg-white" id="manager_id" value="<?php echo date("d/m/Y", strtotime($last_day_worked)); ?>" readonly>
+                                    </div>
                                 </div>
 
-                                <div class="form-group col-md-6">
-                                    <label for="requester_id"><span class="text-danger">*</span> Solicitante</label>
-                                    <input name="requester_id" type="text" class="form-control bg-white" id="requester_id" value="<?php echo $manager_sector ?>" readonly />
-                                </div>
+                                <div class="form-row">
 
-                                <div class="form-group col-md-3">
-                                    <label for="board_id"><span class="text-danger">*</span> Diretoria</label>
-                                    <input name="board_id" type="text" class="form-control bg-white" id="board_id" value="<?php echo $board_name ?>" readonly />
-                                </div>
+                                    <div class="form-group col-md-3">
+                                        <label><span class="text-danger">*</span> Área</label>
+                                        <input name="request_area_id" type="text" class="form-control bg-white" id="request_area_id" value="<?php echo $area ?>" readonly />
+                                    </div>
 
+                                    <div class="form-group col-md-6">
+                                        <label for="requester_id"><span class="text-danger">*</span> Solicitante</label>
+                                        <input name="requester_id" type="text" class="form-control bg-white" id="requester_id" value="<?php echo $manager_sector ?>" readonly />
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <label for="board_id"><span class="text-danger">*</span> Diretoria</label>
+                                        <input name="board_id" type="text" class="form-control bg-white" id="board_id" value="<?php echo $board_name ?>" readonly />
+                                    </div>
+
+                                </div>
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <div class="border border-dark rounded p-3">
-                                        <label for="adms_employee_relation_id" class="mb-2"><span class="text-danger">*</span> Vínculo Contrato</label>
+                                    <div class="border border-second rounded p-3 shadow-sm">
+                                        <h6 for="adms_employee_relation_id" class="mb-2"><span class="text-danger">*</span> Vínculo Contrato</h6>
                                         <div class="form-group d-flex">
                                             <div class="custom-control custom-radio mr-2">
                                                 <input id="efetivo" name="adms_employee_relation_id" type="radio" class="custom-control-input" value="1" <?php echo $adms_employee_relation_id == 1 ? "checked" : ""; ?> disabled="" />
@@ -206,8 +208,8 @@ if (!empty($this->Dados['dados_moviment'][0])) {
 
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <div class="border border-dark rounded p-3">
-                                        <label for="adms_employee_relation_id" class="mb-2"><span class="text-danger">*</span> Motivo</label>
+                                    <div class="border border-second rounded p-3 shadow-sm">
+                                        <h6 for="adms_employee_relation_id" class="mb-2"><span class="text-danger">*</span> Motivo</h6>
                                         <div class="form-group d-flex">
                                             <div class="custom-control custom-radio mr-2">
                                                 <input id="iniciativa" name="adms_resignation_id" type="radio" class="custom-control-input" value="1" <?php echo $adms_resignation_id == 1 ? "checked" : ""; ?> disabled/>
@@ -228,8 +230,8 @@ if (!empty($this->Dados['dados_moviment'][0])) {
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <div class="border border-dark rounded p-3">
-                                        <label for="early_warning_id" class="mb-2"><span class="text-danger">*</span> Aviso Prévio</label>
+                                    <div class="border border-second rounded p-3 shadow-sm">
+                                        <h6 for="early_warning_id" class="mb-2"><span class="text-danger">*</span> Aviso Prévio</h6>
                                         <div class="form-group d-block">
                                             <div class="custom-control custom-radio mr-2">
                                                 <input id="worked" name="early_warning_id" type="radio" class="custom-control-input" value="1" <?php echo $early_warning_id == 1 ? "checked" : ""; ?> disabled />
@@ -253,66 +255,27 @@ if (!empty($this->Dados['dados_moviment'][0])) {
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <div class="border border-dark rounded p-3">
-                                        <label class="mb-2">Motivo(s) de Desligamento:</label>
+                                    <div class="border border-second rounded p-3 shadow-sm">
+                                        <h6 class="mb-2">Motivo(s) de Desligamento:</h6>
                                         <div class="d-flex">
                                             <div class="form-group col-12">
-                                                <div class="border rounded d-flex p-2">
-                                                    <div class="form-group d-block mr-2">
-                                                        <div class="form-group form-check">
-                                                            <input name="grip" type="checkbox" class="form-check-input" id="grip" value="1" <?php echo $grip == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="grip">Falta de aderência à cultura da empresa.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <input name="conduct" type="checkbox" class="form-check-input" id="conduct" value="1" <?php echo $conduct == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="conduct">Violação de conduta e mau procedimento.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <input name="productivity" type="checkbox" class="form-check-input" id="productivity" value="1" <?php echo $productivity == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="productivity">Baixa produtividade.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <input name="team_work" type="checkbox" class="form-check-input" id="team_work" value="1" <?php echo $team_work == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="team_work">Dificuldades em trabalhar em equipe e comportamentos inadequados.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <input name="performance" type="checkbox" class="form-check-input" id="performance" value="1" <?php echo $performance == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="performance">Baixa Performance.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <input name="new_opportunity" type="checkbox" class="form-check-input" id="new_opportunity" value="1" <?php echo $new_opportunity == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="new_opportunity">Nova oportunidade de trabalho.</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group d-block">
-                                                        <div class="form-group form-check">
-                                                            <input name="structure_adjustment" type="checkbox" class="form-check-input" id="structure_adjustment" value="1" <?php echo $structure_adjustment == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="structure_adjustment">Ajuste de estrutura na empresa.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <input name="career_change" type="checkbox" class="form-check-input" id="career_change" value="1" <?php echo $career_change == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="career_change">Mudança de carreira.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <input name="inadequacy" type="checkbox" class="form-check-input" id="inadequacy" value="1" <?php echo $inadequacy == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="inadequacy">Inadequação ao perfil da posição.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <?php
-                                                            $indiscipline_insubordination = "";
-                                                            if (isset($valorForm['indiscipline_insubordination']) and $valorForm['indiscipline_insubordination'] == 1) {
-                                                                $indiscipline_insubordination = 2;
-                                                            }
+                                                <div class="form-group d-block mr-2">
+                                                    <ul class="list-group list-group-flush">
+                                                        <?php
+                                                        foreach ($this->Dados['reasons'] as $reason) {
+                                                            extract($reason);
                                                             ?>
-                                                            <input name="indiscipline_insubordination" type="checkbox" class="form-check-input" id="indiscipline_insubordination" value="1" <?php echo $indiscipline_insubordination == 2 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="indiscipline_insubordination">Ato de indisciplina ou insubordinação.</label>
-                                                        </div>
-                                                        <div class="form-group form-check">
-                                                            <input name="frequent_absences" type="checkbox" class="form-check-input" id="frequent_absences" value="1" <?php echo $frequent_absences == 1 ? "checked" : ""; ?> disabled>
-                                                            <label class="form-check-label" for="frequent_absences">Ausências frequentes.</label>
-                                                        </div>
-                                                    </div>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                                                                <?php echo $question_reason; ?>
+                                                                <span class="badge badge-primary badge-pill">
+                                                                    <i class="fa-solid fa-check"></i>
+                                                                </span>
+                                                            </li>
+
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </ul>
                                                 </div>
                                             </div>
 
@@ -323,8 +286,8 @@ if (!empty($this->Dados['dados_moviment'][0])) {
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <div class="border border-dark rounded p-3">
-                                        <label class="mb-2">Informações para DP:</label>
+                                    <div class="border border-second rounded p-3 shadow-sm">
+                                        <h6 class="mb-2">Informações para DP:</h6>
                                         <div class="form-group col-md-6">
                                             <div class="form-group d-block">
                                                 <div class="input-group mb-3">
@@ -371,12 +334,12 @@ if (!empty($this->Dados['dados_moviment'][0])) {
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <div class="border border-dark rounded p-3">
-                                        <label class="mb-2">Colaborador Possui:</label>
+                                    <div class="border border-second rounded p-3 shadow-sm">
+                                        <h6 class="mb-2">Colaborador Possui:</h6>
                                         <div class="d-flex">
                                             <div class="form-group col-4">
                                                 <label class="mb-2">T.I.</label>
-                                                <div class="border rounded d-flex p-2">
+                                                <div class="d-flex p-2">
                                                     <div class="form-group d-block mr-2">
                                                         <div class="form-group form-check">
                                                             <input name="access_power_bi" type="checkbox" class="form-check-input" id="access_power_bi" value="1" <?php echo (isset($access_power_bi) and $access_power_bi == 1) ? "checked" : ""; ?> disabled />
@@ -423,7 +386,7 @@ if (!empty($this->Dados['dados_moviment'][0])) {
 
                                             <div class="form-group col-4">
                                                 <label>Operações</label>
-                                                <div class="border rounded d-flex p-2">
+                                                <div class="d-flex p-2">
                                                     <div class="form-group d-block">
                                                         <div class="form-group form-check">
                                                             <input name="office_parking_card" type="checkbox" class="form-check-input" id="office_parking_card" value="1" <?php echo (isset($office_parking_card) and $office_parking_card == 1) ? "checked" : ""; ?> disabled />
@@ -448,7 +411,7 @@ if (!empty($this->Dados['dados_moviment'][0])) {
 
                                             <div class="form-group col-4">
                                                 <label>Pessoas & Cultura</label>
-                                                <div class="border rounded d-flex p-2">
+                                                <div class="d-flex p-2">
                                                     <div class="form-group d-block">
                                                         <div class="form-group form-check">
                                                             <input name="instagram_corporate" type="checkbox" class="form-check-input" id="instagram_corporate" value="1" <?php echo (isset($instagram_corporate) and $instagram_corporate == 1) ? "checked" : ""; ?> disabled />
@@ -467,10 +430,10 @@ if (!empty($this->Dados['dados_moviment'][0])) {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="mb-3">
                                 <ul class="list-group mb-3">
-                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed border-second rounded shadow-sm">
                                         <div>
                                             <h6 class="my-0"><p>Documentos:</p></h6>
                                             <small class="text-muted">
@@ -496,13 +459,15 @@ if (!empty($this->Dados['dados_moviment'][0])) {
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="observation"><span class="text-danger">*</span> Observações</label>
-                                    <div name="observation" id="observation" class="form-control">
-                                        <?php
-                                        if (isset($observation)) {
-                                            echo $observation;
-                                        }
-                                        ?>
+                                    <div class="border border-second p-3 shadow-sm">
+                                        <h6 for="observation"><span class="text-danger">*</span> Observações</h6>
+                                        <div name="observation" id="observation" class="form-control">
+                                            <?php
+                                            if (isset($observation)) {
+                                                echo $observation;
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -31,108 +31,111 @@ if (isset($this->Dados['form'][0])) {
         }
         ?>
         <form method="POST" action="" enctype="multipart/form-data" class="was-validated">
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label><span class="text-danger">*</span> Loja</label>
-                    <select name="adms_loja_id" id="adms_loja_id" class="custom-select is-invalid" required autofocus>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['name_stores'] as $stp) {
-                            extract($stp);
-                            if (isset($valorForm['adms_loja_id']) and $valorForm['adms_loja_id'] == $s_id) {
-                                echo "<option value='$s_id' selected>$store</option>";
-                            } else {
-                                echo "<option value='$s_id'>$store</option>";
+            <div class="border border-second rounded p-3 mb-3 shadow-sm">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label><span class="text-danger">*</span> Loja</label>
+                        <select name="adms_loja_id" id="adms_loja_id" class="custom-select is-invalid" required autofocus>
+                            <option value="">Selecione</option>
+                            <?php
+                            foreach ($this->Dados['select']['name_stores'] as $stp) {
+                                extract($stp);
+                                if (isset($valorForm['adms_loja_id']) and $valorForm['adms_loja_id'] == $s_id) {
+                                    echo "<option value='$s_id' selected>$store</option>";
+                                } else {
+                                    echo "<option value='$s_id'>$store</option>";
+                                }
                             }
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-7">
-                    <label><span class="text-danger">*</span> Colaborador</label>
-                    <select name="adms_employee_id" id="adms_employee_id" class="custom-select is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['employee'] as $fc) {
-                            extract($fc);
-                            if (isset($valorForm['adms_employee_id']) and $valorForm['adms_employee_id'] == $f_id) {
-                                echo "<option value='$f_id' selected>$colaborador</option>";
-                            } else {
-                                echo "<option value='$f_id'>$colaborador</option>";
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <label><span class="text-danger">*</span> Colaborador</label>
+                        <select name="adms_employee_id" id="adms_employee_id" class="custom-select is-invalid" required>
+                            <option value="">Selecione</option>
+                            <?php
+                            foreach ($this->Dados['select']['employee'] as $fc) {
+                                extract($fc);
+                                if (isset($valorForm['adms_employee_id']) and $valorForm['adms_employee_id'] == $f_id) {
+                                    echo "<option value='$f_id' selected>$colaborador</option>";
+                                } else {
+                                    echo "<option value='$f_id'>$colaborador</option>";
+                                }
                             }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="last_day_worked"><span class="text-danger">*</span> Último Dia Trabalhado</label>
+                        <input name="last_day_worked" type="date" id="last_day_worked" class="form-control is-invalid" value="<?php
+                        if (isset($valorForm['last_day_worked'])) {
+                            echo $valorForm['last_day_worked'];
                         }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="form-group col-md-2">
-                    <label for="last_day_worked"><span class="text-danger">*</span> Último Dia Trabalhado</label>
-                    <input name="last_day_worked" type="date" id="last_day_worked" class="form-control is-invalid" value="<?php
-                    if (isset($valorForm['last_day_worked'])) {
-                        echo $valorForm['last_day_worked'];
-                    }
-                    ?>" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-
-                <div class="form-group col-md-2">
-                    <label><span class="text-danger">*</span> Área</label>
-                    <select name="request_area_id" id="request_area_id" class="custom-select is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['areas'] as $area) {
-                            extract($area);
-                            if (isset($valorForm['request_area_id']) and $valorForm['request_area_id'] == $a_id) {
-                                echo "<option value='$a_id' selected>$area_name</option>";
-                            } else {
-                                echo "<option value='$a_id'>$area_name</option>";
-                            }
-                        }
-                        ?>
-                    </select>
+                        ?>" required>
+                    </div>
                 </div>
 
-                <div class="form-group col-md-5">
-                    <label><span class="text-danger">*</span> Solicitante</label>
-                    <select name="requester_id" id="requester_id" class="custom-select is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['manager_sector'] as $fc) {
-                            extract($fc);
-                            if (isset($valorForm['requester_id']) and $valorForm['requester_id'] == $f_id) {
-                                echo "<option value='$f_id' selected>$manager_sector</option>";
-                            } else {
-                                echo "<option value='$f_id'>$manager_sector</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
+                <div class="form-row">
 
-                <div class="form-group col-md-5">
-                    <label><span class="text-danger">*</span> Diretoria</label>
-                    <select name="board_id" id="board_id" class="custom-select is-invalid" required>
-                        <option value="">Selecione</option>
-                        <?php
-                        foreach ($this->Dados['select']['manager'] as $fc) {
-                            extract($fc);
-                            if (isset($valorForm['board_id']) and $valorForm['board_id'] == $m_id) {
-                                echo "<option value='$m_id' selected>$board_name</option>";
-                            } else {
-                                echo "<option value='$m_id'>$board_name</option>";
+                    <div class="form-group col-md-2">
+                        <label><span class="text-danger">*</span> Área</label>
+                        <select name="request_area_id" id="request_area_id" class="custom-select is-invalid" required>
+                            <option value="">Selecione</option>
+                            <?php
+                            foreach ($this->Dados['select']['areas'] as $area) {
+                                extract($area);
+                                if (isset($valorForm['request_area_id']) and $valorForm['request_area_id'] == $a_id) {
+                                    echo "<option value='$a_id' selected>$area_name</option>";
+                                } else {
+                                    echo "<option value='$a_id'>$area_name</option>";
+                                }
                             }
-                        }
-                        ?>
-                    </select>
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label><span class="text-danger">*</span> Solicitante</label>
+                        <select name="requester_id" id="requester_id" class="custom-select is-invalid" required>
+                            <option value="">Selecione</option>
+                            <?php
+                            foreach ($this->Dados['select']['manager_sector'] as $fc) {
+                                extract($fc);
+                                if (isset($valorForm['requester_id']) and $valorForm['requester_id'] == $f_id) {
+                                    echo "<option value='$f_id' selected>$manager_sector</option>";
+                                } else {
+                                    echo "<option value='$f_id'>$manager_sector</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label><span class="text-danger">*</span> Diretoria</label>
+                        <select name="board_id" id="board_id" class="custom-select is-invalid" required>
+                            <option value="">Selecione</option>
+                            <?php
+                            foreach ($this->Dados['select']['manager'] as $fc) {
+                                extract($fc);
+                                if (isset($valorForm['board_id']) and $valorForm['board_id'] == $m_id) {
+                                    echo "<option value='$m_id' selected>$board_name</option>";
+                                } else {
+                                    echo "<option value='$m_id'>$board_name</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+
                 </div>
 
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <div class="border border-dark rounded p-3">
+                    <div class="border border-second rounded p-3 shadow-sm">
                         <label for="adms_employee_relation_id" class="mb-2"><span class="text-danger">*</span> Vínculo Contrato</label>
                         <div class="form-group d-flex">
                             <div class="custom-control custom-radio mr-2">
@@ -155,7 +158,7 @@ if (isset($this->Dados['form'][0])) {
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <div class="border border-dark rounded p-3 h-100">
+                    <div class="border border-second rounded p-3 shadow-sm h-100">
                         <label for="adms_employee_relation_id" class="mb-2"><span class="text-danger">*</span> Motivo</label>
                         <div class="form-group d-flex">
                             <div class="custom-control custom-radio mr-2">
@@ -177,7 +180,7 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <div class="border border-dark rounded p-3">
+                    <div class="border border-second rounded p-3 shadow-sm">
                         <label for="early_warning_id" class="mb-2"><span class="text-danger">*</span> Aviso Prévio</label>
                         <div class="form-group d-block">
                             <div class="custom-control custom-radio mr-2">
@@ -199,41 +202,50 @@ if (isset($this->Dados['form'][0])) {
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-row">
                 <div class="form-group col-12">
-                    <div class="border border-dark rounded p-3">
+                    <div class="border border-second rounded p-3 shadow-sm">
                         <label class="mb-2">Motivo(s) do Desligamento:</label>
                         <div class="d-flex">
                             <div class="form-group col-12">
-                                <div class="border rounded d-flex p-2">
-                                    <div class="form-group d-block mr-2">
-                                        <div class="form-group form-check">
+                                <div class="d-flex p-2">
+                                    <div class="form-group d-flex mr-2">
+                                        <div class="form-group form-check mb-0">
                                             <?php
-                                            $grip = "";
-                                            if (isset($valorForm['grip']) and $valorForm['grip'] == 1) {
-                                                $grip = 2;
+                                            foreach ($this->Dados['select']['reasons'] as $reason) {
+                                                extract($reason);
+                                                if ($order_reason === 1) {
+                                                    ?>
+                                                    <div class="m-2">
+                                                        <input name="reasons[]" type="checkbox" id="<?php echo $id; ?>" class="form-check-input" value="<?php echo $id; ?>" >
+                                                        <label class="form-check-label" for="<?php echo $id; ?>"><?php echo $reason_question; ?></label>
+                                                    </div>
+                                                    <?php
+                                                }
                                             }
                                             ?>
-                                            <input name="reasons[]" type="checkbox" class="form-check-input" id="grip" value="1" <?php echo $grip == 2 ? "checked" : ""; ?>>
-                                            <label class="form-check-label" for="grip">Falta de aderência à cultura da empresa.</label>
                                         </div>
-                                        
+
+                                        <div class="form-group form-check">
+                                            <?php
+                                            //var_dump($this->Dados['select']['reasons']);
+                                            foreach ($this->Dados['select']['reasons'] as $reason) {
+                                                extract($reason);
+                                                if ($order_reason === 2) {
+                                                    ?>
+                                                    <div class="m-2">
+                                                        <input name="reasons[]" type="checkbox" id="<?php echo $id; ?>" class="form-check-input" value="<?php echo $id; ?>" >
+                                                        <label class="form-check-label" for="<?php echo $id; ?>"><?php echo $reason_question; ?></label>
+                                                    </div>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+
                                     </div>
 
-                                    <div class="form-group d-block">
-                                        <div class="form-group form-check">
-                                            <?php
-                                            $structure_adjustment = "";
-                                            if (isset($valorForm['structure_adjustment']) and $valorForm['structure_adjustment'] == 1) {
-                                                $structure_adjustment = 2;
-                                            }
-                                            ?>
-                                            <input name="reasons[]" type="checkbox" class="form-check-input" id="structure_adjustment" value="2" <?php echo $structure_adjustment == 2 ? "checked" : ""; ?>>
-                                            <label class="form-check-label" for="structure_adjustment">Ajuste de estrutura na empresa.</label>
-                                        </div>
-                                        
-                                    </div>
                                 </div>
                             </div>
 
@@ -244,7 +256,7 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-12">
-                    <div class="border border-dark rounded p-3">
+                    <div class="border border-second rounded p-3 shadow-sm">
                         <label class="mb-2">Informações para DP:</label>
                         <div class="form-group col-md-4">
                             <div class="form-group d-block">
@@ -316,12 +328,12 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-12">
-                    <div class="border border-dark rounded p-3">
+                    <div class="border border-second rounded p-3 shadow-sm">
                         <label class="mb-2">Colaborador Possui:</label>
                         <div class="d-flex">
                             <div class="form-group col-4">
                                 <label class="mb-2">T.I.</label>
-                                <div class="border rounded d-flex p-2">
+                                <div class="d-flex p-2">
                                     <div class="form-group d-block mr-2">
                                         <div class="form-group form-check">
                                             <?php
@@ -422,7 +434,7 @@ if (isset($this->Dados['form'][0])) {
 
                             <div class="form-group col-4">
                                 <label>Operações</label>
-                                <div class="border rounded d-flex p-2">
+                                <div class="d-flex p-2">
                                     <div class="form-group d-block">
                                         <div class="form-group form-check">
                                             <?php
@@ -471,7 +483,7 @@ if (isset($this->Dados['form'][0])) {
 
                             <div class="form-group col-4">
                                 <label>Pessoas & Cultura</label>
-                                <div class="border rounded d-flex p-2">
+                                <div class="d-flex p-2">
                                     <div class="form-group d-block">
                                         <div class="form-group form-check">
                                             <?php
@@ -505,24 +517,26 @@ if (isset($this->Dados['form'][0])) {
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label><span class="text-danger">*</span> Observações</label>
-                    <textarea name="observation" id="editor" class="form-control editorCK" rows="3">
-                        <?php
-                        if (isset($valorForm['observation'])) {
-                            echo $valorForm['observation'];
-                        }
-                        ?>
-                    </textarea>
+                    <div class="border border-second rounded p-3 shadow-sm">
+                        <label><span class="text-danger">*</span> Observações</label>
+                        <textarea name="observation" id="editor" class="form-control editorCK" rows="3">
+                            <?php
+                            if (isset($valorForm['observation'])) {
+                                echo $valorForm['observation'];
+                            }
+                            ?>
+                        </textarea>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="border border-second rounded p-3 shadow-sm mb-3">
                 <div class="form-group col-md-12">
                     <label for="file_name">Arquivo</label>
                     <input class="form-control-file is-valid" name="file_name[]" id="file_name" type="file" multiple/>
                 </div>
             </div>
-            <p>
+            <p class="text-muted">
                 <span class="text-danger">* </span>Campo obrigatório
             </p>
             <input name="AddMoviment" type="submit" onclick="return alert('Clique em OK e aguarde a solicitação ser registrada!')" class="btn btn-warning btn-submit" value="Salvar">

@@ -22,6 +22,7 @@ class EditPersonnelMoviments {
         if (filter_input(INPUT_GET, 'id', FILTER_DEFAULT)) {
             $this->Dados['id'] = filter_input(INPUT_GET, 'id', FILTER_DEFAULT);
         }
+        
         if (filter_input(INPUT_GET, 'file', FILTER_DEFAULT)) {
             $this->Dados['delete'] = filter_input(INPUT_GET, 'file', FILTER_DEFAULT);
         }
@@ -58,6 +59,7 @@ class EditPersonnelMoviments {
         } else {
             $viewMoviment = new \App\adms\Models\AdmsEditPersonnelMoviments();
             $this->Dados['form'] = $viewMoviment->viewMoviment($this->DadosId);
+            $this->Dados['reasons'] = $viewMoviment->viewReasons($this->DadosId);
             $this->editPersonnelMovimentViewPriv();
         }
     }
@@ -75,6 +77,7 @@ class EditPersonnelMoviments {
 
             $listarMenu = new \App\adms\Models\AdmsMenu();
             $this->Dados['menu'] = $listarMenu->itemMenu();
+            
             $carregarView = new \Core\ConfigView("adms/Views/personnelMoviment/editPersonnelMoviment", $this->Dados);
             $carregarView->renderizar();
         } else {
