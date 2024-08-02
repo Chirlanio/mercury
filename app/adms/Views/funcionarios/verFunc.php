@@ -75,6 +75,9 @@ if (!empty($this->Dados['dados_func'][0])) {
                 <dt class="col-sm-2">Loja</dt>
                 <dd class="col-sm-10"><?php echo $loja; ?></dd>
 
+                <dt class="col-sm-2">Área</dt>
+                <dd class="col-sm-10"><?php echo $name_area; ?></dd>
+
                 <dt class="col-sm-2">Situação</dt>
                 <dd class="col-sm-10"><?php echo $sit; ?></dd>
 

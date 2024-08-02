@@ -16,6 +16,8 @@ class AdmsAddSupplier {
 
     private $Resultado;
     private $Dados;
+    private string $DataSupplier;
+    private array|object|string|null $DadosSupplier = [];
 
     function getResultado() {
         return $this->Resultado;
@@ -32,20 +34,34 @@ class AdmsAddSupplier {
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->insertSupplier();
+            $this->viewSupplier($this->Dados['cnpj_cpf']);
         } else {
             $this->Resultado = false;
+        }
+    }
+
+    private function viewSupplier(string $DataSupplier) {
+        $this->DataSupplier = $DataSupplier;
+
+        $viewSupplier = new \App\adms\Models\helper\AdmsRead();
+        $viewSupplier->fullRead("SELECT id sup_id, fantasy_name, cnpj_cpf FROM adms_suppliers WHERE cnpj_cpf =:cnpj", "cnpj={$this->DataSupplier}");
+        $this->DadosSupplier = $viewSupplier->getResult();
+
+        if ($viewSupplier->getResult()) {
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Fornecedor já cadastrado. <strong>ID:</strong> {$this->DadosSupplier[0]['sup_id']}, <strong>Nome:</strong> {$this->DadosSupplier[0]['fantasy_name']}!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $this->Resultado = false;
+        } else {
+            $this->insertSupplier();
         }
     }
 
     private function insertSupplier() {
 
         $this->Dados['created'] = date("Y-m-d H:i:s");
+        $cadSupplier = new \App\adms\Models\helper\AdmsCreate;
+        $cadSupplier->exeCreate("adms_suppliers", $this->Dados);
 
-        $cadBairro = new \App\adms\Models\helper\AdmsCreate;
-        $cadBairro->exeCreate("adms_suppliers", $this->Dados);
-
-        if ($cadBairro->getResult()) {
+        if ($cadSupplier->getResult()) {
             $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Fornecedor</strong> cadastrado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
@@ -65,5 +81,4 @@ class AdmsAddSupplier {
 
         return $this->Resultado;
     }
-
 }

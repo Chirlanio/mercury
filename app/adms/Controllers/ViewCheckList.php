@@ -26,9 +26,7 @@ class ViewCheckList {
             $viewCheckList = new \App\adms\Models\AdmsViewCheckList();
             $this->Dados['dados_check_list'] = $viewCheckList->viewCheckList($this->DadosId);
 
-            $botao = ['list_check_list' => ['menu_controller' => 'check-list', 'menu_metodo' => 'list'],
-                'edit_check_list' => ['menu_controller' => 'edit-check-list', 'menu_metodo' => 'check-list'],
-                'del_check_list' => ['menu_controller' => 'delete-check-list', 'menu_metodo' => 'check-list']];
+            $botao = ['list_check_list' => ['menu_controller' => 'check-list', 'menu_metodo' => 'list'], 'edit_check_list' => ['menu_controller' => 'edit-check-list', 'menu_metodo' => 'check-list'], 'del_check_list' => ['menu_controller' => 'delete-check-list', 'menu_metodo' => 'check-list']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
@@ -37,6 +35,9 @@ class ViewCheckList {
             
             $listSelect = new \App\adms\Models\AdmsViewCheckList();
             $this->Dados['select'] = $listSelect->listAdd($this->DadosId);
+            
+            $totalPoints = new \App\adms\Models\AdmsViewCheckList();
+            $this->Dados['totalPoints'] = $totalPoints->totalQuestions($this->DadosId);
 
             $carregarView = new \Core\ConfigView("adms/Views/checkList/viewCheckList", $this->Dados);
             $carregarView->renderizar();

@@ -96,7 +96,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Loja</label>
                     <?php
                     if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {
@@ -125,7 +125,7 @@ if (isset($this->Dados['form'][0])) {
                     ?>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Função</label>
                     <?php
                     if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {
@@ -154,7 +154,36 @@ if (isset($this->Dados['form'][0])) {
                     ?>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Área</label>
+                    <?php
+                    if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {
+                        echo '<select name="adms_area_id" id="adms_area_id" class="form-control is-invalid" aria-label="Disabled input" disabled required>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['areas'] as $area) {
+                            extract($area);
+                            if ($valorForm['adms_area_id'] == $area_id) {
+                                echo "<option value='$area_id' selected>$name_area</option>";
+                            } else {
+                                echo "<option value='$area_id'>$name_area</option>";
+                            }
+                        }
+                    } else {
+                        echo '<select name="adms_area_id" id="adms_area_id" class="form-control is-invalid" required>';
+                        echo '<option value="">Selecione</option>';
+                        foreach ($this->Dados['select']['areas'] as $area) {
+                            extract($area);
+                            if ($valorForm['adms_area_id'] == $area_id) {
+                                echo "<option value='$area_id' selected>$name_area</option>";
+                            } else {
+                                echo "<option value='$area_id'>$name_area</option>";
+                            }
+                        }
+                    }
+                    ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span>Situação</label>
                     <?php
                     if ($_SESSION['ordem_nivac'] > FINANCIALPERMITION) {

@@ -26,11 +26,12 @@ class AdmsEditarFunc {
     public function verFunc($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verFunc = new \App\adms\Models\helper\AdmsRead();
-        $verFunc->fullRead("SELECT f.id, f.nome, f.usuario, f.cpf, f.cupom_site, f.loja_id, f.cargo_id, f.status_id, s.id sit_id, s.nome sit, c.nome loja
+        $verFunc->fullRead("SELECT f.id, f.nome, f.usuario, f.cpf, f.cupom_site, f.loja_id, f.cargo_id, f.adms_area_id, f.status_id, s.id sit_id, s.nome sit, c.nome loja
                 FROM tb_funcionarios f
                 INNER JOIN tb_lojas lj ON lj.id=f.loja_id
                 INNER JOIN tb_status s ON s.id=f.status_id
                 INNER JOIN tb_cargos c ON c.id=f.cargo_id
+                LEFT JOIN adms_areas a ON a.id=f.adms_area_id
                 WHERE f.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verFunc->getResult();
         return $this->Resultado;
@@ -56,15 +57,17 @@ class AdmsEditarFunc {
     }
 
     private function updateEditFunc() {
+        
         $this->Dados['cupom_site'] = strtoupper($this->Cupom);
         $this->Dados['modified'] = date("Y-m-d H:i:s");
+        
         $upAltFunc = new \App\adms\Models\helper\AdmsUpdate();
         $upAltFunc->exeUpdate("tb_funcionarios", $this->Dados, "WHERE id =:id", "id=" . $this->Dados['id']);
         if ($upAltFunc->getResult()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro atualizado com sucesso!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: O cadastro não foi atualizada!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> O cadsatro não foi atualizado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $this->Resultado = false;
         }
     }
@@ -80,8 +83,11 @@ class AdmsEditarFunc {
 
         $listar->fullRead("SELECT id cargo_id, nome cargo FROM tb_cargos ORDER BY nome ASC");
         $registro['cargo_id'] = $listar->getResult();
+        
+        $listar->fullRead("SELECT id area_id, name name_area FROM adms_areas WHERE status_id =:sits", "sits=1");
+        $registro['areas'] = $listar->getResult();
 
-        $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit_id' => $registro['sit_id'], 'cargo_id' => $registro['cargo_id']];
+    $this->Resultado = ['loja_id' => $registro['loja_id'], 'sit_id' => $registro['sit_id'], 'cargo_id' => $registro['cargo_id'], 'areas' => $registro['areas']];
 
         return $this->Resultado;
     }

@@ -23,7 +23,7 @@ class EditarFunc {
         if (!empty($this->DadosId)) {
             $this->editFuncPriv();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Funcioário não encontrado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Funcionário não encontrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $UrlDestino = URLADM . 'funcionarios/listar-func';
             header("Location: $UrlDestino");
         }
@@ -35,7 +35,7 @@ class EditarFunc {
             $editarFunc = new \App\adms\Models\AdmsEditarFunc();
             $editarFunc->altFunc($this->Dados);
             if ($editarFunc->getResultado()) {
-                $_SESSION['msg'] = "<div class='alert alert-success'>Cadastro atualizado com sucesso!</div>";
+                $_SESSION['msg'] = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Cadastro</strong> atualizado com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $UrlDestino = URLADM . 'ver-func/ver-func/' . $this->Dados['id'];
                 header("Location: $UrlDestino");
             } else {
@@ -63,7 +63,7 @@ class EditarFunc {
             $carregarView = new \Core\ConfigView("adms/Views/funcionarios/editarFunc", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Funcionário não encontrado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Funcionário não encontrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $UrlDestino = URLADM . 'funcionarios/listar-func';
             header("Location: $UrlDestino");
         }

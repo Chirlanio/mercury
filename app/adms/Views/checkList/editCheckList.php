@@ -55,7 +55,11 @@ if (isset($this->Dados['form'][0])) {
         $dataNow = date("Y/m/d");
         echo '<div>';
         foreach ($this->Dados['form'] as $formQuestion) {
+            try{
             extract($formQuestion);
+            }catch(Exception $e){
+                $_SESSION['msg'] = "Nenhum registro encontrado";
+            }
             ?>
             <form method="POST" action="" enctype="multipart/form-data" class="was-validated"> 
                 <input type='hidden' name='adms_store_id' id='adms_store_id' value="<?php echo $valorForm['adms_store_id']; ?>">
@@ -108,7 +112,7 @@ if (isset($this->Dados['form'][0])) {
 
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="file_name">Arquivo</label>
+                                <label for="file_name">Arquivo<small class="text-muted"> - Selecione somente imagens dos tipos '.jpg, .jpeg e .png'</small></label>
                                 <input class="form-control-file is-invalid" name="file_name[]" id="file_name" type="file" multiple>
                             </div>
                         </div>

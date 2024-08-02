@@ -36,7 +36,7 @@ class VerFunc {
             $carregarView = new \Core\ConfigView("adms/Views/funcionarios/verFunc", $this->Dados);
             $carregarView->renderizar();
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Funcionário não encontrado!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro:</strong> Funcionário não encontrado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             $UrlDestino = URLADM . 'funcionarios/listarFunc';
             header("Location: $UrlDestino");
         }

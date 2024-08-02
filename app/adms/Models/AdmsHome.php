@@ -35,9 +35,9 @@ class AdmsHome {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         if (($_SESSION['adms_niveis_acesso_id'] == 5) OR ($_SESSION['adms_niveis_acesso_id'] == 6)) {
-            $listar->fullRead("SELECT COUNT(id) AS transfer FROM tb_transferencias WHERE loja_origem_id =:loja_origem_id", "loja_origem_id=" . $_SESSION['usuario_loja']);
+            $listar->fullRead("SELECT COUNT(id) AS transf FROM tb_transferencias WHERE loja_origem_id =:loja_origem_id", "loja_origem_id=" . $_SESSION['usuario_loja']);
         } else {
-            $listar->fullRead("SELECT COUNT(id) transfer FROM `tb_transferencias`");
+            $listar->fullRead("SELECT COUNT(id) AS transf FROM tb_transferencias");
         }
         $registro['transfer'] = $listar->getResult();
 
@@ -56,9 +56,9 @@ class AdmsHome {
         $registro['dash'] = $listar->getResult();
 
         if (($_SESSION['adms_niveis_acesso_id'] == 5) OR ($_SESSION['adms_niveis_acesso_id'] == 6)) {
-            $listar->fullRead("SELECT COUNT(id) AS troca FROM adms_usuarios WHERE loja_id =:loja_id AND adms_sits_usuario_id =:status_id", "loja_id=" . $_SESSION['usuario_loja'] . "status_id=1");
+            $listar->fullRead("SELECT COUNT(id) AS totalUsers FROM adms_usuarios WHERE loja_id =:loja_id AND adms_sits_usuario_id =:status_id", "loja_id=" . $_SESSION['usuario_loja'] . "status_id=1");
         } else {
-            $listar->fullRead("SELECT COUNT(id) AS troca FROM adms_usuarios");
+            $listar->fullRead("SELECT COUNT(id) AS totalUsers FROM adms_usuarios");
         }
         $registro['usersTotal'] = $listar->getResult();
 

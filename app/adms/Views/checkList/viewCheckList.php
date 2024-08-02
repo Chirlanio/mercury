@@ -3,6 +3,7 @@ if (!defined('URLADM')) {
     header("Location: /");
     exit();
 }
+//var_dump($this->Dados['totalPoints']['totalArea']);
 if (!empty($this->Dados['dados_check_list'][0])) {
     extract($this->Dados['dados_check_list'][0]);
     ?>
@@ -46,7 +47,7 @@ if (!empty($this->Dados['dados_check_list'][0])) {
                     </div>
                 </div>
             </div>
-            <hr>
+            <hr class="d-print-none">
             <?php
             if (isset($_SESSION['msg'])) {
                 echo $_SESSION['msg'];
@@ -55,16 +56,102 @@ if (!empty($this->Dados['dados_check_list'][0])) {
             ?>
             <div class="form">
                 <div class="col">
-                    <div>
-                        <h6>Perguntas respondidas: <span class="text-success"><?php echo $this->Dados['select']['countHashResp'][0]['resp_result']; ?></span>.</h6>
-                    </div>
-                    <div>
-                        <h6>Faltam: <span class="text-danger"><?php echo $this->Dados['select']['countHashNoResp'][0]['no_resp_result']; ?></span>.</h6>
+
+                    <div class="border border-radius rounded p-2 mb-3 d-block">
+
+                        <div>
+                            <h2 class="d-none d-print-block text-center">Loja <?php echo $stores; ?></h2>
+                        </div>
+                        <div class="col">
+                            <div class="row d-print-none">
+                                <div class="col d-flex">
+                                    <h6 class="mr-2">Loja: </h6><?php echo $stores; ?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex">
+                                    <h6 class="mr-2">ID: </h6><?php echo $hash_id; ?>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <h6>Pontuação Possível: <?php echo $this->Dados['totalPoints']['totalPoints'][0]['totalPoints']; ?>.00</h6>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h6>Pontuação Total: <?php echo $this->Dados['totalPoints']['totalPontuation'][0]['totalPointsReceived']; ?></h6>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h6>Percentual atingido: <?php echo $this->Dados['totalPoints']['totalPercent'][0]['num_result']; ?>%</h6>
+                                    </div>
+
+                                    <div>
+                                        <h6>Perguntas respondidas: <span class="text-success"><?php echo $this->Dados['select']['countHashResp'][0]['resp_result']; ?></span>.</h6>
+                                    </div>
+                                    <div>
+                                        <h6>Faltam: <span class="text-danger"><?php echo $this->Dados['select']['countHashNoResp'][0]['no_resp_result']; ?></span>.</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 border-top">
+                            <div class="col d-flex justify-content-between">
+                                <div class="mt-3">
+                                    <script type="text/javascript">
+                                        google.charts.load("current", {packages: ['corechart']});
+                                        google.charts.setOnLoadCallback(drawChart);
+
+                                        function drawChart() {
+                                            var data = google.visualization.arrayToDataTable([
+                                                ["Áreas", "Percentual", {role: "style"}],
+                                                <?php foreach ($this->Dados['totalPoints']['totalArea'] as $valueChart): ?>
+                                                    ["<?php echo $valueChart['area_name']; ?>", <?php echo $valueChart['num_result']; ?>, "#009999"],
+                                                <?php endforeach; ?>
+                                            ]);
+
+                                            var view = new google.visualization.DataView(data);
+                                            view.setColumns([0, 1, {
+                                                    calc: "stringify",
+                                                    sourceColumn: 1,
+                                                    type: "string",
+                                                    role: "annotation"
+                                                }, 2]);
+
+                                            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+                                            var options = getChartOptions();
+
+                                            chart.draw(view, options);
+
+                                            window.addEventListener('resize', function () {
+                                                var options = getChartOptions();
+                                                chart.draw(view, options);
+                                            });
+                                        }
+
+                                        function getChartOptions() {
+                                            var widthScreen = window.innerWidth;
+                                            var options = {
+                                                title: "Atingimento por Áreas",
+                                                width: widthScreen * 0.8,
+                                                height: (widthScreen < 400) ? 250 : 200,
+                                                bar: {groupWidth: "80%"},
+                                                legend: {position: "none"}
+                                            };
+                                            return options;
+                                        }
+                                    </script>
+
+                                </div>
+                                <div class="" id="columnchart_values" style="width: auto; height: 100%;"></div>
+                            </div>
+                        </div>
                     </div>
                     <?php
                     foreach ($this->Dados['select']['areas'] as $area) {
                         extract($area);
-                        echo "<div class='border rounded p-3 my-1'>";
+                        echo "<div class='border rounded p-3 my-1 mb-3'>";
                         echo "<h5 class='mb-3'>$id_cla - $name_area</h5>";
                         foreach ($this->Dados['dados_check_list'] as $question) {
                             extract($question);
@@ -113,6 +200,6 @@ if (!empty($this->Dados['dados_check_list'][0])) {
     <?php
 } else {
     $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Solicitação não encontrada!</div>";
-    //$UrlDestino = URLADM . 'ordem-conserto/listar';
-    //header("Location: $UrlDestino");
+    $UrlDestino = URLADM . 'chack-list/list';
+    header("Location: $UrlDestino");
 }    

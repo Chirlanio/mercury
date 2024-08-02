@@ -246,9 +246,9 @@ class AdmsAddOrderPayment {
         $registro['area'] = $listar->getResult();
 
         if ($_SESSION['ordem_nivac'] == SUPADMPERMITION) {
-            $listar->fullRead("SELECT id c_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status_id ORDER BY name ASC", "status_id=1");
+            $listar->fullRead("SELECT id c_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE status_id =:status ORDER BY name ASC", "status=1");
         } else {
-            $listar->fullRead("SELECT id c_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area_id AND status_id =:status_id ORDER BY name ASC", "adms_area_id=" . $_SESSION['area_id'] . "&status_id=1");
+            $listar->fullRead("SELECT id c_id, cost_center_id, name costCenter FROM adms_cost_centers WHERE adms_area_id =:adms_area AND status_id =:status ORDER BY name ASC", "adms_area=" . $_SESSION['area_id'] . "&status=1");
         }
         $registro['cost'] = $listar->getResult();
 

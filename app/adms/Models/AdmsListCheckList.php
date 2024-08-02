@@ -35,15 +35,7 @@ class AdmsListCheckList {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listCostCenter = new \App\adms\Models\helper\AdmsRead();
-        $listCostCenter->fullRead("SELECT cl.id, cl.adms_store_id, cl.hash_id, cl.responsible_applicator,
-                cl.adms_sit_check_list_id, lj.nome store_name, scl.name_sit, cr.cor cor_cr
-                FROM adms_check_lists cl
-                LEFT JOIN tb_lojas lj ON lj.id = cl.adms_store_id
-                LEFT JOIN adms_sit_check_lists scl ON scl.id = cl.adms_sit_check_list_id
-                LEFT JOIN adms_cors cr On cr.id = scl.adms_cor_id
-                ORDER BY cl.id ASC LIMIT :limit OFFSET :offset",
-                "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}"
-                );
+        $listCostCenter->fullRead("SELECT cl.id, cl.adms_store_id, cl.hash_id, cl.responsible_applicator, cl.adms_sit_check_list_id, lj.nome store_name, scl.name_sit, cr.cor cor_cr FROM adms_check_lists cl LEFT JOIN tb_lojas lj ON lj.id = cl.adms_store_id LEFT JOIN adms_sit_check_lists scl ON scl.id = cl.adms_sit_check_list_id LEFT JOIN adms_cors cr On cr.id = scl.adms_cor_id ORDER BY cl.id ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listCostCenter->getResult();
         return $this->Resultado;
     }

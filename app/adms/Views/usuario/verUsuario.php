@@ -3,6 +3,7 @@ if (!defined('URL')) {
     header("Location: /");
     exit();
 }
+//var_dump($this->Dados['dados_usuario'][0]);
 if (!empty($this->Dados['dados_usuario'][0])) {
     extract($this->Dados['dados_usuario'][0]);
     ?>

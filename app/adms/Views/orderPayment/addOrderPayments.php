@@ -5,7 +5,6 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($_FILES);
 ?>
 <div class="content p-1">
     <div class="list-group-item">

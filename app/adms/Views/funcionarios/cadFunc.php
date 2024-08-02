@@ -67,7 +67,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class = "text-danger">*</span>Loja</label>
                     <select name="loja_id" id="loja_id" class="form-control is-invalid" required>
                         <option value = "">Selecione</option>
@@ -83,9 +83,9 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Função</label>
-                    <select name="cargo_id" id="area_id" class="form-control is-invalid" required="">
+                    <select name="cargo_id" id="cargo_id" class="form-control is-invalid" required="">
                         <option value = "">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['cargo_id'] as $c) {
@@ -99,7 +99,23 @@ if (isset($this->Dados['form'][0])) {
                         ?>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
+                    <label><span class="text-danger">*</span> Área</label>
+                    <select name="adms_area_id" id="adms_area_id" class="form-control is-invalid" required="">
+                        <option value = "">Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['areas'] as $area) {
+                            extract($area);
+                            if ($valorForm['adms_area_id'] == $area_id) {
+                                echo "<option value='$area_id' selected>$name_area</option>";
+                            } else {
+                                echo "<option value='$area_id'>$name_area</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Status</label>
                     <select name="status_id" id="loja_id" class="form-control is-invalid" required="">
                         <option value = "">Selecione</option>

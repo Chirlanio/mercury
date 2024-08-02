@@ -44,6 +44,7 @@ class CadastrarFunc {
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
+        
         $carregarView = new \Core\ConfigView("adms/Views/funcionarios/cadFunc", $this->Dados);
         $carregarView->renderizar();
     }

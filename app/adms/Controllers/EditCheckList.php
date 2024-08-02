@@ -60,8 +60,7 @@ class EditCheckList {
             $listarSelect = new \App\adms\Models\AdmsEditCheckList();
             $this->Dados['select'] = $listarSelect->listAdd();
 
-            $botao = ['view_check_list' => ['menu_controller' => 'view-check-list', 'menu_metodo' => 'check-list'],
-                'list_check_list' => ['menu_controller' => 'check-list', 'menu_metodo' => 'list']];
+            $botao = ['view_check_list' => ['menu_controller' => 'view-check-list', 'menu_metodo' => 'check-list'], 'list_check_list' => ['menu_controller' => 'check-list', 'menu_metodo' => 'list']];
             $listarBotao = new \App\adms\Models\AdmsBotao();
             $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

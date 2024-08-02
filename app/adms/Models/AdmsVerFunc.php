@@ -24,13 +24,7 @@ class AdmsVerFunc {
     public function verFunc($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verFunc = new \App\adms\Models\helper\AdmsRead();
-        $verFunc->fullRead("SELECT f.*,
-                lj.nome loja, s.nome sit, c.nome cargo
-                FROM tb_funcionarios f
-                INNER JOIN tb_lojas lj ON lj.id=f.loja_id
-                INNER JOIN tb_status s ON s.id=f.status_id
-                INNER JOIN tb_cargos c ON c.id=f.cargo_id
-                WHERE f.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
+        $verFunc->fullRead("SELECT f.*, lj.nome loja, s.nome sit, c.nome cargo, a.name name_area FROM tb_funcionarios f INNER JOIN tb_lojas lj ON lj.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id LEFT JOIN adms_areas a ON a.id=f.adms_area_id WHERE f.id =:id LIMIT :limit", "id=" . $this->DadosId . "&limit=1");
         $this->Resultado = $verFunc->getResult();
         return $this->Resultado;
     }

@@ -12,13 +12,11 @@ if (!defined('URLADM')) {
  *
  * @copyright (c) year, Chirlanio Silva - Grupo Meia Sola
  */
-class DeleteBrands
-{
+class DeleteBrands {
 
     private $DadosId;
 
-    public function deleteBrand($DadosId = null)
-    {
+    public function deleteBrand($DadosId = null) {
 
         $this->DadosId = (int) $DadosId;
 

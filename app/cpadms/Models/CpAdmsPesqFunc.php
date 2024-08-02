@@ -81,7 +81,7 @@ class CpAdmsPesqFunc {
 
         $paginacao = new \App\adms\Models\helper\AdmsPaginacao(URLADM . 'pesq-func/listar', '?nome=' . $this->Dados['nome']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
+        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_funcionarios WHERE loja_id =:loja_id AND nome LIKE '%' :nome '%'", "loja_id=" . $_SESSION['usuario_loja'] . "&nome={$this->Dados['nome']}");
         } else {
             $paginacao->paginacao("SELECT COUNT(id) AS num_result FROM tb_funcionarios WHERE nome LIKE '%' :nome '%'", "nome={$this->Dados['nome']}");
@@ -89,7 +89,7 @@ class CpAdmsPesqFunc {
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarFunc = new \App\adms\Models\helper\AdmsRead();
-        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
+        if ($_SESSION['ordem_nivac'] >= STOREPERMITION) {
             $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id WHERE f.loja_id =:loja_id AND f.nome LIKE '%' :nome '%' ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "loja_id=" . $_SESSION['usuario_loja'] . "&nome={$this->Dados['nome']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         } else {
             $listarFunc->fullRead("SELECT f.*, l.nome loja, c.nome cargo, s.nome sit FROM tb_funcionarios f INNER JOIN tb_lojas l ON l.id=f.loja_id INNER JOIN tb_status s ON s.id=f.status_id INNER JOIN tb_cargos c ON c.id=f.cargo_id WHERE f.nome LIKE '%' :nome '%' ORDER BY f.nome ASC LIMIT :limit OFFSET :offset", "nome={$this->Dados['nome']}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
