@@ -106,9 +106,9 @@ if (!empty($this->Dados['dados_check_list'][0])) {
                                         function drawChart() {
                                             var data = google.visualization.arrayToDataTable([
                                                 ["Áreas", "Percentual", {role: "style"}],
-                                                <?php foreach ($this->Dados['totalPoints']['totalArea'] as $valueChart): ?>
+    <?php foreach ($this->Dados['totalPoints']['totalArea'] as $valueChart): ?>
                                                     ["<?php echo $valueChart['area_name']; ?>", <?php echo $valueChart['num_result']; ?>, "#009999"],
-                                                <?php endforeach; ?>
+    <?php endforeach; ?>
                                             ]);
 
                                             var view = new google.visualization.DataView(data);
@@ -134,7 +134,7 @@ if (!empty($this->Dados['dados_check_list'][0])) {
                                             var widthScreen = window.innerWidth;
                                             var options = {
                                                 title: "Atingimento por Áreas",
-                                                width: widthScreen * 0.8,
+                                                width: widthScreen * 0.70,
                                                 height: (widthScreen < 400) ? 250 : 200,
                                                 bar: {groupWidth: "80%"},
                                                 legend: {position: "none"}
@@ -167,9 +167,9 @@ if (!empty($this->Dados['dados_check_list'][0])) {
                                 echo "<p><strong>Resposta:</strong> <span class='badge badge-$cor'>$name_sit</span></p>";
                                 echo "<p><strong>Justificativa:</strong> $justified</p>";
                                 echo "<p><strong>Plano de Ação:</strong> $action_plans</p>";
-                                echo "<p><strong>Inicío:</strong> $action_plans</p>";
-                                echo "<p><strong>Fim:</strong> $action_plans</p>";
-                                echo "<p><strong>Responsável:</strong> $action_plans</p>";
+                                echo "<p><strong>Inicío:</strong> " . (!empty($initial_date) ? date("d/m/Y", strtotime($initial_date)) : "") . "</p>";
+                                echo "<p><strong>Fim:</strong> " . (!empty($initial_date) ? date("d/m/Y", strtotime($final_date)) : "") . "</p>";
+                                echo "<p><strong>Responsável:</strong> $responsible</p>";
                                 echo "<div class = 'col-12 mb-1' style = 'height: 250px; width: 100%;'>";
                                 echo "<h6 class = 'my-0'><p>Fotos:</p></h6>";
                                 echo "<small class = 'text-muted'>";

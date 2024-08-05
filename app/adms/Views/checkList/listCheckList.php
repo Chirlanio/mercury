@@ -18,14 +18,14 @@ if (!defined('URLADM')) {
                 ?>                
             </div>
         </div>
-        <form class="form" method="POST" action="<?php echo URLADM . 'pesq-check-list/list'; ?>" enctype="multipart/form-data">
+        <form class="form" method="POST" action="<?php echo URLADM . 'search-check-list/list'; ?>" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-sm-12 col-lg-12 mb-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <label class="input-group-text" style="font-weight: bold" for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
                         </div>
-                        <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Digite o nome do Centro de Custos" value="<?php
+                        <input name="search" type="text" id="search" class="form-control" aria-describedby="search" placeholder="Digite o nome da Loja..." value="<?php
                         if (isset($_SESSION['search'])) {
                             echo $_SESSION['search'];
                         }
@@ -35,7 +35,7 @@ if (!defined('URLADM')) {
             </div>
             <div class="row">
                 <div class="form-group ml-sm-2 ml-md-2 ml-lg-2 ml-3">
-                    <input name="PesqCheckList" type="submit" class="btn btn-outline-primary mx-sm-2" value="Pesquisar">
+                    <input name="SearchCheckList" type="submit" class="btn btn-outline-primary mx-sm-2" value="Pesquisar">
                 </div>
             </div>
         </form>
