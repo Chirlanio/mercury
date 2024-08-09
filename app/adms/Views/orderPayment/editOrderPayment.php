@@ -293,7 +293,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="adms_type_payment_id"><span class="text-danger">*</span> Forma de Pagamento</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['ordem_nivac'] === OPERATION) {
                         echo '<select name="adms_type_payment_id" id="adms_type_payment_id" class="form-control is-valid" required>';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['typePayment'] as $type) {
@@ -324,7 +324,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-2">
                     <label for="advance"><span class="text-danger">*</span> Adiantamento</label>                    
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['ordem_nivac'] === OPERATION) {
                         echo '<select name="advance" id="advance" class="form-control is-valid" required>';
                         if ($valorForm['advance'] == 1) {
                             echo "<option value=''>Selecione</option>";
@@ -383,7 +383,7 @@ if (isset($this->Dados['form'][0])) {
                     <?php
                     if ($valorForm['advance_amount_sit'] == 2 || $valorForm['advance_amount_sit'] == null) {
                         echo "<label for='advance_amount_sit'><span class='text-danger'>*</span> Adiantamento Pago?</label>";
-                        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION) {
+                        if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['adms_niveis_acesso_id'] == ADMPERMITION || $_SESSION['ordem_nivac'] === OPERATION) {
                             echo '<select name="advance_amount_sit" id="advance_amount_sit" class="form-control is-valid" required>';
                             if ($valorForm['advance_amount_sit'] == 1) {
                                 echo "<option value=''>Selecione</option>";
@@ -771,7 +771,7 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group col-md-3">
                     <label for="adms_sits_order_pay_id"><span class="text-danger">*</span> Situação</label>
                     <?php
-                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION) {
+                    if ($_SESSION['ordem_nivac'] <= FINANCIALPERMITION || $_SESSION['ordem_nivac'] === OPERATION) {
                         echo '<select name="adms_sits_order_pay_id" id="adms_sits_order_pay_id" class="form-control is-valid">';
                         echo '<option value="">Selecione</option>';
                         foreach ($this->Dados['select']['sits'] as $st) {

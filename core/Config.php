@@ -17,6 +17,7 @@ define('STOREPERMITION', 17);
 define('FINANCIALPERMITION', 9);
 define('FINANCIALPERMITIONONE', 10);
 define('DP', 7);
+define('OPERATION', 12);
 
 define('HOST', 'localhost');
 define('USER', 'root');

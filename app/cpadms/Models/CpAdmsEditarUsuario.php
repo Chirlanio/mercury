@@ -27,16 +27,13 @@ class CpAdmsEditarUsuario {
     public function verUsuario($DadosId) {
         $this->DadosId = (int) $DadosId;
         $verPerfil = new \App\adms\Models\helper\AdmsRead();
-        $verPerfil->fullRead("SELECT user.* FROM adms_usuarios user
-                INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
-                WHERE user.id =:id AND nivac.ordem >:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=" . $_SESSION['ordem_nivac'] . "&limit=1");
+        $verPerfil->fullRead("SELECT user.* FROM adms_usuarios user INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id WHERE user.id =:id AND nivac.ordem >:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=" . $_SESSION['ordem_nivac'] . "&limit=1");
         $this->Resultado = $verPerfil->getResult();
         return $this->Resultado;
     }
 
     public function altUsuario(array $Dados) {
         $this->Dados = $Dados;
-        //var_dump($this->Dados);
         $this->Foto = $this->Dados['imagem_nova'];
         $this->ImgAntiga = $this->Dados['imagem_antiga'];
         unset($this->Dados['imagem_nova'], $this->Dados['imagem_antiga']);

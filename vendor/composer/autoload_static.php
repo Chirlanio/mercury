@@ -9,11 +9,25 @@ class ComposerStaticInitbad915300a7b69d9988f6d28d4ef44ad
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Svg\\' => 4,
             'Sts\\' => 4,
+            'Sabberworm\\CSS\\' => 15,
         ),
         'P' => 
         array (
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'M' => 
+        array (
+            'Masterminds\\' => 12,
+        ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
+        ),
+        'D' => 
+        array (
+            'Dompdf\\' => 7,
         ),
         'C' => 
         array (
@@ -26,13 +40,33 @@ class ComposerStaticInitbad915300a7b69d9988f6d28d4ef44ad
     );
 
     public static $prefixDirsPsr4 = array (
+        'Svg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/php-svg-lib/src/Svg',
+        ),
         'Sts\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/sts',
         ),
+        'Sabberworm\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Masterminds\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/masterminds/html5/src',
+        ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/php-font-lib/src/FontLib',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
         'Core\\' => 
         array (
@@ -46,6 +80,7 @@ class ComposerStaticInitbad915300a7b69d9988f6d28d4ef44ad
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

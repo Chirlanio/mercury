@@ -16,6 +16,7 @@
     },
     "require": {
         "phpmailer/phpmailer": "^6.2",
-        "ckeditor/ckeditor": "4.*"
+        "ckeditor/ckeditor": "4.*",
+        "dompdf/dompdf": "^3.0"
     }
 }

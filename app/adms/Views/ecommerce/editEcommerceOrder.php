@@ -40,7 +40,7 @@ if (isset($this->Dados['form'][0])) {
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label><span class="text-danger">*</span> Loja</label>
-                    <select name="loja_id" id="loja_id" class="form-control is-invalid" autofocus <?php echo $_SESSION['adms_niveis_acesso_id'] == STOREPERMITION ? "disabled" : "required"; ?> >
+                    <select name="loja_id" id="loja_id" class="form-control is-invalid" autofocus <?php echo $_SESSION['ordem_nivac'] == STOREPERMITION ? "disabled" : "required"; ?> >
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['store'] as $stp) {
@@ -56,7 +56,7 @@ if (isset($this->Dados['form'][0])) {
                 </div>
                 <div class="form-group col-md-5">
                     <label><span class="text-danger">*</span> Colaborador</label>
-                    <select name="func_id" id="func_id" class="form-control is-invalid" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
+                    <select name="func_id" id="func_id" class="form-control is-invalid" <?php echo $_SESSION['ordem_nivac'] > ADMPERMITION ? "disabled" : "required"; ?>>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['employee'] as $fc) {
@@ -103,7 +103,7 @@ if (isset($this->Dados['form'][0])) {
 
                 <div class="form-group col-md-2">
                     <label><span class="text-danger">*</span> Só Faturar?</label>
-                    <select name="just_invoice" id="just_invoice" class="form-control is-invalid" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
+                    <select name="just_invoice" id="just_invoice" class="form-control is-invalid" <?php echo $_SESSION['ordem_nivac'] > ADMPERMITION ? "disabled" : "required"; ?>>
                         <?php
                         if (isset($valorForm['just_invoice']) == 1) {
                             echo "<option value=''>Selecione</option>";
@@ -124,7 +124,7 @@ if (isset($this->Dados['form'][0])) {
 
                 <div class="form-group col-md-4">
                     <label><span class="text-danger">*</span> Cadastrado Por</label>
-                    <select name="created_by" id="created_by" class="form-control is-invalid" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : "required"; ?>>
+                    <select name="created_by" id="created_by" class="form-control is-invalid" <?php echo $_SESSION['ordem_nivac'] > ADMPERMITION ? "disabled" : "required"; ?>>
                         <option value="">Selecione</option>
                         <?php
                         foreach ($this->Dados['select']['users'] as $fc) {
@@ -148,7 +148,7 @@ if (isset($this->Dados['form'][0])) {
                     ?>" <?php echo $_SESSION['adms_niveis_acesso_id'] > ADMPERMITION ? "disabled" : ""; ?> minlength="10" maxlength="44">
                 </div>
 
-                <?php if ($_SESSION['adms_niveis_acesso_id'] != STOREPERMITION) { ?>
+                <?php if ($_SESSION['ordem_nivac'] != STOREPERMITION) { ?>
                     <div class="form-group col-md-2">
                         <label><span class="text-danger">*</span> Situação</label>
                         <select name="adms_sit_ecommerce_id" id="adms_sit_ecommerce_id" class="form-control is-invalid" required>
